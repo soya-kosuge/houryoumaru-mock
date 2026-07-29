@@ -1,0 +1,736 @@
+﻿:root {
+    --navy: #0f2f45;
+    --blue: #176b8f;
+    --sky: #eaf6fb;
+    --white: #ffffff;
+    --text: #20303a;
+    --muted: #6f7f89;
+    --line: #d7e4ea;
+    --ok: #179b63;
+    --few: #db8b10;
+    --full: #d84c4c;
+    --shadow: 0 12px 30px rgba(15, 47, 69, 0.1);
+}
+
+/*--基本設定--*/
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-width: 0;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    background: linear-gradient( rgba(235, 248, 252, 0.92), rgba(246, 250, 252, 0.98) ), repeating-linear-gradient( 0deg, transparent 0 34px, rgba(23, 107, 143, 0.035) 34px 35px );
+}
+
+/*--ヘッダー--*/
+
+.site-header {
+    height: 80px;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--navy), #164c68);
+    border-bottom: 4px solid #4ab0c8;
+}
+
+.header-inner {
+    width: min(1100px, calc(100% - 40px));
+    height: 76px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.brand {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+}
+
+.logo {
+    display: block;
+    width: 250px;
+    height: auto;
+    object-fit: contain;
+}
+
+.brand-name {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.brand-sub {
+    margin: 3px 0 0;
+    font-size: 12px;
+    opacity: 0.76;
+}
+
+.header-note {
+    margin: 0;
+    font-size: 13px;
+    text-align: right;
+    opacity: 0.82;
+}
+
+/*--メインコンテンツ--*/
+
+main {
+    width: min(1180px, calc(100% - 40px));
+    margin: 42px auto 64px;
+}
+
+.hero {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    padding: 6px 12px;
+    color: var(--blue);
+    background: var(--sky);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+h1 {
+    margin: 13px 0 8px;
+    color: var(--navy);
+    font-size: 42px;
+    letter-spacing: 0.05em;
+}
+
+.lead {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/*--空き状況の凡例--*/
+
+.legend {
+    margin: 20px 4px 12px;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+    .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+    .dot.ok {
+        background: var(--ok);
+    }
+
+    .dot.few {
+        background: var(--few);
+    }
+
+    .dot.full {
+        background: var(--full);
+    }
+
+/*--カレンダー・出船予定レイアウト--*/
+
+.schedule-layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    align-items: start;
+    gap: 18px;
+}
+
+.schedule-area,
+.schedule-content {
+    min-width: 0;
+}
+
+.schedule {
+    display: grid;
+    gap: 18px;
+}
+
+/*--カレンダー--*/
+
+.calendar-card {
+    position: sticky;
+    top: 20px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.calendar-heading {
+    margin: 0;
+    padding: 15px 18px;
+    color: var(--navy);
+    background: linear-gradient(90deg, #eef8fb, #f8fcfd);
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.calendar-nav {
+    padding: 14px 14px 8px;
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+    align-items: center;
+    gap: 8px;
+}
+
+.month-button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    color: var(--navy);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+    .month-button:hover {
+        background: var(--sky);
+        border-color: var(--line);
+    }
+
+    .month-button:focus-visible {
+        outline: 3px solid rgba(23, 107, 143, 0.3);
+        outline-offset: 2px;
+    }
+
+.calendar-month {
+    margin: 0;
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.calendar-weekdays {
+    padding: 0 14px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+}
+
+    .calendar-weekdays span {
+        padding: 5px 0;
+    }
+
+        .calendar-weekdays span:first-child,
+        .calendar-day:nth-child(7n + 1):not(.is-selected) {
+            color: var(--full);
+        }
+
+        .calendar-weekdays span:last-child,
+        .calendar-day:nth-child(7n):not(.is-selected) {
+            color: var(--blue);
+        }
+
+.calendar-grid {
+    padding: 3px 14px 0;
+}
+
+.calendar-day,
+.calendar-blank {
+    min-width: 0;
+    aspect-ratio: 1;
+}
+
+.calendar-day {
+    padding: 0;
+    display: grid;
+    place-items: center;
+    color: var(--navy);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.18s ease, background 0.18s ease;
+}
+
+    .calendar-day:hover {
+        background: var(--sky);
+    }
+
+    .calendar-day.is-selected {
+        color: var(--white);
+        background: var(--blue);
+        box-shadow: 0 5px 12px rgba(23, 107, 143, 0.24);
+    }
+
+.show-all-button {
+    width: calc(100% - 28px);
+    min-height: 40px;
+    margin: 15px 14px 12px;
+    padding: 8px 12px;
+    color: var(--blue);
+    background: var(--white);
+    border: 1px solid var(--blue);
+    border-radius: 9px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: color 0.18s ease, background 0.18s ease;
+}
+
+    .show-all-button:hover {
+        color: var(--white);
+        background: var(--blue);
+    }
+
+    .show-all-button:focus-visible {
+        outline: 3px solid rgba(23, 107, 143, 0.3);
+        outline-offset: 2px;
+    }
+
+.calendar-help {
+    margin: 0 14px 14px;
+    padding: 13px;
+    color: var(--muted);
+    background: #f2f9fc;
+    border-radius: 10px;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+    .calendar-help strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--blue);
+    }
+
+    .calendar-help p {
+        margin: 0;
+    }
+
+/*--日付カード--*/
+
+.date-card {
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+    .date-card[hidden] {
+        display: none;
+    }
+
+.date-head {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    background: linear-gradient(90deg, #eef8fb, #f8fcfd);
+    border-bottom: 1px solid var(--line);
+}
+
+.date-title {
+    margin: 0;
+    color: var(--navy);
+    font-size: 18px;
+}
+
+.date-label {
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/*--便一覧--*/
+
+.trip-list {
+    display: grid;
+}
+
+.trip-row {
+    width: 100%;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.6fr 1.5fr auto 26px;
+    align-items: center;
+    gap: 16px;
+    color: inherit;
+    background: var(--white);
+    border: 0;
+    border-bottom: 1px solid #edf2f4;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease;
+}
+
+    .trip-row:last-child {
+        border-bottom: 0;
+    }
+
+    .trip-row:hover {
+        background: #f8fcfd;
+    }
+
+    .trip-row:active {
+        transform: scale(0.996);
+    }
+
+    .trip-row:visited {
+        color: inherit;
+    }
+
+    .trip-row:focus-visible {
+        position: relative;
+        z-index: 1;
+        outline: 3px solid rgba(23, 107, 143, 0.35);
+        outline-offset: -3px;
+    }
+
+.trip-name {
+    color: var(--navy);
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.trip-time {
+    color: var(--blue);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.trip-target {
+    color: #394b55;
+    font-size: 14px;
+}
+
+/*--空き状況--*/
+
+.status {
+    min-width: 112px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: center;
+    white-space: nowrap;
+}
+
+    .status.ok {
+        color: #087448;
+        background: #e4f7ee;
+    }
+
+    .status.few {
+        color: #986000;
+        background: #fff3d7;
+    }
+
+    .status.full {
+        color: #a92f2f;
+        background: #fde8e8;
+    }
+
+.arrow {
+    color: #9eb1ba;
+    font-size: 23px;
+    line-height: 1;
+    text-align: right;
+}
+
+/*--絞り込み結果--*/
+
+.filter-result {
+    margin: 0 0 12px;
+    padding: 12px 16px;
+    color: var(--blue);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+    .filter-result:empty {
+        display: none;
+    }
+
+.empty-result {
+    padding: 40px 20px;
+    color: var(--muted);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+/*--注意書き・フッター--*/
+
+.notice,
+.adminNotice {
+    margin-top: 22px;
+    padding: 17px 19px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.88);
+    border-left: 4px solid var(--blue);
+    border-radius: 8px 14px 14px 8px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+footer {
+    padding: 20px 14px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+}
+
+/*--タブレット--*/
+@media (max-width: 1024px) {
+    .header-inner,
+    main {
+        width: calc(100% - 32px);
+    }
+
+    .schedule-layout {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .trip-row {
+        grid-template-columns: 1fr 72px 1.3fr auto 20px;
+        gap: 12px;
+        padding: 16px;
+    }
+}
+
+/*--スマートフォン--*/
+@media (max-width: 768px) {
+    html,
+    body {
+        min-width: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .site-header {
+        height: 68px;
+    }
+
+    .header-inner {
+        width: 100%;
+        height: 64px;
+        padding: 0 16px;
+    }
+
+    .logo {
+        width: min(190px, 62vw);
+        max-width: 100%;
+    }
+
+    main {
+        width: 100%;
+        margin: 24px auto 40px;
+        padding: 0 14px;
+    }
+
+    .hero {
+        margin-bottom: 18px;
+    }
+
+    .eyebrow {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    h1 {
+        margin: 10px 0 6px;
+        font-size: clamp(28px, 8vw, 34px);
+    }
+
+    .lead {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .legend {
+        justify-content: center;
+        margin: 16px 0 12px;
+        gap: 8px 14px;
+    }
+
+    .schedule-layout {
+        display: block;
+    }
+
+    .calendar-card {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 14px;
+    }
+
+    .calendar-nav {
+        grid-template-columns: 40px 1fr 40px;
+    }
+
+    .month-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .calendar-day {
+        min-height: 38px;
+        font-size: 13px;
+    }
+
+    .show-all-button {
+        min-height: 44px;
+    }
+
+    .schedule {
+        gap: 14px;
+    }
+
+    .date-card {
+        border-radius: 14px;
+    }
+
+    .date-head {
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .date-title {
+        font-size: 17px;
+    }
+
+    .date-label {
+        max-width: 48%;
+        font-size: 11px;
+        text-align: right;
+        line-height: 1.5;
+    }
+
+    .trip-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "name time"
+            "target target"
+            "status status";
+        gap: 7px 12px;
+        padding: 15px 14px;
+    }
+
+    .trip-name {
+        grid-area: name;
+        font-size: 16px;
+        overflow-wrap: anywhere;
+    }
+
+    .trip-time {
+        grid-area: time;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .trip-target {
+        grid-area: target;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+
+    .status {
+        grid-area: status;
+        justify-self: start;
+        min-width: 0;
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .arrow {
+        display: none;
+    }
+
+    .notice,
+    .adminNotice {
+        margin-top: 18px;
+        padding: 14px 15px;
+        font-size: 12px;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 390px) {
+    main {
+        padding: 0 10px;
+    }
+
+    .date-head {
+        display: block;
+    }
+
+    .date-label {
+        display: block;
+        max-width: none;
+        margin-top: 5px;
+        text-align: left;
+    }
+
+    .status {
+        width: 100%;
+        text-align: center;
+    }
+}

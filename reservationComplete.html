@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豊漁丸｜予約完了</title>
+    <link rel="stylesheet" href="shipSchedule.css">
+    <link rel="stylesheet" href="reservationFlow.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand" aria-label="豊漁丸 予約システム">
+                <img class="logo"
+                     src="images/logo.png"
+                     alt="豊漁丸 予約システム"
+                     onerror="this.hidden = true">
+            </div>
+        </div>
+    </header>
+
+    <main class="flow-main">
+        <section class="hero flow-hero">
+            <span class="eyebrow">RESERVATION COMPLETE</span>
+            <h1>予約完了</h1>
+        </section>
+
+        <nav class="step-progress" aria-label="予約手続きの進行状況">
+            <div class="step completed">
+                <p class="step-number">STEP 1</p>
+                <p class="step-title">ログイン</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+            <div class="step-line completed" aria-hidden="true"></div>
+
+            <div class="step completed">
+                <p class="step-number">STEP 2</p>
+                <p class="step-title">予約入力</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+            <div class="step-line completed" aria-hidden="true"></div>
+
+            <div class="step completed">
+                <p class="step-number">STEP 3</p>
+                <p class="step-title">内容確認</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+            <div class="step-line completed" aria-hidden="true"></div>
+
+            <div class="step active" aria-current="step">
+                <p class="step-number">STEP 4</p>
+                <p class="step-title">予約完了</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+        </nav>
+
+        <section class="flow-card completion-card">
+            <h2 class="completion-title">
+                ご予約ありがとうございました。
+            </h2>
+
+            <div class="completion-notice">
+                <p class="completion-notice-text">
+                    予約内容の詳細は、ご登録いただいたLINEアカウント・メールアドレスへ送信しておりますのでご確認ください。
+                    <br>また、出船時刻の変更や中止などの重要なお知らせも、公式LINEにてご案内いたします。
+                </p>
+            </div>
+
+            <div class="completion-action">
+                <a class="primary-button completion-button"
+                   href="shipSchedule.html">
+                    出船情報へ戻る
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 豊漁丸 予約システム
+    </footer>
+</body>
+</html>

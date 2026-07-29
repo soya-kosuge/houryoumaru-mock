@@ -1,0 +1,295 @@
+﻿/*--詳細画面--*/
+.detail-main {
+    width: min(680px, calc(100% - 24px));
+    margin: 28px auto 52px;
+}
+
+/*--戻るリンク--*/
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .back-link span {
+        font-size: 22px;
+        line-height: 1;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    .back-link:focus-visible {
+        outline: 3px solid rgba(23, 107, 143, 0.35);
+        outline-offset: 4px;
+        border-radius: 4px;
+    }
+
+/*--詳細タイトル--*/
+.detail-hero {
+    margin-bottom: 24px;
+}
+
+/*--詳細カード--*/
+.detail-card {
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.detail-heading {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: linear-gradient(90deg, #eef8fb, #f8fcfd);
+    border-bottom: 1px solid var(--line);
+}
+
+.detail-date {
+    margin: 0 0 6px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.detail-heading h2 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 23px;
+}
+
+/*--詳細項目--*/
+.detail-list {
+    margin: 0;
+    padding: 0 20px;
+}
+
+.detail-item {
+    position: relative;
+    min-height: 54px;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #edf2f4;
+}
+
+    .detail-item dt {
+        width: 140px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .detail-item dd {
+        position: absolute;
+        left: 50%;
+        margin: 0;
+        color: var(--navy);
+        font-size: 14px;
+        font-weight: 700;
+        white-space: nowrap;
+        transform: translateX(-50%);
+    }
+
+/*--便の説明--*/
+.detail-description {
+    padding: 20px;
+}
+
+    .detail-description h3,
+    .equipment-box h3 {
+        margin: 0 0 10px;
+        color: var(--navy);
+        font-size: 16px;
+    }
+
+    .detail-description p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+/*--持ち物・注意事項--*/
+.equipment-box {
+    margin: 0 20px 20px;
+    padding: 17px;
+    background: #f6fbfd;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+}
+
+    .equipment-box ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.8;
+    }
+
+/*--予約ボタン--*/
+.detail-actions {
+    padding: 0 20px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.reserve-button {
+    width: 100%;
+    max-width: 460px;
+    min-height: 50px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--blue), #125775);
+    border: 0;
+    border-radius: 11px;
+    box-shadow: 0 8px 20px rgba(23, 107, 143, 0.22);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+    .reserve-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(23, 107, 143, 0.28);
+    }
+
+    .reserve-button:active {
+        transform: translateY(0);
+    }
+
+    .reserve-button:focus-visible {
+        outline: 3px solid rgba(23, 107, 143, 0.4);
+        outline-offset: 3px;
+    }
+
+    .reserve-button.disabled {
+        color: #75858d;
+        background: #cbd5da;
+        box-shadow: none;
+        pointer-events: none;
+    }
+
+/*--データなし表示--*/
+.not-found {
+    padding: 36px 20px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+    .not-found h2 {
+        margin: 0 0 10px;
+        color: var(--navy);
+    }
+
+    .not-found p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.75;
+    }
+
+    .not-found .reserve-button {
+        width: min(280px, 100%);
+        margin: 22px auto 0;
+    }
+
+/*--タブレット・スマートフォン--*/
+@media (max-width: 768px) {
+    .detail-main {
+        width: 100%;
+        margin: 22px auto 40px;
+        padding: 0 14px;
+    }
+
+    .detail-card {
+        border-radius: 14px;
+    }
+
+    .detail-heading {
+        align-items: flex-start;
+        padding: 16px 14px;
+    }
+
+        .detail-heading h2 {
+            font-size: 21px;
+        }
+
+    .detail-list {
+        padding: 0 14px;
+    }
+
+    .detail-item {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        min-height: 0;
+        padding: 14px 0;
+    }
+
+        .detail-item dt {
+            width: auto;
+            font-size: 12px;
+        }
+
+        .detail-item dd {
+            position: static;
+            left: auto;
+            margin: 0;
+            font-size: 14px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            transform: none;
+        }
+
+    .detail-description {
+        padding: 18px 14px;
+    }
+
+    .equipment-box {
+        margin: 0 14px 16px;
+        padding: 15px;
+    }
+
+    .detail-actions {
+        padding: 0 14px 18px;
+    }
+
+    .reserve-button {
+        width: 100%;
+        max-width: none;
+        min-height: 52px;
+    }
+}
+
+@media (max-width: 480px) {
+    .detail-main {
+        padding: 0 10px;
+    }
+
+    .detail-heading {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+        .detail-heading .status {
+            justify-self: start;
+        }
+}

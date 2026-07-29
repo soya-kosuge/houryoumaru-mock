@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豊漁丸｜予約入力</title>
+
+    <link rel="stylesheet" href="shipSchedule.css">
+    <link rel="stylesheet" href="reservationFlow.css">
+    <script src="reservationFlow.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand" aria-label="豊漁丸 予約システム">
+                <img class="logo"
+                     src="images/logo.png"
+                     alt="豊漁丸 予約システム"
+                     onerror="this.hidden = true">
+            </div>
+        </div>
+    </header>
+
+    <main class="flow-main">
+        <div class="back-area">
+            <a class="back-link" href="login.html">
+                <span aria-hidden="true">‹</span>
+                ログイン画面に戻る
+            </a>
+        </div>
+
+        <section class="hero flow-hero">
+            <span class="eyebrow">RESERVATION FORM</span>
+            <h1>予約入力</h1>
+            <p class="lead">
+                内容を入力し、確認画面へ進んでください。
+            </p>
+        </section>
+
+        <nav class="step-progress" aria-label="予約手続きの進行状況">
+
+            <div class="step completed">
+                <p class="step-number">STEP 1</p>
+                <p class="step-title">ログイン</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+
+            <div class="step-line completed" aria-hidden="true"></div>
+
+            <div class="step active" aria-current="step">
+                <p class="step-number">STEP 2</p>
+                <p class="step-title">予約入力</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+
+            <div class="step-line" aria-hidden="true"></div>
+
+            <div class="step">
+                <p class="step-number">STEP 3</p>
+                <p class="step-title">内容確認</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+
+            <div class="step-line" aria-hidden="true"></div>
+
+            <div class="step">
+                <p class="step-number">STEP 4</p>
+                <p class="step-title">予約完了</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+        </nav>
+
+        <section class="selected-trip">
+            <div>
+                <p class="selected-trip-label">選択中の便</p>
+                <h2>2026年7月25日（土） 半夜便</h2>
+            </div>
+
+            <dl>
+                <div>
+                    <dt>出船時刻</dt>
+                    <dd>18:00</dd>
+                </div>
+                <div>
+                    <dt>釣り物</dt>
+                    <dd>マイカ＆ムギイカ</dd>
+                </div>
+                <div>
+                    <dt>料金</dt>
+                    <dd>お一人様 13,000円（税込）</dd>
+                </div>
+            </dl>
+        </section>
+
+        <section class="flow-card reservation-card">
+            <div class="flow-card-heading">
+                <h2>予約者情報</h2>
+            </div>
+
+            <form class="flow-form"
+                  id="reservation-form"
+                  action="reservationConfirm.html"
+                  method="get">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="last-name">
+                            姓
+                            <span class="required">必須</span>
+                        </label>
+                        <input id="last-name"
+                               name="lastName"
+                               type="text"
+                               autocomplete="family-name"
+                               placeholder="山田"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="first-name">
+                            名
+                            <span class="required">必須</span>
+                        </label>
+                        <input id="first-name"
+                               name="firstName"
+                               type="text"
+                               autocomplete="given-name"
+                               placeholder="太郎"
+                               required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="last-name-kana">
+                            せい
+                            <span class="required">必須</span>
+                        </label>
+                        <input id="last-name-kana"
+                               name="lastNameKana"
+                               type="text"
+                               placeholder="やまだ"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="first-name-kana">
+                            めい
+                            <span class="required">必須</span>
+                        </label>
+                        <input id="first-name-kana"
+                               name="firstNameKana"
+                               type="text"
+                               placeholder="たろう"
+                               required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="participants">
+                        参加人数
+                        <span class="required">必須</span>
+                    </label>
+                    <select id="participants" name="participants" required>
+                        <option value="">選択してください</option>
+                        <option value="1">1名</option>
+                        <option value="2">2名</option>
+                        <option value="3">3名</option>
+                        <option value="4">4名</option>
+                        <option value="5">5名</option>
+                        <option value="6">6名</option>
+                        <option value="7">7名</option>
+                        <option value="8">8名</option>
+                        <option value="9">9名</option>
+                        <option value="10">10名</option>
+                        <option value="11">11名</option>
+                        <option value="12">12名</option>
+                        <option value="13">13名</option>
+                        <option value="14">14名</option>
+                        <option value="15">15名</option>
+                        <option value="16">16名</option>
+                        <option value="17">17名</option>
+                        <option value="18">18名</option>
+                        <option value="19">19名</option>
+                        <option value="20">20名</option>
+                        <option value="21">21名</option>
+                        <option value="22">22名</option>
+                        <option value="23">23名</option>
+                        <option value="24">24名</option>
+                        <option value="25">25名</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        電話番号
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="phone"
+                           name="phone"
+                           type="tel"
+                           autocomplete="tel"
+                           placeholder="090-1234-5678"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reservation-email">
+                        メールアドレス
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="reservation-email"
+                           name="reservationEmail"
+                           type="email"
+                           autocomplete="email"
+                           placeholder="example@example.com"
+                           required>
+                    <p class="form-note">
+                        予約確認や運航変更のお知らせを、このメールアドレスへ送信します。
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="remarks">備考</label>
+                    <textarea id="remarks"
+                              name="remarks"
+                              rows="4"
+                              placeholder="ご質問や連絡事項があれば入力してください。"></textarea>
+                </div>
+
+                <label class="agreement">
+                    <input type="checkbox" required>
+                    <span>予約内容と注意事項を確認しました。</span>
+                </label>
+
+                <button class="primary-button" type="submit">
+                    入力内容を確認する
+                </button>
+            </form>
+        </section>
+
+        <aside class="notice">
+            予約は確認画面で確定するまで完了しません。
+        </aside>
+    </main>
+
+    <footer>
+        © 2026 豊漁丸 予約システム
+    </footer>
+</body>
+</html>

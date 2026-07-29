@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豊漁丸｜予約内容確認</title>
+
+    <link rel="stylesheet" href="shipSchedule.css">
+    <link rel="stylesheet" href="reservationFlow.css">
+    <script src="reservationFlow.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand" aria-label="豊漁丸 予約システム">
+                <img class="logo"
+                     src="images/logo.png"
+                     alt="豊漁丸 予約システム"
+                     onerror="this.hidden = true">
+            </div>
+        </div>
+    </header>
+
+    <main class="flow-main">
+
+        <section class="hero flow-hero">
+            <span class="eyebrow">RESERVATION CONFIRMATION</span>
+            <h1>予約内容確認</h1>
+            <p class="lead">
+                入力内容をご確認のうえ、予約を確定してください。
+            </p>
+        </section>
+
+        <nav class="step-progress" aria-label="予約手続きの進行状況">
+
+            <div class="step completed">
+                <p class="step-number">STEP 1</p>
+                <p class="step-title">ログイン</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+
+            <div class="step-line completed" aria-hidden="true"></div>
+
+            <div class="step completed">
+                <p class="step-number">STEP 2</p>
+                <p class="step-title">予約入力</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+
+            <div class="step-line completed" aria-hidden="true"></div>
+
+            <div class="step active" aria-current="step">
+                <p class="step-number">STEP 3</p>
+                <p class="step-title">内容確認</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+
+            <div class="step-line" aria-hidden="true"></div>
+
+            <div class="step">
+                <p class="step-number">STEP 4</p>
+                <p class="step-title">予約完了</p>
+                <span class="step-circle" aria-hidden="true"></span>
+            </div>
+
+        </nav>
+
+        <section class="flow-card confirmation-card">
+            <div class="flow-card-heading">
+                <h2>予約内容</h2>
+            </div>
+
+            <dl class="confirmation-list">
+                <div class="confirmation-item">
+                    <dt>予約日</dt>
+                    <dd>2026年7月25日（土）</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>コース</dt>
+                    <dd>半夜便</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>出船時刻</dt>
+                    <dd>18:00</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>釣り物</dt>
+                    <dd>マイカ＆ムギイカ</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>お名前</dt>
+                    <dd id="confirm-name">－</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>お名前（ひらがな）</dt>
+                    <dd id="confirm-name-kana">－</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>参加人数</dt>
+                    <dd id="confirm-participants">－</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>電話番号</dt>
+                    <dd id="confirm-phone">－</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>メールアドレス</dt>
+                    <dd id="confirm-email">－</dd>
+                </div>
+                <div class="confirmation-item">
+                    <dt>備考</dt>
+                    <dd id="confirm-remarks">なし</dd>
+                </div>
+            </dl>
+
+            <div class="confirmation-actions">
+                <a class="secondary-button" href="reservation.html">
+                    入力内容を修正する
+                </a>
+                <a class="primary-button confirm-button"
+                   href="reservationComplete.html">
+                    この内容で予約する
+                </a>
+            </div>
+        </section>
+
+        <aside class="notice">
+            「この内容で予約する」を押すと、予約が確定します。
+        </aside>
+    </main>
+
+    <footer>
+        © 2026 豊漁丸 予約システム
+    </footer>
+</body>
+</html>
