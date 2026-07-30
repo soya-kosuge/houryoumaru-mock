@@ -332,11 +332,7 @@ h1 {
 
 /* カレンダー内の出船状況ドット */
 .calendar-status-dots {
-    min-height: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
+    display: none;
 }
 
 .calendar-status-dot {
@@ -368,18 +364,14 @@ h1 {
 
 .calendar-day.is-today {
     color: var(--blue);
-    background: #ffe35b;
-    border-color: #d84c4c;
+    background: #eef8ff;
+    border: 2px solid var(--blue);
     font-weight: 900;
-    box-shadow: 0 0 0 2px rgba(23, 107, 143, 0.12), 0 4px 10px rgba(23, 107, 143, 0.18);
+    box-shadow: none;
 }
 
 .calendar-today-label {
-    display: block;
-    color: #a92f2f;
-    font-size: 8px;
-    font-weight: 900;
-    line-height: 1;
+    display: none;
 }
 
 /* 選択中の日付 */
@@ -398,17 +390,8 @@ h1 {
     }
 
     .calendar-day.is-selected .calendar-today-label {
-        color: var(--white);
+        display: none;
     }
-
-/* 今日かつ選択中 */
-
-.calendar-day.is-today.is-selected {
-    color: var(--white);
-    background: var(--blue);
-    border-color: var(--navy);
-    box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue), 0 5px 12px rgba(23, 107, 143, 0.24);
-}
 
 /* すべての日程を表示ボタン */
 
@@ -754,109 +737,29 @@ footer {
     }
 
     .calendar-today-label {
-        font-size: 8px;
-    }
-
-    .show-all-button {
-        min-height: 44px;
-    }
-
-    .schedule {
-        gap: 14px;
-    }
-
-    .date-card {
-        border-radius: 14px;
-    }
-
-    .date-head {
-        align-items: flex-start;
-        padding: 14px;
-    }
-
-    .date-title {
-        font-size: 17px;
-    }
-
-    .date-label {
-        max-width: 48%;
-        font-size: 11px;
-        text-align: right;
-        line-height: 1.5;
-    }
-
-    .trip-row {
-        grid-template-columns: minmax(0, 1fr) auto;
-        grid-template-areas:
-            "name time"
-            "target target"
-            "status status";
-        gap: 7px 12px;
-        padding: 15px 14px;
-    }
-
-    .trip-name {
-        grid-area: name;
-        font-size: 16px;
-        overflow-wrap: anywhere;
-    }
-
-    .trip-time {
-        grid-area: time;
-        text-align: right;
-        white-space: nowrap;
-    }
-
-    .trip-target {
-        grid-area: target;
-        font-size: 13px;
-        overflow-wrap: anywhere;
-    }
-
-    .status {
-        grid-area: status;
-        justify-self: start;
-        min-width: 0;
-        padding: 6px 10px;
-        font-size: 11px;
-    }
-
-    .arrow {
         display: none;
     }
 
-    .notice,
-    .adminNotice {
-        margin-top: 18px;
-        padding: 14px 15px;
-        font-size: 12px;
-    }
+    /* 小さいスマートフォン */
 
-    footer {
-        font-size: 12px;
-    }
-}
+    @media (max-width: 390px) {
+        main {
+            padding: 0 10px;
+        }
 
-/* 小さいスマートフォン */
+        .date-head {
+            display: block;
+        }
 
-@media (max-width: 390px) {
-    main {
-        padding: 0 10px;
-    }
+        .date-label {
+            display: block;
+            max-width: none;
+            margin-top: 5px;
+            text-align: left;
+        }
 
-    .date-head {
-        display: block;
+        .status {
+            width: 100%;
+            text-align: center;
+        }
     }
-
-    .date-label {
-        display: block;
-        max-width: none;
-        margin-top: 5px;
-        text-align: left;
-    }
-
-    .status {
-        width: 100%;
-        text-align: center;
-    }
-}
