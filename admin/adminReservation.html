@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>予約管理｜豊漁丸 管理画面</title>
+  <link rel="stylesheet" href="css/admin.css">
+  
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="adminDashboard.html"><span class="brand-mark">豊</span><span>豊漁丸 管理画面</span></a>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く">メニュー</button>
+    <nav class="header-nav"><a class="" href="adminDashboard.html">ダッシュボード</a><a class="is-active" href="adminReservation.html">予約管理</a><a class="" href="adminTrip.html">出船管理</a><a class="" href="adminCustomerList.html">顧客管理</a><a class="" href="adminNotice.html">お知らせ</a><a class="" href="adminSettings.html">システム設定</a></nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">HORYOMARU ADMIN</p>
+    <h1>予約管理</h1>
+    <p>予約状況を検索し、詳細確認や修正へ進めます。</p>
+  </div>
+</section>
+<main class="page">
+<div class="page-actions"><h2 class="section-title">予約一覧</h2><a class="btn btn-primary" href="adminReservationDetail.html">予約詳細を開く</a></div>
+<div class="toolbar">
+  <div class="field"><label for="reservation-search">キーワード検索</label><input id="reservation-search" class="input" data-search-input="#reservation-table" placeholder="氏名・電話番号・便名"></div>
+  <div class="field"><label for="reservation-date">予約日</label><input id="reservation-date" class="input" type="date"></div>
+  <div class="field"><label for="reservation-status">状態</label><select id="reservation-status" class="select"><option>すべて</option><option>予約確定</option><option>確認待ち</option></select></div>
+</div>
+<div class="table-wrap"><table id="reservation-table"><thead><tr><th>予約日</th><th>便</th><th>顧客名</th><th>人数</th><th>状態</th><th>操作</th></tr></thead><tbody>
+<tr data-search-row><td>2026/07/30</td><td>半夜便</td><td>田中 太郎</td><td>2名</td><td><span class="badge badge-green">予約確定</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
+<tr data-search-row><td>2026/07/31</td><td>午前便</td><td>佐藤 花子</td><td>3名</td><td><span class="badge badge-orange">確認待ち</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
+<tr data-search-row><td>2026/08/01</td><td>午後便</td><td>鈴木 一郎</td><td>1名</td><td><span class="badge badge-green">予約確定</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
+</tbody></table></div></main>
+<footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+<script src="js/admin.js"></script>
+</body>
+</html>

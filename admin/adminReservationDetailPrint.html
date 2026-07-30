@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>予約一覧（印刷用）｜豊漁丸 管理画面</title>
+  <link rel="stylesheet" href="css/admin.css">
+  
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="adminDashboard.html"><span class="brand-mark">豊</span><span>豊漁丸 管理画面</span></a>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く">メニュー</button>
+    <nav class="header-nav"><a class="" href="adminDashboard.html">ダッシュボード</a><a class="is-active" href="adminReservation.html">予約管理</a><a class="" href="adminTrip.html">出船管理</a><a class="" href="adminCustomerList.html">顧客管理</a><a class="" href="adminNotice.html">お知らせ</a><a class="" href="adminSettings.html">システム設定</a></nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">HORYOMARU ADMIN</p>
+    <h1>予約一覧（印刷用）</h1>
+    <p>当日の受付や乗船確認に使う予約者一覧です。</p>
+  </div>
+</section>
+<main class="page">
+<div class="page-actions no-print"><h2 class="section-title">印刷プレビュー</h2><div class="actions"><button class="btn btn-primary" type="button" onclick="window.print()">印刷実行</button><button class="btn btn-secondary" type="button" onclick="history.back()">戻る</button></div></div>
+<div class="table-wrap"><table><thead><tr><th>予約日</th><th>便</th><th>顧客名</th><th>人数</th><th>貸し竿</th><th>電話番号</th></tr></thead><tbody>
+<tr><td>2026/07/30</td><td>半夜便</td><td>田中 太郎</td><td>2名</td><td>なし</td><td>090-1234-5678</td></tr>
+<tr><td>2026/07/30</td><td>半夜便</td><td>佐藤 花子</td><td>3名</td><td>2本</td><td>090-2345-6789</td></tr>
+<tr><td>2026/07/31</td><td>午前便</td><td>鈴木 一郎</td><td>1名</td><td>1本</td><td>090-3456-7890</td></tr>
+</tbody></table></div></main>
+<footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>出船管理｜豊漁丸 管理画面</title>
+  <link rel="stylesheet" href="css/admin.css">
+  
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="adminDashboard.html"><span class="brand-mark">豊</span><span>豊漁丸 管理画面</span></a>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く">メニュー</button>
+    <nav class="header-nav"><a class="" href="adminDashboard.html">ダッシュボード</a><a class="" href="adminReservation.html">予約管理</a><a class="is-active" href="adminTrip.html">出船管理</a><a class="" href="adminCustomerList.html">顧客管理</a><a class="" href="adminNotice.html">お知らせ</a><a class="" href="adminSettings.html">システム設定</a></nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">HORYOMARU ADMIN</p>
+    <h1>出船管理</h1>
+    <p>出船予定、予約人数、船長や釣り物を一覧で管理します。</p>
+  </div>
+</section>
+<main class="page">
+<div class="page-actions"><h2 class="section-title">出船予定一覧</h2><a class="btn btn-primary" href="adminTripAdd.html">＋ 出船予定を追加</a></div>
+<div class="toolbar"><div class="field"><label for="trip-search">検索</label><input id="trip-search" class="input" data-search-input="#trip-table" placeholder="日付・便・船長・釣り物"></div><div class="field"><label>出船日</label><input class="input" type="date"></div></div>
+<div class="table-wrap"><table id="trip-table"><thead><tr><th>出船日</th><th>便</th><th>船名</th><th>船長</th><th>釣り物</th><th>予約</th><th>状態</th><th>操作</th></tr></thead><tbody>
+<tr data-search-row><td>2026/07/30</td><td>半夜便</td><td>豊漁丸</td><td>後藤船長</td><td>マイカ</td><td>12 / 16名</td><td><span class="badge badge-green">出船確定</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
+<tr data-search-row><td>2026/07/31</td><td>午前便</td><td>第二豊漁丸</td><td>山田船長</td><td>アジ</td><td>6 / 12名</td><td><span class="badge badge-orange">受付中</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
+</tbody></table></div></main>
+<footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+<script src="js/admin.js"></script>
+</body>
+</html>

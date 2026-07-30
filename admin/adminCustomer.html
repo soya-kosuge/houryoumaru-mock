@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>顧客管理｜豊漁丸 管理画面</title>
+  <link rel="stylesheet" href="css/admin.css">
+  
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="adminDashboard.html"><span class="brand-mark">豊</span><span>豊漁丸 管理画面</span></a>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く">メニュー</button>
+    <nav class="header-nav"><a class="" href="adminDashboard.html">ダッシュボード</a><a class="" href="adminReservation.html">予約管理</a><a class="" href="adminTrip.html">出船管理</a><a class="is-active" href="adminCustomerList.html">顧客管理</a><a class="" href="adminNotice.html">お知らせ</a><a class="" href="adminSettings.html">システム設定</a></nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">HORYOMARU ADMIN</p>
+    <h1>顧客管理</h1>
+    <p>顧客情報や利用回数、顧客区分を検索・確認できます。</p>
+  </div>
+</section>
+<main class="page">
+<div class="toolbar"><div class="field"><label for="customer-search">顧客検索</label><input id="customer-search" class="input" data-search-input="#customer-table" placeholder="顧客名・電話番号・メール"></div><div class="field"><label for="customer-rank">顧客区分</label><select id="customer-rank" class="select"><option>すべて</option><option>新規</option><option>常連</option><option>VIP</option></select></div></div>
+<div class="table-wrap"><table id="customer-table"><thead><tr><th>ID</th><th>顧客名</th><th>電話番号</th><th>利用回数</th><th>区分</th><th>最終利用日</th><th>操作</th></tr></thead><tbody>
+<tr data-search-row><td>1001</td><td>田中 太郎</td><td>090-1234-5678</td><td>8回</td><td><span class="badge badge-blue">常連</span></td><td>2026/07/30</td><td><button class="btn btn-primary btn-sm" type="button">詳細</button></td></tr>
+<tr data-search-row><td>1002</td><td>佐藤 花子</td><td>090-2345-6789</td><td>1回</td><td><span class="badge badge-green">新規</span></td><td>2026/07/31</td><td><button class="btn btn-primary btn-sm" type="button">詳細</button></td></tr>
+<tr data-search-row><td>1003</td><td>鈴木 一郎</td><td>090-3456-7890</td><td>19回</td><td><span class="badge badge-orange">VIP</span></td><td>2026/07/25</td><td><button class="btn btn-primary btn-sm" type="button">詳細</button></td></tr>
+</tbody></table></div></main>
+<footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+<script src="js/admin.js"></script>
+</body>
+</html>
