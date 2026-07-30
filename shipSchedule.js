@@ -10,9 +10,6 @@ const previousMonthButton = document.getElementById('prev-month');
 const nextMonthButton = document.getElementById('next-month');
 const scheduleArea = document.querySelector('.schedule-area');
 
-/**
- * 日本時間の今日を「YYYY-MM-DD」で取得する
- */
 function getJapanTodayKey() {
     const japanNow = new Date(
         Date.now() + (9 * 60 * 60 * 1000)
@@ -21,9 +18,6 @@ function getJapanTodayKey() {
     return japanNow.toISOString().slice(0, 10);
 }
 
-/**
- * 年・月・日から「YYYY-MM-DD」を作成する
- */
 function toDateKey(year, monthIndex, day) {
     return [
         year,
@@ -32,9 +26,6 @@ function toDateKey(year, monthIndex, day) {
     ].join('-');
 }
 
-/**
- * 指定した日付に日数を加える
- */
 function addDays(dateKey, amount) {
     const [year, month, day] = dateKey
         .split('-')
@@ -50,9 +41,6 @@ function addDays(dateKey, amount) {
     );
 }
 
-/**
- * 選択した日付を日本語形式に変換する
- */
 function formatSelectedDate(dateKey) {
     const [year, month, day] = dateKey
         .split('-')
@@ -88,9 +76,6 @@ let displayedMonth = new Date(
 
 let selectedDate = null;
 
-/**
- * 出船予定カードのラベルを更新する
- */
 function updateScheduleLabels() {
     cards.forEach((card) => {
         const dateKey = card.dataset.date;
@@ -124,9 +109,6 @@ function updateScheduleLabels() {
     });
 }
 
-/**
- * カレンダーを描画する
- */
 function renderCalendar() {
     const year = displayedMonth.getFullYear();
     const month = displayedMonth.getMonth();
@@ -143,18 +125,11 @@ function renderCalendar() {
         0
     ).getDate();
 
-    /*
-     * 「今日：30日」などは表示せず、
-     * 年月だけを表示する
-     */
     calendarMonth.textContent =
         `${year}年${month + 1}月`;
 
     calendarGrid.replaceChildren();
 
-    /*
-     * 月初までの空白
-     */
     for (let i = 0; i < firstWeekday; i += 1) {
         const blank = document.createElement('span');
 
@@ -164,9 +139,6 @@ function renderCalendar() {
         calendarGrid.appendChild(blank);
     }
 
-    /*
-     * 日付ボタンを作成
-     */
     for (let day = 1; day <= lastDay; day += 1) {
         const dateKey = toDateKey(
             year,
@@ -190,18 +162,12 @@ function renderCalendar() {
         button.className = 'calendar-day';
         button.dataset.date = dateKey;
 
-        /*
-         * 日曜日・土曜日のクラス
-         */
         if (weekday === 0) {
             button.classList.add('is-sunday');
         } else if (weekday === 6) {
             button.classList.add('is-saturday');
         }
 
-        /*
-         * 日付の数字
-         */
         const dayNumber = document.createElement('span');
 
         dayNumber.className = 'calendar-day-number';
@@ -209,13 +175,6 @@ function renderCalendar() {
 
         button.appendChild(dayNumber);
 
-        /*
-         * 今日の日付
-         *
-         * 「今日」という文字は追加しない。
-         * is-todayクラスだけ付けて、
-         * CSSで青い枠を表示する。
-         */
         if (isToday) {
             button.classList.add('is-today');
             button.setAttribute('aria-current', 'date');
@@ -231,9 +190,6 @@ function renderCalendar() {
             );
         }
 
-        /*
-         * 選択中の日付
-         */
         if (isSelected) {
             button.classList.add('is-selected');
             button.setAttribute('aria-pressed', 'true');
@@ -241,9 +197,6 @@ function renderCalendar() {
             button.setAttribute('aria-pressed', 'false');
         }
 
-        /*
-         * 日付をクリックしたときの処理
-         */
         button.addEventListener('click', () => {
             filterByDate(dateKey);
         });
@@ -252,9 +205,6 @@ function renderCalendar() {
     }
 }
 
-/**
- * 選択された日付で出船予定を絞り込む
- */
 function filterByDate(dateKey) {
     selectedDate = dateKey;
 
@@ -273,13 +223,8 @@ function filterByDate(dateKey) {
 
     const dateLabel = formatSelectedDate(dateKey);
 
-    if (dateKey === todayKey) {
-        filterResult.textContent =
-            `${dateLabel}の出船予定を表示しています`;
-    } else {
-        filterResult.textContent =
-            `${dateLabel}の出船予定を表示しています`;
-    }
+    filterResult.textContent =
+        `${dateLabel}の出船予定を表示しています`;
 
     if (emptyResult) {
         emptyResult.hidden = visibleCount !== 0;
@@ -287,10 +232,6 @@ function filterByDate(dateKey) {
 
     renderCalendar();
 
-    /*
-     * スマートフォンでは
-     * 絞り込み後に予定一覧まで移動する
-     */
     if (
         scheduleArea &&
         window.matchMedia('(max-width: 768px)').matches
@@ -302,9 +243,6 @@ function filterByDate(dateKey) {
     }
 }
 
-/**
- * すべての日程を表示する
- */
 function showAllSchedules() {
     selectedDate = null;
 
@@ -321,9 +259,6 @@ function showAllSchedules() {
     renderCalendar();
 }
 
-/**
- * 前月を表示する
- */
 previousMonthButton.addEventListener('click', () => {
     displayedMonth = new Date(
         displayedMonth.getFullYear(),
@@ -334,9 +269,6 @@ previousMonthButton.addEventListener('click', () => {
     renderCalendar();
 });
 
-/**
- * 翌月を表示する
- */
 nextMonthButton.addEventListener('click', () => {
     displayedMonth = new Date(
         displayedMonth.getFullYear(),
@@ -347,16 +279,10 @@ nextMonthButton.addEventListener('click', () => {
     renderCalendar();
 });
 
-/**
- * すべての日程を表示
- */
 showAllButton.addEventListener(
     'click',
     showAllSchedules
 );
 
-/**
- * 初期表示
- */
 updateScheduleLabels();
 renderCalendar();

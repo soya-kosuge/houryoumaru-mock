@@ -739,27 +739,28 @@ footer {
     .calendar-today-label {
         display: none;
     }
+}
 
-    /* 小さいスマートフォン */
+/* 小さいスマートフォン */
 
-    @media (max-width: 390px) {
-        main {
-            padding: 0 10px;
-        }
-
-        .date-head {
-            display: block;
-        }
-
-        .date-label {
-            display: block;
-            max-width: none;
-            margin-top: 5px;
-            text-align: left;
-        }
-
-        .status {
-            width: 100%;
-            text-align: center;
-        }
+@media (max-width: 390px) {
+    main {
+        padding: 0 10px;
     }
+
+    .date-head {
+        display: block;
+    }
+
+    .date-label {
+        display: block;
+        max-width: none;
+        margin-top: 5px;
+        text-align: left;
+    }
+
+    .status {
+        width: 100%;
+        text-align: center;
+    }
+}
