@@ -78,7 +78,7 @@
         <section class="selected-trip">
             <div>
                 <p class="selected-trip-label">選択中の便</p>
-                <h2>2026年7月25日（土） 半夜便</h2>
+                <h2>2026年7月28日（火） 半夜便</h2>
             </div>
 
             <dl>
@@ -106,58 +106,56 @@
                   id="reservation-form"
                   action="reservationConfirm.html"
                   method="get">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="last-name">
-                            姓
-                            <span class="required">必須</span>
-                        </label>
-                        <input id="last-name"
-                               name="lastName"
-                               type="text"
-                               autocomplete="family-name"
-                               placeholder="山田"
-                               required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="first-name">
-                            名
-                            <span class="required">必須</span>
-                        </label>
-                        <input id="first-name"
-                               name="firstName"
-                               type="text"
-                               autocomplete="given-name"
-                               placeholder="太郎"
-                               required>
-                    </div>
+                <div class="form-group">
+                    <label for="last-name">
+                        姓
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="last-name"
+                           name="lastName"
+                           type="text"
+                           autocomplete="family-name"
+                           placeholder="山田"
+                           >
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="last-name-kana">
-                            せい
-                            <span class="required">必須</span>
-                        </label>
-                        <input id="last-name-kana"
-                               name="lastNameKana"
-                               type="text"
-                               placeholder="やまだ"
-                               required>
-                    </div>
+                <div class="form-group">
+                    <label for="first-name">
+                        名
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="first-name"
+                           name="firstName"
+                           type="text"
+                           autocomplete="given-name"
+                           placeholder="太郎"
+                           >
+                </div>
 
-                    <div class="form-group">
-                        <label for="first-name-kana">
-                            めい
-                            <span class="required">必須</span>
-                        </label>
-                        <input id="first-name-kana"
-                               name="firstNameKana"
-                               type="text"
-                               placeholder="たろう"
-                               required>
-                    </div>
+                <div class="form-group">
+                    <label for="last-name-kana">
+                        せい
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="last-name-kana"
+                           name="lastNameKana"
+                           type="text"
+                           autocomplete="family-name"
+                           placeholder="やまだ"
+                           >
+                </div>
+
+                <div class="form-group">
+                    <label for="first-name-kana">
+                        めい
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="first-name-kana"
+                           name="firstNameKana"
+                           type="text"
+                           autocomplete="given-name"
+                           placeholder="たろう"
+                           >
                 </div>
 
                 <div class="form-group">
@@ -165,7 +163,7 @@
                         参加人数
                         <span class="required">必須</span>
                     </label>
-                    <select id="participants" name="participants" required>
+                    <select id="participants" name="participants" >
                         <option value="">選択してください</option>
                         <option value="1">1名</option>
                         <option value="2">2名</option>
@@ -196,6 +194,43 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="participants">
+                        貸し竿
+                        <span class="required">必須</span>
+                    </label>
+                    <select id="rental-rod" name="rentalRod">
+                        <option value="">選択してください</option>
+                        <option value="0">なし</option>
+                        <option value="1">1本</option>
+                        <option value="2">2本</option>
+                        <option value="3">3本</option>
+                        <option value="4">4本</option>
+                        <option value="5">5本</option>
+                        <option value="6">6本</option>
+                        <option value="7">7本</option>
+                        <option value="8">8本</option>
+                        <option value="9">9本</option>
+                        <option value="10">10本</option>
+                        <option value="11">11本</option>
+                        <option value="12">12本</option>
+                        <option value="13">13本</option>
+                        <option value="14">14本</option>
+                        <option value="15">15本</option>
+                        <option value="16">16本</option>
+                        <option value="17">17本</option>
+                        <option value="18">18本</option>
+                        <option value="19">19本</option>
+                        <option value="20">20本</option>
+                        <option value="21">21本</option>
+                        <option value="22">22本</option>
+                        <option value="23">23本</option>
+                        <option value="24">24本</option>
+                        <option value="25">25本</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
                     <label for="phone">
                         電話番号
                         <span class="required">必須</span>
@@ -205,7 +240,7 @@
                            type="tel"
                            autocomplete="tel"
                            placeholder="090-1234-5678"
-                           required>
+                           >
                 </div>
 
                 <div class="form-group">
@@ -218,7 +253,7 @@
                            type="email"
                            autocomplete="email"
                            placeholder="example@example.com"
-                           required>
+                           >
                     <p class="form-note">
                         予約確認や運航変更のお知らせを、このメールアドレスへ送信します。
                     </p>
@@ -233,7 +268,7 @@
                 </div>
 
                 <label class="agreement">
-                    <input type="checkbox" required>
+                    <input type="checkbox" >
                     <span>予約内容と注意事項を確認しました。</span>
                 </label>
 
