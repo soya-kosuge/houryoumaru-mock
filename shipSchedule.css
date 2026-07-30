@@ -1,7 +1,6 @@
 ﻿:root {
     --navy: #0f2f45;
     --blue: #176b8f;
-    --blue-dark: #125b7b;
     --sky: #eaf6fb;
     --white: #ffffff;
     --text: #20303a;
@@ -13,7 +12,7 @@
     --shadow: 0 12px 30px rgba(15, 47, 69, 0.1);
 }
 
-/* 基本設定 */
+/*--基本設定--*/
 
 * {
     box-sizing: border-box;
@@ -34,7 +33,7 @@ body {
     background: linear-gradient( rgba(235, 248, 252, 0.92), rgba(246, 250, 252, 0.98) ), repeating-linear-gradient( 0deg, transparent 0 34px, rgba(23, 107, 143, 0.035) 34px 35px );
 }
 
-/* ヘッダー */
+/*--ヘッダー--*/
 
 .site-header {
     height: 80px;
@@ -88,7 +87,7 @@ body {
     opacity: 0.82;
 }
 
-/* メインコンテンツ */
+/*--メインコンテンツ--*/
 
 main {
     width: min(1180px, calc(100% - 40px));
@@ -124,7 +123,7 @@ h1 {
     font-size: 14px;
 }
 
-/* 空き状況の凡例 */
+/*--空き状況の凡例--*/
 
 .legend {
     margin: 20px 4px 12px;
@@ -160,7 +159,7 @@ h1 {
         background: var(--full);
     }
 
-/* カレンダー・出船予定レイアウト */
+/*--カレンダー・出船予定レイアウト--*/
 
 .schedule-layout {
     display: grid;
@@ -179,7 +178,7 @@ h1 {
     gap: 18px;
 }
 
-/* カレンダー */
+/*--カレンダー--*/
 
 .calendar-card {
     position: sticky;
@@ -223,16 +222,12 @@ h1 {
     font-size: 22px;
     line-height: 1;
     cursor: pointer;
-    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    transition: background 0.18s ease, border-color 0.18s ease;
 }
 
     .month-button:hover {
         background: var(--sky);
         border-color: var(--line);
-    }
-
-    .month-button:active {
-        transform: scale(0.94);
     }
 
     .month-button:focus-visible {
@@ -267,11 +262,13 @@ h1 {
         padding: 5px 0;
     }
 
-        .calendar-weekdays span:first-child {
+        .calendar-weekdays span:first-child,
+        .calendar-day:nth-child(7n + 1):not(.is-selected) {
             color: var(--full);
         }
 
-        .calendar-weekdays span:last-child {
+        .calendar-weekdays span:last-child,
+        .calendar-day:nth-child(7n):not(.is-selected) {
             color: var(--blue);
         }
 
@@ -288,29 +285,18 @@ h1 {
 .calendar-day {
     position: relative;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1px;
+    display: grid;
+    place-items: center;
     color: var(--navy);
     background: transparent;
     border: 2px solid transparent;
-    border-radius: 9px;
+    border-radius: 8px;
     font: inherit;
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
     transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
-
-    .calendar-day.is-sunday:not(.is-selected):not(.is-today) {
-        color: var(--full);
-    }
-
-    .calendar-day.is-saturday:not(.is-selected):not(.is-today) {
-        color: var(--blue);
-    }
 
     .calendar-day:hover {
         background: var(--sky);
@@ -325,75 +311,57 @@ h1 {
         outline-offset: 2px;
     }
 
-.calendar-day-number {
-    line-height: 1;
-}
+    /*--今日の日付--*/
 
-
-/* カレンダー内の出船状況ドット */
-.calendar-status-dots {
-    display: none;
-}
-
-.calendar-status-dot {
-    width: 4px;
-    height: 4px;
-    display: block;
-    border-radius: 50%;
-    background: #aab8bf;
-}
-
-    .calendar-status-dot.ok {
-        background: var(--ok);
+    .calendar-day.is-today {
+        color: var(--blue);
+        background: var(--sky);
+        border-color: var(--blue);
+        font-weight: 900;
+        box-shadow: 0 4px 10px rgba(23, 107, 143, 0.18);
     }
 
-    .calendar-status-dot.few {
-        background: var(--few);
-    }
+        .calendar-day.is-today::after {
+            content: "";
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--blue);
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
 
-    .calendar-status-dot.full {
-        background: var(--full);
-    }
+    /*--選択中の日付--*/
 
-.calendar-day.is-selected .calendar-status-dot,
-.calendar-day.is-today.is-selected .calendar-status-dot {
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75);
-}
-
-/* 今日の日付 */
-
-.calendar-day.is-today {
-    color: var(--blue);
-    background: #eef8ff;
-    border: 2px solid var(--blue);
-    font-weight: 900;
-    box-shadow: none;
-}
-
-.calendar-today-label {
-    display: none;
-}
-
-/* 選択中の日付 */
-
-.calendar-day.is-selected {
-    color: var(--white);
-    background: var(--blue);
-    border-color: var(--blue);
-    box-shadow: 0 5px 12px rgba(23, 107, 143, 0.24);
-}
-
-    .calendar-day.is-selected:hover {
+    .calendar-day.is-selected {
         color: var(--white);
-        background: var(--blue-dark);
-        border-color: var(--blue-dark);
+        background: var(--blue);
+        border-color: var(--blue);
+        box-shadow: 0 5px 12px rgba(23, 107, 143, 0.24);
     }
 
-    .calendar-day.is-selected .calendar-today-label {
-        display: none;
-    }
+        .calendar-day.is-selected:hover {
+            color: var(--white);
+            background: #125b7b;
+            border-color: #125b7b;
+        }
 
-/* すべての日程を表示ボタン */
+        /*--今日かつ選択中--*/
+
+        .calendar-day.is-selected.is-today {
+            color: var(--white);
+            background: var(--blue);
+            border-color: var(--navy);
+            box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--blue), 0 5px 12px rgba(23, 107, 143, 0.24);
+        }
+
+            .calendar-day.is-selected.is-today::after {
+                background: var(--white);
+            }
+
+/*--すべての日程を表示ボタン--*/
 
 .show-all-button {
     width: calc(100% - 28px);
@@ -408,16 +376,12 @@ h1 {
     font-size: 12px;
     font-weight: 800;
     cursor: pointer;
-    transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    transition: color 0.18s ease, background 0.18s ease;
 }
 
     .show-all-button:hover {
         color: var(--white);
         background: var(--blue);
-    }
-
-    .show-all-button:active {
-        transform: scale(0.98);
     }
 
     .show-all-button:focus-visible {
@@ -445,7 +409,7 @@ h1 {
         margin: 0;
     }
 
-/* 日付カード */
+/*--日付カード--*/
 
 .date-card {
     overflow: hidden;
@@ -459,11 +423,6 @@ h1 {
         display: none;
     }
 
-    .date-card.is-today-card {
-        border-color: rgba(23, 107, 143, 0.55);
-        box-shadow: 0 0 0 2px rgba(23, 107, 143, 0.08), var(--shadow);
-    }
-
 .date-head {
     padding: 16px 20px;
     display: flex;
@@ -472,10 +431,6 @@ h1 {
     gap: 14px;
     background: linear-gradient(90deg, #eef8fb, #f8fcfd);
     border-bottom: 1px solid var(--line);
-}
-
-.is-today-card .date-head {
-    background: linear-gradient(90deg, #dff3fb, #f4fbfd);
 }
 
 .date-title {
@@ -490,7 +445,7 @@ h1 {
     font-weight: 700;
 }
 
-/* 便一覧 */
+/*--便一覧--*/
 
 .trip-list {
     display: grid;
@@ -553,7 +508,7 @@ h1 {
     font-size: 14px;
 }
 
-/* 空き状況 */
+/*--空き状況--*/
 
 .status {
     min-width: 112px;
@@ -587,7 +542,7 @@ h1 {
     text-align: right;
 }
 
-/* 絞り込み結果 */
+/*--絞り込み結果--*/
 
 .filter-result {
     margin: 0 0 12px;
@@ -614,7 +569,7 @@ h1 {
     box-shadow: var(--shadow);
 }
 
-/* 注意書き・フッター */
+/*--注意書き・フッター--*/
 
 .notice,
 .adminNotice {
@@ -635,7 +590,7 @@ footer {
     text-align: center;
 }
 
-/* タブレット */
+/*--タブレット--*/
 
 @media (max-width: 1024px) {
     .header-inner,
@@ -655,7 +610,7 @@ footer {
     }
 }
 
-/* スマートフォン */
+/*--スマートフォン--*/
 
 @media (max-width: 768px) {
     html,
@@ -736,12 +691,93 @@ footer {
         font-size: 13px;
     }
 
-    .calendar-today-label {
+        .calendar-day.is-today::after {
+            bottom: 4px;
+            width: 5px;
+            height: 5px;
+        }
+
+    .show-all-button {
+        min-height: 44px;
+    }
+
+    .schedule {
+        gap: 14px;
+    }
+
+    .date-card {
+        border-radius: 14px;
+    }
+
+    .date-head {
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .date-title {
+        font-size: 17px;
+    }
+
+    .date-label {
+        max-width: 48%;
+        font-size: 11px;
+        text-align: right;
+        line-height: 1.5;
+    }
+
+    .trip-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "name time"
+            "target target"
+            "status status";
+        gap: 7px 12px;
+        padding: 15px 14px;
+    }
+
+    .trip-name {
+        grid-area: name;
+        font-size: 16px;
+        overflow-wrap: anywhere;
+    }
+
+    .trip-time {
+        grid-area: time;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .trip-target {
+        grid-area: target;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+
+    .status {
+        grid-area: status;
+        justify-self: start;
+        min-width: 0;
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .arrow {
         display: none;
+    }
+
+    .notice,
+    .adminNotice {
+        margin-top: 18px;
+        padding: 14px 15px;
+        font-size: 12px;
+    }
+
+    footer {
+        font-size: 12px;
     }
 }
 
-/* 小さいスマートフォン */
+/*--小さいスマートフォン--*/
 
 @media (max-width: 390px) {
     main {
