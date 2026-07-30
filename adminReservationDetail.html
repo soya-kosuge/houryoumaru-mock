@@ -14,13 +14,29 @@
         }
 
         @media(max-width:768px) {
+            table {
+                 display:none;
+            }
+
+            .reservation-card {
+                 display:block;
+            }
+
             .sidebar {
+                position: relative !important;
                 width: 100%;
-                position: relative
+                height: auto !important;
             }
 
             .content {
-                margin-left: 0
+                margin-left: 0;
+                padding-top: 20px;
+            }
+        }
+
+        @media (min-width:769px) {
+            .reservation-card {
+                display: none;
             }
         }
     </style>
@@ -37,7 +53,7 @@
             <a class="nav-link text-white" href="adminSettings.html">システム設定</a>
         </div>
     </div>
-    <div class="content p-4">
+    <div class="desktop-table content p-4">
         <h1>予約詳細</h1>
         <table class="table table-striped">
             <thead>
@@ -49,6 +65,7 @@
                     <th>参加人数</th>
                     <th>電話番号</th>
                     <th>メールアドレス</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +77,11 @@
                     <td>1名</td>
                     <td>090-1234-5678</td>
                     <td>tanaka@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/01</td>
@@ -69,6 +91,12 @@
                     <td>3名</td>
                     <td>090-2345-6789</td>
                     <td>sato@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
+
                 </tr>
                 <tr>
                     <td>2025/08/02</td>
@@ -78,6 +106,11 @@
                     <td>2名</td>
                     <td>090-3456-7890</td>
                     <td>suzuki@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/02</td>
@@ -87,6 +120,11 @@
                     <td>4名</td>
                     <td>090-4567-8901</td>
                     <td>takahashi@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/03</td>
@@ -96,6 +134,11 @@
                     <td>1名</td>
                     <td>090-5678-9012</td>
                     <td>ito@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/03</td>
@@ -105,6 +148,11 @@
                     <td>1名</td>
                     <td>090-6789-0123</td>
                     <td>watanabe@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/04</td>
@@ -114,6 +162,11 @@
                     <td>1名</td>
                     <td>090-7890-1234</td>
                     <td>yamamoto@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/04</td>
@@ -123,6 +176,11 @@
                     <td>2名</td>
                     <td>090-8901-2345</td>
                     <td>nakamura@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/05</td>
@@ -132,6 +190,11 @@
                     <td>3名</td>
                     <td>090-9012-3456</td>
                     <td>kobayashi@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/05</td>
@@ -141,6 +204,11 @@
                     <td>2名</td>
                     <td>090-0123-4567</td>
                     <td>kato@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/06</td>
@@ -150,6 +218,11 @@
                     <td>1名</td>
                     <td>090-1122-3344</td>
                     <td>yoshida@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/06</td>
@@ -159,6 +232,11 @@
                     <td>3名</td>
                     <td>090-2233-4455</td>
                     <td>yamada@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/07</td>
@@ -168,6 +246,11 @@
                     <td>1名</td>
                     <td>090-3344-5566</td>
                     <td>saito@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/07</td>
@@ -177,6 +260,11 @@
                     <td>2名</td>
                     <td>090-4455-6677</td>
                     <td>inoue@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>2025/08/08</td>
@@ -186,53 +274,266 @@
                     <td>2名</td>
                     <td>090-5566-7788</td>
                     <td>kimura@example.com</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary editRowBtn">
+                            修正
+                        </button>
+                    </td>
                 </tr>
+
             </tbody>
         </table>
         <button class="btn btn-secondary" onclick="window.location.href='adminReservationDetailPrint.html'">印刷</button>
-        <button id="editBtn" class="btn btn-primary">修正</button>
+    </div>
+
+    <div class="mobile-cards">
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/01</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>田中 太郎</div>
+                <div><strong>ふりがな</strong><br>たなか たろう</div>
+                <div><strong>参加人数</strong><br>1名</div>
+                <div><strong>電話番号</strong><br>090-1234-5678</div>
+                <div><strong>メール</strong><br>tanaka@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/01</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>佐藤 花子</div>
+                <div><strong>ふりがな</strong><br>さとう はなこ</div>
+                <div><strong>参加人数</strong><br>3名</div>
+                <div><strong>電話番号</strong><br>090-2345-6789</div>
+                <div><strong>メール</strong><br>sato@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/02</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>鈴木 一郎</div>
+                <div><strong>ふりがな</strong><br>すずき いちろう</div>
+                <div><strong>参加人数</strong><br>2名</div>
+                <div><strong>電話番号</strong><br>090-3456-7890</div>
+                <div><strong>メール</strong><br>suzuki@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/02</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>高橋 健</div>
+                <div><strong>ふりがな</strong><br>たかはし けん</div>
+                <div><strong>参加人数</strong><br>4名</div>
+                <div><strong>電話番号</strong><br>090-4567-8901</div>
+
+                <button class="btn btn-primary  w-100 cardEditBtn">
+                    修正
+                </button>
+            </div>
+        </div>
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/05</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>小林 達也</div>
+                <div><strong>ふりがな</strong><br>こばやし たつや</div>
+                <div><strong>参加人数</strong><br>3名</div>
+                <div><strong>電話番号</strong><br>090-9012-3456</div>
+                <div><strong>メール</strong><br>kobayashi@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/05</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>加藤 誠</div>
+                <div><strong>ふりがな</strong><br>かとう まこと</div>
+                <div><strong>参加人数</strong><br>2名</div>
+                <div><strong>電話番号</strong><br>090-0123-4567</div>
+                <div><strong>メール</strong><br>kato@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/06</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>吉田 悠</div>
+                <div><strong>ふりがな</strong><br>よしだ ゆう</div>
+                <div><strong>参加人数</strong><br>1名</div>
+                <div><strong>電話番号</strong><br>090-1122-3344</div>
+                <div><strong>メール</strong><br>yoshida@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/06</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>山田 健太</div>
+                <div><strong>ふりがな</strong><br>やまだ けんた</div>
+                <div><strong>参加人数</strong><br>3名</div>
+                <div><strong>電話番号</strong><br>090-2233-4455</div>
+                <div><strong>メール</strong><br>yamada@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/07</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>斎藤 学</div>
+                <div><strong>ふりがな</strong><br>さいとう まなぶ</div>
+                <div><strong>参加人数</strong><br>1名</div>
+                <div><strong>電話番号</strong><br>090-3344-5566</div>
+                <div><strong>メール</strong><br>saito@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/07</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>井上 淳</div>
+                <div><strong>ふりがな</strong><br>いのうえ じゅん</div>
+                <div><strong>参加人数</strong><br>2名</div>
+                <div><strong>電話番号</strong><br>090-4455-6677</div>
+                <div><strong>メール</strong><br>inoue@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
+
+        <div class="reservation-card">
+            <div class="card-header">
+                <strong>2025/08/08</strong><span>半夜便</span>
+            </div>
+            <div class="card-body">
+                <div><strong>氏名</strong><br>木村 聡</div>
+                <div><strong>ふりがな</strong><br>きむら さとし</div>
+                <div><strong>参加人数</strong><br>2名</div>
+                <div><strong>電話番号</strong><br>090-5566-7788</div>
+                <div><strong>メール</strong><br>kimura@example.com</div>
+            </div>
+            <button class="btn btn-primary  w-100 cardEditBtn">修正</button>
+        </div>
     </div>
 
     <script>
-        let editMode = false;
 
-        document.getElementById("editBtn").addEventListener("click", function () {
+            document.querySelectorAll(".cardEditBtn").forEach(function(btn){
 
-            const fields = document.querySelectorAll("tbody td");
+                btn.addEventListener("click", function () {
 
-            if (!editMode) {
+                    const card = this.closest(".reservation-card");
+                    const items = card.querySelectorAll(".editable");
 
-                fields.forEach(function (cell) {
+                    if (this.textContent.trim() === "修正") {
 
-                    const value = cell.textContent.trim();
+                        items.forEach(function (item) {
 
-                    cell.innerHTML =
-                        '<input type="text" class="form-control" value="' +
-                        value +
-                        '">';
-                });
+                            const span = item.querySelector("span");
 
-                this.textContent = "保存";
-                editMode = true;
+                            const value = span.textContent.trim();
 
-            } else {
+                            span.outerHTML =
+                                '<input class="form-control mt-1" value="' +
+                                value +
+                                '">';
 
-                fields.forEach(function (cell) {
+                        });
 
-                    const input = cell.querySelector("input");
+                        this.textContent = "保存";
 
-                    if (input) {
-                        cell.textContent = input.value;
+                    } else {
+
+                        items.forEach(function (item) {
+
+                            const input = item.querySelector("input");
+
+                            if (input) {
+
+                                input.outerHTML =
+                                    '<span>' +
+                                    input.value +
+                                    '</span>';
+
+                            }
+
+                        });
+
+                        this.textContent = "修正";
+
+                        alert("保存しました");
+
                     }
 
                 });
 
-                this.textContent = "修正";
-                editMode = false;
+});
 
-                alert("保存しました");
+        document.querySelectorAll(".editRowBtn").forEach(function (button) {
 
-            }
+            button.addEventListener("click", function () {
+
+                const row = this.closest("tr");
+                const cells = row.querySelectorAll("td:not(:last-child)");
+
+                if (this.textContent.trim() === "修正") {
+
+                    cells.forEach(function (cell) {
+
+                        const value = cell.textContent.trim();
+
+                        cell.innerHTML =
+                            '<input type="text" class="form-control" value="' +
+                            value + '">';
+                    });
+
+                    this.textContent = "保存";
+
+                } else {
+
+                    cells.forEach(function (cell) {
+
+                        const input = cell.querySelector("input");
+
+                        if (input) {
+                            cell.textContent = input.value;
+                        }
+                    });
+
+                    this.textContent = "修正";
+
+                    alert("保存しました");
+                }
+
+            });
 
         });
     </script>
