@@ -8,26 +8,42 @@
   
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="adminDashboard.html"><span class="brand-mark">豊</span><span>豊漁丸 管理画面</span></a>
-    <button class="menu-toggle" type="button" aria-label="メニューを開く">メニュー</button>
-    <nav class="header-nav"><a class="" href="adminDashboard.html">ダッシュボード</a><a class="" href="adminReservation.html">予約管理</a><a class="" href="adminTrip.html">出船管理</a><a class="" href="adminCustomerList.html">顧客管理</a><a class="" href="adminNotice.html">お知らせ</a><a class="is-active" href="adminSettings.html">システム設定</a></nav>
-  </div>
-</header>
-<section class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">HORYOMARU ADMIN</p>
-    <h1>システム設定</h1>
-    <p>通知先や外部サービス連携など、管理画面の基本設定を行います。</p>
-  </div>
-</section>
-<main class="page">
-<section class="grid grid-2">
-<article class="card"><div class="card-body"><h2 class="section-title">通知設定</h2><form data-demo-submit="通知設定を保存しました"><div class="field"><label for="mail-address">通知先メールアドレス</label><input id="mail-address" class="input" type="email" value="admin@example.com"></div><div class="field" style="margin-top:16px"><label for="notify-type">通知対象</label><select id="notify-type" class="select"><option>新規予約・キャンセル</option><option>新規予約のみ</option><option>通知しない</option></select></div><div class="form-actions"><button class="btn btn-primary" type="submit">保存する</button></div></form></div></article>
-<article class="card"><div class="card-body"><h2 class="section-title">LINE設定</h2><div class="notice">LINE公式アカウントとの接続状態：未接続</div><div class="form-actions"><button class="btn btn-primary" type="button">接続設定を開く</button></div></div></article>
-</section></main>
-<footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
-<script src="js/admin.js"></script>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="brand">
+                <img src="images/豊漁丸_管理者ページ_ロゴ.png"
+                     alt="豊漁丸"
+                     class="brand-logo">
+            </a>
+
+            <nav class="header-nav">
+                <a href="#" class="is-active">ダッシュボード</a>
+                <a href="adminReservation.html">予約管理</a>
+                <a href="adminTrip.html">出船管理</a>
+                <a href="adminCustomer.html">顧客管理</a>
+                <a href="adminNotice.html">お知らせ</a>
+                <a href="adminSettings.html">システム設定</a>
+            </nav>
+
+            <button class="menu-toggle" type="button">
+                メニュー
+            </button>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="eyebrow">HORYOMARU ADMIN</p>
+            <h1>システム設定</h1>
+            <p>通知先や外部サービス連携など、管理画面の基本設定を行います。</p>
+        </div>
+    </section>
+    <main class="page">
+        <section class="grid grid-2">
+            <article class="card"><div class="card-body"><h2 class="section-title">通知設定</h2><form data-demo-submit="通知設定を保存しました"><div class="field"><label for="mail-address">通知先メールアドレス</label><input id="mail-address" class="input" type="email" value="admin@example.com"></div><div class="field" style="margin-top:16px"><label for="notify-type">通知対象</label><select id="notify-type" class="select"><option>新規予約・キャンセル</option><option>新規予約のみ</option><option>通知しない</option></select></div><div class="form-actions"><button class="btn btn-primary" type="submit">保存する</button></div></form></div></article>
+            <article class="card"><div class="card-body"><h2 class="section-title">LINE設定</h2><div class="notice">LINE公式アカウントとの接続状態：未接続</div><div class="form-actions"><button class="btn btn-primary" type="button">接続設定を開く</button></div></div></article>
+        </section>
+    </main>
+    <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+    <script src="js/admin.js"></script>
 </body>
 </html>

@@ -8,36 +8,57 @@
   
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="adminDashboard(1).html"><span class="brand-mark">豊</span><span>豊漁丸 管理画面</span></a>
-    <button class="menu-toggle" type="button" aria-label="メニューを開く">メニュー</button>
-    <nav class="header-nav"><a class="" href="adminDashboard(1).html">ダッシュボード</a><a class="" href="adminReservation(1).html">予約管理</a><a class="is-active" href="adminTrip.html">出船管理</a><a class="" href="adminCustomerList(1).html">顧客管理</a><a class="" href="adminNotice(1).html">お知らせ</a><a class="" href="adminSettings.html">システム設定</a></nav>
-  </div>
-</header>
-<section class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">HORYOMARU ADMIN</p>
-    <h1>新規出船登録</h1>
-    <p>出船日、便、船長、料金などの基本情報を登録します。</p>
-  </div>
-</section>
-<main class="page">
-<section class="card"><div class="card-body"><form data-demo-submit="出船予定を登録しました" data-redirect="adminTrip.html">
-<div class="form-grid">
-<div class="field"><label for="trip-date">出船日付</label><input id="trip-date" class="input" type="date" required></div>
-<div class="field"><label for="trip-time">出船時刻</label><input id="trip-time" class="input" type="time" required></div>
-<div class="field"><label for="trip-name">便名</label><select id="trip-name" class="select" required><option value="">選択してください</option><option>半夜便</option><option>午前便</option><option>午後便</option></select></div>
-<div class="field"><label for="ship-name">船名</label><input id="ship-name" class="input" placeholder="例：豊漁丸"></div>
-<div class="field"><label for="captain-name">船長名</label><input id="captain-name" class="input" placeholder="例：後藤船長"></div>
-<div class="field"><label for="fishing-target">釣り物</label><input id="fishing-target" class="input" placeholder="例：マイカ"></div>
-<div class="field"><label for="meeting-time">集合時刻</label><input id="meeting-time" class="input" type="time"></div>
-<div class="field"><label for="capacity">定員</label><input id="capacity" class="input" type="number" min="1" placeholder="例：16"></div>
-<div class="field full"><label for="meeting-place">集合場所</label><input id="meeting-place" class="input" placeholder="例：豊漁丸乗船場"></div>
-<div class="field"><label for="price">料金</label><input id="price" class="input" type="number" min="0" placeholder="例：12000"></div>
-<div class="field"><label for="trip-status">受付状態</label><select id="trip-status" class="select"><option>受付中</option><option>満席</option><option>受付停止</option></select></div>
-</div><div class="form-actions"><button class="btn btn-primary" type="submit">登録する</button><a class="btn btn-secondary" href="adminTrip.html">戻る</a></div></form></div></section></main>
-<footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
-<script src="js/admin.js"></script>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="brand">
+                <img src="images/豊漁丸_管理者ページ_ロゴ.png"
+                     alt="豊漁丸"
+                     class="brand-logo">
+            </a>
+
+            <nav class="header-nav">
+                <a href="#" class="is-active">ダッシュボード</a>
+                <a href="adminReservation.html">予約管理</a>
+                <a href="adminTrip.html">出船管理</a>
+                <a href="adminCustomer.html">顧客管理</a>
+                <a href="adminNotice.html">お知らせ</a>
+                <a href="adminSettings.html">システム設定</a>
+            </nav>
+
+            <button class="menu-toggle" type="button">
+                メニュー
+            </button>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="eyebrow">HORYOMARU ADMIN</p>
+            <h1>新規出船登録</h1>
+            <p>出船日、便、船長、料金などの基本情報を登録します。</p>
+        </div>
+    </section>
+    <main class="page">
+        <section class="card">
+            <div class="card-body">
+                <form data-demo-submit="出船予定を登録しました" data-redirect="adminTrip.html">
+                    <div class="form-grid">
+                        <div class="field"><label for="trip-date">出船日付</label><input id="trip-date" class="input" type="date" required></div>
+                        <div class="field"><label for="trip-time">出船時刻</label><input id="trip-time" class="input" type="time" required></div>
+                        <div class="field"><label for="trip-name">便名</label><select id="trip-name" class="select" required><option value="">選択してください</option><option>半夜便</option><option>午前便</option><option>午後便</option></select></div>
+                        <div class="field"><label for="ship-name">船名</label><input id="ship-name" class="input" placeholder="例：豊漁丸"></div>
+                        <div class="field"><label for="captain-name">船長名</label><input id="captain-name" class="input" placeholder="例：後藤船長"></div>
+                        <div class="field"><label for="fishing-target">釣り物</label><input id="fishing-target" class="input" placeholder="例：マイカ"></div>
+                        <div class="field"><label for="meeting-time">集合時刻</label><input id="meeting-time" class="input" type="time"></div>
+                        <div class="field"><label for="capacity">定員</label><input id="capacity" class="input" type="number" min="1" placeholder="例：16"></div>
+                        <div class="field full"><label for="meeting-place">集合場所</label><input id="meeting-place" class="input" placeholder="例：豊漁丸乗船場"></div>
+                        <div class="field"><label for="price">料金</label><input id="price" class="input" type="number" min="0" placeholder="例：12000"></div>
+                        <div class="field"><label for="trip-status">受付状態</label><select id="trip-status" class="select"><option>受付中</option><option>満席</option><option>受付停止</option></select></div>
+                    </div><div class="form-actions"><button class="btn btn-primary" type="submit">登録する</button><a class="btn btn-secondary" href="adminTrip.html">戻る</a></div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+    <script src="js/admin.js"></script>
 </body>
 </html>
