@@ -1,30 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>予約詳細｜豊漁丸 管理画面</title>
-  <link rel="stylesheet" href="css/admin.css">
-  
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>予約詳細｜豊漁丸 管理画面</title>
+    <link href="css/admin.css" rel="stylesheet" />
 </head>
 <body>
     <header class="site-header">
         <div class="header-inner">
-            <a href="adminDashboard.html" class="brand">
-                <img src="images/豊漁丸_管理者ページ_ロゴ.png"
-                     alt="豊漁丸"
-                     class="brand-logo">
+            <a class="brand" href="adminDashboard.html">
+                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者ページ_ロゴ.png" />
             </a>
-
             <nav class="header-nav">
-                <a href="adminDashboard.html" class="is-active">ダッシュボード</a>
-                <a href="adminReservation.html">予約管理</a>
+                <a href="adminDashboard.html">ダッシュボード</a>
+                <a class="is-active" href="adminReservation.html">予約管理</a>
                 <a href="adminTrip.html">出船管理</a>
                 <a href="adminCustomer.html">顧客管理</a>
                 <a href="adminNotice.html">お知らせ</a>
                 <a href="adminSettings.html">システム設定</a>
             </nav>
-
             <button class="menu-toggle" type="button">
                 メニュー
             </button>
@@ -38,9 +34,250 @@
         </div>
     </section>
     <main class="page">
-        <div class="page-actions"><h2 class="section-title">予約者一覧</h2><div class="actions"><a class="btn btn-secondary" href="adminReservationDetailPrint.html">印刷画面</a><a class="btn btn-secondary" href="adminReservation.html">予約一覧へ戻る</a></div></div>
-        <div class="table-wrap desktop-table"><table><thead><tr><th>予約日</th><th>便</th><th>氏名</th><th>ふりがな</th><th>人数</th><th>貸し竿</th><th>電話番号</th><th>メール</th><th>操作</th></tr></thead><tbody><tr><td data-editable>2026/07/30</td><td data-editable>半夜便</td><td data-editable>田中 太郎</td><td data-editable>たなか たろう</td><td data-editable>2名</td><td data-editable>なし</td><td data-editable>090-1234-5678</td><td data-editable>tanaka@example.com</td><td><button class="btn btn-primary btn-sm" type="button" data-edit-row>修正</button></td></tr><tr><td data-editable>2026/07/30</td><td data-editable>半夜便</td><td data-editable>佐藤 花子</td><td data-editable>さとう はなこ</td><td data-editable>3名</td><td data-editable>2本</td><td data-editable>090-2345-6789</td><td data-editable>sato@example.com</td><td><button class="btn btn-primary btn-sm" type="button" data-edit-row>修正</button></td></tr><tr><td data-editable>2026/07/31</td><td data-editable>午前便</td><td data-editable>鈴木 一郎</td><td data-editable>すずき いちろう</td><td data-editable>1名</td><td data-editable>1本</td><td data-editable>090-3456-7890</td><td data-editable>suzuki@example.com</td><td><button class="btn btn-primary btn-sm" type="button" data-edit-row>修正</button></td></tr></tbody></table></div>
-        <div class="mobile-cards"><article class="card reservation-card"><div class="card-body"><div><div class="data-label">予約日</div><div class="data-value">2026/07/30</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">氏名</div><div class="data-value">田中 太郎</div></div><div><div class="data-label">人数</div><div class="data-value">2名</div></div><div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div></div></article><article class="card reservation-card"><div class="card-body"><div><div class="data-label">予約日</div><div class="data-value">2026/07/30</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">氏名</div><div class="data-value">佐藤 花子</div></div><div><div class="data-label">人数</div><div class="data-value">3名</div></div><div><div class="data-label">貸し竿</div><div class="data-value">2本</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-2345-6789</div></div></div></article><article class="card reservation-card"><div class="card-body"><div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div><div><div class="data-label">便</div><div class="data-value">午前便</div></div><div><div class="data-label">氏名</div><div class="data-value">鈴木 一郎</div></div><div><div class="data-label">人数</div><div class="data-value">1名</div></div><div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div></div></article></div>
+        <div class="page-actions"><h2 class="section-title">予約者一覧</h2><div class="actions"><a class="btn btn-secondary" href="adminReservation.html">予約一覧へ戻る</a></div></div>
+        <div class="table-wrap desktop-table">
+            <table>
+                <thead><tr><th>予約日</th><th>便</th><th>氏名</th><th>ふりがな</th><th>人数</th><th>貸し竿</th><th>電話番号</th><th>メール</th><th>操作</th></tr></thead>
+                <tbody>
+                    <tr><td data-editable="">2026/08/02</td><td data-editable="">半夜便</td><td data-editable="">田中 太郎</td><td data-editable="">たなか たろう</td><td data-editable="">2名</td><td data-editable="">なし</td><td data-editable="">090-1234-5678</td><td data-editable="">tanaka@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/08/02</td><td data-editable="">深夜便</td><td data-editable="">佐藤 花子</td><td data-editable="">さとう はなこ</td><td data-editable="">3名</td><td data-editable="">2本</td><td data-editable="">090-2345-6789</td><td data-editable="">sato@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/08/02</td><td data-editable="">半夜便</td><td data-editable="">鈴木 一郎</td><td data-editable="">すずき いちろう</td><td data-editable="">1名</td><td data-editable="">1本</td><td data-editable="">090-3456-7890</td><td data-editable="">suzuki@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/08/01</td><td data-editable="">深夜便</td><td data-editable="">高橋 美咲</td><td data-editable="">たかはし みさき</td><td data-editable="">1名</td><td data-editable="">なし</td><td data-editable="">090-4567-8901</td><td data-editable="">takahashi@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/08/01</td><td data-editable="">半夜便</td><td data-editable="">伊藤 健太</td><td data-editable="">いとう けんた</td><td data-editable="">1名</td><td data-editable="">1本</td><td data-editable="">090-5678-9012</td><td data-editable="">ito@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/08/01</td><td data-editable="">深夜便</td><td data-editable="">渡辺 直樹</td><td data-editable="">わたなべ なおき</td><td data-editable="">1名</td><td data-editable="">なし</td><td data-editable="">090-6789-0123</td><td data-editable="">watanabe@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">半夜便</td><td data-editable="">山本 拓海</td><td data-editable="">やまもと たくみ</td><td data-editable="">2名</td><td data-editable="">2本</td><td data-editable="">090-7890-1234</td><td data-editable="">yamamoto@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">深夜便</td><td data-editable="">中村 彩香</td><td data-editable="">なかむら あやか</td><td data-editable="">2名</td><td data-editable="">なし</td><td data-editable="">090-8901-2345</td><td data-editable="">nakamura@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">半夜便</td><td data-editable="">小林 大輔</td><td data-editable="">こばやし だいすけ</td><td data-editable="">1名</td><td data-editable="">1本</td><td data-editable="">090-9012-3456</td><td data-editable="">kobayashi@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">深夜便</td><td data-editable="">加藤 里奈</td><td data-editable="">かとう りな</td><td data-editable="">1名</td><td data-editable="">なし</td><td data-editable="">080-1234-5678</td><td data-editable="">kato@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">半夜便</td><td data-editable="">吉田 翔太</td><td data-editable="">よしだ しょうた</td><td data-editable="">1名</td><td data-editable="">1本</td><td data-editable="">080-2345-6789</td><td data-editable="">yoshida@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">深夜便</td><td data-editable="">山田 真由</td><td data-editable="">やまだ まゆ</td><td data-editable="">1名</td><td data-editable="">なし</td><td data-editable="">080-3456-7890</td><td data-editable="">yamada@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">半夜便</td><td data-editable="">松本 和也</td><td data-editable="">まつもと かずや</td><td data-editable="">1名</td><td data-editable="">1本</td><td data-editable="">080-4567-8901</td><td data-editable="">matsumoto@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/31</td><td data-editable="">深夜便</td><td data-editable="">井上 千尋</td><td data-editable="">いのうえ ちひろ</td><td data-editable="">1名</td><td data-editable="">なし</td><td data-editable="">080-5678-9012</td><td data-editable="">inoue@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/30</td><td data-editable="">半夜便</td><td data-editable="">木村 亮介</td><td data-editable="">きむら りょうすけ</td><td data-editable="">1名</td><td data-editable="">1本</td><td data-editable="">080-6789-0123</td><td data-editable="">kimura@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/30</td><td data-editable="">深夜便</td><td data-editable="">林 由佳</td><td data-editable="">はやし ゆか</td><td data-editable="">1名</td><td data-editable="">なし</td><td data-editable="">080-7890-1234</td><td data-editable="">hayashi@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/30</td><td data-editable="">半夜便</td><td data-editable="">清水 雄太</td><td data-editable="">しみず ゆうた</td><td data-editable="">1名</td><td data-editable="">1本</td><td data-editable="">080-8901-2345</td><td data-editable="">shimizu@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                    <tr><td data-editable="">2026/07/30</td><td data-editable="">深夜便</td><td data-editable="">斉藤 奈々</td><td data-editable="">さいとう なな</td><td data-editable="">1名</td><td data-editable="">なし</td><td data-editable="">080-9012-3456</td><td data-editable="">saito@example.com</td><td><button class="btn btn-primary btn-sm" data-edit-row="" type="button">修正</button></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mobile-cards">
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/08/02</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">田中 太郎</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">たなか たろう</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">tanaka@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/08/02</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">佐藤 花子</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">さとう はなこ</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">2本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-2345-6789</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">sato@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/08/02</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">鈴木 一郎</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">すずき いちろう</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">suzuki@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/08/01</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">高橋 美咲</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">たかはし みさき</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-4567-8901</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">takahashi@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/08/01</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">伊藤 健太</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">いとう けんた</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-5678-9012</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">ito@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/08/01</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">渡辺 直樹</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">わたなべ なおき</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-6789-0123</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">watanabe@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">山本 拓海</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">やまもと たくみ</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">2本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-7890-1234</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">yamamoto@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">中村 彩香</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">なかむら あやか</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-8901-2345</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">nakamura@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">小林 大輔</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">こばやし だいすけ</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-9012-3456</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">kobayashi@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">加藤 里奈</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">かとう りな</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-1234-5678</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">kato@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">吉田 翔太</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">よしだ しょうた</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-2345-6789</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">yoshida@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">山田 真由</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">やまだ まゆ</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-3456-7890</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">yamada@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">松本 和也</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">まつもと かずや</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-4567-8901</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">matsumoto@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/31</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">井上 千尋</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">いのうえ ちひろ</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-5678-9012</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">inoue@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/30</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">木村 亮介</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">きむら りょうすけ</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-6789-0123</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">kimura@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/30</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">林 由佳</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">はやし ゆか</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-7890-1234</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">hayashi@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/30</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">半夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">清水 雄太</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">しみず ゆうた</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-8901-2345</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">shimizu@example.com</div></div>
+                </div>
+            </article>
+            <article class="card reservation-card">
+                <div class="card-body">
+                    <div><div class="data-label">予約日</div><div class="data-value">2026/07/30</div></div>
+                    <div><div class="data-label">便</div><div class="data-value">深夜便</div></div>
+                    <div><div class="data-label">氏名</div><div class="data-value">斉藤 奈々</div></div>
+                    <div><div class="data-label">ふりがな</div><div class="data-value">さいとう なな</div></div>
+                    <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+                    <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">080-9012-3456</div></div>
+                    <div><div class="data-label">メール</div><div class="data-value">saito@example.com</div></div>
+                </div>
+            </article>
+        </div>
     </main>
     <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
     <script src="js/admin.js"></script>

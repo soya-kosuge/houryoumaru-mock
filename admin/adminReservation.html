@@ -1,30 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>予約管理｜豊漁丸 管理画面</title>
-  <link rel="stylesheet" href="css/admin.css">
-  
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>予約管理｜豊漁丸 管理画面</title>
+    <link href="css/admin.css" rel="stylesheet" />
 </head>
 <body>
     <header class="site-header">
         <div class="header-inner">
-            <a href="adminDashboard.html" class="brand">
-                <img src="images/豊漁丸_管理者ページ_ロゴ.png"
-                     alt="豊漁丸"
-                     class="brand-logo">
+            <a class="brand" href="adminDashboard.html">
+                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者ページ_ロゴ.png" />
             </a>
-
             <nav class="header-nav">
-                <a href="adminDashboard.html" class="is-active">ダッシュボード</a>
-                <a href="adminReservation.html">予約管理</a>
+                <a href="adminDashboard.html">ダッシュボード</a>
+                <a class="is-active" href="adminReservation.html">予約管理</a>
                 <a href="adminTrip.html">出船管理</a>
                 <a href="adminCustomer.html">顧客管理</a>
                 <a href="adminNotice.html">お知らせ</a>
                 <a href="adminSettings.html">システム設定</a>
             </nav>
-
             <button class="menu-toggle" type="button">
                 メニュー
             </button>
@@ -38,24 +34,42 @@
         </div>
     </section>
     <main class="page">
-        <div class="page-actions"><h2 class="section-title">予約一覧</h2><a class="btn btn-primary" href="adminReservationDetail.html">予約詳細を開く</a></div>
+        <div class="page-actions"><h2 class="section-title">予約一覧</h2><div class="actions"><a class="btn btn-primary" href="adminReservationDetail.html">予約詳細を開く</a><a class="btn btn-secondary" href="adminReservationDetailPrint.html" id="reservation-print-link">印刷</a></div></div>
         <div class="toolbar">
-            <div class="field"><label for="reservation-search">キーワード検索</label><input id="reservation-search" class="input" data-search-input="#reservation-table" placeholder="氏名・電話番号・便名"></div>
-            <div class="field"><label for="reservation-date">予約日</label><input id="reservation-date" class="input" type="date"></div>
-            <div class="field"><label for="reservation-status">状態</label><select id="reservation-status" class="select"><option>すべて</option><option>予約確定</option><option>確認待ち</option></select></div>
+            <div class="field"><label for="reservation-date">予約日</label><input class="input" id="reservation-date" type="date" /></div>
+            <div class="field"><label for="reservation-course">便</label><select class="input" id="reservation-course"><option value="">すべて</option><option value="半夜便">半夜便</option><option value="深夜便">深夜便</option></select></div>
+            <div class="field"><label for="customer-name">顧客名</label><input class="input" id="customer-name" placeholder="顧客名を入力" type="text" /></div>
+            <div class="field"><label for="reservation-guests">人数</label><input class="input" id="reservation-guests" min="1" placeholder="人数" type="number" /></div>
+            <div class="field"><label> </label><button class="btn btn-secondary" id="reservation-search-clear" type="button">条件をクリア</button></div>
         </div>
+        <p aria-live="polite" class="muted" id="reservation-result-count"></p>
         <div class="table-wrap">
             <table id="reservation-table">
-                <thead><tr><th>予約日</th><th>便</th><th>顧客名</th><th>人数</th><th>状態</th><th>操作</th></tr></thead>
+                <thead><tr><th>予約日</th><th>便</th><th>顧客名</th><th>人数</th></tr></thead>
                 <tbody>
-                    <tr data-search-row><td>2026/07/30</td><td>半夜便</td><td>田中 太郎</td><td>2名</td><td><span class="badge badge-green">予約確定</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
-                    <tr data-search-row><td>2026/07/31</td><td>午前便</td><td>佐藤 花子</td><td>3名</td><td><span class="badge badge-orange">確認待ち</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
-                    <tr data-search-row><td>2026/08/01</td><td>午後便</td><td>鈴木 一郎</td><td>1名</td><td><span class="badge badge-green">予約確定</span></td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html">詳細</a></td></tr>
+                    <tr data-search-row=""><td>2026/08/02</td><td>半夜便</td><td>田中 太郎</td><td>2名</td></tr>
+                    <tr data-search-row=""><td>2026/08/02</td><td>深夜便</td><td>佐藤 花子</td><td>3名</td></tr>
+                    <tr data-search-row=""><td>2026/08/02</td><td>半夜便</td><td>鈴木 一郎</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/08/01</td><td>深夜便</td><td>高橋 美咲</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/08/01</td><td>半夜便</td><td>伊藤 健太</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/08/01</td><td>深夜便</td><td>渡辺 直樹</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>半夜便</td><td>山本 拓海</td><td>2名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>深夜便</td><td>中村 彩香</td><td>2名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>半夜便</td><td>小林 大輔</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>深夜便</td><td>加藤 里奈</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>半夜便</td><td>吉田 翔太</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>深夜便</td><td>山田 真由</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>半夜便</td><td>松本 和也</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/31</td><td>深夜便</td><td>井上 千尋</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/30</td><td>半夜便</td><td>木村 亮介</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/30</td><td>深夜便</td><td>林 由佳</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/30</td><td>半夜便</td><td>清水 雄太</td><td>1名</td></tr>
+                    <tr data-search-row=""><td>2026/07/30</td><td>深夜便</td><td>斉藤 奈々</td><td>1名</td></tr>
                 </tbody>
             </table>
         </div>
     </main>
-    <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+    <footer class="footer">© 2026　豊漁</footer>
     <script src="js/admin.js"></script>
 </body>
 </html>

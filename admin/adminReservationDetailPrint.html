@@ -1,30 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>予約一覧（印刷用）｜豊漁丸 管理画面</title>
-  <link rel="stylesheet" href="css/admin.css">
-  
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>予約一覧（印刷用）｜豊漁丸 管理画面</title>
+    <link href="css/admin.css" rel="stylesheet" />
 </head>
 <body>
     <header class="site-header">
         <div class="header-inner">
-            <a href="adminDashboard.html" class="brand">
-                <img src="images/豊漁丸_管理者ページ_ロゴ.png"
-                     alt="豊漁丸"
-                     class="brand-logo">
+            <a class="brand" href="adminDashboard.html">
+                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者ページ_ロゴ.png" />
             </a>
-
             <nav class="header-nav">
-                <a href="adminDashboard.html" class="is-active">ダッシュボード</a>
-                <a href="adminReservation.html">予約管理</a>
+                <a href="adminDashboard.html">ダッシュボード</a>
+                <a class="is-active" href="adminReservation.html">予約管理</a>
                 <a href="adminTrip.html">出船管理</a>
                 <a href="adminCustomer.html">顧客管理</a>
                 <a href="adminNotice.html">お知らせ</a>
                 <a href="adminSettings.html">システム設定</a>
             </nav>
-
             <button class="menu-toggle" type="button">
                 メニュー
             </button>
@@ -38,17 +34,32 @@
         </div>
     </section>
     <main class="page">
-        <div class="page-actions no-print"><h2 class="section-title">印刷プレビュー</h2><div class="actions"><button class="btn btn-primary" type="button" onclick="window.print()">印刷実行</button><button class="btn btn-secondary" type="button" onclick="history.back()">戻る</button></div></div>
+        <div class="page-actions no-print"><h2 class="section-title">印刷プレビュー</h2><div class="actions"><button class="btn btn-primary" onclick="window.print()" type="button">印刷実行</button><button class="btn btn-secondary" onclick="history.back()" type="button">戻る</button></div></div><p aria-live="polite" class="muted no-print" id="print-filter-summary"></p>
         <div class="table-wrap">
-            <table>
+            <table id="print-reservation-table">
                 <thead><tr><th>予約日</th><th>便</th><th>顧客名</th><th>人数</th><th>貸し竿</th><th>電話番号</th></tr></thead>
                 <tbody>
-                    <tr><td>2026/07/30</td><td>半夜便</td><td>田中 太郎</td><td>2名</td><td>なし</td><td>090-1234-5678</td></tr>
-                    <tr><td>2026/07/30</td><td>半夜便</td><td>佐藤 花子</td><td>3名</td><td>2本</td><td>090-2345-6789</td></tr>
-                    <tr><td>2026/07/31</td><td>午前便</td><td>鈴木 一郎</td><td>1名</td><td>1本</td><td>090-3456-7890</td></tr>
+                    <tr data-print-row=""><td>2026/08/02</td><td>半夜便</td><td>田中 太郎</td><td>2名</td><td>なし</td><td>090-1234-5678</td></tr>
+                    <tr data-print-row=""><td>2026/08/02</td><td>深夜便</td><td>佐藤 花子</td><td>3名</td><td>2本</td><td>090-2345-6789</td></tr>
+                    <tr data-print-row=""><td>2026/08/02</td><td>半夜便</td><td>鈴木 一郎</td><td>1名</td><td>1本</td><td>090-3456-7890</td></tr>
+                    <tr data-print-row=""><td>2026/08/01</td><td>深夜便</td><td>高橋 美咲</td><td>1名</td><td>なし</td><td>090-4567-8901</td></tr>
+                    <tr data-print-row=""><td>2026/08/01</td><td>半夜便</td><td>伊藤 健太</td><td>1名</td><td>1本</td><td>090-5678-9012</td></tr>
+                    <tr data-print-row=""><td>2026/08/01</td><td>深夜便</td><td>渡辺 直樹</td><td>1名</td><td>なし</td><td>090-6789-0123</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>半夜便</td><td>山本 拓海</td><td>2名</td><td>2本</td><td>090-7890-1234</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>深夜便</td><td>中村 彩香</td><td>2名</td><td>なし</td><td>090-8901-2345</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>半夜便</td><td>小林 大輔</td><td>1名</td><td>1本</td><td>090-9012-3456</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>深夜便</td><td>加藤 里奈</td><td>1名</td><td>なし</td><td>080-1234-5678</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>半夜便</td><td>吉田 翔太</td><td>1名</td><td>1本</td><td>080-2345-6789</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>深夜便</td><td>山田 真由</td><td>1名</td><td>なし</td><td>080-3456-7890</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>半夜便</td><td>松本 和也</td><td>1名</td><td>1本</td><td>080-4567-8901</td></tr>
+                    <tr data-print-row=""><td>2026/07/31</td><td>深夜便</td><td>井上 千尋</td><td>1名</td><td>なし</td><td>080-5678-9012</td></tr>
+                    <tr data-print-row=""><td>2026/07/30</td><td>半夜便</td><td>木村 亮介</td><td>1名</td><td>1本</td><td>080-6789-0123</td></tr>
+                    <tr data-print-row=""><td>2026/07/30</td><td>深夜便</td><td>林 由佳</td><td>1名</td><td>なし</td><td>080-7890-1234</td></tr>
+                    <tr data-print-row=""><td>2026/07/30</td><td>半夜便</td><td>清水 雄太</td><td>1名</td><td>1本</td><td>080-8901-2345</td></tr>
+                    <tr data-print-row=""><td>2026/07/30</td><td>深夜便</td><td>斉藤 奈々</td><td>1名</td><td>なし</td><td>080-9012-3456</td></tr>
                 </tbody>
             </table>
-        </div>
+        </div><p class="notice" hidden="" id="print-empty-message">印刷対象の予約がありません。</p>
     </main>
     <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
     <script src="js/admin.js"></script>

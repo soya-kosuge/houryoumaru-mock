@@ -654,3 +654,151 @@ tbody tr:last-child td {
         min-width: 0;
     }
 }
+
+/*-- 予約詳細：編集時のレイアウト --*/
+.desktop-table table {
+    table-layout: fixed;
+    min-width: 1180px;
+}
+
+.desktop-table th,
+.desktop-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+    .desktop-table th:nth-child(1),
+    .desktop-table td:nth-child(1) {
+        width: 125px;
+    }
+
+    .desktop-table th:nth-child(2),
+    .desktop-table td:nth-child(2) {
+        width: 90px;
+    }
+
+    .desktop-table th:nth-child(3),
+    .desktop-table td:nth-child(3) {
+        width: 115px;
+    }
+
+    .desktop-table th:nth-child(4),
+    .desktop-table td:nth-child(4) {
+        width: 150px;
+    }
+
+    .desktop-table th:nth-child(5),
+    .desktop-table td:nth-child(5) {
+        width: 75px;
+    }
+
+    .desktop-table th:nth-child(6),
+    .desktop-table td:nth-child(6) {
+        width: 85px;
+    }
+
+    .desktop-table th:nth-child(7),
+    .desktop-table td:nth-child(7) {
+        width: 155px;
+    }
+
+    .desktop-table th:nth-child(8),
+    .desktop-table td:nth-child(8) {
+        width: 220px;
+    }
+
+    .desktop-table th:nth-child(9),
+    .desktop-table td:nth-child(9) {
+        width: 80px;
+        text-align: center;
+    }
+
+    .desktop-table td[data-editable] {
+        padding: 10px 8px;
+    }
+
+.desktop-table .table-edit-input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    padding: 7px 8px;
+    border: 1px solid #cfd8e5;
+    border-radius: 7px;
+    color: var(--text);
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.2;
+    outline: none;
+}
+
+    .desktop-table .table-edit-input:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(19, 104, 212, .12);
+    }
+
+.desktop-table [data-edit-row] {
+    min-width: 58px;
+    padding: 6px 10px;
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+.desktop-table tr.is-editing {
+    background: #f4f9ff;
+}
+
+    .desktop-table tr.is-editing td {
+        overflow: visible;
+    }
+
+/*-- 左下の保存通知 --*/
+.save-toast {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 1000;
+    min-width: 220px;
+    max-width: calc(100% - 48px);
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: #fff;
+    background: var(--success);
+    box-shadow: 0 10px 28px rgba(11, 39, 72, .25);
+    font-size: 14px;
+    font-weight: 800;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+}
+
+    .save-toast.is-show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .save-toast::before {
+        content: "✓";
+        display: inline-grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        margin-right: 9px;
+        border-radius: 50%;
+        color: var(--success);
+        background: #fff;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+@media (max-width: 720px) {
+    .save-toast {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        max-width: none;
+    }
+}
