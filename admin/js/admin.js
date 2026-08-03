@@ -229,6 +229,86 @@ document.addEventListener("DOMContentLoaded", () => {
         searchReservations();
     }
 
+    // -----------------------------
+    // 予約一覧（印刷用）の絞り込み
+    // 一覧画面からURLクエリで渡された検索条件を
+    // 印刷画面の表にもそのまま適用する
+    // -----------------------------
+    const printReservationTable =
+        document.querySelector("#print-reservation-table");
+
+    const printFilterSummary =
+        document.querySelector("#print-filter-summary");
+
+    const printEmptyMessage =
+        document.querySelector("#print-empty-message");
+
+    if (printReservationTable) {
+        const params = new URLSearchParams(window.location.search);
+
+        const selectedDate = normalizeDate(params.get("date") || "");
+        const selectedCourse = params.get("course") || "";
+        const enteredName = normalizeName(params.get("name") || "");
+        const enteredGuests = (params.get("guests") || "").trim();
+
+        const printRows = Array.from(
+            printReservationTable.querySelectorAll("tbody tr[data-print-row]")
+        );
+
+        let visibleCount = 0;
+
+        printRows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+
+            if (cells.length < 4) {
+                return;
+            }
+
+            const rowDate = cells[0].textContent.trim();
+            const rowCourse = cells[1].textContent.trim();
+            const rowName = normalizeName(cells[2].textContent);
+            const rowGuests = cells[3].textContent.replace(/\D/g, "");
+
+            const matchesDate =
+                selectedDate === "" || rowDate === selectedDate;
+            const matchesCourse =
+                selectedCourse === "" || rowCourse === selectedCourse;
+            const matchesName =
+                enteredName === "" || rowName.includes(enteredName);
+            const matchesGuests =
+                enteredGuests === "" || rowGuests === enteredGuests;
+
+            const matches =
+                matchesDate &&
+                matchesCourse &&
+                matchesName &&
+                matchesGuests;
+
+            row.hidden = !matches;
+
+            if (matches) {
+                visibleCount++;
+            }
+        });
+
+        if (printFilterSummary) {
+            const conditions = [];
+
+            if (selectedDate) conditions.push(`予約日：${selectedDate}`);
+            if (selectedCourse) conditions.push(`便：${selectedCourse}`);
+            if (params.get("name")) conditions.push(`顧客名：${params.get("name")}`);
+            if (enteredGuests) conditions.push(`人数：${enteredGuests}名`);
+
+            printFilterSummary.textContent = conditions.length
+                ? `絞り込み条件：${conditions.join(" / ")}（${visibleCount}件）`
+                : `全${visibleCount}件を印刷対象として表示しています`;
+        }
+
+        if (printEmptyMessage) {
+            printEmptyMessage.hidden = visibleCount !== 0;
+        }
+    }
+
 // -----------------------------
 // 出船一覧の検索
 // -----------------------------

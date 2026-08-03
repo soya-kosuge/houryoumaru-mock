@@ -10,7 +10,7 @@
     --text: #162337;
     --muted: #66758a;
     --line: #dfe6ef;
-    --success: #16835f;
+    --success: #4059ff;
     --warning: #b46a00;
     --danger: #c53d4b;
     --shadow: 0 10px 28px rgba(20, 53, 91, .08);
@@ -800,5 +800,189 @@ tbody tr:last-child td {
         right: 12px;
         bottom: 12px;
         max-width: none;
+    }
+}
+
+
+/*-- 新規出船登録 --*/
+.trip-add-page {
+    max-width: 1040px;
+}
+
+.trip-add-hero-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.trip-add-back {
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .10);
+    color: #fff;
+    backdrop-filter: blur(4px);
+}
+
+    .trip-add-back:hover {
+        background: rgba(255, 255, 255, .17);
+    }
+
+.trip-add-form {
+    display: grid;
+    gap: 20px;
+}
+
+.trip-form-section {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.trip-form-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    background: linear-gradient(180deg, #fbfdff, #f7faff);
+    border-bottom: 1px solid var(--line);
+}
+
+    .trip-form-heading h2 {
+        margin: 0;
+        color: var(--navy);
+        font-size: 18px;
+        line-height: 1.3;
+    }
+
+    .trip-form-heading p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+.trip-form-icon {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    color: #fff;
+    background: var(--blue);
+    font-size: 14px;
+    font-weight: 900;
+    box-shadow: 0 6px 14px rgba(19, 104, 212, .18);
+}
+
+.trip-form-body {
+    padding: 22px;
+}
+
+    .trip-form-body .field label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+
+.required-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 20px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    color: #b12f3c;
+    background: #ffe8eb;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.input-with-unit {
+    position: relative;
+}
+
+    .input-with-unit .input {
+        padding-right: 48px;
+    }
+
+    .input-with-unit span {
+        position: absolute;
+        top: 50%;
+        right: 14px;
+        transform: translateY(-50%);
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        pointer-events: none;
+    }
+
+.field-help {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.trip-form-footer {
+    position: sticky;
+    bottom: 14px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px 18px;
+    border: 1px solid #d6e0ec;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 10px 30px rgba(11, 39, 72, .12);
+    backdrop-filter: blur(8px);
+}
+
+.trip-form-footer-note {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.trip-form-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.trip-submit-btn {
+    min-width: 190px;
+}
+
+@media (max-width: 720px) {
+    .trip-add-hero-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .trip-add-back {
+        align-self: flex-start;
+    }
+
+    .trip-form-heading,
+    .trip-form-body {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .trip-form-footer {
+        position: static;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .trip-form-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .trip-submit-btn {
+        min-width: 0;
     }
 }
