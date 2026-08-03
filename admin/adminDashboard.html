@@ -1,54 +1,162 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ダッシュボード｜豊漁丸 管理画面</title>
-  <link rel="stylesheet" href="css/admin.css">
-  
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="adminDashboard.html" class="brand">
-                <img src="images/豊漁丸_管理者ページ_ロゴ.png"
-                     alt="豊漁丸"
-                     class="brand-logo">
-            </a>
-
-            <nav class="header-nav">
-                <a href="#" class="is-active">ダッシュボード</a>
-                <a href="adminReservation.html">予約管理</a>
-                <a href="adminTrip.html">出船管理</a>
-                <a href="adminCustomer.html">顧客管理</a>
-                <a href="adminNotice.html">お知らせ</a>
-                <a href="adminSettings.html">システム設定</a>
-            </nav>
-
-            <button class="menu-toggle" type="button">
-                メニュー
-            </button>
-        </div>
-    </header>
-<section class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">HORYOMARU ADMIN</p>
-    <h1>ダッシュボード</h1>
-    <p>本日の予約状況や、よく使う管理機能をまとめて確認できます。</p>
-  </div>
-</section>
-<main class="page">
-<section class="grid grid-4">
-  <article class="card stat-card"><div class="card-body"><div class="stat-label">本日の予約</div><div class="stat-value">8件</div><div class="stat-note">参加予定 12名</div></div></article>
-  <article class="card stat-card"><div class="card-body"><div class="stat-label">今月の予約</div><div class="stat-value">124件</div><div class="stat-note">前月比 +10件</div></div></article>
-  <article class="card stat-card"><div class="card-body"><div class="stat-label">登録顧客</div><div class="stat-value">356名</div><div class="stat-note">今月の新規 18名</div></div></article>
-  <article class="card stat-card"><div class="card-body"><div class="stat-label">未対応</div><div class="stat-value">1件</div><div class="stat-note">確認が必要です</div></div></article>
-</section>
-<section class="grid grid-2" style="margin-top:26px">
-  <article class="card"><div class="card-body"><h2 class="sub-title">本日(07/31)の出船</h2><div class="kpi-list"><div class="kpi-row"><span>半夜便</span><strong>18:00 出船</strong></div><div class="kpi-row"><span>予約人数</span><strong>12 / 16名</strong></div><div class="kpi-row"><span>担当</span><strong>山田船長</strong></div></div></div></article>
-  <article class="card"><div class="card-body"><h2 class="sub-title">対応メモ</h2><div class="notice">未対応の予約変更が1件あります。予約管理から確認してください。</div></div></article>
-</section></main>
-<footer class="footer">© 2026 豊漁丸</footer>
-<script src="js/admin.js"></script>
-</body>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   ダッシュボード｜豊漁丸 管理画面
+  </title>
+  <link href="css/admin.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="site-header">
+   <div class="header-inner">
+    <a class="brand" href="adminDashboard.html">
+     <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者ページ_ロゴ.png"/>
+    </a>
+    <nav class="header-nav">
+     <a class="is-active" href="adminDashboard.html">
+      ダッシュボード
+     </a>
+     <a href="adminReservation.html">
+      予約管理
+     </a>
+     <a href="adminTrip.html">
+      出船管理
+     </a>
+     <a href="adminCustomer.html">
+      顧客管理
+     </a>
+     <a href="adminNotice.html">
+      お知らせ
+     </a>
+     <a href="adminSettings.html">
+      システム設定
+     </a>
+    </nav>
+    <button aria-label="メニューを開く" class="menu-toggle" type="button">
+     メニュー
+    </button>
+   </div>
+  </header>
+  <section class="hero">
+   <div class="hero-inner">
+    <p class="eyebrow">
+     HORYOMARU ADMIN
+    </p>
+    <h1>
+     ダッシュボード
+    </h1>
+    <p>
+     本日の予約状況や、よく使う管理機能をまとめて確認できます。
+    </p>
+   </div>
+  </section>
+  <main class="page">
+   <section class="grid grid-4">
+    <article class="card stat-card">
+     <div class="card-body">
+      <div class="stat-label">
+       本日の予約
+      </div>
+      <div class="stat-value">
+       8件
+      </div>
+      <div class="stat-note">
+       参加予定 12名
+      </div>
+     </div>
+    </article>
+    <article class="card stat-card">
+     <div class="card-body">
+      <div class="stat-label">
+       今月の予約
+      </div>
+      <div class="stat-value">
+       124件
+      </div>
+      <div class="stat-note">
+       前月比 +10件
+      </div>
+     </div>
+    </article>
+    <article class="card stat-card">
+     <div class="card-body">
+      <div class="stat-label">
+       登録顧客
+      </div>
+      <div class="stat-value">
+       356名
+      </div>
+      <div class="stat-note">
+       今月の新規 18名
+      </div>
+     </div>
+    </article>
+    <article class="card stat-card">
+     <div class="card-body">
+      <div class="stat-label">
+       未対応
+      </div>
+      <div class="stat-value">
+       1件
+      </div>
+      <div class="stat-note">
+       確認が必要です
+      </div>
+     </div>
+    </article>
+   </section>
+   <section class="grid grid-2 mt-26">
+    <article class="card">
+     <div class="card-body">
+      <h2 class="sub-title">
+       本日(07/31)の出船
+      </h2>
+      <div class="kpi-list">
+       <div class="kpi-row">
+        <span>
+         半夜便
+        </span>
+        <strong>
+         18:00 出船
+        </strong>
+       </div>
+       <div class="kpi-row">
+        <span>
+         予約人数
+        </span>
+        <strong>
+         12 / 16名
+        </strong>
+       </div>
+       <div class="kpi-row">
+        <span>
+         担当
+        </span>
+        <strong>
+         山田船長
+        </strong>
+       </div>
+      </div>
+     </div>
+    </article>
+    <article class="card">
+     <div class="card-body">
+      <h2 class="sub-title">
+       対応メモ
+      </h2>
+      <div class="notice">
+       未対応の予約変更が1件あります。予約管理から確認してください。
+      </div>
+     </div>
+    </article>
+   </section>
+  </main>
+  <footer class="footer">
+   © 2026 豊漁丸
+  </footer>
+  <script src="js/admin.js">
+  </script>
+ </body>
 </html>

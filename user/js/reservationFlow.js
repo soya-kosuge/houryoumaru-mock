@@ -6,10 +6,55 @@
   const redirectSchedule=()=>location.href='shipScheduleList.html';
 
   if ($('#first-login-form')) {
-    const profile=getProfile();
-    if(profile){ $('#first-login-area').hidden=true; $('#line-login-area').hidden=false; $('#login-title').textContent='LINEログイン'; $('#login-lead').textContent='2回目以降はLINEログインだけで進めます。'; }
-    $('#first-login-form')?.addEventListener('submit',e=>{e.preventDefault(); const f=new FormData(e.currentTarget); localStorage.setItem(PROFILE_KEY,JSON.stringify({name:f.get('name'),email:f.get('email')})); redirectSchedule();});
-    $('#line-login-button')?.addEventListener('click',()=>{ $('#line-login-button').disabled=true; $('#loading-message').hidden=false; setTimeout(redirectSchedule,900); });
+    const mode = params.get('mode') === 'line' ? 'line' : 'first';
+    const firstLoginArea = $('#first-login-area');
+    const lineLoginArea = $('#line-login-area');
+    const loginTitle = $('#login-title');
+    const loginLead = $('#login-lead');
+
+    if (mode === 'line') {
+      firstLoginArea.hidden = true;
+      lineLoginArea.hidden = false;
+      loginTitle.textContent = 'LINEログイン';
+      loginLead.textContent = '2回目以降はLINEログインだけで出船予定へ進みます。';
+    } else {
+      firstLoginArea.hidden = false;
+      lineLoginArea.hidden = true;
+      loginTitle.textContent = '初回ログイン';
+      loginLead.textContent = '初回のみ、名前・メールアドレス・パスワードを入力してください。';
+    }
+
+    $('#first-login-form')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const form = new FormData(event.currentTarget);
+      localStorage.setItem(PROFILE_KEY, JSON.stringify({
+        name: form.get('name'),
+        email: form.get('email')
+      }));
+
+      redirectSchedule();
+    });
+
+    $('#line-login-button')?.addEventListener('click', () => {
+      const button = $('#line-login-button');
+      const loading = $('#loading-message');
+
+      button.disabled = true;
+      $('#line-login-actions').hidden = true;
+      loading.hidden = false;
+
+      // 2回目ログインだけを単体確認した場合でも、
+      // 予約フローを続けられるようMOCK用プロフィールを用意する。
+      if (!getProfile()) {
+        localStorage.setItem(PROFILE_KEY, JSON.stringify({
+          name: 'LINEユーザー',
+          email: 'line-user@example.com'
+        }));
+      }
+
+      window.setTimeout(redirectSchedule, 1200);
+    });
   }
 
   if ($('#reservation-form')) {

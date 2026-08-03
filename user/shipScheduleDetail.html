@@ -134,7 +134,7 @@ if (trip.status === 'full') {
 } else {
   const next = new URLSearchParams(params);
   next.set('detail', 'shipScheduleDetail.html');
-  actions.innerHTML = `<a class="reserve-button" href="signin.html?${next.toString()}">この便を予約する</a>`;
+  actions.innerHTML = `<a class="reserve-button" href="signin.html?mode=first&${next.toString()}">この便を予約する</a>`;
 }
 </script>
 </body>

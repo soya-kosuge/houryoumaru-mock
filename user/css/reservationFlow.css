@@ -551,3 +551,156 @@ textarea {
         font-size: 9px;
     }
 }
+
+/* =========================================================
+   MOCKログイン切り替え
+   ========================================================= */
+.login-main {
+    max-width: 680px;
+}
+
+.mock-switch-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 20px 20px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+}
+
+.mock-switch-link {
+    color: var(--blue);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.mock-switch-link:hover {
+    text-decoration: underline;
+}
+
+.line-account-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 24px 20px 14px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+.line-account-avatar {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(135deg, #176b8f, #0f2f45);
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.line-account-info {
+    min-width: 0;
+}
+
+.line-account-name,
+.line-account-id {
+    margin: 0;
+}
+
+.line-account-name {
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.line-account-id {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.line-login-copy {
+    padding: 0 20px 18px;
+    text-align: center;
+}
+
+.line-login-copy p {
+    margin: 0;
+}
+
+.line-login-note {
+    margin-top: 5px !important;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.line-login-actions {
+    padding: 0 20px 22px;
+}
+
+.line-button {
+    width: 100%;
+    gap: 10px;
+    border: 0;
+}
+
+.line-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.line-mark {
+    display: inline-grid;
+    place-items: center;
+    min-width: 38px;
+    height: 24px;
+    padding: 0 5px;
+    color: #06c755;
+    background: #fff;
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.mock-loading {
+    min-height: 130px;
+    padding: 28px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--navy);
+    text-align: center;
+}
+
+.mock-loading[hidden] {
+    display: none;
+}
+
+.mock-loading > span:last-child {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.mock-spinner {
+    width: 34px;
+    height: 34px;
+    border: 4px solid #dce9ee;
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: mock-spin 0.75s linear infinite;
+}
+
+@keyframes mock-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

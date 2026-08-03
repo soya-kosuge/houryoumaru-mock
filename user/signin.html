@@ -1,20 +1,120 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>豊漁丸｜ログイン</title><link rel="stylesheet" href="css/shipScheduleList.css"><link rel="stylesheet" href="css/reservationFlow.css"><script src="js/reservationFlow.js" defer></script></head><body>
-<header class="site-header"><div class="header-inner"><a class="brand" href="shipScheduleList.html"><img class="logo" src="images/豊漁丸_ユーザーページ_ロゴ.png" alt="豊漁丸 予約システム" onerror="this.hidden=true"></a></div></header>
-<main class="flow-main"><section class="hero flow-hero"><span class="eyebrow">LINE MEMBER</span><h1 id="login-title">初回登録</h1><p class="lead" id="login-lead">初回のみ基本情報を登録してください。次回からはLINEログインだけで進めます。</p></section>
-<section class="flow-card login-card"><div id="first-login-area"><div class="flow-card-heading"><h2>初回登録情報</h2></div><form class="flow-form" id="first-login-form"><div class="form-group"><label for="name">名前 <span class="required">必須</span></label><input id="name" name="name" type="text" autocomplete="name" required></div><div class="form-group"><label for="email">メールアドレス <span class="required">必須</span></label><input id="email" name="email" type="email" autocomplete="email" required></div><div class="form-group"><label for="password">パスワード <span class="required">必須</span></label><input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required></div><button class="primary-button" type="submit">登録して出船予定へ</button></form></div>
-<div id="line-login-area" hidden><div class="flow-card-heading"><h2>LINEログイン</h2></div><p class="lead">登録済みのため、LINEログインだけで出船予定を表示します。</p><button class="line-button" id="line-login-button" type="button">LINEでログイン</button><p id="loading-message" hidden>ログイン中です…</p></div></section></main><footer>© 2026 豊漁丸 予約システム</footer><script>
-// HTML単体でも出船予定一覧へ遷移できるフォールバック
-const firstLoginForm = document.getElementById('first-login-form');
-if (firstLoginForm) {
-  firstLoginForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    location.href = 'shipScheduleList.html';
-  });
-}
-const lineLoginButton = document.getElementById('line-login-button');
-if (lineLoginButton) {
-  lineLoginButton.addEventListener('click', () => {
-    location.href = 'shipScheduleList.html';
-  });
-}
-</script></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豊漁丸｜ログイン</title>
+    <link rel="stylesheet" href="css/shipScheduleList.css">
+    <link rel="stylesheet" href="css/reservationFlow.css">
+    <script src="js/reservationFlow.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="shipScheduleList.html">
+                <img
+                    class="logo"
+                    src="images/豊漁丸_ユーザーページ_ロゴ.png"
+                    alt="豊漁丸 予約システム"
+                    onerror="this.hidden = true"
+                >
+            </a>
+        </div>
+    </header>
+
+    <main class="flow-main login-main">
+        <section class="hero flow-hero">
+            <span class="eyebrow">MEMBER LOGIN</span>
+            <h1 id="login-title">初回ログイン</h1>
+            <p class="lead" id="login-lead">
+                初回のみ、お客様情報を登録してください。
+            </p>
+        </section>
+
+        <section class="flow-card login-card">
+            <div id="first-login-area">
+                <div class="flow-card-heading">
+                    <h2>初回ログイン</h2>
+                </div>
+
+                <form class="flow-form" id="first-login-form">
+                    <div class="form-group">
+                        <label for="name">名前 <span class="required">必須</span></label>
+                        <input id="name" name="name" type="text" autocomplete="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">メールアドレス <span class="required">必須</span></label>
+                        <input id="email" name="email" type="email" autocomplete="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">パスワード <span class="required">必須</span></label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+                        <p class="form-note">8文字以上で入力してください。MOCKのためパスワードは保存しません。</p>
+                    </div>
+
+                    <button class="primary-button" type="submit">
+                        ログインして出船予定を見る
+                    </button>
+                </form>
+
+                <div class="mock-switch-area">
+                    <span>登録済みの場合</span>
+                    <a class="mock-switch-link" href="signin.html?mode=line">
+                        2回目以降のログインはこちら
+                    </a>
+                </div>
+            </div>
+
+            <div id="line-login-area" hidden>
+                <div class="flow-card-heading">
+                    <h2>LINEログイン</h2>
+                </div>
+
+                <div class="line-account-card">
+                    <div class="line-account-avatar" aria-hidden="true">豊</div>
+                    <div class="line-account-info">
+                        <p class="line-account-name">【公式】豊漁丸（テスト）</p>
+                        <p class="line-account-id">@216yxicl</p>
+                    </div>
+                </div>
+
+                <div class="line-login-copy">
+                    <p>LINEアカウントでログインします。</p>
+                    <p class="line-login-note">MOCKのため、LINE認証画面を再現した表示です。</p>
+                </div>
+
+                <div class="line-login-actions" id="line-login-actions">
+                    <button class="line-button" id="line-login-button" type="button">
+                        <span class="line-mark" aria-hidden="true">LINE</span>
+                        LINEでログイン
+                    </button>
+                </div>
+
+                <div class="mock-loading" id="loading-message" hidden aria-live="polite">
+                    <span class="mock-spinner" aria-hidden="true"></span>
+                    <strong>ログイン中です…</strong>
+                    <span>出船予定を読み込んでいます</span>
+                </div>
+
+                <div class="mock-switch-area">
+                    <span>初めて利用する場合</span>
+                    <a class="mock-switch-link" href="signin.html?mode=first">
+                        初回ログイン画面はこちら
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2026 豊漁丸 予約システム</footer>
+</body>
+</html>
