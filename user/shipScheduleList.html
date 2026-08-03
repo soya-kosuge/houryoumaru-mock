@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,12 @@
 
     <link rel="stylesheet" href="css/shipScheduleList.css?v=2">
 
-
+    <script>
+        // MOCK: 出船情報を見る前に、その回のログインを必須にする。
+        if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
+            location.replace('signin.html');
+        }
+    </script>
 </head>
 
 <body>

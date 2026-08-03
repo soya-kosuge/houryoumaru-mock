@@ -10,6 +10,11 @@
 </head>
 
 <body>
+<script>
+if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
+  location.replace('signin.html');
+}
+</script>
     <header class="site-header">
         <div class="header-inner">
             <a class="brand"
@@ -133,8 +138,13 @@ if (trip.status === 'full') {
   actions.innerHTML = '<button class="reserve-button disabled" type="button" disabled>満員のため予約できません</button>';
 } else {
   const next = new URLSearchParams(params);
-  next.set('detail', 'shipScheduleDetail.html');
-  actions.innerHTML = `<a class="reserve-button" href="signin.html?mode=first&${next.toString()}">この便を予約する</a>`;
+  next.set('detail', `shipScheduleDetail.html?${params.toString()}`);
+
+  // ログインは出船情報画面の前で完了済みなので、
+  // 予約時にはログイン画面を挟まず予約入力へ進む。
+  const destination = `reservation.html?${next.toString()}`;
+
+  actions.innerHTML = `<a class="reserve-button" href="${destination}">この便を予約する</a>`;
 }
 </script>
 </body>
