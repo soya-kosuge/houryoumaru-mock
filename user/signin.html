@@ -7,17 +7,44 @@
     <link rel="stylesheet" href="css/shipScheduleList.css">
     <link rel="stylesheet" href="css/reservationFlow.css">
     <script src="js/reservationFlow.js" defer></script>
+
+    <style>
+        .password-field {
+            position: relative;
+        }
+
+            .password-field input {
+                padding-right: 64px;
+            }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            padding: 4px 8px;
+            border: 0;
+            background: transparent;
+            color: var(--blue, #176b8f);
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+            .password-toggle:hover {
+                text-decoration: underline;
+            }
+    </style>
 </head>
 <body>
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="shipScheduleList.html">
-                <img
-                    class="logo"
-                    src="images/豊漁丸_ユーザーページ_ロゴ.png"
-                    alt="豊漁丸 予約システム"
-                    onerror="this.hidden = true"
-                >
+                <img class="logo"
+                     src="images/豊漁丸_ユーザーページ_ロゴ.png"
+                     alt="豊漁丸 予約システム"
+                     onerror="this.hidden = true">
             </a>
         </div>
     </header>
@@ -39,8 +66,8 @@
 
                 <form class="flow-form" id="first-login-form">
                     <div class="form-group">
-                        <label for="name">名前 <span class="required">必須</span></label>
-                        <input id="name" name="name" type="text" autocomplete="name">
+                        <label for="name">名前（ひらがな） <span class="required">必須</span></label>
+                        <input id="name" name="name" type="text" autocomplete="name" inputmode="kana" placeholder="例：やまだ たろう">
                     </div>
 
                     <div class="form-group">
@@ -49,13 +76,30 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="tel">電話番号 <span class="required">必須</span></label>
+                        <input id="tel"
+                               name="tel"
+                               type="tel"
+                               autocomplete="tel"
+                               inputmode="tel"
+                               placeholder="例：090-1234-5678">
+                    </div>
+
+                    <div class="form-group">
                         <label for="password">パスワード <span class="required">必須</span></label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            autocomplete="new-password"
-                        >
+                        <div class="password-field">
+                            <input id="password"
+                                   name="password"
+                                   type="password"
+                                   autocomplete="new-password">
+                            <button class="password-toggle"
+                                    id="password-toggle"
+                                    type="button"
+                                    aria-controls="password"
+                                    aria-pressed="false">
+                                表示
+                            </button>
+                        </div>
                         <p class="form-note">8文字以上で入力してください。MOCKのためパスワードは保存しません。</p>
                     </div>
 
@@ -114,5 +158,44 @@
     </main>
 
     <footer>© 2026 豊漁丸 予約システム</footer>
+
+    <script>
+        const nameInput = document.getElementById('name');
+        const firstLoginForm = document.getElementById('first-login-form');
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('password-toggle');
+        const telInput = document.getElementById('tel');
+
+        if (passwordInput && passwordToggle) {
+        passwordToggle.addEventListener('click', () => {
+        const isVisible = passwordInput.type === 'text';
+        passwordInput.type = isVisible ? 'password' : 'text';
+        passwordToggle.textContent = isVisible ? '表示' : '非表示';
+        passwordToggle.setAttribute('aria-pressed', String(!isVisible));
+        });
+        }
+
+        if (firstLoginForm && nameInput) {
+        firstLoginForm.addEventListener('submit', (event) => {
+        const value = nameInput.value.trim();
+        const telValue = telInput ? telInput.value.trim() : '';
+
+        // MOCKでは空欄ログインを許可するが、入力された場合はひらがなのみ許可する
+        if (value && !/^[ぁ-ゖー\s]+$/.test(value)) {
+        event.preventDefault();
+        alert('名前はひらがなで入力してください。');
+        nameInput.focus();
+        return;
+        }
+
+        // 電話番号は数字とハイフンのみ許可する
+        if (telValue && !/^[0-9-]+$/.test(telValue)) {
+        event.preventDefault();
+        alert('電話番号は数字とハイフンで入力してください。');
+        telInput.focus();
+        }
+        });
+        }
+    </script>
 </body>
 </html>
