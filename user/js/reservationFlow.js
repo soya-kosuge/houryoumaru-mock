@@ -20,6 +20,7 @@
 
     const isRegistered = () => localStorage.getItem(REGISTERED_KEY) === 'true';
     const isSessionLoggedIn = () => sessionStorage.getItem(SESSION_LOGIN_KEY) === 'true';
+
     const getTrip = () => {
         try {
             return JSON.parse(sessionStorage.getItem(TRIP_KEY) || 'null');
@@ -57,17 +58,20 @@
             firstLoginArea.hidden = false;
             lineLoginArea.hidden = true;
             loginTitle.textContent = '初回ログイン';
-            loginLead.textContent = '初回のみ、名前・メールアドレス・パスワードを入力してください。';
+            loginLead.textContent = '初回のみ、名前・メールアドレス・電話番号・パスワードを入力してください。';
         }
 
         $('#first-login-form').addEventListener('submit', (event) => {
             event.preventDefault();
 
             const form = new FormData(event.currentTarget);
+
             localStorage.setItem(PROFILE_KEY, JSON.stringify({
                 name: form.get('name') || '',
-                email: form.get('email') || ''
+                email: form.get('email') || '',
+                phone: form.get('tel') || ''
             }));
+
             localStorage.setItem(REGISTERED_KEY, 'true');
             sessionStorage.setItem(SESSION_LOGIN_KEY, 'true');
 
@@ -87,7 +91,8 @@
             if (!getProfile()) {
                 localStorage.setItem(PROFILE_KEY, JSON.stringify({
                     name: 'LINEユーザー',
-                    email: 'line-user@example.com'
+                    email: 'line-user@example.com',
+                    phone: '090-1234-5678'
                 }));
             }
 
@@ -107,9 +112,15 @@
             return;
         }
 
-        const profile = getProfile() || { name: '', email: '' };
+        const profile = getProfile() || {
+            name: '',
+            email: '',
+            phone: ''
+        };
+
         $('#profile-name').textContent = profile.name || '－';
         $('#profile-email').textContent = profile.email || '－';
+        $('#profile-phone').textContent = profile.phone || '－';
 
         const trip = getTrip() || {
             date: params.get('date') || '2026年7月28日（火）',
@@ -121,6 +132,7 @@
         };
 
         sessionStorage.setItem(TRIP_KEY, JSON.stringify(trip));
+
         $('#trip-title').textContent = `${trip.date} ${trip.name}`;
         $('#trip-time').textContent = trip.time;
         $('#trip-target').textContent = trip.target;
@@ -131,14 +143,22 @@
         const rentalRod = $('#rental-rod');
 
         for (let i = 1; i <= 25; i += 1) {
-            participants.insertAdjacentHTML('beforeend', `<option value="${i}">${i}名</option>`);
+            participants.insertAdjacentHTML(
+                'beforeend',
+                `<option value="${i}">${i}名</option>`
+            );
         }
+
         for (let i = 0; i <= 25; i += 1) {
-            rentalRod.insertAdjacentHTML('beforeend', `<option value="${i}">${i === 0 ? 'なし' : `${i}本`}</option>`);
+            rentalRod.insertAdjacentHTML(
+                'beforeend',
+                `<option value="${i}">${i === 0 ? 'なし' : `${i}本`}</option>`
+            );
         }
 
         $('#reservation-form').addEventListener('submit', (event) => {
             event.preventDefault();
+
             const form = new FormData(event.currentTarget);
 
             sessionStorage.setItem(RESERVATION_KEY, JSON.stringify({
@@ -160,12 +180,19 @@
             return;
         }
 
-        const profile = getProfile() || { name: '', email: '' };
+        const profile = getProfile() || {
+            name: '',
+            email: '',
+            phone: ''
+        };
+
         const trip = getTrip();
         let reservation = null;
 
         try {
-            reservation = JSON.parse(sessionStorage.getItem(RESERVATION_KEY) || 'null');
+            reservation = JSON.parse(
+                sessionStorage.getItem(RESERVATION_KEY) || 'null'
+            );
         } catch {
             reservation = null;
         }
@@ -183,13 +210,23 @@
             ['料金', trip.price],
             ['名前', profile.name || '－'],
             ['メールアドレス', profile.email || '－'],
+            ['電話番号', profile.phone || '－'],
             ['参加人数', `${reservation.participants}名`],
-            ['貸し竿', reservation.rentalRod === '0' ? 'なし' : `${reservation.rentalRod}本`],
+            ['貸し竿', reservation.rentalRod === '0'
+                ? 'なし'
+                : `${reservation.rentalRod}本`
+            ],
             ['備考', reservation.remarks]
         ];
 
         $('#confirmation-list').innerHTML = rows
-            .map(([key, value]) => `<div class="confirmation-item"><dt>${key}</dt><dd>${value}</dd></div>`)
+            .map(
+                ([key, value]) =>
+                    `<div class="confirmation-item">
+                        <dt>${key}</dt>
+                        <dd>${value}</dd>
+                    </div>`
+            )
             .join('');
     }
 })();
