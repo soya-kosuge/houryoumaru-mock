@@ -1,29 +1,32 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>豊漁丸｜半夜便 出船詳細</title>
-
     <link rel="stylesheet" href="css/shipScheduleList.css">
     <link rel="stylesheet" href="css/shipScheduleDetail.css">
 </head>
-
 <body>
-<script>
-if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
-  location.replace('signin.html');
-}
-</script>
+    <script>
+        if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
+            location.replace('signin.html');
+        }
+    </script>
+
     <header class="site-header">
         <div class="header-inner">
-            <a class="brand"
-               href="shipScheduleList.html"
-               aria-label="豊漁丸の出船情報へ戻る">
-                <img class="logo"
-                     src="images/豊漁丸_ユーザーページ_ロゴ.png"
-                     alt="豊漁丸 予約システム"
-                     onerror="this.hidden = true">
+            <a
+                class="brand"
+                href="shipScheduleList.html"
+                aria-label="豊漁丸の出船情報へ戻る"
+            >
+                <img
+                    class="logo"
+                    src="images/豊漁丸_ユーザー画面_ロゴ.png"
+                    alt="豊漁丸 予約システム"
+                    onerror="this.hidden = true"
+                >
             </a>
         </div>
     </header>
@@ -48,7 +51,6 @@ if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
                     <p class="detail-date" id="detail-date">－</p>
                     <h2 id="detail-name">－</h2>
                 </div>
-
                 <span class="status" id="detail-status">－</span>
             </div>
 
@@ -57,27 +59,22 @@ if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
                     <dt>出船時刻</dt>
                     <dd id="detail-time">－</dd>
                 </div>
-
                 <div class="detail-item">
                     <dt>釣り物</dt>
                     <dd id="detail-target">－</dd>
                 </div>
-
                 <div class="detail-item">
                     <dt>船名・船長名</dt>
                     <dd id="detail-ship">豊漁丸・山田 太郎</dd>
                 </div>
-
                 <div class="detail-item">
                     <dt>集合時刻</dt>
                     <dd id="detail-meeting-time">17:00</dd>
                 </div>
-
                 <div class="detail-item">
                     <dt>料金</dt>
                     <dd id="detail-price">お一人様 13,000円（税込）</dd>
                 </div>
-
                 <div class="detail-item">
                     <dt>定員</dt>
                     <dd id="detail-capacity">12名</dd>
@@ -111,41 +108,50 @@ if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
         </aside>
     </main>
 
-    <footer>
-        © 2026 豊漁丸 予約システム
-    </footer>
-<script>
-const params = new URLSearchParams(location.search);
-const trip = {
-  date: params.get('date') || '2026年7月29日（水）',
-  name: params.get('name') || '半夜便',
-  time: params.get('time') || '18:00',
-  target: params.get('target') || 'マイカ＆ムギイカ',
-  status: params.get('status') || 'full',
-  statusText: params.get('statusText') || '× 満員御礼',
-  price: params.get('price') || 'お一人様 13,000円（税込）'
-};
-document.getElementById('detail-date').textContent = trip.date;
-document.getElementById('detail-name').textContent = trip.name;
-document.getElementById('detail-time').textContent = trip.time;
-document.getElementById('detail-target').textContent = trip.target;
-document.getElementById('detail-price').textContent = trip.price;
-const statusElement = document.getElementById('detail-status');
-statusElement.textContent = trip.statusText;
-statusElement.className = `status ${trip.status}`;
-const actions = document.getElementById('detail-actions');
-if (trip.status === 'full') {
-  actions.innerHTML = '<button class="reserve-button disabled" type="button" disabled>満員のため予約できません</button>';
-} else {
-  const next = new URLSearchParams(params);
-  next.set('detail', `shipScheduleDetail.html?${params.toString()}`);
+    <footer>© 2026 豊漁丸 予約システム</footer>
 
-  // ログインは出船情報画面の前で完了済みなので、
-  // 予約時にはログイン画面を挟まず予約入力へ進む。
-  const destination = `reservation.html?${next.toString()}`;
+    <script>
+        const params = new URLSearchParams(location.search);
+        const trip = {
+            date: params.get('date') || '2026年7月29日（水）',
+            name: params.get('name') || '半夜便',
+            time: params.get('time') || '18:00',
+            target: params.get('target') || 'マイカ＆ムギイカ',
+            status: params.get('status') || 'full',
+            statusText: params.get('statusText') || '× 満員御礼',
+            price: params.get('price') || 'お一人様 13,000円（税込）'
+        };
 
-  actions.innerHTML = `<a class="reserve-button" href="${destination}">この便を予約する</a>`;
-}
-</script>
+        document.getElementById('detail-date').textContent = trip.date;
+        document.getElementById('detail-name').textContent = trip.name;
+        document.getElementById('detail-time').textContent = trip.time;
+        document.getElementById('detail-target').textContent = trip.target;
+        document.getElementById('detail-price').textContent = trip.price;
+
+        const statusElement = document.getElementById('detail-status');
+        statusElement.textContent = trip.statusText;
+        statusElement.className = `status ${trip.status}`;
+
+        const actions = document.getElementById('detail-actions');
+
+        if (trip.status === 'full') {
+            actions.innerHTML = `
+                <button class="reserve-button disabled" type="button" disabled>
+                    満員のため予約できません
+                </button>
+            `;
+        } else {
+            const next = new URLSearchParams(params);
+            next.set('detail', `shipScheduleDetail.html?${params.toString()}`);
+
+            // ログインは出船情報画面の前で完了済みなので、
+            // 予約時にはログイン画面を挟まず予約入力へ進む。
+            const destination = `reservation.html?${next.toString()}`;
+
+            actions.innerHTML = `
+                <a class="reserve-button" href="${destination}">この便を予約する</a>
+            `;
+        }
+    </script>
 </body>
 </html>

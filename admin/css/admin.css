@@ -81,20 +81,6 @@ a {
     height: auto;
     object-fit: contain;
 }
-
-.brand-name {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: .12em;
-}
-
-.brand-sub {
-    margin: 3px 0 0;
-    font-size: 12px;
-    opacity: .76;
-}
-
 .header-nav {
     display: flex;
     align-items: center;
@@ -117,14 +103,6 @@ a {
     color: #fff;
     background: rgba(255, 255, 255, .13);
 }
-
-.header-note {
-    margin: 0;
-    font-size: 13px;
-    text-align: right;
-    opacity: .82;
-}
-
 .menu-toggle {
     display: none;
     padding: 7px 11px;
@@ -210,11 +188,6 @@ a {
 .grid-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-
-.grid-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .grid-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -255,44 +228,6 @@ a {
 }
 
 /*-- クイックリンク --*/
-.quick-card {
-    overflow: hidden;
-}
-
-.quick-link {
-    display: block;
-    padding: 22px;
-    text-decoration: none;
-    transition: transform .18s ease, box-shadow .18s ease;
-}
-
-.quick-link:hover {
-    transform: translateY(-2px);
-}
-
-.quick-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 14px;
-    border-radius: 12px;
-    display: grid;
-    place-items: center;
-    color: var(--blue);
-    background: var(--sky);
-    font-size: 22px;
-}
-
-.quick-title {
-    font-size: 18px;
-    font-weight: 800;
-}
-
-.quick-text {
-    margin-top: 5px;
-    color: var(--muted);
-    font-size: 14px;
-}
-
 /*-- フォーム --*/
 .toolbar {
     display: flex;
@@ -400,17 +335,6 @@ a {
     color: #25354a;
     background: #e9eef5;
 }
-
-.btn-danger {
-    color: #fff;
-    background: var(--danger);
-}
-
-.btn-success {
-    color: #fff;
-    background: var(--success);
-}
-
 .btn-sm {
     min-height: 34px;
     padding: 6px 12px;
@@ -485,12 +409,6 @@ tbody tr:last-child td {
     color: #9a5a00;
     background: #fff1d9;
 }
-
-.badge-red {
-    color: #b12f3c;
-    background: #ffe8eb;
-}
-
 /*-- KPI・モバイル・フッター --*/
 .notice {
     padding: 14px 16px;
@@ -546,7 +464,6 @@ tbody tr:last-child td {
     font-size: 12px;
 }
 
-
 /*-- 余白ユーティリティ --*/
 .mt-16 {
     margin-top: 16px;
@@ -558,7 +475,7 @@ tbody tr:last-child td {
 
 /*-- レスポンシブ（960px以下） --*/
 @media (max-width:960px) {
-    .grid-4, .grid-3 {
+    .grid-4 {
         grid-template-columns: repeat(2, minmax(0,1fr));
     }
 
@@ -598,13 +515,7 @@ tbody tr:last-child td {
     .brand {
         font-size: 20px;
     }
-
-    .brand-mark {
-        width: 34px;
-        height: 34px;
-    }
-
-    .hero-inner {
+.hero-inner {
         padding: 32px 0 30px;
     }
 
@@ -612,7 +523,7 @@ tbody tr:last-child td {
         padding-top: 20px;
     }
 
-    .grid-4, .grid-3, .grid-2, .form-grid {
+    .grid-4, .grid-2, .form-grid {
         grid-template-columns: 1fr;
     }
 
@@ -814,7 +725,6 @@ tbody tr:last-child td {
     }
 }
 
-
 /*-- 新規出船登録 --*/
 .trip-add-page {
     max-width: 1040px;
@@ -995,5 +905,34 @@ tbody tr:last-child td {
 
     .trip-submit-btn {
         min-width: 0;
+    }
+}
+
+/*-- テーブルの視認性向上：奇数行・偶数行 --*/
+.table-wrap tbody tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+.table-wrap tbody tr:nth-child(even) {
+    background: #f3f7fb;
+}
+
+.table-wrap tbody tr:hover {
+    background: #eaf4ff;
+}
+
+/*-- 予約管理・予約詳細の検索／並び替え --*/
+.reservation-detail-toolbar {
+    margin-bottom: 12px;
+}
+
+.toolbar-action-field {
+    flex: 0 0 auto !important;
+    min-width: auto !important;
+}
+
+@media (max-width: 720px) {
+    .toolbar-action-field {
+        min-width: 100% !important;
     }
 }

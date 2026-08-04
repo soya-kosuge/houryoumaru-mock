@@ -68,26 +68,6 @@ body {
     object-fit: contain;
 }
 
-.brand-name {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-}
-
-.brand-sub {
-    margin: 3px 0 0;
-    font-size: 12px;
-    opacity: 0.76;
-}
-
-.header-note {
-    margin: 0;
-    font-size: 13px;
-    text-align: right;
-    opacity: 0.82;
-}
-
 /* メインコンテンツ */
 
 main {
@@ -169,8 +149,7 @@ h1 {
     gap: 18px;
 }
 
-.schedule-area,
-.schedule-content {
+.schedule-area {
     min-width: 0;
 }
 
@@ -329,37 +308,6 @@ h1 {
     line-height: 1;
 }
 
-
-/* カレンダー内の出船状況ドット */
-.calendar-status-dots {
-    display: none;
-}
-
-.calendar-status-dot {
-    width: 4px;
-    height: 4px;
-    display: block;
-    border-radius: 50%;
-    background: #aab8bf;
-}
-
-    .calendar-status-dot.ok {
-        background: var(--ok);
-    }
-
-    .calendar-status-dot.few {
-        background: var(--few);
-    }
-
-    .calendar-status-dot.full {
-        background: var(--full);
-    }
-
-.calendar-day.is-selected .calendar-status-dot,
-.calendar-day.is-today.is-selected .calendar-status-dot {
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75);
-}
-
 /* 今日の日付 */
 
 .calendar-day.is-today {
@@ -368,10 +316,6 @@ h1 {
     border: 2px solid var(--blue);
     font-weight: 900;
     box-shadow: none;
-}
-
-.calendar-today-label {
-    display: none;
 }
 
 /* 選択中の日付 */
@@ -388,11 +332,6 @@ h1 {
         background: var(--blue-dark);
         border-color: var(--blue-dark);
     }
-
-    .calendar-day.is-selected .calendar-today-label {
-        display: none;
-    }
-
 /* すべての日程を表示ボタン */
 
 .show-all-button {
@@ -734,10 +673,6 @@ footer {
     .calendar-day {
         min-height: 38px;
         font-size: 13px;
-    }
-
-    .calendar-today-label {
-        display: none;
     }
 }
 

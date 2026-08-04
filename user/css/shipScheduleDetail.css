@@ -187,32 +187,6 @@
         pointer-events: none;
     }
 
-/*--データなし表示--*/
-.not-found {
-    padding: 36px 20px;
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    text-align: center;
-}
-
-    .not-found h2 {
-        margin: 0 0 10px;
-        color: var(--navy);
-    }
-
-    .not-found p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.75;
-    }
-
-    .not-found .reserve-button {
-        width: min(280px, 100%);
-        margin: 22px auto 0;
-    }
-
 /*--タブレット・スマートフォン--*/
 @media (max-width: 768px) {
     .detail-main {

@@ -1,127 +1,127 @@
 <!DOCTYPE html>
 <html lang="ja">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   お知らせ｜豊漁丸 管理画面
-  </title>
-  <link href="css/admin.css" rel="stylesheet"/>
- </head>
- <body>
-  <header class="site-header">
-   <div class="header-inner">
-    <a class="brand" href="adminDashboard.html">
-     <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者ページ_ロゴ.png"/>
-    </a>
-    <nav class="header-nav">
-     <a href="adminDashboard.html">
-      ダッシュボード
-     </a>
-     <a href="adminReservation.html">
-      予約管理
-     </a>
-     <a href="adminTrip.html">
-      出船管理
-     </a>
-     <a href="adminCustomer.html">
-      顧客管理
-     </a>
-     <a class="is-active" href="adminNotice.html">
-      お知らせ
-     </a>
-     <a href="adminSettings.html">
-      システム設定
-     </a>
-    </nav>
-    <button aria-label="メニューを開く" class="menu-toggle" type="button">
-     メニュー
-    </button>
-   </div>
-  </header>
-  <section class="hero">
-   <div class="hero-inner">
-    <p class="eyebrow">
-     HORYOMARU ADMIN
-    </p>
-    <h1>
-     お知らせ
-    </h1>
-    <p>
-     利用者向けのお知らせを作成・管理します。
-    </p>
-   </div>
-  </section>
-  <main class="page">
-   <section class="grid grid-2">
-    <article class="card">
-     <div class="card-body">
-      <h2 class="section-title">
-       お知らせ作成
-      </h2>
-      <form data-demo-submit="お知らせを保存しました">
-       <div class="field">
-        <label for="notice-title">
-         件名
-        </label>
-        <input class="input" id="notice-title" placeholder="例：出船時間変更のお知らせ" required=""/>
-       </div>
-       <div class="field mt-16">
-        <label for="notice-body">
-         本文
-        </label>
-        <textarea class="textarea" id="notice-body" placeholder="利用者に表示する内容を入力してください" required=""></textarea>
-       </div>
-       <div class="form-actions">
-        <button class="btn btn-primary" type="submit">
-         保存する
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+      お知らせ｜豊漁丸 管理画面
+    </title>
+    <link href="css/admin.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="adminDashboard.html">
+          <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png"/>
+        </a>
+        <nav class="header-nav">
+          <a href="adminDashboard.html">
+            ダッシュボード
+          </a>
+          <a href="adminReservation.html">
+            予約管理
+          </a>
+          <a href="adminTrip.html">
+            出船管理
+          </a>
+          <a href="adminCustomer.html">
+            顧客管理
+          </a>
+          <a class="is-active" href="adminNotice.html">
+            お知らせ
+          </a>
+          <a href="adminSettings.html">
+            システム設定
+          </a>
+        </nav>
+        <button aria-label="メニューを開く" class="menu-toggle" type="button">
+          メニュー
         </button>
-        <button class="btn btn-secondary" type="button">
-         プレビュー
-        </button>
-       </div>
-      </form>
-     </div>
-    </article>
-    <article class="card">
-     <div class="card-body">
-      <h2 class="section-title">
-       公開中のお知らせ
-      </h2>
-      <div class="kpi-list">
-       <div class="kpi-row">
-        <span>
-         夏季の集合時間について
-        </span>
-        <span class="badge badge-green">
-         公開中
-        </span>
-       </div>
-       <div class="kpi-row">
-        <span>
-         駐車場利用のお願い
-        </span>
-        <span class="badge badge-green">
-         公開中
-        </span>
-       </div>
-       <div class="kpi-row">
-        <span>
-         メンテナンス予定
-        </span>
-        <span class="badge badge-orange">
-         下書き
-        </span>
-       </div>
       </div>
-     </div>
-    </article>
-   </section>
-  </main>
-  <footer class="footer">
-   © 豊漁丸 管理画面 MOCK
-  </footer>
-  <script src="js/admin.js">
-  </script>
- </body>
+    </header>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">
+          HORYOMARU ADMIN
+        </p>
+        <h1>
+          お知らせ
+        </h1>
+        <p>
+          利用者向けのお知らせを作成・管理します。
+        </p>
+      </div>
+    </section>
+    <main class="page">
+      <section class="grid grid-2">
+        <article class="card">
+          <div class="card-body">
+            <h2 class="section-title">
+              お知らせ作成
+            </h2>
+            <form data-demo-submit="お知らせを保存しました">
+              <div class="field">
+                <label for="notice-title">
+                  件名
+                </label>
+                <input class="input" id="notice-title" placeholder="例：出船時間変更のお知らせ" required=""/>
+              </div>
+              <div class="field mt-16">
+                <label for="notice-body">
+                  本文
+                </label>
+                <textarea class="textarea" id="notice-body" placeholder="利用者に表示する内容を入力してください" required=""></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">
+                  保存する
+                </button>
+                <button class="btn btn-secondary" type="button">
+                  プレビュー
+                </button>
+              </div>
+            </form>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-body">
+            <h2 class="section-title">
+              公開中のお知らせ
+            </h2>
+            <div class="kpi-list">
+              <div class="kpi-row">
+                <span>
+                  夏季の集合時間について
+                </span>
+                <span class="badge badge-green">
+                  公開中
+                </span>
+              </div>
+              <div class="kpi-row">
+                <span>
+                  駐車場利用のお願い
+                </span>
+                <span class="badge badge-green">
+                  公開中
+                </span>
+              </div>
+              <div class="kpi-row">
+                <span>
+                  メンテナンス予定
+                </span>
+                <span class="badge badge-orange">
+                  下書き
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      © 豊漁丸 管理画面 MOCK
+    </footer>
+    <script src="js/admin.js">
+    </script>
+  </body>
 </html>

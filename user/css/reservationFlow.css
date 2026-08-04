@@ -1,4 +1,4 @@
-﻿/* 共通レイアウト */
+/* 共通レイアウト */
 .flow-main {
     width: 680px;
     margin: 28px auto 52px;
@@ -38,72 +38,6 @@
         outline-offset: 3px;
     }
 
-/* ステップバー */
-.step-progress {
-    display: grid;
-    grid-template-columns: 86px 1fr 86px 1fr 86px 1fr 86px;
-    align-items: end;
-    margin: 0 auto 24px;
-}
-
-.step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.step-number {
-    margin: 0;
-    color: #8d99a4;
-    font-size: 10px;
-    font-weight: 800;
-}
-
-.step-title {
-    margin: 4px 0 10px;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.step-circle {
-    position: relative;
-    z-index: 2;
-    display: block;
-    width: 14px;
-    height: 14px;
-    background: #d6dce1;
-    border: 2px solid #d6dce1;
-    border-radius: 50%;
-}
-
-.step-line {
-    height: 3px;
-    margin-bottom: 6px;
-    background: #d6dce1;
-}
-
-.step.active .step-number,
-.step.active .step-title,
-.step.completed .step-number,
-.step.completed .step-title {
-    color: var(--blue);
-}
-
-.step.active .step-circle {
-    background: var(--white);
-    border-color: var(--blue);
-    box-shadow: 0 0 0 4px rgba(23, 107, 143, 0.13);
-}
-
-.step.completed .step-circle,
-.step-line.completed {
-    background: var(--blue);
-    border-color: var(--blue);
-}
-
 /* カード */
 .flow-card,
 .selected-trip {
@@ -129,15 +63,6 @@
         color: var(--navy);
         font-size: 22px;
     }
-
-.flow-badge {
-    padding: 6px 10px;
-    color: var(--blue);
-    background: var(--sky);
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 800;
-}
 
 /* フォーム */
 .flow-form {
@@ -253,39 +178,6 @@ textarea {
     }
 
 /* ログイン補助 */
-.sub-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 0 20px 20px;
-}
-
-.text-link {
-    color: var(--blue);
-    font-size: 12px;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-    .text-link:hover {
-        text-decoration: underline;
-    }
-
-.line-login {
-    margin: 0 20px 20px;
-    padding: 17px;
-    background: #f6fbfd;
-    border: 1px solid var(--line);
-    border-radius: 11px;
-    text-align: center;
-}
-
-    .line-login p {
-        margin: 0 0 10px;
-        color: var(--muted);
-        font-size: 12px;
-    }
-
 .line-button {
     min-height: 44px;
     color: var(--white);
@@ -435,27 +327,7 @@ textarea {
         margin: 22px auto 40px;
         padding: 0 14px;
     }
-
-    .step-progress {
-        grid-template-columns: 54px 1fr 54px 1fr 54px 1fr 54px;
-        margin-bottom: 20px;
-    }
-
-    .step-number {
-        font-size: 8px;
-    }
-
-    .step-title {
-        margin: 3px 0 8px;
-        font-size: 10px;
-    }
-
-    .step-circle {
-        width: 12px;
-        height: 12px;
-    }
-
-    .flow-card,
+.flow-card,
     .selected-trip {
         border-radius: 14px;
     }
@@ -541,14 +413,6 @@ textarea {
 @media (max-width: 480px) {
     .flow-main {
         padding: 0 10px;
-    }
-
-    .step-progress {
-        grid-template-columns: 46px 1fr 46px 1fr 46px 1fr 46px;
-    }
-
-    .step-title {
-        font-size: 9px;
     }
 }
 
@@ -703,4 +567,32 @@ textarea {
     to {
         transform: rotate(360deg);
     }
+}
+
+/* パスワード表示切り替え */
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-right: 64px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    padding: 4px 8px;
+    color: var(--blue, #176b8f);
+    background: transparent;
+    border: 0;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    text-decoration: underline;
 }

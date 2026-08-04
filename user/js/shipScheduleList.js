@@ -10,6 +10,13 @@ const previousMonthButton = document.getElementById('prev-month');
 const nextMonthButton = document.getElementById('next-month');
 const scheduleArea = document.querySelector('.schedule-area');
 
+const getStatusKey = (statusNode) => {
+    if (statusNode?.classList.contains('ok')) return 'ok';
+    if (statusNode?.classList.contains('few')) return 'few';
+    if (statusNode?.classList.contains('full')) return 'full';
+    return 'unknown';
+};
+
 function getJapanTodayKey() {
     const japanNow = new Date(
         Date.now() + (9 * 60 * 60 * 1000)
@@ -286,3 +293,30 @@ showAllButton.addEventListener(
 
 updateScheduleLabels();
 renderCalendar();
+
+// 各便の表示内容をクエリ文字列で詳細画面へ渡す
+document.querySelectorAll('.trip-row').forEach((row) => {
+    const card = row.closest('.date-card');
+    const rawDate = card?.dataset.date || '';
+    const date = rawDate ? new Date(`${rawDate}T00:00:00`) : null;
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+
+    const dateText = date && !Number.isNaN(date.getTime())
+        ? `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日（${weekdays[date.getDay()]}）`
+        : rawDate;
+
+    const statusNode = row.querySelector('.status');
+    const status = getStatusKey(statusNode);
+
+    const params = new URLSearchParams({
+        date: dateText,
+        name: row.querySelector('.trip-name')?.textContent.trim() || '',
+        time: row.querySelector('.trip-time')?.textContent.trim() || '',
+        target: row.querySelector('.trip-target')?.textContent.trim() || '',
+        status,
+        statusText: statusNode?.textContent.trim() || '－',
+        price: 'お一人様 13,000円（税込）'
+    });
+
+    row.href = `shipScheduleDetail.html?${params.toString()}`;
+});

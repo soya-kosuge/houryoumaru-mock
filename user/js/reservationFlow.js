@@ -7,6 +7,13 @@
     const TRIP_KEY = 'horyomaruSelectedTrip';
     const RESERVATION_KEY = 'horyomaruReservation';
 
+    const EMPTY_PROFILE = Object.freeze({
+        name: '',
+        nameKana: '',
+        email: '',
+        phone: ''
+    });
+
     const $ = (selector) => document.querySelector(selector);
     const params = new URLSearchParams(location.search);
 
@@ -59,7 +66,6 @@
             loginTitle.textContent = 'LINEログイン';
             loginLead.textContent =
                 '2回目以降はLINEログインだけで出船予定へ進みます。';
-
         } else {
             firstLoginArea.hidden = false;
             lineLoginArea.hidden = true;
@@ -72,8 +78,51 @@
         // ----------------------------------------
         // 初回登録
         // ----------------------------------------
-        $('#first-login-form').addEventListener('submit', (event) => {
+        const firstLoginForm = $('#first-login-form');
+        const nameInput = $('#name');
+        const nameKanaInput = $('#name-kana');
+        const telInput = $('#tel');
+        const passwordInput = $('#password');
+        const passwordToggle = $('#password-toggle');
+
+        passwordToggle?.addEventListener('click', () => {
+            const isVisible = passwordInput.type === 'text';
+
+            passwordInput.type = isVisible ? 'password' : 'text';
+            passwordToggle.textContent = isVisible ? '表示' : '非表示';
+            passwordToggle.setAttribute('aria-pressed', String(!isVisible));
+        });
+
+        firstLoginForm.addEventListener('submit', (event) => {
             event.preventDefault();
+
+            const name = nameInput.value.trim();
+            const nameKana = nameKanaInput.value.trim();
+            const tel = telInput.value.trim();
+
+            if (!/^[一-龯々ぁ-ゖァ-ヶー\s]+$/.test(name)) {
+                alert('名前（漢字）は漢字・ひらがな・カタカナで入力してください。');
+                nameInput.focus();
+                return;
+            }
+
+            if (!/^[ぁ-ゖー\s]+$/.test(nameKana)) {
+                alert('名前（かな）はひらがなで入力してください。');
+                nameKanaInput.focus();
+                return;
+            }
+
+            if (!/^[0-9]+$/.test(tel)) {
+                alert('電話番号はハイフンなしの数字のみで入力してください。');
+                telInput.focus();
+                return;
+            }
+
+            if (passwordInput.value.length < 8) {
+                alert('パスワードは8文字以上で入力してください。');
+                passwordInput.focus();
+                return;
+            }
 
             const form = new FormData(event.currentTarget);
 
@@ -113,7 +162,7 @@
                         name: 'LINEユーザー',
                         nameKana: 'らいんゆーざー',
                         email: 'line-user@example.com',
-                        phone: '090-1234-5678'
+                        phone: '09012345678'
                     })
                 );
             }
@@ -121,10 +170,7 @@
             localStorage.setItem(REGISTERED_KEY, 'true');
             sessionStorage.setItem(SESSION_LOGIN_KEY, 'true');
 
-            window.setTimeout(
-                redirectSchedule,
-                1200
-            );
+            window.setTimeout(redirectSchedule, 1200);
         });
     }
 
@@ -137,12 +183,7 @@
             return;
         }
 
-        const profile = getProfile() || {
-            name: '',
-            nameKana: '',
-            email: '',
-            phone: ''
-        };
+        const profile = getProfile() || EMPTY_PROFILE;
 
         $('#profile-name').textContent =
             profile.name || '－';
@@ -258,12 +299,7 @@
             return;
         }
 
-        const profile = getProfile() || {
-            name: '',
-            nameKana: '',
-            email: '',
-            phone: ''
-        };
+        const profile = getProfile() || EMPTY_PROFILE;
 
         const trip = getTrip();
 
@@ -306,17 +342,23 @@
             ['備考', reservation.remarks]
         ];
 
-        $('#confirmation-list').innerHTML =
-            rows
-                .map(
-                    ([key, value]) => `
-                        <div class="confirmation-item">
-                            <dt>${key}</dt>
-                            <dd>${value}</dd>
-                        </div>
-                    `
-                )
-                .join('');
+        const confirmationList = $('#confirmation-list');
+        const fragment = document.createDocumentFragment();
+
+        rows.forEach(([key, value]) => {
+            const item = document.createElement('div');
+            const term = document.createElement('dt');
+            const description = document.createElement('dd');
+
+            item.className = 'confirmation-item';
+            term.textContent = key;
+            description.textContent = value;
+
+            item.append(term, description);
+            fragment.appendChild(item);
+        });
+
+        confirmationList.replaceChildren(fragment);
     }
 
 })();
