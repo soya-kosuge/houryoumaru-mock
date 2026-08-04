@@ -936,3 +936,35 @@ tbody tr:last-child td {
         min-width: 100% !important;
     }
 }
+
+/*-- 出船予定一覧：状態表示 --*/
+.trip-status {
+    min-width: 112px;
+    padding: 7px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+    /* 空きあり */
+    .trip-status.ok {
+        color: #087a55;
+        background: #dff6ec;
+    }
+
+    /* 満員 */
+    .trip-status.full {
+        color: #c53d4b;
+        background: #fde7e9;
+    }
+
+    /* 受付停止 */
+    .trip-status.stop {
+        color: #667085;
+        background: #edf0f3;
+    }

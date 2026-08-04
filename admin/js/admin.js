@@ -393,54 +393,6 @@ if (
     refreshReservations();
 
 }
-            // 並び順は「日付 → 便 → 氏名」で固定し、昇順・降順だけ切り替える。
-            for (const key of ["date", "course", "name"]) {
-                const diff = compareText(a[key], b[key]);
-                if (diff !== 0) return diff * direction;
-            }
-            return 0;
-        };
-
-        const refreshReservations = () => {
-            reservationRows.sort(compareRows).forEach((row) => reservationBody.appendChild(row));
-
-            const selectedDate = normalizeDate(reservationDate.value);
-            const selectedCourse = reservationCourse.value;
-            const enteredGuests = reservationGuests.value.trim();
-            let visibleCount = 0;
-
-            reservationRows.forEach((row) => {
-                const data = readReservation(row);
-                const matches =
-                    (!selectedDate || data.date === selectedDate) &&
-                    (!selectedCourse || data.course === selectedCourse) &&
-                    (!enteredGuests || data.guests === enteredGuests);
-
-                row.hidden = !matches;
-                if (matches) visibleCount += 1;
-            });
-
-            updateResultCount(reservationResultCount, visibleCount, reservationRows.length);
-            if (reservationPrintLink) reservationPrintLink.href = buildPrintUrl();
-        };
-
-        reservationDate.addEventListener("change", refreshReservations);
-        reservationCourse.addEventListener("change", refreshReservations);
-        reservationGuests.addEventListener("input", refreshReservations);
-        reservationSortDirection?.addEventListener("change", refreshReservations);
-
-        reservationClearButton?.addEventListener("click", () => {
-            reservationDate.value = "";
-            reservationCourse.value = "";
-            reservationGuests.value = "";
-            if (reservationSortDirection) reservationSortDirection.value = "desc";
-            refreshReservations();
-            reservationDate.focus();
-        });
-
-        refreshReservations();
-    }
-
     // 予約一覧（印刷用）の絞り込み
     const printReservationTable = document.querySelector("#print-reservation-table");
     const printFilterSummary = document.querySelector("#print-filter-summary");
