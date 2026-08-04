@@ -6,23 +6,13 @@
     <title>豊漁丸｜予約完了</title>
     <link rel="stylesheet" href="css/shipScheduleList.css">
     <link rel="stylesheet" href="css/reservationFlow.css">
+<script src="js/common.js" defer></script><script src="js/authGuard.js" defer></script>
 </head>
 <body>
-    <script>
-        if (sessionStorage.getItem('horyomaruMockSessionLoggedIn') !== 'true') {
-            location.replace('signin.html');
-        }
-    </script>
-
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="shipScheduleList.html">
-                <img
-                    class="logo"
-                    src="images/豊漁丸_ユーザー画面_ロゴ.png"
-                    alt="豊漁丸 予約システム"
-                    onerror="this.hidden = true"
-                >
+                <img class="logo" src="images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
             </a>
         </div>
     </header>

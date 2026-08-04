@@ -91,47 +91,308 @@ document.addEventListener("DOMContentLoaded", () => {
         filterCustomers();
     }
 
-    // 予約一覧：検索・並び替え（初期順：日付 → 便 → 氏名 の降順）
-    const reservationTable = document.querySelector("#reservation-table");
-    const reservationDate = document.querySelector("#reservation-date");
-    const reservationCourse = document.querySelector("#reservation-course");
-    const reservationGuests = document.querySelector("#reservation-guests");
-    const reservationSortDirection = document.querySelector("#reservation-sort-direction");
-    const reservationClearButton = document.querySelector("#reservation-search-clear");
-    const reservationResultCount = document.querySelector("#reservation-result-count");
-    const reservationPrintLink = document.querySelector("#reservation-print-link");
+// 予約一覧：日付 × 便ごとに集約して表示
+const reservationTable = document.querySelector("#reservation-table");
+const reservationDate = document.querySelector("#reservation-date");
+const reservationCourse = document.querySelector("#reservation-course");
+const reservationGuests = document.querySelector("#reservation-guests");
+const reservationSortDirection = document.querySelector("#reservation-sort-direction");
+const reservationClearButton = document.querySelector("#reservation-search-clear");
+const reservationResultCount = document.querySelector("#reservation-result-count");
+const reservationPrintLink = document.querySelector("#reservation-print-link");
 
-    const buildPrintUrl = () => {
-        const params = new URLSearchParams();
-        if (reservationDate?.value) params.set("date", reservationDate.value);
-        if (reservationCourse?.value) params.set("course", reservationCourse.value);
-        if (reservationGuests?.value.trim()) params.set("guests", reservationGuests.value.trim());
+const buildPrintUrl = () => {
+    const params = new URLSearchParams();
 
-        const queryString = params.toString();
-        return queryString
-            ? `adminReservationDetailPrint.html?${queryString}`
-            : "adminReservationDetailPrint.html";
-    };
+    if (reservationDate?.value) {
+        params.set("date", reservationDate.value);
+    }
 
-    if (reservationTable && reservationDate && reservationCourse && reservationGuests) {
-        const reservationBody = reservationTable.querySelector("tbody");
-        const reservationRows = Array.from(reservationTable.querySelectorAll("tbody tr[data-search-row]"));
+    if (reservationCourse?.value) {
+        params.set("course", reservationCourse.value);
+    }
 
-        const readReservation = (row) => {
-            const cells = row.querySelectorAll("td");
-            return {
-                date: cells[0]?.textContent.trim() || "",
-                course: cells[1]?.textContent.trim() || "",
-                name: row.dataset.customerName || "",
-                guests: cells[2]?.textContent.replace(/\D/g, "") || ""
-            };
+    if (reservationGuests?.value.trim()) {
+        params.set("guests", reservationGuests.value.trim());
+    }
+
+    const queryString = params.toString();
+
+    return queryString
+        ? `adminReservationDetailPrint.html?${queryString}`
+        : "adminReservationDetailPrint.html";
+};
+
+
+if (
+    reservationTable &&
+    reservationDate &&
+    reservationCourse &&
+    reservationGuests
+) {
+    const reservationBody = reservationTable.querySelector("tbody");
+
+    // HTMLに書かれている予約データを取得
+    const originalRows = Array.from(
+        reservationTable.querySelectorAll("tbody tr[data-search-row]")
+    );
+
+    // 日付 × 便ごとに人数を集約
+    const groupedReservations = new Map();
+
+    originalRows.forEach((row) => {
+
+        const cells = row.querySelectorAll("td");
+
+        const date =
+            cells[0]?.textContent.trim() || "";
+
+        const course =
+            cells[1]?.textContent.trim() || "";
+
+        const guests =
+            Number(
+                cells[2]?.textContent.replace(/\D/g, "")
+            ) || 0;
+
+
+        const key = `${date}_${course}`;
+
+
+        if (!groupedReservations.has(key)) {
+
+            groupedReservations.set(key, {
+                date: date,
+                course: course,
+                guests: 0
+            });
+
+        }
+
+
+        groupedReservations.get(key).guests += guests;
+
+    });
+
+
+    // 元の行を削除
+    reservationBody.innerHTML = "";
+
+
+    // 集約後の行を作成
+    const reservationRows = Array.from(
+        groupedReservations.values()
+    ).map((reservation) => {
+
+        const row = document.createElement("tr");
+
+        row.dataset.searchRow = "";
+        row.dataset.date = reservation.date;
+        row.dataset.course = reservation.course;
+        row.dataset.guests = reservation.guests;
+
+
+        row.innerHTML = `
+            <td>${reservation.date}</td>
+            <td>${reservation.course}</td>
+            <td>${reservation.guests}名</td>
+        `;
+
+
+        reservationBody.appendChild(row);
+
+
+        return row;
+
+    });
+
+
+    // 行データ取得
+    const readReservation = (row) => {
+
+        return {
+
+            date:
+                row.dataset.date || "",
+
+            course:
+                row.dataset.course || "",
+
+            guests:
+                Number(row.dataset.guests || 0)
+
         };
 
-        const compareRows = (rowA, rowB) => {
-            const a = readReservation(rowA);
-            const b = readReservation(rowB);
-            const direction = reservationSortDirection?.value === "asc" ? 1 : -1;
+    };
 
+
+    // 並び替え
+    const compareRows = (rowA, rowB) => {
+
+        const a = readReservation(rowA);
+        const b = readReservation(rowB);
+
+
+        const direction =
+            reservationSortDirection?.value === "asc"
+                ? 1
+                : -1;
+
+
+        // 日付
+        const dateDiff =
+            compareText(a.date, b.date);
+
+        if (dateDiff !== 0) {
+            return dateDiff * direction;
+        }
+
+
+        // 便
+        const courseDiff =
+            compareText(a.course, b.course);
+
+        if (courseDiff !== 0) {
+            return courseDiff * direction;
+        }
+
+
+        return 0;
+
+    };
+
+
+    // 検索・表示更新
+    const refreshReservations = () => {
+
+        // 並び替え
+        reservationRows
+            .sort(compareRows)
+            .forEach((row) => {
+                reservationBody.appendChild(row);
+            });
+
+
+        const selectedDate =
+            normalizeDate(reservationDate.value);
+
+        const selectedCourse =
+            reservationCourse.value;
+
+        const enteredGuests =
+            reservationGuests.value.trim();
+
+
+        let visibleCount = 0;
+
+
+        reservationRows.forEach((row) => {
+
+            const data =
+                readReservation(row);
+
+
+            const matchesDate =
+                !selectedDate ||
+                data.date === selectedDate;
+
+
+            const matchesCourse =
+                !selectedCourse ||
+                data.course === selectedCourse;
+
+
+            const matchesGuests =
+                !enteredGuests ||
+                data.guests === Number(enteredGuests);
+
+
+            const matches =
+                matchesDate &&
+                matchesCourse &&
+                matchesGuests;
+
+
+            row.hidden = !matches;
+
+
+            if (matches) {
+                visibleCount++;
+            }
+
+        });
+
+
+        updateResultCount(
+            reservationResultCount,
+            visibleCount,
+            reservationRows.length
+        );
+
+
+        if (reservationPrintLink) {
+
+            reservationPrintLink.href =
+                buildPrintUrl();
+
+        }
+
+    };
+
+
+    // 検索イベント
+    reservationDate.addEventListener(
+        "change",
+        refreshReservations
+    );
+
+
+    reservationCourse.addEventListener(
+        "change",
+        refreshReservations
+    );
+
+
+    reservationGuests.addEventListener(
+        "input",
+        refreshReservations
+    );
+
+
+    reservationSortDirection?.addEventListener(
+        "change",
+        refreshReservations
+    );
+
+
+    // 条件クリア
+    reservationClearButton?.addEventListener(
+        "click",
+        () => {
+
+            reservationDate.value = "";
+            reservationCourse.value = "";
+            reservationGuests.value = "";
+
+
+            if (reservationSortDirection) {
+                reservationSortDirection.value = "desc";
+            }
+
+
+            refreshReservations();
+
+
+            reservationDate.focus();
+
+        }
+    );
+
+
+    // 初回表示
+    refreshReservations();
+
+}
             // 並び順は「日付 → 便 → 氏名」で固定し、昇順・降順だけ切り替える。
             for (const key of ["date", "course", "name"]) {
                 const diff = compareText(a[key], b[key]);
