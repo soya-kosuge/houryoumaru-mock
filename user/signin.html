@@ -3,133 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>豊漁丸｜ログイン</title>
+
     <link rel="stylesheet" href="css/shipScheduleList.css">
     <link rel="stylesheet" href="css/reservationFlow.css">
+
     <script src="js/reservationFlow.js" defer></script>
     <script src="js/common.js" defer></script>
 </head>
+
 <body>
+
     <header class="site-header">
         <div class="header-inner">
+
             <a class="brand" href="shipScheduleList.html">
-                <img class="logo" src="images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
+                <img class="logo"
+                     src="images/豊漁丸_ユーザー画面_ロゴ.png"
+                     alt="豊漁丸 予約システム">
             </a>
+
         </div>
     </header>
 
+
     <main class="flow-main login-main">
+
         <section class="hero flow-hero">
-            <span class="eyebrow">MEMBER LOGIN</span>
-            <h1 id="login-title">初回ログイン</h1>
-            <p class="lead" id="login-lead">初回のみ、お客様情報を登録してください。</p>
+
+            <span class="eyebrow">
+                MEMBER LOGIN
+            </span>
+
+            <h1 id="login-title">
+                初回ログイン
+            </h1>
+
+            <p class="lead"
+               id="login-lead">
+                初回のみ、お客様情報を登録してください。
+            </p>
+
         </section>
+
 
         <section class="flow-card login-card">
+
+            <!-- 初回ログイン -->
             <div id="first-login-area">
+
                 <div class="flow-card-heading">
-                    <h2>初回ログイン</h2>
+                    <h2>
+                        初回ログイン
+                    </h2>
                 </div>
 
-                <form class="flow-form" id="first-login-form">
+
+                <form class="flow-form"
+                      id="first-login-form">
+
+                    <!-- 名前（漢字） -->
                     <div class="form-group">
+
                         <label for="name">
                             名前（漢字）
+                            <span class="required">
+                                必須
+                            </span>
                         </label>
-                        <input id="name" name="name" type="text" autocomplete="name" placeholder="例：山田 太郎">
+
+                        <input id="name"
+                               name="name"
+                               type="text"
+                               autocomplete="name"
+                               placeholder="例：山田 太郎">
+
                     </div>
 
+
+                    <!-- 名前（かな） -->
                     <div class="form-group">
+
                         <label for="name-kana">
                             名前（かな）
+                            <span class="required">
+                                必須
+                            </span>
                         </label>
-                        <input id="name-kana" name="nameKana" type="text" inputmode="kana" placeholder="例：やまだ たろう">
+
+                        <input id="name-kana"
+                               name="nameKana"
+                               type="text"
+                               inputmode="kana"
+                               placeholder="例：やまだ たろう">
+
                     </div>
 
+
+                    <!-- メールアドレス -->
                     <div class="form-group">
+
                         <label for="email">
                             メールアドレス
+                            <span class="required">
+                                必須
+                            </span>
                         </label>
-                        <input id="email" name="email" type="email" autocomplete="email">
+
+                        <input id="email"
+                               name="email"
+                               type="email"
+                               autocomplete="email">
+
                     </div>
 
+
+                    <!-- 電話番号 -->
                     <div class="form-group">
+
                         <label for="tel">
                             電話番号
+                            <span class="required">
+                                必須
+                            </span>
                         </label>
-                        <input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="numeric" pattern="[0-9]+" placeholder="例：09012345678">
-                        <p class="form-note">ハイフン不要で、数字のみ入力してください。</p>
+
+                        <input id="tel"
+                               name="tel"
+                               type="tel"
+                               autocomplete="tel"
+                               inputmode="numeric"
+                               pattern="[0-9]+"
+                               placeholder="例：09012345678">
+
+                        <p class="form-note">
+                            ハイフン不要で、数字のみ入力してください。
+                        </p>
+
                     </div>
 
+
+                    <!-- パスワード -->
                     <div class="form-group">
+
                         <label for="password">
                             パスワード
+                            <span class="required">
+                                必須
+                            </span>
                         </label>
+
+
                         <div class="password-field">
-                            <input id="password" name="password" type="password" autocomplete="new-password" minlength="8">
-                            <button class="password-toggle" id="password-toggle" type="button" aria-controls="password" aria-pressed="false">
+
+                            <input id="password"
+                                   name="password"
+                                   type="password"
+                                   autocomplete="new-password"
+                                   minlength="8">
+
+
+                            <button class="password-toggle"
+                                    id="password-toggle"
+                                    type="button"
+                                    aria-controls="password"
+                                    aria-pressed="false">
                                 表示
                             </button>
+
                         </div>
+
+
                         <p class="form-note">
-                            8文字以上で入力してください。MOCKのためパスワードは保存しません。
+                            8文字以上で入力してください。
+                            MOCKのためパスワードは保存しません。
                         </p>
+
                     </div>
 
-                    <button class="primary-button" type="submit">
+
+                    <!-- ログインボタン -->
+                    <button class="primary-button"
+                            type="submit">
                         ログインして出船予定を見る
                     </button>
+
                 </form>
 
+
+                <!-- 2回目以降のログイン -->
                 <div class="mock-switch-area">
-                    <span>登録済みの場合</span>
-                    <a class="mock-switch-link" href="signin.html?mode=line">
+
+                    <span>
+                        登録済みの場合
+                    </span>
+
+                    <a class="mock-switch-link"
+                       href="signin.html?mode=line">
                         2回目以降のログインを確認
                     </a>
+
                 </div>
+
             </div>
 
-            <div id="line-login-area" hidden>
+
+
+            <!-- LINEログイン -->
+            <div id="line-login-area"
+                 hidden>
+
                 <div class="flow-card-heading">
-                    <h2>LINEログイン</h2>
+
+                    <h2>
+                        LINEログイン
+                    </h2>
+
                 </div>
+
 
                 <div class="line-account-card">
-                    <div class="line-account-avatar" aria-hidden="true">豊</div>
-                    <div class="line-account-info">
-                        <p class="line-account-name">【公式】豊漁丸（テスト）</p>
-                        <p class="line-account-id">@216yxicl</p>
+
+                    <div class="line-account-avatar"
+                         aria-hidden="true">
+                        豊
                     </div>
+
+
+                    <div class="line-account-info">
+
+                        <p class="line-account-name">
+                            【公式】豊漁丸（テスト）
+                        </p>
+
+                        <p class="line-account-id">
+                            @216yxicl
+                        </p>
+
+                    </div>
+
                 </div>
+
 
                 <div class="line-login-copy">
-                    <p>LINEアカウントでログインします。</p>
-                    <p class="line-login-note">MOCKのため、LINE認証画面を再現した表示です。</p>
+
+                    <p>
+                        LINEアカウントでログインします。
+                    </p>
+
+                    <p class="line-login-note">
+                        MOCKのため、LINE認証画面を再現した表示です。
+                    </p>
+
                 </div>
 
-                <div class="line-login-actions" id="line-login-actions">
-                    <button class="line-button" id="line-login-button" type="button">
-                        <span class="line-mark" aria-hidden="true">LINE</span>
+
+                <div class="line-login-actions"
+                     id="line-login-actions">
+
+                    <button class="line-button"
+                            id="line-login-button"
+                            type="button">
+
+                        <span class="line-mark"
+                              aria-hidden="true">
+                            LINE
+                        </span>
+
                         LINEでログイン
+
                     </button>
+
                 </div>
 
-                <div class="mock-loading" id="loading-message" hidden aria-live="polite">
-                    <span class="mock-spinner" aria-hidden="true"></span>
-                    <strong>ログイン中です…</strong>
-                    <span>出船予定を読み込んでいます</span>
+
+                <!-- ローディング -->
+                <div class="mock-loading"
+                     id="loading-message"
+                     hidden
+                     aria-live="polite">
+
+                    <span class="mock-spinner"
+                          aria-hidden="true"></span>
+
+                    <strong>
+                        ログイン中です…
+                    </strong>
+
+                    <span>
+                        出船予定を読み込んでいます
+                    </span>
+
                 </div>
 
+
+                <!-- 初回ログインへ戻る -->
                 <div class="mock-switch-area">
-                    <span>初めて利用する場合</span>
-                    <a class="mock-switch-link" href="signin.html?mode=first">
+
+                    <span>
+                        初めて利用する場合
+                    </span>
+
+                    <a class="mock-switch-link"
+                       href="signin.html?mode=first">
                         初回ログイン画面を確認
                     </a>
+
                 </div>
+
             </div>
+
         </section>
+
     </main>
 
-    <footer>© 2026 豊漁丸 予約システム</footer>
+
+    <footer>
+        © 2026 豊漁丸 予約システム
+    </footer>
+
 </body>
 </html>

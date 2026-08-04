@@ -72,7 +72,7 @@
 
             loginTitle.textContent = '初回ログイン';
             loginLead.textContent =
-                '初回のみ、名前（漢字）・名前（かな）・メールアドレス・電話番号・パスワードを入力してください。';
+                '初回のみ、お客様情報を登録してください。';
         }
 
         // ----------------------------------------
@@ -90,7 +90,10 @@
 
             passwordInput.type = isVisible ? 'password' : 'text';
             passwordToggle.textContent = isVisible ? '表示' : '非表示';
-            passwordToggle.setAttribute('aria-pressed', String(!isVisible));
+            passwordToggle.setAttribute(
+                'aria-pressed',
+                String(!isVisible)
+            );
         });
 
         firstLoginForm.addEventListener('submit', (event) => {
@@ -100,26 +103,50 @@
             const nameKana = nameKanaInput.value.trim();
             const tel = telInput.value.trim();
 
-            if (!/^[一-龯々ぁ-ゖァ-ヶー\s]+$/.test(name)) {
-                alert('名前（漢字）は漢字・ひらがな・カタカナで入力してください。');
+            // 入力されている場合だけチェック
+            if (
+                name &&
+                !/^[一-龯々ぁ-ゖァ-ヶー\s]+$/.test(name)
+            ) {
+                alert(
+                    '名前（漢字）は漢字・ひらがな・カタカナで入力してください。'
+                );
                 nameInput.focus();
                 return;
             }
 
-            if (!/^[ぁ-ゖー\s]+$/.test(nameKana)) {
-                alert('名前（かな）はひらがなで入力してください。');
+            // 入力されている場合だけチェック
+            if (
+                nameKana &&
+                !/^[ぁ-ゖー\s]+$/.test(nameKana)
+            ) {
+                alert(
+                    '名前（かな）はひらがなで入力してください。'
+                );
                 nameKanaInput.focus();
                 return;
             }
 
-            if (!/^[0-9]+$/.test(tel)) {
-                alert('電話番号はハイフンなしの数字のみで入力してください。');
+            // 入力されている場合だけチェック
+            if (
+                tel &&
+                !/^[0-9]+$/.test(tel)
+            ) {
+                alert(
+                    '電話番号はハイフンなしの数字のみで入力してください。'
+                );
                 telInput.focus();
                 return;
             }
 
-            if (passwordInput.value.length < 8) {
-                alert('パスワードは8文字以上で入力してください。');
+            // 入力されている場合だけ8文字チェック
+            if (
+                passwordInput.value &&
+                passwordInput.value.length < 8
+            ) {
+                alert(
+                    'パスワードは8文字以上で入力してください。'
+                );
                 passwordInput.focus();
                 return;
             }
@@ -136,8 +163,15 @@
                 })
             );
 
-            localStorage.setItem(REGISTERED_KEY, 'true');
-            sessionStorage.setItem(SESSION_LOGIN_KEY, 'true');
+            localStorage.setItem(
+                REGISTERED_KEY,
+                'true'
+            );
+
+            sessionStorage.setItem(
+                SESSION_LOGIN_KEY,
+                'true'
+            );
 
             redirectSchedule();
         });
@@ -145,33 +179,51 @@
         // ----------------------------------------
         // LINEログイン
         // ----------------------------------------
-        $('#line-login-button')?.addEventListener('click', () => {
-            const button = $('#line-login-button');
-            const actions = $('#line-login-actions');
-            const loading = $('#loading-message');
+        $('#line-login-button')?.addEventListener(
+            'click',
+            () => {
+                const button =
+                    $('#line-login-button');
 
-            button.disabled = true;
-            actions.hidden = true;
-            loading.hidden = false;
+                const actions =
+                    $('#line-login-actions');
 
-            // MOCK用プロフィール
-            if (!getProfile()) {
+                const loading =
+                    $('#loading-message');
+
+                button.disabled = true;
+                actions.hidden = true;
+                loading.hidden = false;
+
+                // MOCK用プロフィール
+                if (!getProfile()) {
+                    localStorage.setItem(
+                        PROFILE_KEY,
+                        JSON.stringify({
+                            name: 'LINEユーザー',
+                            nameKana: 'らいんゆーざー',
+                            email: 'line-user@example.com',
+                            phone: '09012345678'
+                        })
+                    );
+                }
+
                 localStorage.setItem(
-                    PROFILE_KEY,
-                    JSON.stringify({
-                        name: 'LINEユーザー',
-                        nameKana: 'らいんゆーざー',
-                        email: 'line-user@example.com',
-                        phone: '09012345678'
-                    })
+                    REGISTERED_KEY,
+                    'true'
+                );
+
+                sessionStorage.setItem(
+                    SESSION_LOGIN_KEY,
+                    'true'
+                );
+
+                window.setTimeout(
+                    redirectSchedule,
+                    1200
                 );
             }
-
-            localStorage.setItem(REGISTERED_KEY, 'true');
-            sessionStorage.setItem(SESSION_LOGIN_KEY, 'true');
-
-            window.setTimeout(redirectSchedule, 1200);
-        });
+        );
     }
 
     // ----------------------------------------
@@ -183,7 +235,8 @@
             return;
         }
 
-        const profile = getProfile() || EMPTY_PROFILE;
+        const profile =
+            getProfile() || EMPTY_PROFILE;
 
         $('#profile-name').textContent =
             profile.name || '－';
@@ -246,9 +299,14 @@
         // ----------------------------------------
         // 参加人数
         // ----------------------------------------
-        const participants = $('#participants');
+        const participants =
+            $('#participants');
 
-        for (let i = 1; i <= 25; i += 1) {
+        for (
+            let i = 1;
+            i <= 25;
+            i += 1
+        ) {
             participants.insertAdjacentHTML(
                 'beforeend',
                 `<option value="${i}">${i}名</option>`
@@ -258,9 +316,14 @@
         // ----------------------------------------
         // 貸し竿
         // ----------------------------------------
-        const rentalRod = $('#rental-rod');
+        const rentalRod =
+            $('#rental-rod');
 
-        for (let i = 0; i <= 25; i += 1) {
+        for (
+            let i = 0;
+            i <= 25;
+            i += 1
+        ) {
             rentalRod.insertAdjacentHTML(
                 'beforeend',
                 `<option value="${i}">
@@ -272,22 +335,41 @@
         // ----------------------------------------
         // 予約入力保存
         // ----------------------------------------
-        $('#reservation-form').addEventListener('submit', (event) => {
-            event.preventDefault();
+        $('#reservation-form')
+            .addEventListener(
+                'submit',
+                (event) => {
+                    event.preventDefault();
 
-            const form = new FormData(event.currentTarget);
+                    const form =
+                        new FormData(
+                            event.currentTarget
+                        );
 
-            sessionStorage.setItem(
-                RESERVATION_KEY,
-                JSON.stringify({
-                    participants: form.get('participants'),
-                    rentalRod: form.get('rentalRod'),
-                    remarks: form.get('remarks') || 'なし'
-                })
+                    sessionStorage.setItem(
+                        RESERVATION_KEY,
+                        JSON.stringify({
+                            participants:
+                                form.get(
+                                    'participants'
+                                ),
+
+                            rentalRod:
+                                form.get(
+                                    'rentalRod'
+                                ),
+
+                            remarks:
+                                form.get(
+                                    'remarks'
+                                ) || 'なし'
+                        })
+                    );
+
+                    location.href =
+                        'reservationConfirm.html';
+                }
             );
-
-            location.href = 'reservationConfirm.html';
-        });
     }
 
     // ----------------------------------------
@@ -299,22 +381,28 @@
             return;
         }
 
-        const profile = getProfile() || EMPTY_PROFILE;
+        const profile =
+            getProfile() || EMPTY_PROFILE;
 
-        const trip = getTrip();
+        const trip =
+            getTrip();
 
         let reservation = null;
 
         try {
             reservation = JSON.parse(
-                sessionStorage.getItem(RESERVATION_KEY) || 'null'
+                sessionStorage.getItem(
+                    RESERVATION_KEY
+                ) || 'null'
             );
         } catch {
             reservation = null;
         }
 
         if (!trip || !reservation) {
-            location.replace('shipScheduleList.html');
+            location.replace(
+                'shipScheduleList.html'
+            );
             return;
         }
 
@@ -325,12 +413,27 @@
             ['釣り物', trip.target],
             ['料金', trip.price],
 
-            ['名前（漢字）', profile.name || '－'],
-            ['名前（かな）', profile.nameKana || '－'],
-            ['メールアドレス', profile.email || '－'],
-            ['電話番号', profile.phone || '－'],
+            [
+                '名前（漢字）',
+                profile.name || '－'
+            ],
+            [
+                '名前（かな）',
+                profile.nameKana || '－'
+            ],
+            [
+                'メールアドレス',
+                profile.email || '－'
+            ],
+            [
+                '電話番号',
+                profile.phone || '－'
+            ],
 
-            ['参加人数', `${reservation.participants}名`],
+            [
+                '参加人数',
+                `${reservation.participants}名`
+            ],
 
             [
                 '貸し竿',
@@ -339,26 +442,49 @@
                     : `${reservation.rentalRod}本`
             ],
 
-            ['備考', reservation.remarks]
+            [
+                '備考',
+                reservation.remarks
+            ]
         ];
 
-        const confirmationList = $('#confirmation-list');
-        const fragment = document.createDocumentFragment();
+        const confirmationList =
+            $('#confirmation-list');
+
+        const fragment =
+            document.createDocumentFragment();
 
         rows.forEach(([key, value]) => {
-            const item = document.createElement('div');
-            const term = document.createElement('dt');
-            const description = document.createElement('dd');
+            const item =
+                document.createElement('div');
 
-            item.className = 'confirmation-item';
-            term.textContent = key;
-            description.textContent = value;
+            const term =
+                document.createElement('dt');
 
-            item.append(term, description);
-            fragment.appendChild(item);
+            const description =
+                document.createElement('dd');
+
+            item.className =
+                'confirmation-item';
+
+            term.textContent =
+                key;
+
+            description.textContent =
+                value;
+
+            item.append(
+                term,
+                description
+            );
+
+            fragment.appendChild(
+                item
+            );
         });
 
-        confirmationList.replaceChildren(fragment);
+        confirmationList.replaceChildren(
+            fragment
+        );
     }
-
 })();
