@@ -3,7 +3,6 @@
 
     const PROFILE_KEY = 'horyomaruProfile';
     const REGISTERED_KEY = 'horyomaruMockRegistered';
-    const SESSION_LOGIN_KEY = 'horyomaruMockSessionLoggedIn';
     const TRIP_KEY = 'horyomaruSelectedTrip';
     const RESERVATION_KEY = 'horyomaruReservation';
 
@@ -28,9 +27,6 @@
     const isRegistered = () =>
         localStorage.getItem(REGISTERED_KEY) === 'true';
 
-    const isSessionLoggedIn = () =>
-        sessionStorage.getItem(SESSION_LOGIN_KEY) === 'true';
-
     const getTrip = () => {
         try {
             return JSON.parse(sessionStorage.getItem(TRIP_KEY) || 'null');
@@ -44,184 +40,100 @@
     };
 
     // ----------------------------------------
-    // ログイン画面
+    // 初回登録画面
     // ----------------------------------------
-    if ($('#first-login-form')) {
-        const requestedMode = params.get('mode');
-
-        const mode =
-            requestedMode === 'first' || requestedMode === 'line'
-                ? requestedMode
-                : (isRegistered() ? 'line' : 'first');
-
-        const firstLoginArea = $('#first-login-area');
-        const lineLoginArea = $('#line-login-area');
-        const loginTitle = $('#login-title');
-        const loginLead = $('#login-lead');
-
-        if (mode === 'line') {
-            firstLoginArea.hidden = true;
-            lineLoginArea.hidden = false;
-
-            loginTitle.textContent = 'LINEログイン';
-            loginLead.textContent =
-                '2回目以降はLINEログインだけで出船予定へ進みます。';
-        } else {
-            firstLoginArea.hidden = false;
-            lineLoginArea.hidden = true;
-
-            loginTitle.textContent = '初回ログイン';
-            loginLead.textContent =
-                '初回のみ、お客様情報を登録してください。';
+    if ($('#first-registration-form')) {
+        // すでに登録済みなら、LINEのリッチメニューから来た想定で
+        // 初回登録画面を飛ばして出船情報へ進む。
+        if (isRegistered()) {
+            redirectSchedule();
+            return;
         }
 
-        // ----------------------------------------
-        // 初回登録
-        // ----------------------------------------
-        const firstLoginForm = $('#first-login-form');
-        const nameInput = $('#name');
-        const nameKanaInput = $('#name-kana');
-        const telInput = $('#tel');
-        const passwordInput = $('#password');
-        const passwordToggle = $('#password-toggle');
+        const registrationForm =
+            $('#first-registration-form');
 
-        passwordToggle?.addEventListener('click', () => {
-            const isVisible = passwordInput.type === 'text';
+        const nameInput =
+            $('#name');
 
-            passwordInput.type = isVisible ? 'password' : 'text';
-            passwordToggle.textContent = isVisible ? '表示' : '非表示';
-            passwordToggle.setAttribute(
-                'aria-pressed',
-                String(!isVisible)
-            );
-        });
+        const nameKanaInput =
+            $('#name-kana');
 
-        firstLoginForm.addEventListener('submit', (event) => {
-            event.preventDefault();
+        const telInput =
+            $('#tel');
 
-            const name = nameInput.value.trim();
-            const nameKana = nameKanaInput.value.trim();
-            const tel = telInput.value.trim();
+        registrationForm.addEventListener(
+            'submit',
+            (event) => {
+                event.preventDefault();
 
-            // 入力されている場合だけチェック
-            if (
-                name &&
-                !/^[一-龯々ぁ-ゖァ-ヶー\s]+$/.test(name)
-            ) {
-                alert(
-                    '名前（漢字）は漢字・ひらがな・カタカナで入力してください。'
-                );
-                nameInput.focus();
-                return;
-            }
+                const name =
+                    nameInput.value.trim();
 
-            // 入力されている場合だけチェック
-            if (
-                nameKana &&
-                !/^[ぁ-ゖー\s]+$/.test(nameKana)
-            ) {
-                alert(
-                    '名前（かな）はひらがなで入力してください。'
-                );
-                nameKanaInput.focus();
-                return;
-            }
+                const nameKana =
+                    nameKanaInput.value.trim();
 
-            // 入力されている場合だけチェック
-            if (
-                tel &&
-                !/^[0-9]+$/.test(tel)
-            ) {
-                alert(
-                    '電話番号はハイフンなしの数字のみで入力してください。'
-                );
-                telInput.focus();
-                return;
-            }
+                const tel =
+                    telInput.value.trim();
 
-            // 入力されている場合だけ8文字チェック
-            if (
-                passwordInput.value &&
-                passwordInput.value.length < 8
-            ) {
-                alert(
-                    'パスワードは8文字以上で入力してください。'
-                );
-                passwordInput.focus();
-                return;
-            }
-
-            const form = new FormData(event.currentTarget);
-
-            localStorage.setItem(
-                PROFILE_KEY,
-                JSON.stringify({
-                    name: form.get('name') || '',
-                    nameKana: form.get('nameKana') || '',
-                    email: form.get('email') || '',
-                    phone: form.get('tel') || ''
-                })
-            );
-
-            localStorage.setItem(
-                REGISTERED_KEY,
-                'true'
-            );
-
-            sessionStorage.setItem(
-                SESSION_LOGIN_KEY,
-                'true'
-            );
-
-            redirectSchedule();
-        });
-
-        // ----------------------------------------
-        // LINEログイン
-        // ----------------------------------------
-        $('#line-login-button')?.addEventListener(
-            'click',
-            () => {
-                const button =
-                    $('#line-login-button');
-
-                const actions =
-                    $('#line-login-actions');
-
-                const loading =
-                    $('#loading-message');
-
-                button.disabled = true;
-                actions.hidden = true;
-                loading.hidden = false;
-
-                // MOCK用プロフィール
-                if (!getProfile()) {
-                    localStorage.setItem(
-                        PROFILE_KEY,
-                        JSON.stringify({
-                            name: 'LINEユーザー',
-                            nameKana: 'らいんゆーざー',
-                            email: 'line-user@example.com',
-                            phone: '09012345678'
-                        })
+                if (
+                    name &&
+                    !/^[一-龯々ぁ-ゖァ-ヶー\s]+$/.test(name)
+                ) {
+                    alert(
+                        '名前（漢字）は漢字・ひらがな・カタカナで入力してください。'
                     );
+                    nameInput.focus();
+                    return;
                 }
+
+                if (
+                    nameKana &&
+                    !/^[ぁ-ゖー\s]+$/.test(nameKana)
+                ) {
+                    alert(
+                        '名前（かな）はひらがなで入力してください。'
+                    );
+                    nameKanaInput.focus();
+                    return;
+                }
+
+                if (
+                    tel &&
+                    !/^[0-9]+$/.test(tel)
+                ) {
+                    alert(
+                        '電話番号はハイフンなしの数字のみで入力してください。'
+                    );
+                    telInput.focus();
+                    return;
+                }
+
+                const form =
+                    new FormData(
+                        event.currentTarget
+                    );
+
+                localStorage.setItem(
+                    PROFILE_KEY,
+                    JSON.stringify({
+                        name:
+                            form.get('name') || '',
+                        nameKana:
+                            form.get('nameKana') || '',
+                        email:
+                            form.get('email') || '',
+                        phone:
+                            form.get('tel') || ''
+                    })
+                );
 
                 localStorage.setItem(
                     REGISTERED_KEY,
                     'true'
                 );
 
-                sessionStorage.setItem(
-                    SESSION_LOGIN_KEY,
-                    'true'
-                );
-
-                window.setTimeout(
-                    redirectSchedule,
-                    1200
-                );
+                redirectSchedule();
             }
         );
     }
@@ -230,8 +142,8 @@
     // 予約入力画面
     // ----------------------------------------
     if ($('#reservation-form')) {
-        if (!isSessionLoggedIn()) {
-            location.replace('signin.html');
+        if (!isRegistered()) {
+            location.replace('firstRegistration.html');
             return;
         }
 
@@ -376,8 +288,8 @@
     // 予約確認画面
     // ----------------------------------------
     if ($('#confirmation-list')) {
-        if (!isSessionLoggedIn()) {
-            location.replace('signin.html');
+        if (!isRegistered()) {
+            location.replace('firstRegistration.html');
             return;
         }
 

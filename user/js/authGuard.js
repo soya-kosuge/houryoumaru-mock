@@ -1,7 +1,7 @@
 'use strict';
 
-const SESSION_LOGIN_KEY = 'horyomaruMockSessionLoggedIn';
+const REGISTERED_KEY = 'horyomaruMockRegistered';
 
-if (sessionStorage.getItem(SESSION_LOGIN_KEY) !== 'true') {
-    location.replace('signin.html');
+if (localStorage.getItem(REGISTERED_KEY) !== 'true') {
+    location.replace('firstRegistration.html');
 }

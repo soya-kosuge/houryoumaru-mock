@@ -61,34 +61,364 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 顧客管理：検索・区分絞り込み
+    // 顧客管理：検索・区分絞り込み・並び替え
     const customerTable = document.querySelector("#customer-table");
     const customerSearch = document.querySelector("#customer-search");
     const customerRank = document.querySelector("#customer-rank");
+    const customerSortDirection = document.querySelector("#customer-sort-direction");
+    const customerClearButton = document.querySelector("#customer-search-clear");
+    const customerResultCount = document.querySelector("#customer-result-count");
 
     if (customerTable && customerSearch && customerRank) {
-        const customerRows = Array.from(customerTable.querySelectorAll("tbody tr[data-search-row]"));
+        const customerBody = customerTable.querySelector("tbody");
 
-        const filterCustomers = () => {
-            const query = normalizeName(customerSearch.value);
-            const selectedRank = customerRank.value;
+        const customerRows = Array.from(
+            customerTable.querySelectorAll("tbody tr[data-search-row]")
+        );
 
-            customerRows.forEach((row) => {
-                const cells = row.querySelectorAll("td");
-                const name = normalizeName(cells[1]?.textContent || "");
-                const phone = (cells[2]?.textContent || "").replace(/\D/g, "");
-                const rank = cells[4]?.textContent.trim() || "";
-                const normalizedQuery = query.replace(/\D/g, "");
+        const mobileContainer =
+            document.querySelector(".customer-mobile-cards");
 
-                const matchesText = !query || name.includes(query) || (normalizedQuery && phone.includes(normalizedQuery));
-                const matchesRank = !selectedRank || selectedRank === "すべて" || rank === selectedRank;
-                row.hidden = !(matchesText && matchesRank);
-            });
+        const mobileCards = mobileContainer
+            ? Array.from(
+                mobileContainer.querySelectorAll("[data-customer-mobile-card]")
+            )
+            : [];
+
+        const readCustomer = (element) => ({
+            name: element.dataset.customerName || "",
+            rank: element.dataset.customerRank || "",
+            lastDate: element.dataset.customerLastDate || ""
+        });
+
+        const compareCustomers = (elementA, elementB) => {
+            const a = readCustomer(elementA);
+            const b = readCustomer(elementB);
+
+            const direction =
+                customerSortDirection?.value === "asc"
+                    ? 1
+                    : -1;
+
+            const dateDiff =
+                compareText(a.lastDate, b.lastDate);
+
+            if (dateDiff !== 0) {
+                return dateDiff * direction;
+            }
+
+            return compareText(a.name, b.name);
         };
 
-        customerSearch.addEventListener("input", filterCustomers);
-        customerRank.addEventListener("change", filterCustomers);
-        filterCustomers();
+        const matchesCustomer = (element) => {
+            const data = readCustomer(element);
+
+            const query =
+                normalizeName(customerSearch.value);
+
+            const digitsQuery =
+                customerSearch.value.replace(/\D/g, "");
+
+            const source =
+                element.textContent || "";
+
+            const normalizedSource =
+                normalizeName(source);
+
+            const matchesText =
+                !query ||
+                normalizedSource.includes(query) ||
+                (
+                    digitsQuery &&
+                    source
+                        .replace(/\D/g, "")
+                        .includes(digitsQuery)
+                );
+
+            const matchesRank =
+                !customerRank.value ||
+                data.rank === customerRank.value;
+
+            return matchesText && matchesRank;
+        };
+
+        const refreshCustomers = () => {
+            customerRows
+                .sort(compareCustomers)
+                .forEach((row) => {
+                    customerBody.appendChild(row);
+                });
+
+            if (mobileContainer) {
+                mobileCards
+                    .sort(compareCustomers)
+                    .forEach((card) => {
+                        mobileContainer.appendChild(card);
+                    });
+            }
+
+            let visibleCount = 0;
+
+            customerRows.forEach((row) => {
+                const matches =
+                    matchesCustomer(row);
+
+                row.hidden = !matches;
+
+                if (matches) {
+                    visibleCount += 1;
+                }
+            });
+
+            mobileCards.forEach((card) => {
+                card.hidden =
+                    !matchesCustomer(card);
+            });
+
+            updateResultCount(
+                customerResultCount,
+                visibleCount,
+                customerRows.length
+            );
+        };
+
+        customerSearch.addEventListener(
+            "input",
+            refreshCustomers
+        );
+
+        customerRank.addEventListener(
+            "change",
+            refreshCustomers
+        );
+
+        customerSortDirection?.addEventListener(
+            "change",
+            refreshCustomers
+        );
+
+        customerClearButton?.addEventListener(
+            "click",
+            () => {
+                customerSearch.value = "";
+                customerRank.value = "";
+
+                if (customerSortDirection) {
+                    customerSortDirection.value =
+                        "desc";
+                }
+
+                refreshCustomers();
+                customerSearch.focus();
+            }
+        );
+
+        refreshCustomers();
+    }
+
+
+    // 顧客詳細：検索・区分絞り込み・並び替え
+    const customerDetailTable =
+        document.querySelector("#customer-detail-table");
+
+    const customerDetailSearch =
+        document.querySelector("#customer-detail-search");
+
+    const customerDetailRank =
+        document.querySelector("#customer-detail-rank");
+
+    const customerDetailSortDirection =
+        document.querySelector("#customer-detail-sort-direction");
+
+    const customerDetailClearButton =
+        document.querySelector("#customer-detail-search-clear");
+
+    const customerDetailResultCount =
+        document.querySelector("#customer-detail-result-count");
+
+    if (
+        customerDetailTable &&
+        customerDetailSearch &&
+        customerDetailRank
+    ) {
+        const detailBody =
+            customerDetailTable.querySelector("tbody");
+
+        const customerDetailRows = Array.from(
+            customerDetailTable.querySelectorAll(
+                "tbody tr[data-customer-detail-row]"
+            )
+        );
+
+        const mobileContainer =
+            document.querySelector(
+                ".customer-detail-mobile-cards"
+            );
+
+        const mobileCards = mobileContainer
+            ? Array.from(
+                mobileContainer.querySelectorAll(
+                    "[data-customer-detail-mobile-card]"
+                )
+            )
+            : [];
+
+        const readCustomerDetail = (element) => ({
+            name: element.dataset.customerName || "",
+            rank: element.dataset.customerRank || "",
+            lastDate:
+                element.dataset.customerLastDate || ""
+        });
+
+        const compareCustomerDetails =
+            (elementA, elementB) => {
+                const a =
+                    readCustomerDetail(elementA);
+
+                const b =
+                    readCustomerDetail(elementB);
+
+                const direction =
+                    customerDetailSortDirection
+                        ?.value === "asc"
+                        ? 1
+                        : -1;
+
+                const dateDiff =
+                    compareText(
+                        a.lastDate,
+                        b.lastDate
+                    );
+
+                if (dateDiff !== 0) {
+                    return dateDiff * direction;
+                }
+
+                return compareText(
+                    a.name,
+                    b.name
+                );
+            };
+
+        const matchesCustomerDetail =
+            (element) => {
+                const data =
+                    readCustomerDetail(element);
+
+                const query =
+                    normalizeName(
+                        customerDetailSearch.value
+                    );
+
+                const digitsQuery =
+                    customerDetailSearch.value
+                        .replace(/\D/g, "");
+
+                const source =
+                    element.textContent || "";
+
+                const matchesText =
+                    !query ||
+                    normalizeName(source)
+                        .includes(query) ||
+                    (
+                        digitsQuery &&
+                        source
+                            .replace(/\D/g, "")
+                            .includes(digitsQuery)
+                    );
+
+                const matchesRank =
+                    !customerDetailRank.value ||
+                    data.rank ===
+                        customerDetailRank.value;
+
+                return (
+                    matchesText &&
+                    matchesRank
+                );
+            };
+
+        const refreshCustomerDetails = () => {
+            customerDetailRows
+                .sort(compareCustomerDetails)
+                .forEach((row) => {
+                    detailBody.appendChild(row);
+                });
+
+            if (mobileContainer) {
+                mobileCards
+                    .sort(compareCustomerDetails)
+                    .forEach((card) => {
+                        mobileContainer
+                            .appendChild(card);
+                    });
+            }
+
+            let visibleCount = 0;
+
+            customerDetailRows.forEach((row) => {
+                const matches =
+                    matchesCustomerDetail(row);
+
+                row.hidden = !matches;
+
+                if (matches) {
+                    visibleCount += 1;
+                }
+            });
+
+            mobileCards.forEach((card) => {
+                card.hidden =
+                    !matchesCustomerDetail(card);
+            });
+
+            updateResultCount(
+                customerDetailResultCount,
+                visibleCount,
+                customerDetailRows.length
+            );
+        };
+
+        customerDetailSearch.addEventListener(
+            "input",
+            refreshCustomerDetails
+        );
+
+        customerDetailRank.addEventListener(
+            "change",
+            refreshCustomerDetails
+        );
+
+        customerDetailSortDirection
+            ?.addEventListener(
+                "change",
+                refreshCustomerDetails
+            );
+
+        customerDetailClearButton
+            ?.addEventListener(
+                "click",
+                () => {
+                    customerDetailSearch.value =
+                        "";
+
+                    customerDetailRank.value =
+                        "";
+
+                    if (
+                        customerDetailSortDirection
+                    ) {
+                        customerDetailSortDirection
+                            .value = "desc";
+                    }
+
+                    refreshCustomerDetails();
+                    customerDetailSearch.focus();
+                }
+            );
+
+        refreshCustomerDetails();
     }
 
 // 予約一覧：日付 × 便ごとに集約して表示
@@ -615,6 +945,19 @@ if (
                 row.dataset.date = cells[0]?.textContent.trim() || "";
                 row.dataset.course = cells[1]?.textContent.trim() || "";
                 row.dataset.name = cells[2]?.textContent.trim() || "";
+            }
+
+            if (row.matches("[data-customer-detail-row]")) {
+                const cells = row.querySelectorAll("td[data-editable]");
+
+                row.dataset.customerName =
+                    cells[0]?.textContent.trim() || "";
+
+                row.dataset.customerRank =
+                    cells[5]?.textContent.trim() || "";
+
+                row.dataset.customerLastDate =
+                    cells[6]?.textContent.trim() || "";
             }
 
             row.classList.remove("is-editing");

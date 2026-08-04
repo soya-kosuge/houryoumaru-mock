@@ -117,43 +117,454 @@
         });
     }
 
-    // 顧客管理：ユーザー予約を電話番号/メール単位でまとめる。
-    const customerBody = document.querySelector('#customer-table tbody');
-    if (customerBody) {
-        const customers = new Map();
+    // 顧客管理・顧客詳細
+    // ユーザー予約を電話番号 / メール単位でまとめる
+    const customerBody =
+        document.querySelector(
+            "#customer-table tbody"
+        );
+
+    const customerMobileContainer =
+        document.querySelector(
+            ".customer-mobile-cards"
+        );
+
+    const customerDetailBody =
+        document.querySelector(
+            "#customer-detail-table tbody"
+        );
+
+    const customerDetailMobileContainer =
+        document.querySelector(
+            ".customer-detail-mobile-cards"
+        );
+
+    if (
+        customerBody ||
+        customerMobileContainer ||
+        customerDetailBody ||
+        customerDetailMobileContainer
+    ) {
+        const customers =
+            new Map();
+
         reservations.forEach((item) => {
-            const key = digits(item.phone) || item.email || item.name;
+            const key =
+                digits(item.phone) ||
+                item.email ||
+                item.name;
+
             if (!customers.has(key)) {
-                customers.set(key, {
-                    ...item,
-                    useCount: 0,
-                    lastDate: item.date || ''
-                });
+                customers.set(
+                    key,
+                    {
+                        ...item,
+                        useCount: 0,
+                        lastDate:
+                            item.date || ""
+                    }
+                );
             }
-            const customer = customers.get(key);
+
+            const customer =
+                customers.get(key);
+
             customer.useCount += 1;
-            if ((item.date || '') > customer.lastDate) customer.lastDate = item.date || '';
+
+            if (
+                (item.date || "") >
+                customer.lastDate
+            ) {
+                customer.lastDate =
+                    item.date || "";
+            }
         });
 
         let index = 0;
+
         customers.forEach((customer) => {
             index += 1;
-            const count = customer.useCount;
-            const rank = count >= 10 ? 'VIP' : count >= 3 ? '常連' : '新規';
-            const badge = rank === 'VIP' ? 'badge-orange' : rank === '常連' ? 'badge-blue' : 'badge-green';
-            const row = document.createElement('tr');
-            row.dataset.searchRow = '';
-            row.dataset.userCustomer = 'true';
-            row.innerHTML = `
-                <td>${2000 + index}</td>
-                <td>${escapeHtml(customer.name)}</td>
-                <td>${escapeHtml(formatPhone(customer.phone))}</td>
-                <td>${count}回</td>
-                <td><span class="badge ${badge}">${rank}</span></td>
-                <td>${escapeHtml(customer.lastDate)}</td>
-                <td><button class="btn btn-primary btn-sm" type="button">詳細</button></td>
-            `;
-            customerBody.appendChild(row);
+
+            const id =
+                2000 + index;
+
+            const count =
+                customer.useCount;
+
+            const rank =
+                count >= 10
+                    ? "VIP"
+                    : count >= 3
+                        ? "常連"
+                        : "新規";
+
+            const badge =
+                rank === "VIP"
+                    ? "badge-orange"
+                    : rank === "常連"
+                        ? "badge-blue"
+                        : "badge-green";
+
+
+            // 顧客一覧 PC
+            if (customerBody) {
+                const row =
+                    document.createElement("tr");
+
+                row.dataset.searchRow = "";
+                row.dataset.userCustomer =
+                    "true";
+
+                row.dataset.customerId =
+                    String(id);
+
+                row.dataset.customerName =
+                    customer.name || "";
+
+                row.dataset.customerRank =
+                    rank;
+
+                row.dataset.customerLastDate =
+                    customer.lastDate || "";
+
+                row.innerHTML = `
+                    <td>${id}</td>
+
+                    <td>
+                        ${escapeHtml(
+                            customer.name
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            formatPhone(
+                                customer.phone
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${count}回
+                    </td>
+
+                    <td>
+                        <span class="badge ${badge}">
+                            ${rank}
+                        </span>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            customer.lastDate
+                        )}
+                    </td>
+                `;
+
+                customerBody.appendChild(row);
+            }
+
+
+            // 顧客一覧 スマホ
+            if (customerMobileContainer) {
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+                card.className =
+                    "card customer-card";
+
+                card.dataset.customerMobileCard =
+                    "";
+
+                card.dataset.customerId =
+                    String(id);
+
+                card.dataset.customerName =
+                    customer.name || "";
+
+                card.dataset.customerRank =
+                    rank;
+
+                card.dataset.customerLastDate =
+                    customer.lastDate || "";
+
+                card.innerHTML = `
+                    <div class="card-body">
+
+                        <div>
+                            <div class="data-label">
+                                顧客ID
+                            </div>
+                            <div class="data-value">
+                                ${id}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                顧客名
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.name
+                                )}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                電話番号
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    formatPhone(
+                                        customer.phone
+                                    )
+                                )}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                利用回数
+                            </div>
+                            <div class="data-value">
+                                ${count}回
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                区分
+                            </div>
+                            <div class="data-value">
+                                <span class="badge ${badge}">
+                                    ${rank}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                最終利用日
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.lastDate
+                                )}
+                            </div>
+                        </div>
+
+                    </div>
+                `;
+
+                customerMobileContainer
+                    .appendChild(card);
+            }
+
+
+            // 顧客詳細 PC
+            if (customerDetailBody) {
+                const row =
+                    document.createElement("tr");
+
+                row.dataset.customerDetailRow =
+                    "";
+
+                row.dataset.customerId =
+                    String(id);
+
+                row.dataset.customerName =
+                    customer.name || "";
+
+                row.dataset.customerRank =
+                    rank;
+
+                row.dataset.customerLastDate =
+                    customer.lastDate || "";
+
+                row.innerHTML = `
+                    <td>${id}</td>
+
+                    <td data-editable>
+                        ${escapeHtml(
+                            customer.name
+                        )}
+                    </td>
+
+                    <td data-editable>
+                        ${escapeHtml(
+                            customer.nameKana
+                        )}
+                    </td>
+
+                    <td data-editable>
+                        ${escapeHtml(
+                            formatPhone(
+                                customer.phone
+                            )
+                        )}
+                    </td>
+
+                    <td data-editable>
+                        ${escapeHtml(
+                            customer.email
+                        )}
+                    </td>
+
+                    <td data-editable>
+                        ${count}回
+                    </td>
+
+                    <td data-editable>
+                        ${rank}
+                    </td>
+
+                    <td data-editable>
+                        ${escapeHtml(
+                            customer.lastDate
+                        )}
+                    </td>
+
+                    <td>
+                        <button
+                            class="btn btn-primary btn-sm"
+                            data-edit-row
+                            type="button"
+                        >
+                            修正
+                        </button>
+                    </td>
+                `;
+
+                customerDetailBody
+                    .appendChild(row);
+            }
+
+
+            // 顧客詳細 スマホ
+            if (customerDetailMobileContainer) {
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+                card.className =
+                    "card customer-detail-card";
+
+                card.dataset
+                    .customerDetailMobileCard =
+                    "";
+
+                card.dataset.customerId =
+                    String(id);
+
+                card.dataset.customerName =
+                    customer.name || "";
+
+                card.dataset.customerRank =
+                    rank;
+
+                card.dataset.customerLastDate =
+                    customer.lastDate || "";
+
+                card.innerHTML = `
+                    <div class="card-body">
+
+                        <div>
+                            <div class="data-label">
+                                顧客ID
+                            </div>
+                            <div class="data-value">
+                                ${id}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                氏名
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.name
+                                )}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                ふりがな
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.nameKana
+                                )}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                電話番号
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    formatPhone(
+                                        customer.phone
+                                    )
+                                )}
+                            </div>
+                        </div>
+
+                        <div class="customer-email">
+                            <div class="data-label">
+                                メール
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.email
+                                )}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                利用回数
+                            </div>
+                            <div class="data-value">
+                                ${count}回
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                区分
+                            </div>
+                            <div class="data-value">
+                                <span class="badge ${badge}">
+                                    ${rank}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                最終利用日
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.lastDate
+                                )}
+                            </div>
+                        </div>
+
+                    </div>
+                `;
+
+                customerDetailMobileContainer
+                    .appendChild(card);
+            }
         });
     }
 
