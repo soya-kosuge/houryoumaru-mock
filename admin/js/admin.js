@@ -96,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const reservationDate = document.querySelector("#reservation-date");
     const reservationCourse = document.querySelector("#reservation-course");
     const reservationGuests = document.querySelector("#reservation-guests");
-    const reservationSort = document.querySelector("#reservation-sort");
     const reservationSortDirection = document.querySelector("#reservation-sort-direction");
     const reservationClearButton = document.querySelector("#reservation-search-clear");
     const reservationResultCount = document.querySelector("#reservation-result-count");
@@ -131,16 +130,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const compareRows = (rowA, rowB) => {
             const a = readReservation(rowA);
             const b = readReservation(rowB);
-            const key = reservationSort?.value || "default";
             const direction = reservationSortDirection?.value === "asc" ? 1 : -1;
 
-            if (key !== "default") {
+            // 並び順は「日付 → 便 → 氏名」で固定し、昇順・降順だけ切り替える。
+            for (const key of ["date", "course", "name"]) {
                 const diff = compareText(a[key], b[key]);
-                if (diff !== 0) return diff * direction;
-            }
-
-            for (const defaultKey of ["date", "course", "name"]) {
-                const diff = compareText(a[defaultKey], b[defaultKey]);
                 if (diff !== 0) return diff * direction;
             }
             return 0;
@@ -172,14 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
         reservationDate.addEventListener("change", refreshReservations);
         reservationCourse.addEventListener("change", refreshReservations);
         reservationGuests.addEventListener("input", refreshReservations);
-        reservationSort?.addEventListener("change", refreshReservations);
         reservationSortDirection?.addEventListener("change", refreshReservations);
 
         reservationClearButton?.addEventListener("click", () => {
             reservationDate.value = "";
             reservationCourse.value = "";
             reservationGuests.value = "";
-            if (reservationSort) reservationSort.value = "default";
             if (reservationSortDirection) reservationSortDirection.value = "desc";
             refreshReservations();
             reservationDate.focus();
@@ -291,7 +283,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const detailSearchDate = document.querySelector("#detail-search-date");
     const detailSearchCourse = document.querySelector("#detail-search-course");
     const detailSearchName = document.querySelector("#detail-search-name");
-    const detailSort = document.querySelector("#detail-sort");
     const detailSortDirection = document.querySelector("#detail-sort-direction");
     const detailClearButton = document.querySelector("#detail-search-clear");
     const detailResultCount = document.querySelector("#detail-result-count");
@@ -313,16 +304,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const compareElements = (elementA, elementB) => {
             const a = readDetail(elementA);
             const b = readDetail(elementB);
-            const key = detailSort?.value || "default";
             const direction = detailSortDirection?.value === "asc" ? 1 : -1;
 
-            if (key !== "default") {
+            // 並び順は「日付 → 便 → 氏名」で固定し、昇順・降順だけ切り替える。
+            for (const key of ["date", "course", "name"]) {
                 const diff = compareText(a[key], b[key]);
-                if (diff !== 0) return diff * direction;
-            }
-
-            for (const defaultKey of ["date", "course", "name"]) {
-                const diff = compareText(a[defaultKey], b[defaultKey]);
                 if (diff !== 0) return diff * direction;
             }
             return 0;
@@ -363,14 +349,12 @@ document.addEventListener("DOMContentLoaded", () => {
         detailSearchDate.addEventListener("change", refreshDetails);
         detailSearchCourse.addEventListener("change", refreshDetails);
         detailSearchName.addEventListener("input", refreshDetails);
-        detailSort?.addEventListener("change", refreshDetails);
         detailSortDirection?.addEventListener("change", refreshDetails);
 
         detailClearButton?.addEventListener("click", () => {
             detailSearchDate.value = "";
             detailSearchCourse.value = "";
             detailSearchName.value = "";
-            if (detailSort) detailSort.value = "default";
             if (detailSortDirection) detailSortDirection.value = "desc";
             refreshDetails();
             detailSearchDate.focus();
