@@ -1,7 +1,7 @@
-﻿/*--詳細画面--*/
+/*--詳細画面--*/
 .detail-main {
     width: min(680px, calc(100% - 24px));
-    margin: 28px auto 52px;
+    margin: 20px auto 36px;
 }
 
 /*--戻るリンク--*/
@@ -32,7 +32,7 @@
 
 /*--詳細タイトル--*/
 .detail-hero {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 /*--詳細カード--*/
@@ -45,7 +45,7 @@
 }
 
 .detail-heading {
-    padding: 18px 20px;
+    padding: 14px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -104,7 +104,7 @@
 
 /*--便の説明--*/
 .detail-description {
-    padding: 20px;
+    padding: 16px;
 }
 
 .detail-description h3,
@@ -123,8 +123,8 @@
 
 /*--持ち物・注意事項--*/
 .equipment-box {
-    margin: 0 20px 20px;
-    padding: 17px;
+    margin: 0 16px 16px;
+    padding: 14px;
     background: #f6fbfd;
     border: 1px solid var(--line);
     border-radius: 11px;
@@ -140,7 +140,7 @@
 
 /*--予約ボタン--*/
 .detail-actions {
-    padding: 0 20px 20px;
+    padding: 0 16px 16px;
     display: flex;
     justify-content: center;
 }
@@ -148,7 +148,7 @@
 .reserve-button {
     width: 100%;
     max-width: 460px;
-    min-height: 50px;
+    min-height: 46px;
     padding: 0 20px;
     display: flex;
     align-items: center;

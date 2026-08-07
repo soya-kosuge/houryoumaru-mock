@@ -1,48 +1,48 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>豊漁丸｜予約内容確認</title>
-    <link rel="stylesheet" href="css/shipScheduleList.css">
-    <link rel="stylesheet" href="css/reservationFlow.css">
-    <script src="js/scheduleApi.js" defer></script>
-    <script src="js/reservationFlow.js" defer></script>
-<script src="js/common.js" defer></script>
-    <script src="../shared/appData.js" defer></script>
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="shipScheduleList.html">
-                <img class="logo" src="images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
-            </a>
-        </div>
-    </header>
-
-    <main class="flow-main">
-        <section class="hero flow-hero">
-            <span class="eyebrow">RESERVATION CONFIRMATION</span>
-            <h1>予約内容確認</h1>
-            <p class="lead">選択した便と予約内容を確認してください。</p>
-        </section>
-
-        <section class="flow-card confirmation-card">
-            <div class="flow-card-heading">
-                <h2>予約内容</h2>
-            </div>
-
-            <dl class="confirmation-list" id="confirmation-list"></dl>
-
-            <div class="confirmation-actions">
-                <a class="secondary-button" href="reservation.html">入力内容を修正する</a>
-                <a class="primary-button confirm-button" id="complete-link" href="reservationComplete.html">
-                    この内容で予約する
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>豊漁丸｜予約内容確認</title>
+        <link rel="stylesheet" href="css/shipScheduleList.css">
+        <link rel="stylesheet" href="css/reservationFlow.css">
+        <script src="js/scheduleApi.js" defer></script>
+        <script src="js/reservationFlow.js" defer></script>
+        <script src="js/common.js" defer></script>
+        <script src="../shared/appData.js" defer></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="brand" href="shipScheduleList.html">
+                    <img class="logo" src="images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
                 </a>
             </div>
-        </section>
-    </main>
+        </header>
 
-    <footer>© 2026 豊漁丸 予約システム</footer>
-</body>
+        <main class="flow-main">
+            <section class="hero flow-hero">
+                <span class="eyebrow">RESERVATION CONFIRMATION</span>
+                <h1>予約内容確認</h1>
+                <p class="lead">選択した便と予約内容を確認してください。</p>
+            </section>
+
+            <section class="flow-card confirmation-card">
+                <div class="flow-card-heading">
+                    <h2>予約内容</h2>
+                </div>
+
+                <dl class="confirmation-list" id="confirmation-list"></dl>
+
+                <div class="confirmation-actions">
+                    <a class="secondary-button" href="reservation.html">入力内容を修正する</a>
+                    <a class="primary-button confirm-button" id="complete-link" href="reservationComplete.html">
+                        この内容で予約する
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer>© 2026 豊漁丸 予約システム</footer>
+    </body>
 </html>

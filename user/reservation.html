@@ -1,123 +1,123 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>豊漁丸｜予約入力</title>
-    <link rel="stylesheet" href="css/shipScheduleList.css">
-    <link rel="stylesheet" href="css/reservationFlow.css">
-    <script src="js/scheduleApi.js" defer></script>
-    <script src="js/reservationFlow.js" defer></script>
-<script src="js/common.js" defer></script>
-    <script src="../shared/appData.js" defer></script>
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="shipScheduleList.html">
-                <img class="logo" src="images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
-            </a>
-        </div>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>豊漁丸｜予約入力</title>
+        <link rel="stylesheet" href="css/shipScheduleList.css">
+        <link rel="stylesheet" href="css/reservationFlow.css">
+        <script src="js/scheduleApi.js" defer></script>
+        <script src="js/reservationFlow.js" defer></script>
+        <script src="js/common.js" defer></script>
+        <script src="../shared/appData.js" defer></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="brand" href="shipScheduleList.html">
+                    <img class="logo" src="images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
+                </a>
+            </div>
+        </header>
 
-    <main class="flow-main">
-        <div class="back-area">
-            <a class="back-link" id="detail-back" href="shipScheduleDetail.html">
-                <span aria-hidden="true">‹</span>
-                出船詳細に戻る
-            </a>
-        </div>
-
-        <section class="hero flow-hero">
-            <span class="eyebrow">RESERVATION</span>
-            <h1>予約入力</h1>
-            <p class="lead">登録情報の再入力は不要です。予約条件だけ選択してください。</p>
-        </section>
-
-        <section class="selected-trip">
-            <div>
-                <p class="selected-trip-label">選択中の便</p>
-                <h2 id="trip-title">選択した便</h2>
+        <main class="flow-main">
+            <div class="back-area">
+                <a class="back-link" id="detail-back" href="shipScheduleDetail.html">
+                    <span aria-hidden="true">‹</span>
+                    出船詳細に戻る
+                </a>
             </div>
 
-            <dl>
+            <section class="hero flow-hero">
+                <span class="eyebrow">RESERVATION</span>
+                <h1>予約入力</h1>
+                <p class="lead">登録情報の再入力は不要です。予約条件だけ選択してください。</p>
+            </section>
+
+            <section class="selected-trip">
                 <div>
-                    <dt>出船時刻</dt>
-                    <dd id="trip-time">－</dd>
+                    <p class="selected-trip-label">選択中の便</p>
+                    <h2 id="trip-title">選択した便</h2>
                 </div>
-                <div>
-                    <dt>釣り物</dt>
-                    <dd id="trip-target">－</dd>
-                </div>
-                <div>
-                    <dt>料金</dt>
-                    <dd id="trip-price">－</dd>
-                </div>
-            </dl>
-        </section>
 
-        <section class="flow-card reservation-card">
-            <div class="flow-card-heading">
-                <h2>登録済みのお客様情報</h2>
-            </div>
+                <dl>
+                    <div>
+                        <dt>出船時刻</dt>
+                        <dd id="trip-time">－</dd>
+                    </div>
+                    <div>
+                        <dt>釣り物</dt>
+                        <dd id="trip-target">－</dd>
+                    </div>
+                    <div>
+                        <dt>料金</dt>
+                        <dd id="trip-price">－</dd>
+                    </div>
+                </dl>
+            </section>
 
-            <dl class="confirmation-list">
-                <div class="confirmation-item">
-                    <dt>名前（漢字）</dt>
-                    <dd id="profile-name">－</dd>
+            <section class="flow-card reservation-card">
+                <div class="flow-card-heading">
+                    <h2>登録済みのお客様情報</h2>
                 </div>
-                <div class="confirmation-item">
-                    <dt>名前（かな）</dt>
-                    <dd id="profile-name-kana">－</dd>
-                </div>
-                <div class="confirmation-item">
-                    <dt>メールアドレス</dt>
-                    <dd id="profile-email">－</dd>
-                </div>
-                <div class="confirmation-item">
-                    <dt>電話番号</dt>
-                    <dd id="profile-phone">－</dd>
-                </div>
-            </dl>
 
-            <div class="flow-card-heading">
-                <h2>今回の予約内容</h2>
-            </div>
+                <dl class="confirmation-list">
+                    <div class="confirmation-item">
+                        <dt>名前（漢字）</dt>
+                        <dd id="profile-name">－</dd>
+                    </div>
+                    <div class="confirmation-item">
+                        <dt>名前（かな）</dt>
+                        <dd id="profile-name-kana">－</dd>
+                    </div>
+                    <div class="confirmation-item">
+                        <dt>メールアドレス</dt>
+                        <dd id="profile-email">－</dd>
+                    </div>
+                    <div class="confirmation-item">
+                        <dt>電話番号</dt>
+                        <dd id="profile-phone">－</dd>
+                    </div>
+                </dl>
 
-            <form class="flow-form" id="reservation-form">
-                <div class="form-group">
-                    <label for="participants">
-                        参加人数 <span class="required">必須</span>
+                <div class="flow-card-heading">
+                    <h2>今回の予約内容</h2>
+                </div>
+
+                <form class="flow-form" id="reservation-form">
+                    <div class="form-group">
+                        <label for="participants">
+                            参加人数 <span class="required">必須</span>
+                        </label>
+                        <select id="participants" name="participants" required>
+                            <option value="">選択してください</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rental-rod">
+                            貸し竿 <span class="required">必須</span>
+                        </label>
+                        <select id="rental-rod" name="rentalRod" required>
+                            <option value="">選択してください</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="remarks">備考</label>
+                        <textarea id="remarks" name="remarks" rows="4" placeholder="連絡事項がある場合のみ入力"></textarea>
+                    </div>
+
+                    <label class="agreement">
+                        <input type="checkbox" id="agreement" required>
+                        <span>予約内容と注意事項を確認しました。</span>
                     </label>
-                    <select id="participants" name="participants" required>
-                        <option value="">選択してください</option>
-                    </select>
-                </div>
 
-                <div class="form-group">
-                    <label for="rental-rod">
-                        貸し竿 <span class="required">必須</span>
-                    </label>
-                    <select id="rental-rod" name="rentalRod" required>
-                        <option value="">選択してください</option>
-                    </select>
-                </div>
+                    <button class="primary-button" type="submit">予約内容を確認する</button>
+                </form>
+            </section>
+        </main>
 
-                <div class="form-group">
-                    <label for="remarks">備考</label>
-                    <textarea id="remarks" name="remarks" rows="4" placeholder="連絡事項がある場合のみ入力"></textarea>
-                </div>
-
-                <label class="agreement">
-                    <input type="checkbox" id="agreement" required>
-                    <span>予約内容と注意事項を確認しました。</span>
-                </label>
-
-                <button class="primary-button" type="submit">予約内容を確認する</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>© 2026 豊漁丸 予約システム</footer>
-</body>
+        <footer>© 2026 豊漁丸 予約システム</footer>
+    </body>
 </html>

@@ -72,11 +72,11 @@ body {
 
 main {
     width: min(1180px, calc(100% - 40px));
-    margin: 42px auto 64px;
+    margin: 28px auto 44px;
 }
 
 .hero {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     text-align: center;
 }
 
@@ -94,7 +94,7 @@ main {
 h1 {
     margin: 13px 0 8px;
     color: var(--navy);
-    font-size: 42px;
+    font-size: 34px;
     letter-spacing: 0.05em;
 }
 
@@ -107,7 +107,7 @@ h1 {
 /* 空き状況の凡例 */
 
 .legend {
-    margin: 20px 4px 12px;
+    margin: 14px 4px 10px;
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
@@ -116,11 +116,11 @@ h1 {
     font-size: 12px;
 }
 
-    .legend span {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-    }
+.legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
 
 .dot {
     width: 9px;
@@ -128,17 +128,17 @@ h1 {
     border-radius: 50%;
 }
 
-    .dot.ok {
-        background: var(--ok);
-    }
+.dot.ok {
+    background: var(--ok);
+}
 
-    .dot.few {
-        background: var(--few);
-    }
+.dot.few {
+    background: var(--few);
+}
 
-    .dot.full {
-        background: var(--full);
-    }
+.dot.full {
+    background: var(--full);
+}
 
 /* カレンダー・出船予定レイアウト */
 
@@ -146,7 +146,7 @@ h1 {
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
     align-items: start;
-    gap: 18px;
+    gap: 14px;
 }
 
 .schedule-area {
@@ -155,7 +155,7 @@ h1 {
 
 .schedule {
     display: grid;
-    gap: 18px;
+    gap: 14px;
 }
 
 /* カレンダー */
@@ -166,13 +166,13 @@ h1 {
     overflow: hidden;
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: 18px;
+    border-radius: 14px;
     box-shadow: var(--shadow);
 }
 
 .calendar-heading {
     margin: 0;
-    padding: 15px 18px;
+    padding: 12px 14px;
     color: var(--navy);
     background: linear-gradient(90deg, #eef8fb, #f8fcfd);
     border-bottom: 1px solid var(--line);
@@ -181,7 +181,7 @@ h1 {
 }
 
 .calendar-nav {
-    padding: 14px 14px 8px;
+    padding: 10px 10px 6px;
     display: grid;
     grid-template-columns: 32px 1fr 32px;
     align-items: center;
@@ -205,19 +205,19 @@ h1 {
     transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
 
-    .month-button:hover {
-        background: var(--sky);
-        border-color: var(--line);
-    }
+.month-button:hover {
+    background: var(--sky);
+    border-color: var(--line);
+}
 
-    .month-button:active {
-        transform: scale(0.94);
-    }
+.month-button:active {
+    transform: scale(0.94);
+}
 
-    .month-button:focus-visible {
-        outline: 3px solid rgba(23, 107, 143, 0.3);
-        outline-offset: 2px;
-    }
+.month-button:focus-visible {
+    outline: 3px solid rgba(23, 107, 143, 0.3);
+    outline-offset: 2px;
+}
 
 .calendar-month {
     margin: 0;
@@ -242,17 +242,17 @@ h1 {
     text-align: center;
 }
 
-    .calendar-weekdays span {
-        padding: 5px 0;
-    }
+.calendar-weekdays span {
+    padding: 5px 0;
+}
 
-        .calendar-weekdays span:first-child {
-            color: var(--full);
-        }
+.calendar-weekdays span:first-child {
+    color: var(--full);
+}
 
-        .calendar-weekdays span:last-child {
-            color: var(--blue);
-        }
+.calendar-weekdays span:last-child {
+    color: var(--blue);
+}
 
 .calendar-grid {
     padding: 3px 14px 0;
@@ -283,26 +283,26 @@ h1 {
     transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 
-    .calendar-day.is-sunday:not(.is-selected):not(.is-today) {
-        color: var(--full);
-    }
+.calendar-day.is-sunday:not(.is-selected):not(.is-today) {
+    color: var(--full);
+}
 
-    .calendar-day.is-saturday:not(.is-selected):not(.is-today) {
-        color: var(--blue);
-    }
+.calendar-day.is-saturday:not(.is-selected):not(.is-today) {
+    color: var(--blue);
+}
 
-    .calendar-day:hover {
-        background: var(--sky);
-    }
+.calendar-day:hover {
+    background: var(--sky);
+}
 
-    .calendar-day:active {
-        transform: scale(0.94);
-    }
+.calendar-day:active {
+    transform: scale(0.94);
+}
 
-    .calendar-day:focus-visible {
-        outline: 3px solid rgba(23, 107, 143, 0.3);
-        outline-offset: 2px;
-    }
+.calendar-day:focus-visible {
+    outline: 3px solid rgba(23, 107, 143, 0.3);
+    outline-offset: 2px;
+}
 
 .calendar-day-number {
     line-height: 1;
@@ -327,11 +327,11 @@ h1 {
     box-shadow: 0 5px 12px rgba(23, 107, 143, 0.24);
 }
 
-    .calendar-day.is-selected:hover {
-        color: var(--white);
-        background: var(--blue-dark);
-        border-color: var(--blue-dark);
-    }
+.calendar-day.is-selected:hover {
+    color: var(--white);
+    background: var(--blue-dark);
+    border-color: var(--blue-dark);
+}
 /* すべての日程を表示ボタン */
 
 .show-all-button {
@@ -350,19 +350,19 @@ h1 {
     transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
 }
 
-    .show-all-button:hover {
-        color: var(--white);
-        background: var(--blue);
-    }
+.show-all-button:hover {
+    color: var(--white);
+    background: var(--blue);
+}
 
-    .show-all-button:active {
-        transform: scale(0.98);
-    }
+.show-all-button:active {
+    transform: scale(0.98);
+}
 
-    .show-all-button:focus-visible {
-        outline: 3px solid rgba(23, 107, 143, 0.3);
-        outline-offset: 2px;
-    }
+.show-all-button:focus-visible {
+    outline: 3px solid rgba(23, 107, 143, 0.3);
+    outline-offset: 2px;
+}
 
 .calendar-help {
     margin: 0 14px 14px;
@@ -374,15 +374,15 @@ h1 {
     line-height: 1.7;
 }
 
-    .calendar-help strong {
-        display: block;
-        margin-bottom: 5px;
-        color: var(--blue);
-    }
+.calendar-help strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--blue);
+}
 
-    .calendar-help p {
-        margin: 0;
-    }
+.calendar-help p {
+    margin: 0;
+}
 
 /* 日付カード */
 
@@ -390,18 +390,18 @@ h1 {
     overflow: hidden;
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: 18px;
+    border-radius: 14px;
     box-shadow: var(--shadow);
 }
 
-    .date-card[hidden] {
-        display: none;
-    }
+.date-card[hidden] {
+    display: none;
+}
 
-    .date-card.is-today-card {
-        border-color: rgba(23, 107, 143, 0.55);
-        box-shadow: 0 0 0 2px rgba(23, 107, 143, 0.08), var(--shadow);
-    }
+.date-card.is-today-card {
+    border-color: rgba(23, 107, 143, 0.55);
+    box-shadow: 0 0 0 2px rgba(23, 107, 143, 0.08), var(--shadow);
+}
 
 .date-head {
     padding: 16px 20px;
@@ -437,7 +437,7 @@ h1 {
 
 .trip-row {
     width: 100%;
-    padding: 18px 20px;
+    padding: 14px 16px;
     display: grid;
     grid-template-columns: 1.1fr 0.6fr 1.5fr auto 26px;
     align-items: center;
@@ -452,28 +452,28 @@ h1 {
     transition: background 0.18s ease, transform 0.18s ease;
 }
 
-    .trip-row:last-child {
-        border-bottom: 0;
-    }
+.trip-row:last-child {
+    border-bottom: 0;
+}
 
-    .trip-row:hover {
-        background: #f8fcfd;
-    }
+.trip-row:hover {
+    background: #f8fcfd;
+}
 
-    .trip-row:active {
-        transform: scale(0.996);
-    }
+.trip-row:active {
+    transform: scale(0.996);
+}
 
-    .trip-row:visited {
-        color: inherit;
-    }
+.trip-row:visited {
+    color: inherit;
+}
 
-    .trip-row:focus-visible {
-        position: relative;
-        z-index: 1;
-        outline: 3px solid rgba(23, 107, 143, 0.35);
-        outline-offset: -3px;
-    }
+.trip-row:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 3px solid rgba(23, 107, 143, 0.35);
+    outline-offset: -3px;
+}
 
 .trip-name {
     color: var(--navy);
@@ -504,20 +504,20 @@ h1 {
     white-space: nowrap;
 }
 
-    .status.ok {
-        color: #087448;
-        background: #e4f7ee;
-    }
+.status.ok {
+    color: #087448;
+    background: #e4f7ee;
+}
 
-    .status.few {
-        color: #986000;
-        background: #fff3d7;
-    }
+.status.few {
+    color: #986000;
+    background: #fff3d7;
+}
 
-    .status.full {
-        color: #a92f2f;
-        background: #fde8e8;
-    }
+.status.full {
+    color: #a92f2f;
+    background: #fde8e8;
+}
 
 .arrow {
     color: #9eb1ba;
@@ -539,16 +539,16 @@ h1 {
     font-weight: 700;
 }
 
-    .filter-result:empty {
-        display: none;
-    }
+.filter-result:empty {
+    display: none;
+}
 
 .empty-result {
     padding: 40px 20px;
     color: var(--muted);
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: 18px;
+    border-radius: 14px;
     text-align: center;
     box-shadow: var(--shadow);
 }
@@ -688,8 +688,8 @@ footer {
         position: relative;
         grid-template-columns: minmax(0, 1fr) auto 18px;
         grid-template-areas:
-            "name time arrow"
-            "target status arrow";
+        "name time arrow"
+        "target status arrow";
         gap: 8px 12px;
         padding: 14px 16px;
     }
@@ -772,7 +772,6 @@ footer {
         font-size: 11px;
     }
 }
-
 
 /* 2026-08-06: 状態統一・絞り込み・過去日制御 */
 .condition-filters {

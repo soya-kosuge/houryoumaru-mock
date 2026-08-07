@@ -144,11 +144,11 @@
         if (!trip || !reservation) { location.replace('shipScheduleList.html'); return; }
 
         const rows = [
-            ['予約日', trip.date], ['コース', trip.name], ['出船時刻', trip.time], ['釣り物', trip.target], ['料金', trip.price],
-            ['名前（漢字）', profile.name || '－'], ['名前（かな）', profile.nameKana || '－'],
-            ['メールアドレス', profile.email || '－'], ['電話番号', profile.phone || '－'],
-            ['参加人数', `${reservation.participants}名`],
-            ['貸し竿', reservation.rentalRod === '0' ? 'なし' : `${reservation.rentalRod}本`], ['備考', reservation.remarks]
+        ['予約日', trip.date], ['コース', trip.name], ['出船時刻', trip.time], ['釣り物', trip.target], ['料金', trip.price],
+        ['名前（漢字）', profile.name || '－'], ['名前（かな）', profile.nameKana || '－'],
+        ['メールアドレス', profile.email || '－'], ['電話番号', profile.phone || '－'],
+        ['参加人数', `${reservation.participants}名`],
+        ['貸し竿', reservation.rentalRod === '0' ? 'なし' : `${reservation.rentalRod}本`], ['備考', reservation.remarks]
         ];
         const confirmationList = $('#confirmation-list');
         const fragment = document.createDocumentFragment();
