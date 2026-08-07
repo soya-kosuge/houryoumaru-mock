@@ -53,29 +53,13 @@
               新しい出船予定を登録します。運航に必要な情報を入力してください。
             </p>
           </div>
-          <a class="btn btn-secondary trip-add-back" href="adminTrip.html">
-            ← 出船一覧へ戻る
-          </a>
         </div>
       </div>
     </section>
     <main class="page trip-add-page">
       <form class="trip-add-form" data-demo-submit="出船予定を登録しました" data-redirect="adminTrip.html">
         <section class="trip-form-section">
-          <div class="trip-form-heading">
-            <div class="trip-form-icon">
-              1
-            </div>
-            <div>
-              <h2>
-                基本情報
-              </h2>
-              <p>
-                出船日と便、使用する船を設定します。
-              </p>
-            </div>
-          </div>
-          <div class="trip-form-body form-grid">
+          <div class="trip-form-body form-grid trip-setting-grid">
             <div class="field">
               <label for="trip-date">
                 出船日付
@@ -119,23 +103,6 @@
               </label>
               <input class="input" id="captain-name" placeholder="例：後藤船長"/>
             </div>
-          </div>
-        </section>
-        <section class="trip-form-section">
-          <div class="trip-form-heading">
-            <div class="trip-form-icon">
-              2
-            </div>
-            <div>
-              <h2>
-                運航情報
-              </h2>
-              <p>
-                集合・出船時刻と釣り物を設定します。
-              </p>
-            </div>
-          </div>
-          <div class="trip-form-body form-grid">
             <div class="field">
               <label for="meeting-time">
                 集合時刻
@@ -163,23 +130,6 @@
               </label>
               <input class="input" id="fishing-target" placeholder="例：マイカ"/>
             </div>
-          </div>
-        </section>
-        <section class="trip-form-section">
-          <div class="trip-form-heading">
-            <div class="trip-form-icon">
-              3
-            </div>
-            <div>
-              <h2>
-                予約・料金設定
-              </h2>
-              <p>
-                受付状態、定員、料金を設定します。
-              </p>
-            </div>
-          </div>
-          <div class="trip-form-body form-grid trip-setting-grid">
             <div class="field">
               <label for="capacity">
                 定員
@@ -208,13 +158,10 @@
               </label>
               <select class="select" id="trip-status">
                 <option>
-                  受付中
+                  空きあり
                 </option>
                 <option>
-                  満席
-                </option>
-                <option>
-                  受付停止
+                  満員
                 </option>
               </select>
               <p class="field-help">
@@ -241,6 +188,8 @@
     <footer class="footer">
       © 豊漁丸 管理画面 MOCK
     </footer>
+    <script src="../shared/appData.js"></script>
+    <script src="js/sharedDataBinder.js"></script>
     <script src="js/adminMockData.js"></script>
     <script src="js/admin.js">
     </script>

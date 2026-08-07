@@ -601,3 +601,11 @@ MOCKログイン切り替え
     .password-toggle:hover {
         text-decoration: underline;
     }
+
+
+.seat-remaining-note {
+    margin: 7px 0 0;
+    font-size: 13px;
+    color: #5b6574;
+    font-weight: 600;
+}

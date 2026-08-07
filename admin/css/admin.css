@@ -1023,7 +1023,7 @@ tbody tr:last-child td {
 
 .customer-detail-table table {
     table-layout: fixed;
-    min-width: 1260px;
+    min-width: 0;
 }
 
 .customer-detail-table th, .customer-detail-table td {
@@ -1121,4 +1121,52 @@ tbody tr:last-child td {
     .customer-detail-card .customer-email {
         grid-column: auto;
     }
+}
+
+
+/* 2026-08-06 管理画面調整 */
+.dashboard-trip-separator { margin-top: 10px; padding-top: 14px; border-top: 1px solid #e6ebf1; }
+.trip-add-form {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+.trip-add-form .trip-form-section {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #e7ebf0;
+}
+.trip-add-form .trip-form-footer { margin: 0; padding: 20px 24px; }
+.customer-detail-table { overflow-x: hidden; }
+.customer-detail-table table { width: 100%; min-width: 0; font-size: 13px; }
+.customer-detail-table th, .customer-detail-table td { padding: 10px 6px; }
+.customer-detail-table th:nth-child(1), .customer-detail-table td:nth-child(1) { width: 7%; }
+.customer-detail-table th:nth-child(2), .customer-detail-table td:nth-child(2) { width: 11%; }
+.customer-detail-table th:nth-child(3), .customer-detail-table td:nth-child(3) { width: 12%; }
+.customer-detail-table th:nth-child(4), .customer-detail-table td:nth-child(4) { width: 13%; }
+.customer-detail-table th:nth-child(5), .customer-detail-table td:nth-child(5) { width: 20%; }
+.customer-detail-table th:nth-child(6), .customer-detail-table td:nth-child(6) { width: 8%; }
+.customer-detail-table th:nth-child(7), .customer-detail-table td:nth-child(7) { width: 8%; }
+.customer-detail-table th:nth-child(8), .customer-detail-table td:nth-child(8) { width: 13%; }
+.customer-detail-table th:nth-child(9), .customer-detail-table td:nth-child(9) { width: 8%; }
+
+/* 編集欄の単位は入力値と分離して固定表示する */
+.table-edit-with-unit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+}
+.table-edit-with-unit .table-edit-input {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+.table-edit-unit {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-weight: 600;
 }

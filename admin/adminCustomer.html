@@ -52,12 +52,12 @@
             <table id="customer-table">
                 <thead><tr><th>ID</th><th>顧客名</th><th>電話番号</th><th>利用回数</th><th>区分</th><th>最終利用日</th></tr></thead>
                 <tbody>
-                    <tr data-search-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
+                    <tr data-search-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
                         <td>1001</td>
                         <td>田中 太郎</td>
                         <td>090-1234-5678</td>
                         <td>8回</td>
-                        <td><span class="badge badge-blue">常連</span></td>
+                        <td><span class="badge badge-orange">VIP</span></td>
                         <td>2026/07/30</td>
                     </tr>
                     <tr data-search-row data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
@@ -80,13 +80,13 @@
             </table>
         </div>
         <div class="mobile-cards customer-mobile-cards">
-            <article class="card customer-card" data-customer-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
+            <article class="card customer-card" data-customer-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
                 <div class="card-body">
                     <div><div class="data-label">顧客ID</div><div class="data-value">1001</div></div>
                     <div><div class="data-label">顧客名</div><div class="data-value">田中 太郎</div></div>
                     <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
                     <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-blue">常連</span></div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
                 </div>
             </article>
@@ -113,6 +113,8 @@
         </div>
     </main>
     <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+    <script src="../shared/appData.js"></script>
+    <script src="js/sharedDataBinder.js"></script>
     <script src="js/adminMockData.js"></script>
     <script src="js/admin.js"></script>
 </body>

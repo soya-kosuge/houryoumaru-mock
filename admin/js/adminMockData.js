@@ -1,5 +1,6 @@
 (() => {
     'use strict';
+    if (window.HoryomaruAppData) return; // 共通データ連携版ではsharedDataBinderが描画する。
 
     const STORAGE_KEY = 'horyomaruAdminReservations';
 
@@ -22,10 +23,50 @@
     const formatRod = (count) => Number(count) > 0 ? `${Number(count)}本` : 'なし';
     const digits = (value) => String(value || '').replace(/\D/g, '');
     const formatPhone = (value) => {
-        const d = digits(value);
-        if (d.length === 11) return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`;
-        if (d.length === 10) return `${d.slice(0, 3)}-${d.slice(3, 6)}-${d.slice(6)}`;
-        return value || '－';
+        const d = digits(value).slice(0, 15);
+        if (!d) return '－';
+        if (d.startsWith('00')) {
+            if (d.length <= 4) return d;
+            if (d.length <= 8) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, -4)}-${d.slice(-4)}`;
+        }
+        if (d.startsWith('0120') || d.startsWith('0570')) {
+            if (d.length <= 4) return d;
+            if (d.length <= 7) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, 7)}-${d.slice(7, 10)}`;
+        }
+        if (d.startsWith('0800')) {
+            if (d.length <= 4) return d;
+            if (d.length <= 7) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, 7)}-${d.slice(7, 11)}`;
+        }
+        if (/^(020|050|070|080|090)/.test(d)) {
+            if (d.length <= 3) return d;
+            if (d.length <= 7) return `${d.slice(0, 3)}-${d.slice(3)}`;
+            return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7, 11)}`;
+        }
+        if ((d.startsWith('03') || d.startsWith('06')) && d.length <= 10) {
+            if (d.length <= 2) return d;
+            if (d.length <= 6) return `${d.slice(0, 2)}-${d.slice(2)}`;
+            return `${d.slice(0, 2)}-${d.slice(2, 6)}-${d.slice(6, 10)}`;
+        }
+        const fourDigitArea = /^(?:013[4-9]|014[2-6]|015[2-8]|016[2-7]|017[2-9]|018[2-7]|019[1-8]|022[0-9]|023[3-8]|024[0-9]|025[0-9]|026[0-9]|027[0-9]|028[0-9]|029[0-9]|042[2-9]|043[0-9]|044[0-9]|045[0-9]|046[0-9]|047[0-9]|048[0-9]|049[0-9]|052[0-9]|053[0-9]|054[0-9]|055[0-9]|056[0-9]|057[2-9]|058[0-9]|059[0-9]|072[0-9]|073[0-9]|074[0-9]|075[0-9]|076[0-9]|077[0-9]|078[0-9]|079[0-9]|082[0-9]|083[0-9]|084[0-9]|085[0-9]|086[0-9]|087[0-9]|088[0-9]|089[0-9]|092[0-9]|093[0-9]|094[0-9]|095[0-9]|096[0-9]|097[0-9]|098[0-9]|099[0-9])/;
+        if (d.length <= 10 && fourDigitArea.test(d)) {
+            if (d.length <= 4) return d;
+            if (d.length <= 6) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 10)}`;
+        }
+        if (d.startsWith('0') && d.length <= 10) {
+            if (d.length <= 3) return d;
+            if (d.length <= 6) return `${d.slice(0, 3)}-${d.slice(3)}`;
+            return `${d.slice(0, 3)}-${d.slice(3, 6)}-${d.slice(6, 10)}`;
+        }
+        if (/^[2-9]/.test(d)) {
+            if (d.length <= 4) return d;
+            if (d.length <= 8) return `${d.slice(0, d.length - 4)}-${d.slice(-4)}`;
+            return `${d.slice(0, d.length - 8)}-${d.slice(-8, -4)}-${d.slice(-4)}`;
+        }
+        return d;
     };
 
     const reservations = readReservations();
@@ -169,7 +210,10 @@
             const customer =
                 customers.get(key);
 
-            customer.useCount += 1;
+            // 利用回数 = 実際に乗船完了した回数。status未設定の既存MOCKは乗船済み扱い。
+            if (!item.status || item.status === '乗船済み' || item.status === 'completed') {
+                customer.useCount += 1;
+            }
 
             if (
                 (item.date || "") >
@@ -192,9 +236,9 @@
                 customer.useCount;
 
             const rank =
-                count >= 10
+                count >= 6
                     ? "VIP"
-                    : count >= 3
+                    : count >= 2
                         ? "常連"
                         : "新規";
 
@@ -418,11 +462,11 @@
                         ${count}回
                     </td>
 
-                    <td data-editable>
+                    <td>
                         ${rank}
                     </td>
 
-                    <td data-editable>
+                    <td>
                         ${escapeHtml(
                             customer.lastDate
                         )}

@@ -733,6 +733,8 @@ if (
         const selectedDate = normalizeDate(params.get("date") || "");
         const selectedCourse = params.get("course") || "";
         const enteredGuests = (params.get("guests") || "").trim();
+        const enteredName = normalizeName(params.get("name") || "");
+        const sortDirection = params.get("sort") === "asc" ? "asc" : "desc";
         const printRows = Array.from(printReservationTable.querySelectorAll("tbody tr[data-print-row]"));
         let visibleCount = 0;
 
@@ -740,21 +742,38 @@ if (
             const cells = row.querySelectorAll("td");
             const rowDate = cells[0]?.textContent.trim() || "";
             const rowCourse = cells[1]?.textContent.trim() || "";
+            const rowName = normalizeName(cells[2]?.textContent.trim() || "");
             const rowGuests = cells[3]?.textContent.replace(/\D/g, "") || "";
             const matches =
                 (!selectedDate || rowDate === selectedDate) &&
                 (!selectedCourse || rowCourse === selectedCourse) &&
-                (!enteredGuests || rowGuests === enteredGuests);
+                (!enteredGuests || rowGuests === enteredGuests) &&
+                (!enteredName || rowName.includes(enteredName));
 
             row.hidden = !matches;
             if (matches) visibleCount += 1;
         });
+
+        const printBody = printReservationTable.querySelector("tbody");
+        printRows
+            .sort((rowA, rowB) => {
+                const a = rowA.querySelectorAll("td");
+                const b = rowB.querySelectorAll("td");
+                const direction = sortDirection === "asc" ? 1 : -1;
+                for (const index of [0, 1, 2]) {
+                    const diff = compareText(a[index]?.textContent.trim() || "", b[index]?.textContent.trim() || "");
+                    if (diff !== 0) return diff * direction;
+                }
+                return 0;
+            })
+            .forEach((row) => printBody?.appendChild(row));
 
         if (printFilterSummary) {
             const conditions = [];
             if (selectedDate) conditions.push(`予約日：${selectedDate}`);
             if (selectedCourse) conditions.push(`便：${selectedCourse}`);
             if (enteredGuests) conditions.push(`人数：${enteredGuests}名`);
+            if (enteredName) conditions.push(`氏名：${params.get("name")}`);
 
             printFilterSummary.textContent = conditions.length
                 ? `絞り込み条件：${conditions.join(" / ")}（${visibleCount}件）`
@@ -829,6 +848,7 @@ if (
     const detailSortDirection = document.querySelector("#detail-sort-direction");
     const detailClearButton = document.querySelector("#detail-search-clear");
     const detailResultCount = document.querySelector("#detail-result-count");
+    const detailPrintLink = document.querySelector("#reservation-detail-print-link");
 
     if (detailTable && detailSearchDate && detailSearchCourse && detailSearchName) {
         const detailBody = detailTable.querySelector("tbody");
@@ -886,6 +906,18 @@ if (
                 card.hidden = !matchesDetail(card);
             });
 
+            if (detailPrintLink) {
+                const params = new URLSearchParams();
+                if (detailSearchDate.value) params.set("date", detailSearchDate.value);
+                if (detailSearchCourse.value) params.set("course", detailSearchCourse.value);
+                if (detailSearchName.value.trim()) params.set("name", detailSearchName.value.trim());
+                if (detailSortDirection?.value) params.set("sort", detailSortDirection.value);
+                const query = params.toString();
+                detailPrintLink.href = query
+                    ? `adminReservationDetailPrint.html?${query}`
+                    : "adminReservationDetailPrint.html";
+            }
+
             updateResultCount(detailResultCount, visibleCount, detailRows.length);
         };
 
@@ -906,6 +938,101 @@ if (
         refreshDetails();
     }
 
+    const formatPhoneForEdit = (value) => {
+        const d = String(value || "").replace(/\D/g, "").slice(0, 15);
+        if (!d) return "";
+
+        // 国際電話会社識別番号など、00から始まる番号は先頭4桁を独立させる。
+        if (d.startsWith("00")) {
+            if (d.length <= 4) return d;
+            if (d.length <= 8) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, -4)}-${d.slice(-4)}`;
+        }
+
+        // フリーダイヤル・ナビダイヤル等。
+        if (d.startsWith("0120") || d.startsWith("0570")) {
+            if (d.length <= 4) return d;
+            if (d.length <= 7) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, 7)}-${d.slice(7, 10)}`;
+        }
+        if (d.startsWith("0800")) {
+            if (d.length <= 4) return d;
+            if (d.length <= 7) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, 7)}-${d.slice(7, 11)}`;
+        }
+
+        // 携帯・IP電話・M2M。
+        if (/^(020|050|070|080|090)/.test(d)) {
+            if (d.length <= 3) return d;
+            if (d.length <= 7) return `${d.slice(0, 3)}-${d.slice(3)}`;
+            return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7, 11)}`;
+        }
+
+        // 東京03・大阪06。
+        if ((d.startsWith("03") || d.startsWith("06")) && d.length <= 10) {
+            if (d.length <= 2) return d;
+            if (d.length <= 6) return `${d.slice(0, 2)}-${d.slice(2)}`;
+            return `${d.slice(0, 2)}-${d.slice(2, 6)}-${d.slice(6, 10)}`;
+        }
+
+        // 4桁市外局番。岡崎0564など、地方固定電話でよく使う形式を優先する。
+        const fourDigitArea = /^(?:013[4-9]|014[2-6]|015[2-8]|016[2-7]|017[2-9]|018[2-7]|019[1-8]|022[0-9]|023[3-8]|024[0-9]|025[0-9]|026[0-9]|027[0-9]|028[0-9]|029[0-9]|042[2-9]|043[0-9]|044[0-9]|045[0-9]|046[0-9]|047[0-9]|048[0-9]|049[0-9]|052[0-9]|053[0-9]|054[0-9]|055[0-9]|056[0-9]|057[2-9]|058[0-9]|059[0-9]|072[0-9]|073[0-9]|074[0-9]|075[0-9]|076[0-9]|077[0-9]|078[0-9]|079[0-9]|082[0-9]|083[0-9]|084[0-9]|085[0-9]|086[0-9]|087[0-9]|088[0-9]|089[0-9]|092[0-9]|093[0-9]|094[0-9]|095[0-9]|096[0-9]|097[0-9]|098[0-9]|099[0-9])/;
+        if (d.length <= 10 && fourDigitArea.test(d)) {
+            if (d.length <= 4) return d;
+            if (d.length <= 6) return `${d.slice(0, 4)}-${d.slice(4)}`;
+            return `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 10)}`;
+        }
+
+        // その他の国内固定電話は3桁市外局番として扱う。
+        if (d.startsWith("0") && d.length <= 10) {
+            if (d.length <= 3) return d;
+            if (d.length <= 6) return `${d.slice(0, 3)}-${d.slice(3)}`;
+            return `${d.slice(0, 3)}-${d.slice(3, 6)}-${d.slice(6, 10)}`;
+        }
+
+        // 先頭が2〜9の番号も入力自体は許容し、末尾4桁を加入者番号として整形する。
+        if (/^[2-9]/.test(d)) {
+            if (d.length <= 4) return d;
+            if (d.length <= 8) return `${d.slice(0, d.length - 4)}-${d.slice(-4)}`;
+            return `${d.slice(0, d.length - 8)}-${d.slice(-8, -4)}-${d.slice(-4)}`;
+        }
+
+        return d;
+    };
+
+    const getCustomerRank = (count) => {
+        const n = Number(count) || 0;
+        if (n >= 6) return "VIP";
+        if (n >= 2) return "常連";
+        return "新規";
+    };
+
+    // 行編集内容をMOCK上でも再読込後に保持する。
+    const rowEditStorageKey = `horyomaruAdminRowEdits:${location.pathname}`;
+    const editableRows = [...document.querySelectorAll('[data-edit-row]')]
+        .map((button) => button.closest('tr'))
+        .filter(Boolean);
+    let savedRowEdits = {};
+    try { savedRowEdits = JSON.parse(localStorage.getItem(rowEditStorageKey) || '{}') || {}; }
+    catch { savedRowEdits = {}; }
+
+    editableRows.forEach((row, index) => {
+        row.dataset.editStorageIndex = String(index);
+        const values = savedRowEdits[index];
+        if (!Array.isArray(values)) return;
+        row.querySelectorAll('td[data-editable]').forEach((cell, cellIndex) => {
+            if (values[cellIndex] !== undefined) cell.textContent = values[cellIndex];
+        });
+    });
+
+    const persistEditedRow = (row) => {
+        const index = row.dataset.editStorageIndex;
+        if (index === undefined) return;
+        savedRowEdits[index] = [...row.querySelectorAll('td[data-editable]')]
+            .map((cell) => cell.textContent.trim());
+        localStorage.setItem(rowEditStorageKey, JSON.stringify(savedRowEdits));
+    };
+
     // 行ごとの修正・保存
     document.querySelectorAll("[data-edit-row]").forEach((button) => {
         button.addEventListener("click", () => {
@@ -913,32 +1040,181 @@ if (
             if (!row) return;
 
             const isEditing = button.dataset.editing === "true";
-            const editableCells = row.querySelectorAll("td[data-editable]");
+            const editableCells = [...row.querySelectorAll("td[data-editable]")];
+            const isCustomerDetail = row.matches("[data-customer-detail-row]");
+            const isReservationDetail = row.matches("[data-detail-search-row]");
 
             if (!isEditing) {
                 editableCells.forEach((cell, index) => {
-                    const input = document.createElement("input");
-                    input.type = "text";
-                    input.className = "table-edit-input";
-                    input.value = cell.textContent.trim();
+                    let input;
+
+                    if (isReservationDetail && index === 1) {
+                        input = document.createElement("select");
+                        input.className = "table-edit-input";
+                        ["半夜便", "深夜便"].forEach((course) => {
+                            const option = document.createElement("option");
+                            option.value = course;
+                            option.textContent = course;
+                            if (cell.textContent.trim() === course) option.selected = true;
+                            input.appendChild(option);
+                        });
+                    } else {
+                        input = document.createElement("input");
+                        input.className = "table-edit-input";
+                    }
                     input.setAttribute("aria-label", `編集項目${index + 1}`);
+
+                    if (isReservationDetail && index === 0) {
+                        input.type = "date";
+                        input.value = cell.textContent.trim().replaceAll("/", "-");
+                    } else if (isReservationDetail && index === 1) {
+                        // 便は上で半夜便・深夜便のプルダウンを生成済み。
+                    } else if (isReservationDetail && index === 4) {
+                        input.type = "number";
+                        input.min = "1";
+                        input.step = "1";
+                        input.value = cell.textContent.replace(/\D/g, "") || "1";
+                        const wrap = document.createElement("span");
+                        wrap.className = "table-edit-with-unit";
+                        const unit = document.createElement("span");
+                        unit.className = "table-edit-unit";
+                        unit.textContent = "名";
+                        wrap.append(input, unit);
+                        cell.replaceChildren(wrap);
+                        return;
+                    } else if (isReservationDetail && index === 5) {
+                        input.type = "number";
+                        input.min = "0";
+                        input.step = "1";
+                        input.value = cell.textContent.trim() === "なし" ? "0" : (cell.textContent.replace(/\D/g, "") || "0");
+                        const wrap = document.createElement("span");
+                        wrap.className = "table-edit-with-unit";
+                        const unit = document.createElement("span");
+                        unit.className = "table-edit-unit";
+                        unit.textContent = "本";
+                        wrap.append(input, unit);
+                        cell.replaceChildren(wrap);
+                        return;
+                    } else if (isReservationDetail && index === 6) {
+                        input.type = "tel";
+                        input.inputMode = "numeric";
+                        input.value = formatPhoneForEdit(cell.textContent.trim());
+                        input.addEventListener("input", () => { input.value = formatPhoneForEdit(input.value); });
+                    } else if (isReservationDetail && index === 7) {
+                        input.type = "email";
+                        input.value = cell.textContent.trim();
+                        input.required = true;
+                    } else if (isCustomerDetail && index === 2) {
+                        input.type = "tel";
+                        input.inputMode = "numeric";
+                        input.value = formatPhoneForEdit(cell.textContent.trim());
+                        input.addEventListener("input", () => {
+                            input.value = formatPhoneForEdit(input.value);
+                        });
+                    } else if (isCustomerDetail && index === 3) {
+                        input.type = "email";
+                        input.value = cell.textContent.trim();
+                        input.required = true;
+                    } else if (isCustomerDetail && index === 4) {
+                        input.type = "number";
+                        input.min = "1";
+                        input.step = "1";
+                        input.value = cell.textContent.replace(/\D/g, "") || "1";
+                        const wrap = document.createElement("span");
+                        wrap.className = "table-edit-with-unit";
+                        const unit = document.createElement("span");
+                        unit.className = "table-edit-unit";
+                        unit.textContent = "回";
+                        wrap.append(input, unit);
+                        cell.replaceChildren(wrap);
+                        return;
+                    } else {
+                        input.type = "text";
+                        input.value = cell.textContent.trim();
+                    }
+
                     cell.replaceChildren(input);
                 });
 
                 row.classList.add("is-editing");
                 button.dataset.editing = "true";
                 button.textContent = "保存";
-
                 const firstInput = row.querySelector(".table-edit-input");
                 firstInput?.focus();
                 firstInput?.select();
                 return;
             }
 
-            editableCells.forEach((cell) => {
-                const input = cell.querySelector(".table-edit-input");
-                if (input) cell.textContent = input.value.trim();
-            });
+            if (isReservationDetail) {
+                const inputs = editableCells.map((cell) => cell.querySelector(".table-edit-input"));
+                const emailInput = inputs[7];
+                if (emailInput && (!emailInput.value.includes("@") || !emailInput.checkValidity())) {
+                    alert("メールアドレスは @ を含む正しい形式で入力してください。");
+                    emailInput.focus();
+                    return;
+                }
+
+                const participantCount = Math.max(1, Number.parseInt(inputs[4]?.value || "1", 10) || 1);
+                const rodCount = Math.max(0, Number.parseInt(inputs[5]?.value || "0", 10) || 0);
+                if (inputs[6]) inputs[6].value = formatPhoneForEdit(inputs[6].value);
+
+                editableCells.forEach((cell, index) => {
+                    const input = cell.querySelector(".table-edit-input");
+                    if (!input) return;
+                    if (index === 0) cell.textContent = input.value.replaceAll("-", "/");
+                    else if (index === 4) cell.textContent = `${participantCount}名`;
+                    else if (index === 5) cell.textContent = rodCount > 0 ? `${rodCount}本` : "なし";
+                    else cell.textContent = input.value.trim();
+                });
+            } else if (isCustomerDetail) {
+                const inputs = editableCells.map((cell) => cell.querySelector(".table-edit-input"));
+                const phoneInput = inputs[2];
+                const emailInput = inputs[3];
+                const countInput = inputs[4];
+
+                if (emailInput && (!emailInput.value.includes("@") || !emailInput.checkValidity())) {
+                    alert("メールアドレスは @ を含む正しい形式で入力してください。");
+                    emailInput.focus();
+                    return;
+                }
+
+                const useCount = Math.max(1, Number.parseInt(countInput?.value || "1", 10) || 1);
+                if (phoneInput) phoneInput.value = formatPhoneForEdit(phoneInput.value);
+                if (countInput) countInput.value = String(useCount);
+
+                editableCells.forEach((cell, index) => {
+                    const input = cell.querySelector(".table-edit-input");
+                    if (!input) return;
+                    cell.textContent = index === 4 ? `${useCount}回` : input.value.trim();
+                });
+
+                const allCells = row.querySelectorAll("td");
+                const rank = getCustomerRank(useCount);
+                if (allCells[6]) allCells[6].textContent = rank;
+                row.dataset.customerName = editableCells[0]?.textContent.trim() || "";
+                row.dataset.customerRank = rank;
+
+                const customerId = row.dataset.customerId;
+                const mobileCard = customerId
+                    ? document.querySelector(`[data-customer-detail-mobile-card][data-customer-id="${customerId}"]`)
+                    : null;
+                if (mobileCard) {
+                    mobileCard.dataset.customerName = row.dataset.customerName;
+                    mobileCard.dataset.customerRank = rank;
+                    const values = mobileCard.querySelectorAll(".data-value");
+                    if (values[1]) values[1].textContent = editableCells[0]?.textContent.trim() || "";
+                    if (values[2]) values[2].textContent = editableCells[1]?.textContent.trim() || "";
+                    if (values[3]) values[3].textContent = editableCells[2]?.textContent.trim() || "";
+                    if (values[4]) values[4].textContent = editableCells[3]?.textContent.trim() || "";
+                    if (values[5]) values[5].textContent = `${useCount}回`;
+                    if (values[6]) values[6].textContent = rank;
+                }
+            } else {
+                editableCells.forEach((cell) => {
+                    const input = cell.querySelector(".table-edit-input");
+                    if (input) cell.textContent = input.value.trim();
+                });
+            }
 
             if (row.matches("[data-detail-search-row]")) {
                 const cells = row.querySelectorAll("td[data-editable]");
@@ -947,22 +1223,10 @@ if (
                 row.dataset.name = cells[2]?.textContent.trim() || "";
             }
 
-            if (row.matches("[data-customer-detail-row]")) {
-                const cells = row.querySelectorAll("td[data-editable]");
-
-                row.dataset.customerName =
-                    cells[0]?.textContent.trim() || "";
-
-                row.dataset.customerRank =
-                    cells[5]?.textContent.trim() || "";
-
-                row.dataset.customerLastDate =
-                    cells[6]?.textContent.trim() || "";
-            }
-
             row.classList.remove("is-editing");
             button.dataset.editing = "false";
             button.textContent = "修正";
+            persistEditedRow(row);
             showSaveToast();
         });
     });
