@@ -54,18 +54,33 @@
       <div class="card">
         <div class="form-grid">
           <div class="field"><label for="repName">氏名</label><input id="repName" type="text" placeholder="例：山田 太郎" required></div>
-          <div class="field"><label for="repPostalCode">郵便番号</label><input id="repPostalCode" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" required><div class="helper" id="repPostalHelper">郵便番号を入力すると住所を自動入力します。</div></div>
-          <div class="field full"><label for="repAddress">住所</label><input id="repAddress" type="text" placeholder="例：愛知県名古屋市○○区1-2-3" required></div>
+          <div class="field"><label for="repPostalCode">郵便番号</label><input id="repPostalCode" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" required><div class="helper" id="repPostalHelper">郵便番号から住所を自動入力できます。</div></div>
+          <div class="field full"><label for="repAddress">住所</label><input id="repAddress" type="text" placeholder="例：愛知県名古屋市中区" required></div>
+          <div class="field full"><label for="repAddressDetail">番地・建物名</label><input id="repAddressDetail" type="text" placeholder="例：○○町1-2-3 ○○マンション101号室" required></div>
           <div class="field"><label for="repAge">年齢</label><input id="repAge" type="number" min="0" max="120" placeholder="例：32" required></div>
           <div class="field"><label for="repGender">性別</label>
             <select id="repGender" required>
               <option value="男性">男性</option><option value="女性">女性</option><option value="回答しない">回答しない</option>
             </select>
           </div>
-          <div class="field full">
-            <label for="repEmergency">緊急連絡先</label>
+          <div class="field">
+            <label for="repEmergency">緊急連絡先（電話番号）</label>
             <input id="repEmergency" class="phone-input" type="tel" inputmode="numeric" placeholder="例：090-1234-5678" required>
             <div class="helper">数字を入力するとハイフンを自動で付けます。</div>
+          </div>
+          <div class="field">
+            <label for="repEmergencyRelation">続柄</label>
+            <select id="repEmergencyRelation" required>
+              <option value="">選択してください</option>
+              <option value="妻">妻</option><option value="夫">夫</option>
+              <option value="父">父</option><option value="母">母</option>
+              <option value="息子">息子</option><option value="娘">娘</option>
+              <option value="兄">兄</option><option value="姉">姉</option>
+              <option value="弟">弟</option><option value="妹">妹</option>
+              <option value="叔父">叔父</option><option value="叔母">叔母</option>
+              <option value="祖父">祖父</option><option value="祖母">祖母</option>
+              <option value="その他">その他</option>
+            </select>
           </div>
         </div>
       </div>
@@ -83,7 +98,7 @@
         <button class="link-btn" id="addCompanionBtn" type="button">＋ 同行者を追加</button>
       </div>
       <div class="card" id="companionsCard">
-        <p class="helper" id="companionHelper">同行者情報は任意です。登録する場合は、代表者と同じ「氏名・郵便番号・住所・年齢・性別・緊急連絡先」を入力してください。</p>
+        <p class="helper" id="companionHelper">同行者情報は任意です。登録する場合は、代表者と同じ「氏名・郵便番号・住所・番地・建物名・年齢・性別・緊急連絡先・続柄」を入力してください。</p>
         <div id="companionsContainer"></div>
         <div class="empty companion-disabled-message" id="companionDisabledMessage" hidden>同行者がいないため入力できません。</div>
       </div>

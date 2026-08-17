@@ -23,9 +23,10 @@
       <div class="card">
         <div class="form-grid">
           <div class="field"><label for="rosterName">氏名</label><input id="rosterName" type="text" placeholder="例：山田 太郎" required></div>
-          <div class="field"><label for="postalCode">郵便番号</label><input id="postalCode" type="text" inputmode="numeric" maxlength="8" placeholder="例：453-0000" required><div class="helper" id="postalHelper">郵便番号を入力すると住所を自動入力します。</div></div>
-          <div class="field full"><label for="address">住所</label><input id="address" type="text" placeholder="例：愛知県名古屋市中村区1-2-3" required></div>
-          <div class="field"><label for="age">年齢</label><input id="age" type="number" min="0" max="120" placeholder="例：30" required></div>
+          <div class="field"><label for="postalCode">郵便番号</label><input id="postalCode" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" required><div class="helper" id="postalHelper">郵便番号から住所を自動入力できます。</div></div>
+          <div class="field full"><label for="address">住所</label><input id="address" type="text" placeholder="例：愛知県名古屋市中区" required></div>
+          <div class="field full"><label for="addressDetail">番地・建物名</label><input id="addressDetail" type="text" placeholder="例：○○町1-2-3 ○○マンション101号室" required></div>
+          <div class="field"><label for="age">年齢</label><input id="age" type="number" min="0" max="120" placeholder="例：32" required></div>
           <div class="field"><label for="gender">性別</label>
             <select id="gender" required>
               <option value="" selected disabled>選択してください</option>
@@ -34,10 +35,24 @@
               <option value="回答しない">回答しない</option>
             </select>
           </div>
-          <div class="field full">
-            <label for="emergency">緊急連絡先</label>
+          <div class="field">
+            <label for="emergency">緊急連絡先（電話番号）</label>
             <input id="emergency" class="phone-input" type="tel" inputmode="numeric" placeholder="例：090-1234-5678" required>
             <div class="helper">数字を入力するとハイフンを自動で付けます。</div>
+          </div>
+          <div class="field">
+            <label for="emergencyRelation">続柄</label>
+            <select id="emergencyRelation" required>
+              <option value="" selected disabled>選択してください</option>
+              <option value="妻">妻</option><option value="夫">夫</option>
+              <option value="父">父</option><option value="母">母</option>
+              <option value="息子">息子</option><option value="娘">娘</option>
+              <option value="兄">兄</option><option value="姉">姉</option>
+              <option value="弟">弟</option><option value="妹">妹</option>
+              <option value="叔父">叔父</option><option value="叔母">叔母</option>
+              <option value="祖父">祖父</option><option value="祖母">祖母</option>
+              <option value="その他">その他</option>
+            </select>
           </div>
         </div>
       </div>

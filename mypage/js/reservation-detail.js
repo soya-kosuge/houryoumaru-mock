@@ -58,14 +58,16 @@ function rosterRows(person = {}) {
     <div class="row"><div class="label">氏名</div><div class="value">${valueOrUnregistered(person.name)}</div></div>
     <div class="row"><div class="label">郵便番号</div><div class="value">${valueOrUnregistered(person.postalCode)}</div></div>
     <div class="row"><div class="label">住所</div><div class="value">${valueOrUnregistered(person.address)}</div></div>
+    <div class="row"><div class="label">番地・建物名</div><div class="value">${valueOrUnregistered(person.addressDetail)}</div></div>
     <div class="row"><div class="label">年齢</div><div class="value">${age && age !== "---" ? `${escapeHtml(age)}歳` : '<span class="unregistered">未登録</span>'}</div></div>
     <div class="row"><div class="label">性別</div><div class="value">${valueOrUnregistered(person.gender)}</div></div>
     <div class="row"><div class="label">緊急連絡先</div><div class="value">${valueOrUnregistered(person.emergency)}</div></div>
+    <div class="row"><div class="label">続柄</div><div class="value">${valueOrUnregistered(person.emergencyRelation)}</div></div>
   `;
 }
 
 function hasCompanionData(person = {}) {
-  const values = [person.name, person.postalCode, person.address, person.age, person.gender, person.emergency]
+  const values = [person.name, person.postalCode, person.address, person.age, person.gender, person.emergency, person.emergencyRelation]
     .map((value) => String(value ?? "").trim())
     .filter((value) => value && value !== "---" && value !== "未登録");
   if (["佐藤 花子", "鈴木 一郎"].includes(String(person.name || "").trim())) return false;

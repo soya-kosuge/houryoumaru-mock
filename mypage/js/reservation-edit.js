@@ -1,5 +1,5 @@
 
-async function lookupAddressFromPostal(input, addressInput, helper) {
+async function lookupAddressFromPostal(input, addressInput, helper, addressDetailInput = null) {
   const digits = String(input.value || "").replace(/\D/g, "");
   if (digits.length !== 7) return;
   try {
@@ -10,7 +10,8 @@ async function lookupAddressFromPostal(input, addressInput, helper) {
     const item = result?.results?.[0];
     if (!item) { if (helper) helper.textContent = "該当する住所が見つかりませんでした。"; return; }
     addressInput.value = `${item.address1 || ""}${item.address2 || ""}${item.address3 || ""}`;
-    if (helper) helper.textContent = "住所を自動入力しました。番地・建物名などを続けて入力してください。";
+    if (addressDetailInput) addressDetailInput.focus();
+    if (helper) helper.textContent = "住所を自動入力しました。番地・建物名を入力してください。";
   } catch (_) {
     if (helper) helper.textContent = "住所を自動取得できませんでした。住所を直接入力してください。";
   }
@@ -38,9 +39,11 @@ if (!reservation) {
   document.getElementById("repName").value = reservation.representative.name;
   document.getElementById("repPostalCode").value = reservation.representative.postalCode || data.roster?.postalCode || "";
   document.getElementById("repAddress").value = reservation.representative.address;
+  document.getElementById("repAddressDetail").value = reservation.representative.addressDetail || "";
   document.getElementById("repAge").value = reservation.representative.age;
   document.getElementById("repGender").value = reservation.representative.gender;
   document.getElementById("repEmergency").value = reservation.representative.emergency;
+  document.getElementById("repEmergencyRelation").value = reservation.representative.emergencyRelation || "";
   document.getElementById("repPostalCode").addEventListener("input", (event) => { event.currentTarget.value = formatPostalCode(event.currentTarget.value); });
 
   initializeCompanions();
@@ -81,16 +84,18 @@ form.addEventListener("submit", (event) => {
       name: card.querySelector('[data-field="name"]').value.trim(),
       postalCode: card.querySelector('[data-field="postalCode"]').value.trim(),
       address: card.querySelector('[data-field="address"]').value.trim(),
+      addressDetail: card.querySelector('[data-field="addressDetail"]').value.trim(),
       age: card.querySelector('[data-field="age"]').value,
       gender: card.querySelector('[data-field="gender"]').value,
-      emergency: card.querySelector('[data-field="emergency"]').value.trim()
+      emergency: card.querySelector('[data-field="emergency"]').value.trim(),
+      emergencyRelation: card.querySelector('[data-field="emergencyRelation"]').value
     };
 
-    const allBlank = !person.name && !person.postalCode && !person.address && !person.age && !person.emergency;
+    const allBlank = !person.name && !person.postalCode && !person.address && !person.addressDetail && !person.age && !person.gender && !person.emergency && !person.emergencyRelation;
     if (allBlank) continue;
 
-    if (!person.name || !person.postalCode || !person.address || !person.age || !person.gender || !person.emergency) {
-      alert("同行者情報を登録する場合は、氏名・郵便番号・住所・年齢・性別・緊急連絡先をすべて入力してください。");
+    if (!person.name || !person.postalCode || !person.address || !person.addressDetail || !person.age || !person.gender || !person.emergency || !person.emergencyRelation) {
+      alert("同行者情報を登録する場合は、氏名・郵便番号・住所・番地・建物名・年齢・性別・緊急連絡先・続柄をすべて入力してください。");
       return;
     }
 
@@ -127,9 +132,11 @@ form.addEventListener("submit", (event) => {
     name: document.getElementById("repName").value.trim(),
     postalCode: formatPostalCode(repPostalCode),
     address: document.getElementById("repAddress").value.trim(),
+    addressDetail: document.getElementById("repAddressDetail").value.trim(),
     age: Number(document.getElementById("repAge").value),
     gender: document.getElementById("repGender").value,
-    emergency: formatPhone(document.getElementById("repEmergency").value)
+    emergency: formatPhone(document.getElementById("repEmergency").value),
+    emergencyRelation: document.getElementById("repEmergencyRelation").value
   };
   reservation.companions = companions;
 
@@ -155,8 +162,9 @@ function addCompanion(person = {}) {
     </div>
     <div class="form-grid">
       <div class="field"><label>氏名</label><input data-field="name" type="text" placeholder="例：山田 太郎" value="${escapeHtml(cleanCompanionValue(person.name))}"></div>
-      <div class="field"><label>郵便番号</label><input data-field="postalCode" class="postal-input" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" value="${escapeHtml(cleanCompanionValue(person.postalCode))}"><div class="helper postal-helper">郵便番号を入力すると住所を自動入力します。</div></div>
-      <div class="field full"><label>住所</label><input data-field="address" type="text" placeholder="例：愛知県名古屋市○○区1-2-3" value="${escapeHtml(cleanCompanionValue(person.address))}"></div>
+      <div class="field"><label>郵便番号</label><input data-field="postalCode" class="postal-input" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" value="${escapeHtml(cleanCompanionValue(person.postalCode))}"><div class="helper postal-helper">郵便番号から住所を自動入力できます。</div></div>
+      <div class="field full"><label>住所</label><input data-field="address" type="text" placeholder="例：愛知県名古屋市中区" value="${escapeHtml(cleanCompanionValue(person.address))}"></div>
+      <div class="field full"><label>番地・建物名</label><input data-field="addressDetail" type="text" placeholder="例：○○町1-2-3 ○○マンション101号室" value="${escapeHtml(cleanCompanionValue(person.addressDetail))}"></div>
       <div class="field"><label>年齢</label><input data-field="age" type="number" min="0" max="120" placeholder="例：32" value="${escapeHtml(cleanCompanionValue(person.age))}"></div>
       <div class="field">
         <label>性別</label>
@@ -167,10 +175,19 @@ function addCompanion(person = {}) {
           ).join("")}
         </select>
       </div>
-      <div class="field full">
-        <label>緊急連絡先</label>
+      <div class="field">
+        <label>緊急連絡先（電話番号）</label>
         <input data-field="emergency" class="phone-input" type="tel" inputmode="numeric" placeholder="例：090-1234-5678" value="${escapeHtml(cleanCompanionValue(person.emergency))}">
         <div class="helper">数字を入力するとハイフンを自動で付けます。</div>
+      </div>
+      <div class="field">
+        <label>続柄</label>
+        <select data-field="emergencyRelation">
+          <option value="">選択してください</option>
+          ${["妻","夫","父","母","息子","娘","兄","姉","弟","妹","叔父","叔母","祖父","祖母","その他"].map((option) =>
+            `<option value="${option}" ${person.emergencyRelation === option ? "selected" : ""}>${option}</option>`
+          ).join("")}
+        </select>
       </div>
     </div>
   `;
@@ -180,7 +197,7 @@ function addCompanion(person = {}) {
   postalInput?.addEventListener("input", async () => {
     postalInput.value = formatPostalCode(postalInput.value);
     if (postalInput.value.replace(/\D/g, "").length === 7) {
-      await lookupAddressFromPostal(postalInput, card.querySelector('[data-field="address"]'), card.querySelector(".postal-helper"));
+      await lookupAddressFromPostal(postalInput, card.querySelector('[data-field="address"]'), card.querySelector(".postal-helper"), card.querySelector('[data-field="addressDetail"]'));
     }
   });
   container.appendChild(card);
@@ -238,7 +255,7 @@ function hasRealCompanionData(person = {}) {
   if (["佐藤 花子", "鈴木 一郎"].includes(name)) return false;
   return Boolean(
     name || cleanCompanionValue(person.postalCode) || cleanCompanionValue(person.address) || cleanCompanionValue(person.age) ||
-    cleanCompanionValue(person.gender) || cleanCompanionValue(person.emergency)
+    cleanCompanionValue(person.gender) || cleanCompanionValue(person.emergency) || cleanCompanionValue(person.emergencyRelation)
   );
 }
 
@@ -255,6 +272,6 @@ const repAddressInput = document.getElementById("repAddress");
 repPostalInput?.addEventListener("input", async () => {
   repPostalInput.value = formatPostalCode(repPostalInput.value);
   if (repPostalInput.value.replace(/\D/g, "").length === 7) {
-    await lookupAddressFromPostal(repPostalInput, repAddressInput, document.getElementById("repPostalHelper"));
+    await lookupAddressFromPostal(repPostalInput, repAddressInput, document.getElementById("repPostalHelper"), document.getElementById("repAddressDetail"));
   }
 });

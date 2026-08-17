@@ -10,9 +10,11 @@ const rosterValue = (value) => String(value ?? "").trim() || "未登録";
 document.getElementById("rosterName").textContent = rosterValue(data.roster.name);
 document.getElementById("rosterPostalCode").textContent = rosterValue(data.roster.postalCode);
 document.getElementById("rosterAddress").textContent = rosterValue(data.roster.address);
+document.getElementById("rosterAddressDetail").textContent = rosterValue(data.roster.addressDetail);
 document.getElementById("rosterAge").textContent = String(data.roster.age ?? "").trim() ? `${data.roster.age}歳` : "未登録";
 document.getElementById("rosterGender").textContent = rosterValue(data.roster.gender);
 document.getElementById("rosterEmergency").textContent = rosterValue(data.roster.emergency);
+document.getElementById("rosterEmergencyRelation").textContent = rosterValue(data.roster.emergencyRelation);
 
 const list = document.getElementById("reservationList");
 if (!data.reservations.length) {

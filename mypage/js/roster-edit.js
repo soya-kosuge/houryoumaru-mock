@@ -3,17 +3,21 @@ const fields = {
   rosterName: document.getElementById("rosterName"),
   postalCode: document.getElementById("postalCode"),
   address: document.getElementById("address"),
+  addressDetail: document.getElementById("addressDetail"),
   age: document.getElementById("age"),
   gender: document.getElementById("gender"),
-  emergency: document.getElementById("emergency")
+  emergency: document.getElementById("emergency"),
+  emergencyRelation: document.getElementById("emergencyRelation")
 };
 
 fields.rosterName.value = data.roster?.name || "";
 fields.postalCode.value = data.roster?.postalCode || "";
 fields.address.value = data.roster?.address || "";
+fields.addressDetail.value = data.roster?.addressDetail || "";
 fields.age.value = data.roster?.age ?? "";
 fields.gender.value = data.roster?.gender || "";
 fields.emergency.value = data.roster?.emergency || "";
+fields.emergencyRelation.value = data.roster?.emergencyRelation || "";
 
 let lastLookedUpPostal = "";
 fields.postalCode.addEventListener("input", async () => {
@@ -30,8 +34,8 @@ fields.postalCode.addEventListener("input", async () => {
     const item = result?.results?.[0];
     if (!item) { if (helper) helper.textContent = "該当する住所が見つかりませんでした。"; return; }
     fields.address.value = `${item.address1 || ""}${item.address2 || ""}${item.address3 || ""}`;
-    fields.address.focus();
-    if (helper) helper.textContent = "住所を自動入力しました。番地・建物名などを続けて入力してください。";
+    fields.addressDetail.focus();
+    if (helper) helper.textContent = "住所を自動入力しました。番地・建物名を入力してください。";
   } catch (_) {
     if (helper) helper.textContent = "住所を自動取得できませんでした。住所を直接入力してください。";
   }
@@ -52,13 +56,20 @@ document.getElementById("rosterEditForm").addEventListener("submit", (event) => 
     alert("緊急連絡先は10桁または11桁で入力してください。");
     return;
   }
+  if (!fields.emergencyRelation.value) {
+    alert("緊急連絡先の続柄を選択してください。");
+    fields.emergencyRelation.focus();
+    return;
+  }
   data.roster = {
     name: fields.rosterName.value.trim(),
     postalCode: formatPostalCode(fields.postalCode.value),
     address: fields.address.value.trim(),
+    addressDetail: fields.addressDetail.value.trim(),
     age: Number(fields.age.value),
     gender: fields.gender.value,
-    emergency: formatPhone(fields.emergency.value)
+    emergency: formatPhone(fields.emergency.value),
+    emergencyRelation: fields.emergencyRelation.value
   };
   saveHouryoumaruData(data);
   location.href = "./index.html";

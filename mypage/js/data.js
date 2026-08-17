@@ -12,9 +12,11 @@ const DEFAULT_DATA = {
     name: "",
     postalCode: "",
     address: "",
+    addressDetail: "",
     age: "",
     gender: "",
-    emergency: ""
+    emergency: "",
+    emergencyRelation: ""
   },
   reservations: [
     {
@@ -30,9 +32,11 @@ const DEFAULT_DATA = {
         name: "",
         postalCode: "",
         address: "",
+        addressDetail: "",
         age: "",
         gender: "",
-        emergency: ""
+        emergency: "",
+        emergencyRelation: ""
       },
       companions: []
     }
@@ -44,7 +48,7 @@ const HOURYOUMARU_SHARED_RESERVATION_KEY = "horyomaruAdminReservations";
 function normalizeSharedReservation(item, baseData) {
   const partySize = Number(item.participants || item.partySize || 1);
   const companionCount = Math.max(0, partySize - 1);
-  const blankCompanion = () => ({ name: "", postalCode: "", address: "", age: "", gender: "", emergency: "" });
+  const blankCompanion = () => ({ name: "", postalCode: "", address: "", addressDetail: "", age: "", gender: "", emergency: "", emergencyRelation: "" });
   return {
     id: item.id || `U-${Date.now()}`,
     date: item.dateKey || String(item.date || "").replaceAll("/", "-"),
@@ -58,9 +62,11 @@ function normalizeSharedReservation(item, baseData) {
       name: baseData?.roster?.name || item.name || "---",
       postalCode: baseData?.roster?.postalCode || "",
       address: baseData?.roster?.address || "---",
+      addressDetail: baseData?.roster?.addressDetail || "",
       age: baseData?.roster?.age ?? "---",
       gender: baseData?.roster?.gender || "---",
-      emergency: baseData?.roster?.emergency || "---"
+      emergency: baseData?.roster?.emergency || "---",
+      emergencyRelation: baseData?.roster?.emergencyRelation || ""
     },
     companions: Array.isArray(item.companions) && item.companions.length
       ? item.companions
@@ -128,14 +134,30 @@ function migrateYamadaAddress(data) {
 function applyPostalCodeMigration(data) {
   if (!data.roster) data.roster = {};
   if (typeof data.roster.postalCode !== "string") data.roster.postalCode = "";
+  if (typeof data.roster.addressDetail !== "string") data.roster.addressDetail = "";
   (data.reservations || []).forEach((r) => {
     if (!r.representative) r.representative = {};
     if (typeof r.representative.postalCode !== "string") r.representative.postalCode = data.roster.postalCode || "";
+    if (typeof r.representative.addressDetail !== "string") r.representative.addressDetail = data.roster.addressDetail || "";
     (r.companions || []).forEach((person) => {
       if (typeof person.postalCode !== "string") person.postalCode = "";
+      if (typeof person.addressDetail !== "string") person.addressDetail = "";
     });
   });
 
+  return data;
+}
+
+function applyEmergencyRelationMigration(data) {
+  if (!data.roster) data.roster = {};
+  if (typeof data.roster.emergencyRelation !== "string") data.roster.emergencyRelation = "";
+  (data.reservations || []).forEach((r) => {
+    if (!r.representative) r.representative = {};
+    if (typeof r.representative.emergencyRelation !== "string") r.representative.emergencyRelation = "";
+    (r.companions || []).forEach((person) => {
+      if (typeof person.emergencyRelation !== "string") person.emergencyRelation = "";
+    });
+  });
   return data;
 }
 
@@ -144,9 +166,9 @@ const HOURYOUMARU_ROSTER_RESET_KEY = "houryoumaruRosterResetV1";
 
 function ensureRosterStartsUnregistered(data) {
   if (localStorage.getItem(HOURYOUMARU_ROSTER_RESET_KEY) === "done") return data;
-  data.roster = { name: "", postalCode: "", address: "", age: "", gender: "", emergency: "" };
+  data.roster = { name: "", postalCode: "", address: "", addressDetail: "", age: "", gender: "", emergency: "", emergencyRelation: "" };
   (data.reservations || []).forEach((reservation) => {
-    reservation.representative = { name: "", postalCode: "", address: "", age: "", gender: "", emergency: "" };
+    reservation.representative = { name: "", postalCode: "", address: "", addressDetail: "", age: "", gender: "", emergency: "", emergencyRelation: "" };
     reservation.companions = [];
   });
   localStorage.setItem(HOURYOUMARU_ROSTER_RESET_KEY, "done");
@@ -158,13 +180,13 @@ function loadHouryoumaruData() {
   const stored = localStorage.getItem(HOURYOUMARU_STORAGE_KEY);
   if (!stored) {
     localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
-    return ensureRosterStartsUnregistered(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA)))));
+    return ensureRosterStartsUnregistered(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))))));
   }
   try {
-    return ensureRosterStartsUnregistered(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(JSON.parse(stored)))));
+    return ensureRosterStartsUnregistered(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(JSON.parse(stored))))));
   } catch (_) {
     localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
-    return ensureRosterStartsUnregistered(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA)))));
+    return ensureRosterStartsUnregistered(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))))));
   }
 }
 
