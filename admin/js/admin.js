@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateResultCount = (element, visibleCount, totalCount) => {
         if (!element) return;
         element.textContent = visibleCount === totalCount
-        ? `全${totalCount}件を表示しています`
-        : `${visibleCount}件が見つかりました`;
+            ? `全${totalCount}件を表示しています`
+            : `${visibleCount}件が見つかりました`;
     };
 
     // ヘッダーメニュー
@@ -73,17 +73,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const customerBody = customerTable.querySelector("tbody");
 
         const customerRows = Array.from(
-        customerTable.querySelectorAll("tbody tr[data-search-row]")
+            customerTable.querySelectorAll("tbody tr[data-search-row]")
         );
 
         const mobileContainer =
-        document.querySelector(".customer-mobile-cards");
+            document.querySelector(".customer-mobile-cards");
 
         const mobileCards = mobileContainer
-        ? Array.from(
-        mobileContainer.querySelectorAll("[data-customer-mobile-card]")
-        )
-        : [];
+            ? Array.from(
+                mobileContainer.querySelectorAll("[data-customer-mobile-card]")
+            )
+            : [];
 
         const readCustomer = (element) => ({
             name: element.dataset.customerName || "",
@@ -96,12 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const b = readCustomer(elementB);
 
             const direction =
-            customerSortDirection?.value === "asc"
-            ? 1
-            : -1;
+                customerSortDirection?.value === "asc"
+                    ? 1
+                    : -1;
 
             const dateDiff =
-            compareText(a.lastDate, b.lastDate);
+                compareText(a.lastDate, b.lastDate);
 
             if (dateDiff !== 0) {
                 return dateDiff * direction;
@@ -114,54 +114,54 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = readCustomer(element);
 
             const query =
-            normalizeName(customerSearch.value);
+                normalizeName(customerSearch.value);
 
             const digitsQuery =
-            customerSearch.value.replace(/\D/g, "");
+                customerSearch.value.replace(/\D/g, "");
 
             const source =
-            element.textContent || "";
+                element.textContent || "";
 
             const normalizedSource =
-            normalizeName(source);
+                normalizeName(source);
 
             const matchesText =
-            !query ||
-            normalizedSource.includes(query) ||
-            (
-            digitsQuery &&
-            source
-            .replace(/\D/g, "")
-            .includes(digitsQuery)
-            );
+                !query ||
+                normalizedSource.includes(query) ||
+                (
+                    digitsQuery &&
+                    source
+                        .replace(/\D/g, "")
+                        .includes(digitsQuery)
+                );
 
             const matchesRank =
-            !customerRank.value ||
-            data.rank === customerRank.value;
+                !customerRank.value ||
+                data.rank === customerRank.value;
 
             return matchesText && matchesRank;
         };
 
         const refreshCustomers = () => {
             customerRows
-            .sort(compareCustomers)
-            .forEach((row) => {
-                customerBody.appendChild(row);
-            });
+                .sort(compareCustomers)
+                .forEach((row) => {
+                    customerBody.appendChild(row);
+                });
 
             if (mobileContainer) {
                 mobileCards
-                .sort(compareCustomers)
-                .forEach((card) => {
-                    mobileContainer.appendChild(card);
-                });
+                    .sort(compareCustomers)
+                    .forEach((card) => {
+                        mobileContainer.appendChild(card);
+                    });
             }
 
             let visibleCount = 0;
 
             customerRows.forEach((row) => {
                 const matches =
-                matchesCustomer(row);
+                    matchesCustomer(row);
 
                 row.hidden = !matches;
 
@@ -172,193 +172,194 @@ document.addEventListener("DOMContentLoaded", () => {
 
             mobileCards.forEach((card) => {
                 card.hidden =
-                !matchesCustomer(card);
+                    !matchesCustomer(card);
             });
 
             updateResultCount(
-            customerResultCount,
-            visibleCount,
-            customerRows.length
+                customerResultCount,
+                visibleCount,
+                customerRows.length
             );
         };
 
         customerSearch.addEventListener(
-        "input",
-        refreshCustomers
+            "input",
+            refreshCustomers
         );
 
         customerRank.addEventListener(
-        "change",
-        refreshCustomers
+            "change",
+            refreshCustomers
         );
 
         customerSortDirection?.addEventListener(
-        "change",
-        refreshCustomers
+            "change",
+            refreshCustomers
         );
 
         customerClearButton?.addEventListener(
-        "click",
-        () => {
-            customerSearch.value = "";
-            customerRank.value = "";
+            "click",
+            () => {
+                customerSearch.value = "";
+                customerRank.value = "";
 
-            if (customerSortDirection) {
-                customerSortDirection.value =
-                "desc";
+                if (customerSortDirection) {
+                    customerSortDirection.value =
+                        "desc";
+                }
+
+                refreshCustomers();
+                customerSearch.focus();
             }
-
-            refreshCustomers();
-            customerSearch.focus();
-        }
         );
 
         refreshCustomers();
     }
 
+
     // 顧客詳細：検索・区分絞り込み・並び替え
     const customerDetailTable =
-    document.querySelector("#customer-detail-table");
+        document.querySelector("#customer-detail-table");
 
     const customerDetailSearch =
-    document.querySelector("#customer-detail-search");
+        document.querySelector("#customer-detail-search");
 
     const customerDetailRank =
-    document.querySelector("#customer-detail-rank");
+        document.querySelector("#customer-detail-rank");
 
     const customerDetailSortDirection =
-    document.querySelector("#customer-detail-sort-direction");
+        document.querySelector("#customer-detail-sort-direction");
 
     const customerDetailClearButton =
-    document.querySelector("#customer-detail-search-clear");
+        document.querySelector("#customer-detail-search-clear");
 
     const customerDetailResultCount =
-    document.querySelector("#customer-detail-result-count");
+        document.querySelector("#customer-detail-result-count");
 
     if (
-    customerDetailTable &&
-    customerDetailSearch &&
-    customerDetailRank
+        customerDetailTable &&
+        customerDetailSearch &&
+        customerDetailRank
     ) {
         const detailBody =
-        customerDetailTable.querySelector("tbody");
+            customerDetailTable.querySelector("tbody");
 
         const customerDetailRows = Array.from(
-        customerDetailTable.querySelectorAll(
-        "tbody tr[data-customer-detail-row]"
-        )
+            customerDetailTable.querySelectorAll(
+                "tbody tr[data-customer-detail-row]"
+            )
         );
 
         const mobileContainer =
-        document.querySelector(
-        ".customer-detail-mobile-cards"
-        );
+            document.querySelector(
+                ".customer-detail-mobile-cards"
+            );
 
         const mobileCards = mobileContainer
-        ? Array.from(
-        mobileContainer.querySelectorAll(
-        "[data-customer-detail-mobile-card]"
-        )
-        )
-        : [];
+            ? Array.from(
+                mobileContainer.querySelectorAll(
+                    "[data-customer-detail-mobile-card]"
+                )
+            )
+            : [];
 
         const readCustomerDetail = (element) => ({
             name: element.dataset.customerName || "",
             rank: element.dataset.customerRank || "",
             lastDate:
-            element.dataset.customerLastDate || ""
+                element.dataset.customerLastDate || ""
         });
 
         const compareCustomerDetails =
-        (elementA, elementB) => {
-            const a =
-            readCustomerDetail(elementA);
+            (elementA, elementB) => {
+                const a =
+                    readCustomerDetail(elementA);
 
-            const b =
-            readCustomerDetail(elementB);
+                const b =
+                    readCustomerDetail(elementB);
 
-            const direction =
-            customerDetailSortDirection
-            ?.value === "asc"
-            ? 1
-            : -1;
+                const direction =
+                    customerDetailSortDirection
+                        ?.value === "asc"
+                        ? 1
+                        : -1;
 
-            const dateDiff =
-            compareText(
-            a.lastDate,
-            b.lastDate
-            );
+                const dateDiff =
+                    compareText(
+                        a.lastDate,
+                        b.lastDate
+                    );
 
-            if (dateDiff !== 0) {
-                return dateDiff * direction;
-            }
+                if (dateDiff !== 0) {
+                    return dateDiff * direction;
+                }
 
-            return compareText(
-            a.name,
-            b.name
-            );
-        };
+                return compareText(
+                    a.name,
+                    b.name
+                );
+            };
 
         const matchesCustomerDetail =
-        (element) => {
-            const data =
-            readCustomerDetail(element);
+            (element) => {
+                const data =
+                    readCustomerDetail(element);
 
-            const query =
-            normalizeName(
-            customerDetailSearch.value
-            );
+                const query =
+                    normalizeName(
+                        customerDetailSearch.value
+                    );
 
-            const digitsQuery =
-            customerDetailSearch.value
-            .replace(/\D/g, "");
+                const digitsQuery =
+                    customerDetailSearch.value
+                        .replace(/\D/g, "");
 
-            const source =
-            element.textContent || "";
+                const source =
+                    element.textContent || "";
 
-            const matchesText =
-            !query ||
-            normalizeName(source)
-            .includes(query) ||
-            (
-            digitsQuery &&
-            source
-            .replace(/\D/g, "")
-            .includes(digitsQuery)
-            );
+                const matchesText =
+                    !query ||
+                    normalizeName(source)
+                        .includes(query) ||
+                    (
+                        digitsQuery &&
+                        source
+                            .replace(/\D/g, "")
+                            .includes(digitsQuery)
+                    );
 
-            const matchesRank =
-            !customerDetailRank.value ||
-            data.rank ===
-            customerDetailRank.value;
+                const matchesRank =
+                    !customerDetailRank.value ||
+                    data.rank ===
+                        customerDetailRank.value;
 
-            return (
-            matchesText &&
-            matchesRank
-            );
-        };
+                return (
+                    matchesText &&
+                    matchesRank
+                );
+            };
 
         const refreshCustomerDetails = () => {
             customerDetailRows
-            .sort(compareCustomerDetails)
-            .forEach((row) => {
-                detailBody.appendChild(row);
-            });
+                .sort(compareCustomerDetails)
+                .forEach((row) => {
+                    detailBody.appendChild(row);
+                });
 
             if (mobileContainer) {
                 mobileCards
-                .sort(compareCustomerDetails)
-                .forEach((card) => {
-                    mobileContainer
-                    .appendChild(card);
-                });
+                    .sort(compareCustomerDetails)
+                    .forEach((card) => {
+                        mobileContainer
+                            .appendChild(card);
+                    });
             }
 
             let visibleCount = 0;
 
             customerDetailRows.forEach((row) => {
                 const matches =
-                matchesCustomerDetail(row);
+                    matchesCustomerDetail(row);
 
                 row.hidden = !matches;
 
@@ -369,301 +370,333 @@ document.addEventListener("DOMContentLoaded", () => {
 
             mobileCards.forEach((card) => {
                 card.hidden =
-                !matchesCustomerDetail(card);
+                    !matchesCustomerDetail(card);
             });
 
             updateResultCount(
-            customerDetailResultCount,
-            visibleCount,
-            customerDetailRows.length
+                customerDetailResultCount,
+                visibleCount,
+                customerDetailRows.length
             );
         };
 
         customerDetailSearch.addEventListener(
-        "input",
-        refreshCustomerDetails
+            "input",
+            refreshCustomerDetails
         );
 
         customerDetailRank.addEventListener(
-        "change",
-        refreshCustomerDetails
+            "change",
+            refreshCustomerDetails
         );
 
         customerDetailSortDirection
-        ?.addEventListener(
-        "change",
-        refreshCustomerDetails
-        );
+            ?.addEventListener(
+                "change",
+                refreshCustomerDetails
+            );
 
         customerDetailClearButton
-        ?.addEventListener(
-        "click",
-        () => {
-            customerDetailSearch.value =
-            "";
+            ?.addEventListener(
+                "click",
+                () => {
+                    customerDetailSearch.value =
+                        "";
 
-            customerDetailRank.value =
-            "";
+                    customerDetailRank.value =
+                        "";
 
-            if (
-            customerDetailSortDirection
-            ) {
-                customerDetailSortDirection
-                .value = "desc";
-            }
+                    if (
+                        customerDetailSortDirection
+                    ) {
+                        customerDetailSortDirection
+                            .value = "desc";
+                    }
 
-            refreshCustomerDetails();
-            customerDetailSearch.focus();
-        }
-        );
+                    refreshCustomerDetails();
+                    customerDetailSearch.focus();
+                }
+            );
 
         refreshCustomerDetails();
     }
 
-    // 予約一覧：日付 × 便ごとに集約して表示
-    const reservationTable = document.querySelector("#reservation-table");
-    const reservationDate = document.querySelector("#reservation-date");
-    const reservationCourse = document.querySelector("#reservation-course");
-    const reservationGuests = document.querySelector("#reservation-guests");
-    const reservationSortDirection = document.querySelector("#reservation-sort-direction");
-    const reservationClearButton = document.querySelector("#reservation-search-clear");
-    const reservationResultCount = document.querySelector("#reservation-result-count");
-    const reservationPrintLink = document.querySelector("#reservation-print-link");
+// 予約一覧：日付 × 便ごとに集約して表示
+const reservationTable = document.querySelector("#reservation-table");
+const reservationDate = document.querySelector("#reservation-date");
+const reservationCourse = document.querySelector("#reservation-course");
+const reservationGuests = document.querySelector("#reservation-guests");
+const reservationSortDirection = document.querySelector("#reservation-sort-direction");
+const reservationClearButton = document.querySelector("#reservation-search-clear");
+const reservationResultCount = document.querySelector("#reservation-result-count");
+const reservationPrintLink = document.querySelector("#reservation-print-link");
 
-    const buildPrintUrl = () => {
-        const params = new URLSearchParams();
+const buildPrintUrl = () => {
+    const params = new URLSearchParams();
 
-        if (reservationDate?.value) {
-            params.set("date", reservationDate.value);
-        }
+    if (reservationDate?.value) {
+        params.set("date", reservationDate.value);
+    }
 
-        if (reservationCourse?.value) {
-            params.set("course", reservationCourse.value);
-        }
+    if (reservationCourse?.value) {
+        params.set("course", reservationCourse.value);
+    }
 
-        if (reservationGuests?.value.trim()) {
-            params.set("guests", reservationGuests.value.trim());
-        }
+    if (reservationGuests?.value.trim()) {
+        params.set("guests", reservationGuests.value.trim());
+    }
 
-        const queryString = params.toString();
+    const queryString = params.toString();
 
-        return queryString
+    return queryString
         ? `adminReservationDetailPrint.html?${queryString}`
         : "adminReservationDetailPrint.html";
-    };
+};
 
-    if (
+
+if (
     reservationTable &&
     reservationDate &&
     reservationCourse &&
     reservationGuests
-    ) {
-        const reservationBody = reservationTable.querySelector("tbody");
+) {
+    const reservationBody = reservationTable.querySelector("tbody");
 
-        // HTMLに書かれている予約データを取得
-        const originalRows = Array.from(
+    // HTMLに書かれている予約データを取得
+    const originalRows = Array.from(
         reservationTable.querySelectorAll("tbody tr[data-search-row]")
-        );
+    );
 
-        // 日付 × 便ごとに人数を集約
-        const groupedReservations = new Map();
+    // 日付 × 便ごとに人数を集約
+    const groupedReservations = new Map();
 
-        originalRows.forEach((row) => {
+    originalRows.forEach((row) => {
 
-            const cells = row.querySelectorAll("td");
+        const cells = row.querySelectorAll("td");
 
-            const date =
+        const date =
             cells[0]?.textContent.trim() || "";
 
-            const course =
+        const course =
             cells[1]?.textContent.trim() || "";
 
-            const guests =
+        const guests =
             Number(
-            cells[2]?.textContent.replace(/\D/g, "")
+                cells[2]?.textContent.replace(/\D/g, "")
             ) || 0;
 
-            const key = `${date}_${course}`;
 
-            if (!groupedReservations.has(key)) {
+        const key = `${date}_${course}`;
 
-                groupedReservations.set(key, {
-                    date: date,
-                    course: course,
-                    guests: 0
-                });
 
-            }
+        if (!groupedReservations.has(key)) {
 
-            groupedReservations.get(key).guests += guests;
+            groupedReservations.set(key, {
+                date: date,
+                course: course,
+                guests: 0
+            });
 
-        });
+        }
 
-        // 元の行を削除
-        reservationBody.innerHTML = "";
 
-        // 集約後の行を作成
-        const reservationRows = Array.from(
+        groupedReservations.get(key).guests += guests;
+
+    });
+
+
+    // 元の行を削除
+    reservationBody.innerHTML = "";
+
+
+    // 集約後の行を作成
+    const reservationRows = Array.from(
         groupedReservations.values()
-        ).map((reservation) => {
+    ).map((reservation) => {
 
-            const row = document.createElement("tr");
+        const row = document.createElement("tr");
 
-            row.dataset.searchRow = "";
-            row.dataset.date = reservation.date;
-            row.dataset.course = reservation.course;
-            row.dataset.guests = reservation.guests;
+        row.dataset.searchRow = "";
+        row.dataset.date = reservation.date;
+        row.dataset.course = reservation.course;
+        row.dataset.guests = reservation.guests;
 
-            row.innerHTML = `
+
+        row.innerHTML = `
             <td>${reservation.date}</td>
             <td>${reservation.course}</td>
             <td>${reservation.guests}名</td>
-            `;
+        `;
 
-            reservationBody.appendChild(row);
 
-            return row;
+        reservationBody.appendChild(row);
 
-        });
 
-        // 行データ取得
-        const readReservation = (row) => {
+        return row;
 
-            return {
+    });
 
-                date:
+
+    // 行データ取得
+    const readReservation = (row) => {
+
+        return {
+
+            date:
                 row.dataset.date || "",
 
-                course:
+            course:
                 row.dataset.course || "",
 
-                guests:
+            guests:
                 Number(row.dataset.guests || 0)
 
-            };
-
         };
 
-        // 並び替え
-        const compareRows = (rowA, rowB) => {
+    };
 
-            const a = readReservation(rowA);
-            const b = readReservation(rowB);
 
-            const direction =
+    // 並び替え
+    const compareRows = (rowA, rowB) => {
+
+        const a = readReservation(rowA);
+        const b = readReservation(rowB);
+
+
+        const direction =
             reservationSortDirection?.value === "asc"
-            ? 1
-            : -1;
+                ? 1
+                : -1;
 
-            // 日付
-            const dateDiff =
+
+        // 日付
+        const dateDiff =
             compareText(a.date, b.date);
 
-            if (dateDiff !== 0) {
-                return dateDiff * direction;
-            }
+        if (dateDiff !== 0) {
+            return dateDiff * direction;
+        }
 
-            // 便
-            const courseDiff =
+
+        // 便
+        const courseDiff =
             compareText(a.course, b.course);
 
-            if (courseDiff !== 0) {
-                return courseDiff * direction;
-            }
+        if (courseDiff !== 0) {
+            return courseDiff * direction;
+        }
 
-            return 0;
 
-        };
+        return 0;
 
-        // 検索・表示更新
-        const refreshReservations = () => {
+    };
 
-            // 並び替え
-            reservationRows
+
+    // 検索・表示更新
+    const refreshReservations = () => {
+
+        // 並び替え
+        reservationRows
             .sort(compareRows)
             .forEach((row) => {
                 reservationBody.appendChild(row);
             });
 
-            const selectedDate =
+
+        const selectedDate =
             normalizeDate(reservationDate.value);
 
-            const selectedCourse =
+        const selectedCourse =
             reservationCourse.value;
 
-            const enteredGuests =
+        const enteredGuests =
             reservationGuests.value.trim();
 
-            let visibleCount = 0;
 
-            reservationRows.forEach((row) => {
+        let visibleCount = 0;
 
-                const data =
+
+        reservationRows.forEach((row) => {
+
+            const data =
                 readReservation(row);
 
-                const matchesDate =
+
+            const matchesDate =
                 !selectedDate ||
                 data.date === selectedDate;
 
-                const matchesCourse =
+
+            const matchesCourse =
                 !selectedCourse ||
                 data.course === selectedCourse;
 
-                const matchesGuests =
+
+            const matchesGuests =
                 !enteredGuests ||
                 data.guests === Number(enteredGuests);
 
-                const matches =
+
+            const matches =
                 matchesDate &&
                 matchesCourse &&
                 matchesGuests;
 
-                row.hidden = !matches;
 
-                if (matches) {
-                    visibleCount++;
-                }
+            row.hidden = !matches;
 
-            });
 
-            updateResultCount(
+            if (matches) {
+                visibleCount++;
+            }
+
+        });
+
+
+        updateResultCount(
             reservationResultCount,
             visibleCount,
             reservationRows.length
-            );
+        );
 
-            if (reservationPrintLink) {
 
-                reservationPrintLink.href =
+        if (reservationPrintLink) {
+
+            reservationPrintLink.href =
                 buildPrintUrl();
 
-            }
+        }
 
-        };
+    };
 
-        // 検索イベント
-        reservationDate.addEventListener(
+
+    // 検索イベント
+    reservationDate.addEventListener(
         "change",
         refreshReservations
-        );
+    );
 
-        reservationCourse.addEventListener(
+
+    reservationCourse.addEventListener(
         "change",
         refreshReservations
-        );
+    );
 
-        reservationGuests.addEventListener(
+
+    reservationGuests.addEventListener(
         "input",
         refreshReservations
-        );
+    );
 
-        reservationSortDirection?.addEventListener(
+
+    reservationSortDirection?.addEventListener(
         "change",
         refreshReservations
-        );
+    );
 
-        // 条件クリア
-        reservationClearButton?.addEventListener(
+
+    // 条件クリア
+    reservationClearButton?.addEventListener(
         "click",
         () => {
 
@@ -671,21 +704,25 @@ document.addEventListener("DOMContentLoaded", () => {
             reservationCourse.value = "";
             reservationGuests.value = "";
 
+
             if (reservationSortDirection) {
                 reservationSortDirection.value = "desc";
             }
 
+
             refreshReservations();
+
 
             reservationDate.focus();
 
         }
-        );
+    );
 
-        // 初回表示
-        refreshReservations();
 
-    }
+    // 初回表示
+    refreshReservations();
+
+}
     // 予約一覧（印刷用）の絞り込み
     const printReservationTable = document.querySelector("#print-reservation-table");
     const printFilterSummary = document.querySelector("#print-filter-summary");
@@ -708,10 +745,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const rowName = normalizeName(cells[2]?.textContent.trim() || "");
             const rowGuests = cells[3]?.textContent.replace(/\D/g, "") || "";
             const matches =
-            (!selectedDate || rowDate === selectedDate) &&
-            (!selectedCourse || rowCourse === selectedCourse) &&
-            (!enteredGuests || rowGuests === enteredGuests) &&
-            (!enteredName || rowName.includes(enteredName));
+                (!selectedDate || rowDate === selectedDate) &&
+                (!selectedCourse || rowCourse === selectedCourse) &&
+                (!enteredGuests || rowGuests === enteredGuests) &&
+                (!enteredName || rowName.includes(enteredName));
 
             row.hidden = !matches;
             if (matches) visibleCount += 1;
@@ -719,17 +756,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const printBody = printReservationTable.querySelector("tbody");
         printRows
-        .sort((rowA, rowB) => {
-            const a = rowA.querySelectorAll("td");
-            const b = rowB.querySelectorAll("td");
-            const direction = sortDirection === "asc" ? 1 : -1;
-            for (const index of [0, 1, 2]) {
-                const diff = compareText(a[index]?.textContent.trim() || "", b[index]?.textContent.trim() || "");
-                if (diff !== 0) return diff * direction;
-            }
-            return 0;
-        })
-        .forEach((row) => printBody?.appendChild(row));
+            .sort((rowA, rowB) => {
+                const a = rowA.querySelectorAll("td");
+                const b = rowB.querySelectorAll("td");
+                const direction = sortDirection === "asc" ? 1 : -1;
+                for (const index of [0, 1, 2]) {
+                    const diff = compareText(a[index]?.textContent.trim() || "", b[index]?.textContent.trim() || "");
+                    if (diff !== 0) return diff * direction;
+                }
+                return 0;
+            })
+            .forEach((row) => printBody?.appendChild(row));
 
         if (printFilterSummary) {
             const conditions = [];
@@ -739,8 +776,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (enteredName) conditions.push(`氏名：${params.get("name")}`);
 
             printFilterSummary.textContent = conditions.length
-            ? `絞り込み条件：${conditions.join(" / ")}（${visibleCount}件）`
-            : `全${visibleCount}件を印刷対象として表示しています`;
+                ? `絞り込み条件：${conditions.join(" / ")}（${visibleCount}件）`
+                : `全${visibleCount}件を印刷対象として表示しています`;
         }
 
         if (printEmptyMessage) printEmptyMessage.hidden = visibleCount !== 0;
@@ -775,11 +812,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 const statusElement = cells[6]?.querySelector("[data-status]");
                 const rowStatus = statusElement?.dataset.status || cells[6]?.textContent.trim() || "";
                 const matches =
-                (!selectedDate || cells[0]?.textContent.trim() === selectedDate) &&
-                (!selectedCourse || cells[1]?.textContent.trim() === selectedCourse) &&
-                (!selectedShip || cells[2]?.textContent.trim() === selectedShip) &&
-                (!selectedCaptain || cells[3]?.textContent.trim() === selectedCaptain) &&
-                (!selectedStatus || rowStatus === selectedStatus);
+                    (!selectedDate || cells[0]?.textContent.trim() === selectedDate) &&
+                    (!selectedCourse || cells[1]?.textContent.trim() === selectedCourse) &&
+                    (!selectedShip || cells[2]?.textContent.trim() === selectedShip) &&
+                    (!selectedCaptain || cells[3]?.textContent.trim() === selectedCaptain) &&
+                    (!selectedStatus || rowStatus === selectedStatus);
 
                 row.hidden = !matches;
                 if (matches) visibleCount += 1;
@@ -818,8 +855,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const detailRows = Array.from(detailTable.querySelectorAll("tbody tr[data-detail-search-row]"));
         const mobileContainer = document.querySelector(".mobile-cards");
         const mobileCards = mobileContainer
-        ? Array.from(mobileContainer.querySelectorAll("[data-detail-mobile-card]"))
-        : [];
+            ? Array.from(mobileContainer.querySelectorAll("[data-detail-mobile-card]"))
+            : [];
 
         const readDetail = (element) => ({
             date: element.dataset.date || "",
@@ -847,9 +884,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const enteredName = normalizeName(detailSearchName.value);
 
             return (
-            (!selectedDate || data.date === selectedDate) &&
-            (!selectedCourse || data.course === selectedCourse) &&
-            (!enteredName || normalizeName(data.name).includes(enteredName))
+                (!selectedDate || data.date === selectedDate) &&
+                (!selectedCourse || data.course === selectedCourse) &&
+                (!enteredName || normalizeName(data.name).includes(enteredName))
             );
         };
 
@@ -877,8 +914,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (detailSortDirection?.value) params.set("sort", detailSortDirection.value);
                 const query = params.toString();
                 detailPrintLink.href = query
-                ? `adminReservationDetailPrint.html?${query}`
-                : "adminReservationDetailPrint.html";
+                    ? `adminReservationDetailPrint.html?${query}`
+                    : "adminReservationDetailPrint.html";
             }
 
             updateResultCount(detailResultCount, visibleCount, detailRows.length);
@@ -973,8 +1010,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // 行編集内容をMOCK上でも再読込後に保持する。
     const rowEditStorageKey = `horyomaruAdminRowEdits:${location.pathname}`;
     const editableRows = [...document.querySelectorAll('[data-edit-row]')]
-    .map((button) => button.closest('tr'))
-    .filter(Boolean);
+        .map((button) => button.closest('tr'))
+        .filter(Boolean);
     let savedRowEdits = {};
     try { savedRowEdits = JSON.parse(localStorage.getItem(rowEditStorageKey) || '{}') || {}; }
     catch { savedRowEdits = {}; }
@@ -992,7 +1029,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const index = row.dataset.editStorageIndex;
         if (index === undefined) return;
         savedRowEdits[index] = [...row.querySelectorAll('td[data-editable]')]
-        .map((cell) => cell.textContent.trim());
+            .map((cell) => cell.textContent.trim());
         localStorage.setItem(rowEditStorageKey, JSON.stringify(savedRowEdits));
     };
 
@@ -1159,8 +1196,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const customerId = row.dataset.customerId;
                 const mobileCard = customerId
-                ? document.querySelector(`[data-customer-detail-mobile-card][data-customer-id="${customerId}"]`)
-                : null;
+                    ? document.querySelector(`[data-customer-detail-mobile-card][data-customer-id="${customerId}"]`)
+                    : null;
                 if (mobileCard) {
                     mobileCard.dataset.customerName = row.dataset.customerName;
                     mobileCard.dataset.customerRank = rank;

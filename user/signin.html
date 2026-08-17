@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>豊漁丸｜初回登録</title>
+    <title>豊漁丸｜初回登録</title>
 
-        <link rel="stylesheet" href="css/shipScheduleList.css">
-        <link rel="stylesheet" href="css/reservationFlow.css">
+    <link rel="stylesheet" href="css/shipScheduleList.css">
+    <link rel="stylesheet" href="css/reservationFlow.css">
 
-        <script src="js/reservationFlow.js" defer></script>
-        <script src="js/common.js" defer></script>
-    </head>
+    <script src="js/reservationFlow.js" defer></script>
+    <script src="js/common.js" defer></script>
+</head>
 
-    <body>
+<body>
 
-        <header class="site-header">
-            <div class="header-inner">
+    <header class="site-header">
+        <div class="header-inner">
 
-                <a class="brand" href="shipScheduleList.html">
-                    <img class="logo"
-                    src="images/豊漁丸_ユーザー画面_ロゴ.png"
-                    alt="豊漁丸 予約システム">
-                </a>
+            <a class="brand" href="shipScheduleList.html">
+                <img class="logo"
+                     src="images/豊漁丸_ユーザー画面_ロゴ.png"
+                     alt="豊漁丸 予約システム">
+            </a>
 
-            </div>
-        </header>
+        </div>
+    </header>
 
-        <main class="flow-main login-main">
 
-            <section class="hero flow-hero">
+    <main class="flow-main login-main">
 
-                <span class="eyebrow">
-                    FIRST REGISTRATION
-                </span>
+        <section class="hero flow-hero">
 
-                <h1 id="login-title">
-                    初回ログイン
-                </h1>
+            <span class="eyebrow">
+                FIRST REGISTRATION
+            </span>
 
-                <p class="lead"
-                id="login-lead">
+            <h1 id="login-title">
+                初回ログイン
+            </h1>
+
+            <p class="lead"
+               id="login-lead">
                 初回のみ、お客様情報を登録してください。
             </p>
 
@@ -58,53 +59,83 @@
                         <span class="required">必須</span>
                     </label>
                     <input id="name"
-                    name="name"
-                    type="text"
-                    autocomplete="name"
-                    placeholder="例：山田 太郎"
-                    required>
+                           name="name"
+                           type="text"
+                           autocomplete="name"
+                           placeholder="例：山田 太郎"
+                           required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="email">
-                            メールアドレス
-                            <span class="required">必須</span>
-                        </label>
-                        <input id="email"
-                        name="email"
-                        type="email"
-                        autocomplete="email"
-                        required>
-                    </div>
+                <div class="form-group">
+                    <label for="name-kana">
+                        名前（かな）
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="name-kana"
+                           name="nameKana"
+                           type="text"
+                           autocomplete="name"
+                           placeholder="例：やまだ たろう"
+                           required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="tel">
-                            電話番号
-                            <span class="required">必須</span>
-                        </label>
-                        <input id="tel"
-                        name="tel"
-                        type="tel"
-                        autocomplete="tel"
-                        inputmode="numeric"
-                        pattern="[0-9]+"
-                        placeholder="例：09012345678"
-                        required>
-                        <p class="form-note">
-                            ハイフン不要で、数字のみ入力してください。
-                        </p>
-                    </div>
+                <div class="form-group">
+                    <label for="postal-code">
+                        郵便番号
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="postal-code"
+                           name="postalCode"
+                           type="text"
+                           inputmode="numeric"
+                           autocomplete="postal-code"
+                           maxlength="8"
+                           placeholder="例：460-0000"
+                           required>
+                    <p class="form-note">数字を入力するとハイフンを自動で付けます。</p>
+                </div>
 
-                    <button class="primary-button" type="submit">
-                        登録して出船情報を見る
-                    </button>
-                </form>
-            </section>
+                <div class="form-group">
+                    <label for="email">
+                        メールアドレス
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="email"
+                           name="email"
+                           type="email"
+                           autocomplete="email"
+                           required>
+                </div>
 
-        </main>
+                <div class="form-group">
+                    <label for="tel">
+                        電話番号
+                        <span class="required">必須</span>
+                    </label>
+                    <input id="tel"
+                           name="tel"
+                           type="tel"
+                           autocomplete="tel"
+                           inputmode="numeric"
+                           pattern="[0-9]+"
+                           placeholder="例：09012345678"
+                           required>
+                    <p class="form-note">
+                        ハイフン不要で、数字のみ入力してください。
+                    </p>
+                </div>
 
-        <footer>
-            © 2026 豊漁丸 予約システム
-        </footer>
+                <button class="primary-button" type="submit">
+                    登録して出船情報を見る
+                </button>
+            </form>
+        </section>
 
-    </body>
+    </main>
+
+    <footer>
+        © 2026 豊漁丸 予約システム
+    </footer>
+
+</body>
 </html>

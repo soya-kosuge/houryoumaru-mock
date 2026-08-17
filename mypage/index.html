@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイページ | 豊漁丸 乗船予約</title>
+  <link rel="stylesheet" href="./css/common.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="./index.html" aria-label="豊漁丸 マイページへ">
+      <img class="logo" src="./images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
+    </a>
+  </div>
+</header>
+<main>
+  <section class="section">
+    <div class="section-head">
+      <div><p class="eyebrow">ACCOUNT</p><h2>予約システム ログイン情報</h2></div>
+      <a class="btn section-edit-btn" href="./account-edit.html">登録情報の変更</a>
+    </div>
+    <div class="card">
+      <div class="row"><div class="label">氏名（漢字）</div><div class="value" id="accountNameKanji"></div></div>
+      <div class="row"><div class="label">氏名（かな）</div><div class="value" id="accountNameKana"></div></div>
+      <div class="row"><div class="label">メールアドレス</div><div class="value" id="accountEmail"></div></div>
+      <div class="row"><div class="label">電話番号</div><div class="value" id="accountPhone"></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div><p class="eyebrow">PASSENGER INFORMATION</p><h2>乗船名簿情報</h2></div>
+      <a class="btn section-edit-btn" href="./roster-edit.html">登録情報の変更</a>
+    </div>
+    <div class="card">
+      <div class="row"><div class="label">氏名</div><div class="value" id="rosterName"></div></div>
+      <div class="row"><div class="label">郵便番号</div><div class="value" id="rosterPostalCode"></div></div>
+      <div class="row"><div class="label">住所</div><div class="value" id="rosterAddress"></div></div>
+      <div class="row"><div class="label">年齢</div><div class="value" id="rosterAge"></div></div>
+      <div class="row"><div class="label">性別</div><div class="value" id="rosterGender"></div></div>
+      <div class="row"><div class="label">緊急連絡先</div><div class="value" id="rosterEmergency"></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div><p class="eyebrow">RESERVATIONS</p><h2>予約一覧</h2></div>
+    </div>
+    <div class="card" id="reservationList"></div>
+  </section>
+</main>
+<footer>© 2026 豊漁丸 予約システム</footer>
+<script src="./js/data.js"></script>
+<script src="./js/mypage.js"></script>
+</body>
+</html>

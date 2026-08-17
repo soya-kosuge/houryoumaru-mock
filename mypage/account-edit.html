@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン情報の変更 | 豊漁丸</title>
+  <link rel="stylesheet" href="./css/common.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="./index.html" aria-label="豊漁丸 マイページへ">
+      <img class="logo" src="./images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
+    </a>
+  </div>
+</header>
+<main>
+  <form id="accountEditForm">
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">ACCOUNT</p><h2>予約システム ログイン情報の変更</h2></div>
+      </div>
+      <div class="card">
+        <div class="form-grid">
+          <div class="field"><label for="nameKanji">氏名（漢字）</label><input id="nameKanji" type="text" required></div>
+          <div class="field"><label for="nameKana">氏名（かな）</label><input id="nameKana" type="text" required></div>
+          <div class="field full"><label for="email">メールアドレス</label><input id="email" type="email" required></div>
+          <div class="field full">
+            <label for="phone">電話番号</label>
+            <input id="phone" class="phone-input" type="tel" inputmode="numeric" required>
+            <div class="helper">数字を入力するとハイフンを自動で付けます。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="form-actions">
+      <a class="btn" href="./index.html">変更せず戻る</a>
+      <button class="btn primary" type="submit">ログイン情報を保存</button>
+    </div>
+  </form>
+</main>
+<footer>© 2026 豊漁丸 予約システム</footer>
+<script src="./js/data.js"></script>
+<script src="./js/account-edit.js"></script>
+</body>
+</html>

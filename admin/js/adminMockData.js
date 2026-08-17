@@ -14,11 +14,11 @@
     };
 
     const escapeHtml = (value) => String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 
     const formatRod = (count) => Number(count) > 0 ? `${Number(count)}本` : 'なし';
     const digits = (value) => String(value || '').replace(/\D/g, '');
@@ -79,9 +79,9 @@
             const row = document.createElement('tr');
             row.dataset.searchRow = '';
             row.innerHTML = `
-            <td>${escapeHtml(item.date)}</td>
-            <td>${escapeHtml(item.course)}</td>
-            <td>${Number(item.participants || 0)}名</td>
+                <td>${escapeHtml(item.date)}</td>
+                <td>${escapeHtml(item.course)}</td>
+                <td>${Number(item.participants || 0)}名</td>
             `;
             reservationBody.appendChild(row);
         });
@@ -99,15 +99,15 @@
             row.dataset.name = item.name || '';
             row.dataset.userReservation = 'true';
             row.innerHTML = `
-            <td data-editable>${escapeHtml(item.date)}</td>
-            <td data-editable>${escapeHtml(item.course)}</td>
-            <td data-editable>${escapeHtml(item.name)}</td>
-            <td data-editable>${escapeHtml(item.nameKana)}</td>
-            <td data-editable>${Number(item.participants || 0)}名</td>
-            <td data-editable>${escapeHtml(formatRod(item.rentalRod))}</td>
-            <td data-editable>${escapeHtml(formatPhone(item.phone))}</td>
-            <td data-editable>${escapeHtml(item.email)}</td>
-            <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+                <td data-editable>${escapeHtml(item.date)}</td>
+                <td data-editable>${escapeHtml(item.course)}</td>
+                <td data-editable>${escapeHtml(item.name)}</td>
+                <td data-editable>${escapeHtml(item.nameKana)}</td>
+                <td data-editable>${Number(item.participants || 0)}名</td>
+                <td data-editable>${escapeHtml(formatRod(item.rentalRod))}</td>
+                <td data-editable>${escapeHtml(formatPhone(item.phone))}</td>
+                <td data-editable>${escapeHtml(item.email)}</td>
+                <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
             `;
             detailBody.appendChild(row);
 
@@ -120,21 +120,21 @@
                 card.dataset.name = item.name || '';
                 card.dataset.userReservation = 'true';
                 const values = [
-                ['予約日', item.date],
-                ['便', item.course],
-                ['氏名', item.name],
-                ['ふりがな', item.nameKana],
-                ['人数', `${Number(item.participants || 0)}名`],
-                ['貸し竿', formatRod(item.rentalRod)],
-                ['電話番号', formatPhone(item.phone)],
-                ['メール', item.email]
+                    ['予約日', item.date],
+                    ['便', item.course],
+                    ['氏名', item.name],
+                    ['ふりがな', item.nameKana],
+                    ['人数', `${Number(item.participants || 0)}名`],
+                    ['貸し竿', formatRod(item.rentalRod)],
+                    ['電話番号', formatPhone(item.phone)],
+                    ['メール', item.email]
                 ];
                 card.innerHTML = `<div class="card-body">${values.map(([label, value]) => `
                     <div>
-                    <div class="data-label">${escapeHtml(label)}</div>
-                    <div class="data-value">${escapeHtml(value)}</div>
+                        <div class="data-label">${escapeHtml(label)}</div>
+                        <div class="data-value">${escapeHtml(value)}</div>
                     </div>
-                    `).join('')}</div>`;
+                `).join('')}</div>`;
                 mobileContainer.appendChild(card);
             }
         });
@@ -147,12 +147,12 @@
             const row = document.createElement('tr');
             row.dataset.printRow = '';
             row.innerHTML = `
-            <td>${escapeHtml(item.date)}</td>
-            <td>${escapeHtml(item.course)}</td>
-            <td>${escapeHtml(item.name)}</td>
-            <td>${Number(item.participants || 0)}名</td>
-            <td>${escapeHtml(formatRod(item.rentalRod))}</td>
-            <td>${escapeHtml(formatPhone(item.phone))}</td>
+                <td>${escapeHtml(item.date)}</td>
+                <td>${escapeHtml(item.course)}</td>
+                <td>${escapeHtml(item.name)}</td>
+                <td>${Number(item.participants || 0)}名</td>
+                <td>${escapeHtml(formatRod(item.rentalRod))}</td>
+                <td>${escapeHtml(formatPhone(item.phone))}</td>
             `;
             printBody.appendChild(row);
         });
@@ -161,54 +161,54 @@
     // 顧客管理・顧客詳細
     // ユーザー予約を電話番号 / メール単位でまとめる
     const customerBody =
-    document.querySelector(
-    "#customer-table tbody"
-    );
+        document.querySelector(
+            "#customer-table tbody"
+        );
 
     const customerMobileContainer =
-    document.querySelector(
-    ".customer-mobile-cards"
-    );
+        document.querySelector(
+            ".customer-mobile-cards"
+        );
 
     const customerDetailBody =
-    document.querySelector(
-    "#customer-detail-table tbody"
-    );
+        document.querySelector(
+            "#customer-detail-table tbody"
+        );
 
     const customerDetailMobileContainer =
-    document.querySelector(
-    ".customer-detail-mobile-cards"
-    );
+        document.querySelector(
+            ".customer-detail-mobile-cards"
+        );
 
     if (
-    customerBody ||
-    customerMobileContainer ||
-    customerDetailBody ||
-    customerDetailMobileContainer
+        customerBody ||
+        customerMobileContainer ||
+        customerDetailBody ||
+        customerDetailMobileContainer
     ) {
         const customers =
-        new Map();
+            new Map();
 
         reservations.forEach((item) => {
             const key =
-            digits(item.phone) ||
-            item.email ||
-            item.name;
+                digits(item.phone) ||
+                item.email ||
+                item.name;
 
             if (!customers.has(key)) {
                 customers.set(
-                key,
-                {
-                    ...item,
-                    useCount: 0,
-                    lastDate:
-                    item.date || ""
-                }
+                    key,
+                    {
+                        ...item,
+                        useCount: 0,
+                        lastDate:
+                            item.date || ""
+                    }
                 );
             }
 
             const customer =
-            customers.get(key);
+                customers.get(key);
 
             // 利用回数 = 実際に乗船完了した回数。status未設定の既存MOCKは乗船済み扱い。
             if (!item.status || item.status === '乗船済み' || item.status === 'completed') {
@@ -216,11 +216,11 @@
             }
 
             if (
-            (item.date || "") >
-            customer.lastDate
+                (item.date || "") >
+                customer.lastDate
             ) {
                 customer.lastDate =
-                item.date || "";
+                    item.date || "";
             }
         });
 
@@ -230,380 +230,384 @@
             index += 1;
 
             const id =
-            2000 + index;
+                2000 + index;
 
             const count =
-            customer.useCount;
+                customer.useCount;
 
             const rank =
-            count >= 6
-            ? "VIP"
-            : count >= 2
-            ? "常連"
-            : "新規";
+                count >= 6
+                    ? "VIP"
+                    : count >= 2
+                        ? "常連"
+                        : "新規";
 
             const badge =
-            rank === "VIP"
-            ? "badge-orange"
-            : rank === "常連"
-            ? "badge-blue"
-            : "badge-green";
+                rank === "VIP"
+                    ? "badge-orange"
+                    : rank === "常連"
+                        ? "badge-blue"
+                        : "badge-green";
+
 
             // 顧客一覧 PC
             if (customerBody) {
                 const row =
-                document.createElement("tr");
+                    document.createElement("tr");
 
                 row.dataset.searchRow = "";
                 row.dataset.userCustomer =
-                "true";
+                    "true";
 
                 row.dataset.customerId =
-                String(id);
+                    String(id);
 
                 row.dataset.customerName =
-                customer.name || "";
+                    customer.name || "";
 
                 row.dataset.customerRank =
-                rank;
+                    rank;
 
                 row.dataset.customerLastDate =
-                customer.lastDate || "";
+                    customer.lastDate || "";
 
                 row.innerHTML = `
-                <td>${id}</td>
+                    <td>${id}</td>
 
-                <td>
-                ${escapeHtml(
-                    customer.name
-                    )}
-                </td>
+                    <td>
+                        ${escapeHtml(
+                            customer.name
+                        )}
+                    </td>
 
-                <td>
-                ${escapeHtml(
-                    formatPhone(
-                    customer.phone
-                    )
-                    )}
-                </td>
+                    <td>
+                        ${escapeHtml(
+                            formatPhone(
+                                customer.phone
+                            )
+                        )}
+                    </td>
 
-                <td>
-                ${count}回
-                </td>
+                    <td>
+                        ${count}回
+                    </td>
 
-                <td>
-                <span class="badge ${badge}">
-                ${rank}
-                </span>
-                </td>
+                    <td>
+                        <span class="badge ${badge}">
+                            ${rank}
+                        </span>
+                    </td>
 
-                <td>
-                ${escapeHtml(
-                    customer.lastDate
-                    )}
-                </td>
+                    <td>
+                        ${escapeHtml(
+                            customer.lastDate
+                        )}
+                    </td>
                 `;
 
                 customerBody.appendChild(row);
             }
 
+
             // 顧客一覧 スマホ
             if (customerMobileContainer) {
                 const card =
-                document.createElement(
-                "article"
-                );
+                    document.createElement(
+                        "article"
+                    );
 
                 card.className =
-                "card customer-card";
+                    "card customer-card";
 
                 card.dataset.customerMobileCard =
-                "";
+                    "";
 
                 card.dataset.customerId =
-                String(id);
+                    String(id);
 
                 card.dataset.customerName =
-                customer.name || "";
+                    customer.name || "";
 
                 card.dataset.customerRank =
-                rank;
+                    rank;
 
                 card.dataset.customerLastDate =
-                customer.lastDate || "";
+                    customer.lastDate || "";
 
                 card.innerHTML = `
-                <div class="card-body">
+                    <div class="card-body">
 
-                <div>
-                <div class="data-label">
-                顧客ID
-                </div>
-                <div class="data-value">
-                ${id}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                顧客ID
+                            </div>
+                            <div class="data-value">
+                                ${id}
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                顧客名
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    customer.name
-                    )}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                顧客名
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.name
+                                )}
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                電話番号
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    formatPhone(
-                    customer.phone
-                    )
-                    )}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                電話番号
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    formatPhone(
+                                        customer.phone
+                                    )
+                                )}
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                利用回数
-                </div>
-                <div class="data-value">
-                ${count}回
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                利用回数
+                            </div>
+                            <div class="data-value">
+                                ${count}回
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                区分
-                </div>
-                <div class="data-value">
-                <span class="badge ${badge}">
-                ${rank}
-                </span>
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                区分
+                            </div>
+                            <div class="data-value">
+                                <span class="badge ${badge}">
+                                    ${rank}
+                                </span>
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                最終利用日
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    customer.lastDate
-                    )}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                最終利用日
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.lastDate
+                                )}
+                            </div>
+                        </div>
 
-                </div>
+                    </div>
                 `;
 
                 customerMobileContainer
-                .appendChild(card);
+                    .appendChild(card);
             }
+
 
             // 顧客詳細 PC
             if (customerDetailBody) {
                 const row =
-                document.createElement("tr");
+                    document.createElement("tr");
 
                 row.dataset.customerDetailRow =
-                "";
+                    "";
 
                 row.dataset.customerId =
-                String(id);
+                    String(id);
 
                 row.dataset.customerName =
-                customer.name || "";
+                    customer.name || "";
 
                 row.dataset.customerRank =
-                rank;
+                    rank;
 
                 row.dataset.customerLastDate =
-                customer.lastDate || "";
+                    customer.lastDate || "";
 
                 row.innerHTML = `
-                <td>${id}</td>
+                    <td>${id}</td>
 
-                <td data-editable>
-                ${escapeHtml(
-                    customer.name
-                    )}
-                </td>
+                    <td data-editable>
+                        ${escapeHtml(
+                            customer.name
+                        )}
+                    </td>
 
-                <td data-editable>
-                ${escapeHtml(
-                    customer.nameKana
-                    )}
-                </td>
+                    <td data-editable>
+                        ${escapeHtml(
+                            customer.nameKana
+                        )}
+                    </td>
 
-                <td data-editable>
-                ${escapeHtml(
-                    formatPhone(
-                    customer.phone
-                    )
-                    )}
-                </td>
+                    <td data-editable>
+                        ${escapeHtml(
+                            formatPhone(
+                                customer.phone
+                            )
+                        )}
+                    </td>
 
-                <td data-editable>
-                ${escapeHtml(
-                    customer.email
-                    )}
-                </td>
+                    <td data-editable>
+                        ${escapeHtml(
+                            customer.email
+                        )}
+                    </td>
 
-                <td data-editable>
-                ${count}回
-                </td>
+                    <td data-editable>
+                        ${count}回
+                    </td>
 
-                <td>
-                ${rank}
-                </td>
+                    <td>
+                        ${rank}
+                    </td>
 
-                <td>
-                ${escapeHtml(
-                    customer.lastDate
-                    )}
-                </td>
+                    <td>
+                        ${escapeHtml(
+                            customer.lastDate
+                        )}
+                    </td>
 
-                <td>
-                <button
-                class="btn btn-primary btn-sm"
-                data-edit-row
-                type="button"
-                >
-                修正
-                </button>
-                </td>
+                    <td>
+                        <button
+                            class="btn btn-primary btn-sm"
+                            data-edit-row
+                            type="button"
+                        >
+                            修正
+                        </button>
+                    </td>
                 `;
 
                 customerDetailBody
-                .appendChild(row);
+                    .appendChild(row);
             }
+
 
             // 顧客詳細 スマホ
             if (customerDetailMobileContainer) {
                 const card =
-                document.createElement(
-                "article"
-                );
+                    document.createElement(
+                        "article"
+                    );
 
                 card.className =
-                "card customer-detail-card";
+                    "card customer-detail-card";
 
                 card.dataset
-                .customerDetailMobileCard =
-                "";
+                    .customerDetailMobileCard =
+                    "";
 
                 card.dataset.customerId =
-                String(id);
+                    String(id);
 
                 card.dataset.customerName =
-                customer.name || "";
+                    customer.name || "";
 
                 card.dataset.customerRank =
-                rank;
+                    rank;
 
                 card.dataset.customerLastDate =
-                customer.lastDate || "";
+                    customer.lastDate || "";
 
                 card.innerHTML = `
-                <div class="card-body">
+                    <div class="card-body">
 
-                <div>
-                <div class="data-label">
-                顧客ID
-                </div>
-                <div class="data-value">
-                ${id}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                顧客ID
+                            </div>
+                            <div class="data-value">
+                                ${id}
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                氏名
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    customer.name
-                    )}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                氏名
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.name
+                                )}
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                ふりがな
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    customer.nameKana
-                    )}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                ふりがな
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.nameKana
+                                )}
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                電話番号
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    formatPhone(
-                    customer.phone
-                    )
-                    )}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                電話番号
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    formatPhone(
+                                        customer.phone
+                                    )
+                                )}
+                            </div>
+                        </div>
 
-                <div class="customer-email">
-                <div class="data-label">
-                メール
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    customer.email
-                    )}
-                </div>
-                </div>
+                        <div class="customer-email">
+                            <div class="data-label">
+                                メール
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.email
+                                )}
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                利用回数
-                </div>
-                <div class="data-value">
-                ${count}回
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                利用回数
+                            </div>
+                            <div class="data-value">
+                                ${count}回
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                区分
-                </div>
-                <div class="data-value">
-                <span class="badge ${badge}">
-                ${rank}
-                </span>
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                区分
+                            </div>
+                            <div class="data-value">
+                                <span class="badge ${badge}">
+                                    ${rank}
+                                </span>
+                            </div>
+                        </div>
 
-                <div>
-                <div class="data-label">
-                最終利用日
-                </div>
-                <div class="data-value">
-                ${escapeHtml(
-                    customer.lastDate
-                    )}
-                </div>
-                </div>
+                        <div>
+                            <div class="data-label">
+                                最終利用日
+                            </div>
+                            <div class="data-value">
+                                ${escapeHtml(
+                                    customer.lastDate
+                                )}
+                            </div>
+                        </div>
 
-                </div>
+                    </div>
                 `;
 
                 customerDetailMobileContainer
-                .appendChild(card);
+                    .appendChild(card);
             }
         });
     }

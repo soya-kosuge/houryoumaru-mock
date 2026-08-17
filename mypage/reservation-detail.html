@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約内容確認 | 豊漁丸</title>
+  <link rel="stylesheet" href="./css/common.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="./index.html" aria-label="豊漁丸 マイページへ">
+      <img class="logo" src="./images/豊漁丸_ユーザー画面_ロゴ.png" alt="豊漁丸 予約システム">
+    </a>
+  </div>
+</header>
+<main>
+  <section class="section">
+    <div class="section-head"><div><p class="eyebrow">RESERVATION</p><h2>予約情報</h2></div></div>
+    <div class="card" id="reservationSummary"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><p class="eyebrow">REPRESENTATIVE</p><h2>代表者 乗船名簿情報</h2></div></div>
+    <div class="card" id="representativeRoster"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><p class="eyebrow">COMPANIONS</p><div class="heading-with-note"><h2>同行者 乗船名簿情報</h2><span class="companion-reminder" id="companionDetailReminder" hidden>※同行者の情報も忘れずに記入してください</span></div></div></div>
+    <div class="card" id="companionRoster"></div>
+  </section>
+
+  <div class="page-actions">
+    <a class="btn" href="./index.html">マイページへ戻る</a>
+    <a class="btn primary" id="editReservationLink" href="./reservation-edit.html">予約内容を変更・修正</a>
+  </div>
+</main>
+<footer>© 2026 豊漁丸 予約システム</footer>
+<script src="./js/data.js"></script>
+<script src="./js/reservation-detail.js"></script>
+</body>
+</html>

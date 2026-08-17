@@ -9,6 +9,7 @@ const previousMonthButton = document.getElementById('prev-month');
 const nextMonthButton = document.getElementById('next-month');
 const scheduleArea = document.querySelector('.schedule-area');
 
+
 function getJapanTodayKey() {
     const japanNow = new Date(Date.now() + (9 * 60 * 60 * 1000));
     return japanNow.toISOString().slice(0, 10);
@@ -54,17 +55,17 @@ function normalizeTripStatus(row) {
     const configuredRemaining = Number(row.dataset.remainingSeats);
     const defaultRemaining = key === 'full' ? 0 : key === 'few' ? 3 : key === 'ok' ? 16 : 0;
     const remainingSeats = Number.isFinite(configuredRemaining) && row.dataset.remainingSeats !== ''
-    ? configuredRemaining
-    : defaultRemaining;
+        ? configuredRemaining
+        : defaultRemaining;
 
     statusNode.className = `status ${key}`;
     statusNode.textContent = key === 'full'
-    ? '× 空きなし'
-    : key === 'few'
-    ? '△ 残りわずか'
-    : key === 'ok'
-    ? '〇 空きあり'
-    : '－ 内容未定';
+        ? '× 空きなし'
+        : key === 'few'
+            ? '△ 残りわずか'
+            : key === 'ok'
+                ? '〇 空きあり'
+                : '－ 内容未定';
 
     row.dataset.status = key;
     row.dataset.remainingSeats = String(remainingSeats);
@@ -226,6 +227,9 @@ nextMonthButton?.addEventListener('click', async () => {
 });
 showAllButton?.addEventListener('click', showAllSchedules);
 
+
+
+
 // ステータス定義を統一してからリンク生成。
 document.querySelectorAll('.trip-row').forEach((row) => normalizeTripStatus(row));
 markPastSchedules();
@@ -242,8 +246,8 @@ document.querySelectorAll('.trip-row').forEach((row) => {
     const date = rawDate ? new Date(`${rawDate}T00:00:00`) : null;
     const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
     const dateText = date && !Number.isNaN(date.getTime())
-    ? `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日（${weekdays[date.getDay()]}）`
-    : rawDate;
+        ? `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日（${weekdays[date.getDay()]}）`
+        : rawDate;
     const statusNode = row.querySelector('.status');
     const status = row.dataset.status || 'unknown';
     const params = new URLSearchParams({

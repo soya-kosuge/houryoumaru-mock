@@ -25,7 +25,7 @@ const subtractMinutes = (timeText, minutes) => {
 };
 
 const contentUndecided = ['', '－', '-', '未定', '内容未定'].includes(trip.time)
-|| ['', '－', '-', '未定', '内容未定'].includes(trip.target);
+    || ['', '－', '-', '未定', '内容未定'].includes(trip.target);
 if (contentUndecided) {
     trip.status = 'unknown';
     trip.statusText = '－ 内容未定';

@@ -1,121 +1,121 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1" name="viewport">
-        <title>顧客管理｜豊漁丸 管理画面</title>
-        <link href="css/admin.css" rel="stylesheet">
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="header-inner">
-                <a class="brand" href="adminDashboard.html">
-                    <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png">
-                </a>
-                <nav class="header-nav">
-                    <a href="adminDashboard.html">ダッシュボード</a>
-                    <a href="adminReservation.html">予約管理</a>
-                    <a href="adminTrip.html">出船管理</a>
-                    <a class="is-active" href="adminCustomer.html">顧客管理</a>
-                    <a href="adminNotice.html">お知らせ</a>
-                    <a href="adminSettings.html">システム設定</a>
-                </nav>
-                <button aria-label="メニューを開く" class="menu-toggle" type="button">メニュー</button>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>顧客管理｜豊漁丸 管理画面</title>
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="adminDashboard.html">
+                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png">
+            </a>
+            <nav class="header-nav">
+                <a href="adminDashboard.html">ダッシュボード</a>
+                <a href="adminReservation.html">予約管理</a>
+                <a href="adminTrip.html">出船管理</a>
+                <a class="is-active" href="adminCustomer.html">顧客管理</a>
+                <a href="adminNotice.html">お知らせ</a>
+                <a href="adminSettings.html">システム設定</a>
+            </nav>
+            <button aria-label="メニューを開く" class="menu-toggle" type="button">メニュー</button>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="eyebrow">HORYOMARU ADMIN</p>
+            <h1>顧客管理</h1>
+            <p>顧客情報や利用回数、顧客区分を検索し、詳細確認へ進めます。</p>
+        </div>
+    </section>
+    <main class="page">
+        <div class="page-actions">
+            <h2 class="section-title">顧客一覧</h2>
+            <div class="actions"><a class="btn btn-primary" href="adminCustomerDetail.html">顧客詳細を開く</a></div>
+        </div>
+        <div class="toolbar customer-toolbar">
+            <div class="field"><label for="customer-search">顧客検索</label><input class="input" id="customer-search" placeholder="顧客名・電話番号" type="text"></div>
+            <div class="field">
+                <label for="customer-rank">顧客区分</label>
+                <select class="select" id="customer-rank"><option value="">すべて</option><option value="新規">新規</option><option value="常連">常連</option><option value="VIP">VIP</option></select>
             </div>
-        </header>
-        <section class="hero">
-            <div class="hero-inner">
-                <p class="eyebrow">HORYOMARU ADMIN</p>
-                <h1>顧客管理</h1>
-                <p>顧客情報や利用回数、顧客区分を検索し、詳細確認へ進めます。</p>
+            <div class="field">
+                <label for="customer-sort-direction">順序</label>
+                <select class="select" id="customer-sort-direction"><option value="desc">最終利用日の降順</option><option value="asc">最終利用日の昇順</option></select>
             </div>
-        </section>
-        <main class="page">
-            <div class="page-actions">
-                <h2 class="section-title">顧客一覧</h2>
-                <div class="actions"><a class="btn btn-primary" href="adminCustomerDetail.html">顧客詳細を開く</a></div>
-            </div>
-            <div class="toolbar customer-toolbar">
-                <div class="field"><label for="customer-search">顧客検索</label><input class="input" id="customer-search" placeholder="顧客名・電話番号" type="text"></div>
-                <div class="field">
-                    <label for="customer-rank">顧客区分</label>
-                    <select class="select" id="customer-rank"><option value="">すべて</option><option value="新規">新規</option><option value="常連">常連</option><option value="VIP">VIP</option></select>
+            <div class="field toolbar-action-field"><label aria-hidden="true">&nbsp;</label><button class="btn btn-secondary" id="customer-search-clear" type="button">条件をクリア</button></div>
+        </div>
+        <p aria-live="polite" class="muted" id="customer-result-count"></p>
+        <div class="table-wrap desktop-table customer-list-table">
+            <table id="customer-table">
+                <thead><tr><th>ID</th><th>顧客名</th><th>電話番号</th><th>利用回数</th><th>区分</th><th>最終利用日</th></tr></thead>
+                <tbody>
+                    <tr data-search-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
+                        <td>1001</td>
+                        <td>田中 太郎</td>
+                        <td>090-1234-5678</td>
+                        <td>8回</td>
+                        <td><span class="badge badge-orange">VIP</span></td>
+                        <td>2026/07/30</td>
+                    </tr>
+                    <tr data-search-row data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
+                        <td>1002</td>
+                        <td>佐藤 花子</td>
+                        <td>090-2345-6789</td>
+                        <td>1回</td>
+                        <td><span class="badge badge-green">新規</span></td>
+                        <td>2026/07/31</td>
+                    </tr>
+                    <tr data-search-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
+                        <td>1003</td>
+                        <td>鈴木 一郎</td>
+                        <td>090-3456-7890</td>
+                        <td>19回</td>
+                        <td><span class="badge badge-orange">VIP</span></td>
+                        <td>2026/07/25</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mobile-cards customer-mobile-cards">
+            <article class="card customer-card" data-customer-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
+                <div class="card-body">
+                    <div><div class="data-label">顧客ID</div><div class="data-value">1001</div></div>
+                    <div><div class="data-label">顧客名</div><div class="data-value">田中 太郎</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
+                    <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
+                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
                 </div>
-                <div class="field">
-                    <label for="customer-sort-direction">順序</label>
-                    <select class="select" id="customer-sort-direction"><option value="desc">最終利用日の降順</option><option value="asc">最終利用日の昇順</option></select>
+            </article>
+            <article class="card customer-card" data-customer-mobile-card data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
+                <div class="card-body">
+                    <div><div class="data-label">顧客ID</div><div class="data-value">1002</div></div>
+                    <div><div class="data-label">顧客名</div><div class="data-value">佐藤 花子</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-2345-6789</div></div>
+                    <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
+                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/31</div></div>
                 </div>
-                <div class="field toolbar-action-field"><label aria-hidden="true">&nbsp;</label><button class="btn btn-secondary" id="customer-search-clear" type="button">条件をクリア</button></div>
-            </div>
-            <p aria-live="polite" class="muted" id="customer-result-count"></p>
-            <div class="table-wrap desktop-table customer-list-table">
-                <table id="customer-table">
-                    <thead><tr><th>ID</th><th>顧客名</th><th>電話番号</th><th>利用回数</th><th>区分</th><th>最終利用日</th></tr></thead>
-                    <tbody>
-                        <tr data-search-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
-                            <td>1001</td>
-                            <td>田中 太郎</td>
-                            <td>090-1234-5678</td>
-                            <td>8回</td>
-                            <td><span class="badge badge-orange">VIP</span></td>
-                            <td>2026/07/30</td>
-                        </tr>
-                        <tr data-search-row data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
-                            <td>1002</td>
-                            <td>佐藤 花子</td>
-                            <td>090-2345-6789</td>
-                            <td>1回</td>
-                            <td><span class="badge badge-green">新規</span></td>
-                            <td>2026/07/31</td>
-                        </tr>
-                        <tr data-search-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
-                            <td>1003</td>
-                            <td>鈴木 一郎</td>
-                            <td>090-3456-7890</td>
-                            <td>19回</td>
-                            <td><span class="badge badge-orange">VIP</span></td>
-                            <td>2026/07/25</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mobile-cards customer-mobile-cards">
-                <article class="card customer-card" data-customer-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
-                    <div class="card-body">
-                        <div><div class="data-label">顧客ID</div><div class="data-value">1001</div></div>
-                        <div><div class="data-label">顧客名</div><div class="data-value">田中 太郎</div></div>
-                        <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
-                        <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
-                        <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
-                        <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
-                    </div>
-                </article>
-                <article class="card customer-card" data-customer-mobile-card data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
-                    <div class="card-body">
-                        <div><div class="data-label">顧客ID</div><div class="data-value">1002</div></div>
-                        <div><div class="data-label">顧客名</div><div class="data-value">佐藤 花子</div></div>
-                        <div><div class="data-label">電話番号</div><div class="data-value">090-2345-6789</div></div>
-                        <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
-                        <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
-                        <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/31</div></div>
-                    </div>
-                </article>
-                <article class="card customer-card" data-customer-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
-                    <div class="card-body">
-                        <div><div class="data-label">顧客ID</div><div class="data-value">1003</div></div>
-                        <div><div class="data-label">顧客名</div><div class="data-value">鈴木 一郎</div></div>
-                        <div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div>
-                        <div><div class="data-label">利用回数</div><div class="data-value">19回</div></div>
-                        <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
-                        <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/25</div></div>
-                    </div>
-                </article>
-            </div>
-        </main>
-        <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
-        <script src="../shared/appData.js"></script>
-        <script src="js/sharedDataBinder.js"></script>
-        <script src="js/adminMockData.js"></script>
-        <script src="js/admin.js"></script>
-    </body>
+            </article>
+            <article class="card customer-card" data-customer-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
+                <div class="card-body">
+                    <div><div class="data-label">顧客ID</div><div class="data-value">1003</div></div>
+                    <div><div class="data-label">顧客名</div><div class="data-value">鈴木 一郎</div></div>
+                    <div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div>
+                    <div><div class="data-label">利用回数</div><div class="data-value">19回</div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
+                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/25</div></div>
+                </div>
+            </article>
+        </div>
+    </main>
+    <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+    <script src="../shared/appData.js"></script>
+    <script src="js/sharedDataBinder.js"></script>
+    <script src="js/adminMockData.js"></script>
+    <script src="js/admin.js"></script>
+</body>
 </html>

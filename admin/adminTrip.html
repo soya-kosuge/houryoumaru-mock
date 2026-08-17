@@ -1,742 +1,742 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <title>出船管理｜豊漁丸 管理画面</title>
-        <link href="css/admin.css" rel="stylesheet" />
-        <link href="css/adminTripStatus.css" rel="stylesheet" />
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="header-inner">
-                <a class="brand" href="adminDashboard.html">
-                    <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png" />
-                </a>
-                <nav class="header-nav">
-                    <a href="adminDashboard.html">ダッシュボード</a>
-                    <a href="adminReservation.html">予約管理</a>
-                    <a class="is-active" href="adminTrip.html">出船管理</a>
-                    <a href="adminCustomer.html">顧客管理</a>
-                    <a href="adminNotice.html">お知らせ</a>
-                    <a href="adminSettings.html">システム設定</a>
-                </nav>
-                <button aria-label="メニューを開く" class="menu-toggle" type="button">メニュー</button>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>出船管理｜豊漁丸 管理画面</title>
+    <link href="css/admin.css" rel="stylesheet" />
+    <link href="css/adminTripStatus.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="adminDashboard.html">
+                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png" />
+            </a>
+            <nav class="header-nav">
+                <a href="adminDashboard.html">ダッシュボード</a>
+                <a href="adminReservation.html">予約管理</a>
+                <a class="is-active" href="adminTrip.html">出船管理</a>
+                <a href="adminCustomer.html">顧客管理</a>
+                <a href="adminNotice.html">お知らせ</a>
+                <a href="adminSettings.html">システム設定</a>
+            </nav>
+            <button aria-label="メニューを開く" class="menu-toggle" type="button">メニュー</button>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="eyebrow">HORYOMARU ADMIN</p>
+            <h1>出船管理</h1>
+            <p>出船予定を一覧で管理します。</p>
+        </div>
+    </section>
+    <main class="page">
+        <div class="page-actions">
+            <h2 class="section-title">出船予定一覧</h2>
+            <div class="actions">
+                <a class="btn btn-secondary" href="adminTripCreate.html">＋ 出船予定を追加</a>
             </div>
-        </header>
-        <section class="hero">
-            <div class="hero-inner">
-                <p class="eyebrow">HORYOMARU ADMIN</p>
-                <h1>出船管理</h1>
-                <p>出船予定を一覧で管理します。</p>
+        </div>
+        <div class="toolbar">
+            <div class="field">
+                <label for="trip-date">出船日</label>
+                <input class="input" id="trip-date" type="date" />
             </div>
-        </section>
-        <main class="page">
-            <div class="page-actions">
-                <h2 class="section-title">出船予定一覧</h2>
-                <div class="actions">
-                    <a class="btn btn-secondary" href="adminTripCreate.html">＋ 出船予定を追加</a>
-                </div>
+            <div class="field">
+                <label for="trip-course">便</label>
+                <select class="input" id="trip-course">
+                    <option value="">すべて</option>
+                    <option value="半夜便">半夜便</option>
+                    <option value="深夜便">深夜便</option>
+                    <option value="特別便">特別便</option>
+                </select>
             </div>
-            <div class="toolbar">
-                <div class="field">
-                    <label for="trip-date">出船日</label>
-                    <input class="input" id="trip-date" type="date" />
-                </div>
-                <div class="field">
-                    <label for="trip-course">便</label>
-                    <select class="input" id="trip-course">
-                        <option value="">すべて</option>
-                        <option value="半夜便">半夜便</option>
-                        <option value="深夜便">深夜便</option>
-                        <option value="特別便">特別便</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label for="trip-ship">船名</label>
-                    <select class="input" id="trip-ship">
-                        <option value="">すべて</option>
-                        <option value="豊漁丸">豊漁丸</option>
-                        <option value="第二豊漁丸">第二豊漁丸</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label for="trip-captain">船長</label>
-                    <select class="input" id="trip-captain">
-                        <option value="">すべて</option>
-                        <option value="佐藤船長">佐藤船長</option>
-                        <option value="山田船長">山田船長</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label for="trip-status">状態</label>
-                    <select class="input" id="trip-status">
-                        <option value="">すべて</option>
-                        <option value="空きあり">空きあり</option>
-                        <option value="満員">満員</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label></label>
-                    <button class="btn btn-secondary" id="trip-search-clear" type="button">条件をクリア</button>
-                </div>
+            <div class="field">
+                <label for="trip-ship">船名</label>
+                <select class="input" id="trip-ship">
+                    <option value="">すべて</option>
+                    <option value="豊漁丸">豊漁丸</option>
+                    <option value="第二豊漁丸">第二豊漁丸</option>
+                </select>
             </div>
-            <p aria-live="polite" class="muted" id="trip-result-count"></p>
-            <div class="table-wrap trip-table-wrap">
-                <table id="trip-table">
-                    <thead>
-                        <tr>
-                            <th>出船日</th>
-                            <th>便</th>
-                            <th>船名</th>
-                            <th>船長</th>
-                            <th>釣り物</th>
-                            <th>予約</th>
-                            <th>状態</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-search-row="">
-                            <td>2026/07/29</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/07/29</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/07/30</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/07/30</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/07/31</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/07/31</td>
-                            <td>半夜便</td>
-                            <td>第二豊漁丸</td>
-                            <td>山田船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>10 / 12名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/07/31</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/01</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/01</td>
-                            <td>深夜便</td>
-                            <td>第二豊漁丸</td>
-                            <td>山田船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>10 / 12名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/02</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/02</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/03</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/03</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/04</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/04</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/05</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/05</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/06</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/06</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/07</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>14 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/07</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>14 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/08</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/09</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/09</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/10</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/10</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/11</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/12</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/13</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>14 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/14</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>16 / 16名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/15</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>15 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/16</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>8 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/16</td>
-                            <td>特別便</td>
-                            <td>豊漁丸</td>
-                            <td>山田船長</td>
-                            <td>船から花火大会</td>
-                            <td>10 / 10名</td>
-                            <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/17</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/18</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/19</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/19</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/20</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/20</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/21</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/21</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/22</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>14 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/23</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/23</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/24</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/24</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/25</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/25</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/26</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/26</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/27</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/27</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/28</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/28</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/29</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>スーパーロング便</td>
-                            <td>14 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/30</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/30</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/31</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/08/31</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/01</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/01</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/02</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/02</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/03</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/04</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/04</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/05</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/05</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/06</td>
-                            <td>半夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                        <tr data-search-row="">
-                            <td>2026/09/06</td>
-                            <td>深夜便</td>
-                            <td>豊漁丸</td>
-                            <td>佐藤船長</td>
-                            <td>マイカ＆ムギイカ</td>
-                            <td>0 / 16名</td>
-                            <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="field">
+                <label for="trip-captain">船長</label>
+                <select class="input" id="trip-captain">
+                    <option value="">すべて</option>
+                    <option value="佐藤船長">佐藤船長</option>
+                    <option value="山田船長">山田船長</option>
+                </select>
             </div>
-        </main>
-        <footer class="footer">
-            © 豊漁丸 管理画面 MOCK
-        </footer>
-        <script src="../shared/appData.js"></script>
-        <script src="js/sharedDataBinder.js"></script>
-        <script src="js/adminMockData.js"></script>
-        <script src="js/admin.js">
-        </script>
-    </body>
+            <div class="field">
+                <label for="trip-status">状態</label>
+                <select class="input" id="trip-status">
+                    <option value="">すべて</option>
+                    <option value="空きあり">空きあり</option>
+                    <option value="満員">満員</option>
+                </select>
+            </div>
+            <div class="field">
+                <label></label>
+                <button class="btn btn-secondary" id="trip-search-clear" type="button">条件をクリア</button>
+            </div>
+        </div>
+        <p aria-live="polite" class="muted" id="trip-result-count"></p>
+        <div class="table-wrap trip-table-wrap">
+            <table id="trip-table">
+                <thead>
+                    <tr>
+                        <th>出船日</th>
+                        <th>便</th>
+                        <th>船名</th>
+                        <th>船長</th>
+                        <th>釣り物</th>
+                        <th>予約</th>
+                        <th>状態</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-search-row="">
+                        <td>2026/07/29</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/07/29</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/07/30</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/07/30</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/07/31</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/07/31</td>
+                        <td>半夜便</td>
+                        <td>第二豊漁丸</td>
+                        <td>山田船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>10 / 12名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/07/31</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/01</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/01</td>
+                        <td>深夜便</td>
+                        <td>第二豊漁丸</td>
+                        <td>山田船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>10 / 12名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/02</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/02</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/03</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/03</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/04</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/04</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/05</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/05</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/06</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/06</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/07</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>14 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/07</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>14 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/08</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/09</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/09</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/10</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/10</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/11</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/12</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/13</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>14 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/14</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>16 / 16名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/15</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>15 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/16</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>8 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/16</td>
+                        <td>特別便</td>
+                        <td>豊漁丸</td>
+                        <td>山田船長</td>
+                        <td>船から花火大会</td>
+                        <td>10 / 10名</td>
+                        <td><span class="trip-status full" data-status="満員"> × 満員 </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/17</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/18</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/19</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/19</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/20</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/20</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/21</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/21</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/22</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>14 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/23</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/23</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/24</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/24</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/25</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/25</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/26</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/26</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/27</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/27</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/28</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/28</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/29</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>スーパーロング便</td>
+                        <td>14 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/30</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/30</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/31</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/08/31</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/01</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/01</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/02</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/02</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/03</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/04</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/04</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/05</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/05</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/06</td>
+                        <td>半夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                    <tr data-search-row="">
+                        <td>2026/09/06</td>
+                        <td>深夜便</td>
+                        <td>豊漁丸</td>
+                        <td>佐藤船長</td>
+                        <td>マイカ＆ムギイカ</td>
+                        <td>0 / 16名</td>
+                        <td><span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer class="footer">
+        © 豊漁丸 管理画面 MOCK
+    </footer>
+    <script src="../shared/appData.js"></script>
+    <script src="js/sharedDataBinder.js"></script>
+    <script src="js/adminMockData.js"></script>
+    <script src="js/admin.js">
+    </script>
+</body>
 </html>

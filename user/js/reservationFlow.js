@@ -5,7 +5,7 @@
     const REGISTERED_KEY = 'horyomaruMockRegistered';
     const TRIP_KEY = 'horyomaruSelectedTrip';
     const RESERVATION_KEY = 'horyomaruReservation';
-    const EMPTY_PROFILE = Object.freeze({ name: '', nameKana: '', email: '', phone: '' });
+    const EMPTY_PROFILE = Object.freeze({ name: '', nameKana: '', email: '', phone: '', postalCode: '' });
     const $ = (selector) => document.querySelector(selector);
     const params = new URLSearchParams(location.search);
 
@@ -48,18 +48,23 @@
         const nameInput = $('#name');
         const nameKanaInput = $('#name-kana');
         const telInput = $('#tel');
+        const postalCodeInput = $('#postal-code');
+        postalCodeInput?.addEventListener('input', () => { postalCodeInput.value = formatPostalCode(postalCodeInput.value); });
         registrationForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const name = nameInput.value.trim();
             const nameKana = nameKanaInput.value.trim();
             const tel = telInput.value.trim();
+            const postalCode = postalCodeInput?.value.trim() || '';
             if (name && !/^[一-龯々ぁ-ゖァ-ヶー\s]+$/.test(name)) { alert('名前（漢字）は漢字・ひらがな・カタカナで入力してください。'); nameInput.focus(); return; }
             if (nameKana && !/^[ぁ-ゖー\s]+$/.test(nameKana)) { alert('名前（かな）はひらがなで入力してください。'); nameKanaInput.focus(); return; }
             if (tel && !/^[0-9]+$/.test(tel)) { alert('電話番号はハイフンなしの数字のみで入力してください。'); telInput.focus(); return; }
+            if (!/^\d{3}-?\d{4}$/.test(postalCode)) { alert('郵便番号は7桁の数字で入力してください。'); postalCodeInput?.focus(); return; }
             const form = new FormData(event.currentTarget);
             localStorage.setItem(PROFILE_KEY, JSON.stringify({
                 name: form.get('name') || '', nameKana: form.get('nameKana') || '',
-                email: form.get('email') || '', phone: form.get('tel') || ''
+                email: form.get('email') || '', phone: form.get('tel') || '',
+                postalCode: formatPostalCode(form.get('postalCode') || '')
             }));
             localStorage.setItem(REGISTERED_KEY, 'true');
             redirectSchedule();
@@ -144,11 +149,11 @@
         if (!trip || !reservation) { location.replace('shipScheduleList.html'); return; }
 
         const rows = [
-        ['予約日', trip.date], ['コース', trip.name], ['出船時刻', trip.time], ['釣り物', trip.target], ['料金', trip.price],
-        ['名前（漢字）', profile.name || '－'], ['名前（かな）', profile.nameKana || '－'],
-        ['メールアドレス', profile.email || '－'], ['電話番号', profile.phone || '－'],
-        ['参加人数', `${reservation.participants}名`],
-        ['貸し竿', reservation.rentalRod === '0' ? 'なし' : `${reservation.rentalRod}本`], ['備考', reservation.remarks]
+            ['予約日', trip.date], ['コース', trip.name], ['出船時刻', trip.time], ['釣り物', trip.target], ['料金', trip.price],
+            ['名前（漢字）', profile.name || '－'], ['名前（かな）', profile.nameKana || '－'],
+            ['メールアドレス', profile.email || '－'], ['電話番号', profile.phone || '－'],
+            ['参加人数', `${reservation.participants}名`],
+            ['貸し竿', reservation.rentalRod === '0' ? 'なし' : `${reservation.rentalRod}本`], ['備考', reservation.remarks]
         ];
         const confirmationList = $('#confirmation-list');
         const fragment = document.createDocumentFragment();
@@ -178,15 +183,38 @@
             let adminReservations = [];
             try { adminReservations = JSON.parse(localStorage.getItem(adminKey) || '[]'); } catch { adminReservations = []; }
             if (!Array.isArray(adminReservations)) adminReservations = [];
+            const reservationId = `U-${Date.now()}`;
+            const blankCompanion = () => ({ name: '---', address: '---', age: '---', gender: '---', emergency: '---' });
             adminReservations.push({
-                id: `U-${Date.now()}`, tripId: trip.tripId || '', date: (trip.dateKey || '').replaceAll('-', '/'), dateKey: trip.dateKey || '',
-                course: trip.name, name: profile.name || 'LINEユーザー', nameKana: profile.nameKana || '',
-                participants: requestedGuests, rentalRod: Number(reservation.rentalRod || 0), phone: profile.phone || '',
-                email: profile.email || '', status: '予約中'
+                id: reservationId,
+                tripId: trip.tripId || '',
+                date: (trip.dateKey || '').replaceAll('-', '/'),
+                dateKey: trip.dateKey || '',
+                course: trip.name,
+                departureTime: trip.time || '',
+                target: trip.target || '',
+                name: profile.name || 'LINEユーザー',
+                nameKana: profile.nameKana || '',
+                participants: requestedGuests,
+                rentalRod: Number(reservation.rentalRod || 0),
+                phone: profile.phone || '',
+                email: profile.email || '',
+                remarks: reservation.remarks || '',
+                representative: {
+                    name: profile.name || '---',
+                    address: '---', age: '---', gender: '---', emergency: '---'
+                },
+                companions: Array.from({ length: Math.max(0, requestedGuests - 1) }, blankCompanion),
+                status: '予約中'
             });
             localStorage.setItem(adminKey, JSON.stringify(adminReservations));
             if (trip.tripId) window.HoryomaruAppData?.addReservationDelta(trip.tripId, requestedGuests);
             location.href = 'reservationComplete.html';
         });
+    }
+
+    function formatPostalCode(value) {
+        const digits = String(value || '').replace(/\D/g, '').slice(0, 7);
+        return digits.length > 3 ? `${digits.slice(0, 3)}-${digits.slice(3)}` : digits;
     }
 })();
