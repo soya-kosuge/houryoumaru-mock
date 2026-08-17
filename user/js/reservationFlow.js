@@ -5,7 +5,7 @@
     const REGISTERED_KEY = 'horyomaruMockRegistered';
     const TRIP_KEY = 'horyomaruSelectedTrip';
     const RESERVATION_KEY = 'horyomaruReservation';
-    const EMPTY_PROFILE = Object.freeze({ name: '', nameKana: '', email: '', phone: '', postalCode: '' });
+    const EMPTY_PROFILE = Object.freeze({ name: '', nameKana: '', email: '', phone: '' });
     const $ = (selector) => document.querySelector(selector);
     const params = new URLSearchParams(location.search);
 
@@ -48,23 +48,18 @@
         const nameInput = $('#name');
         const nameKanaInput = $('#name-kana');
         const telInput = $('#tel');
-        const postalCodeInput = $('#postal-code');
-        postalCodeInput?.addEventListener('input', () => { postalCodeInput.value = formatPostalCode(postalCodeInput.value); });
         registrationForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const name = nameInput.value.trim();
             const nameKana = nameKanaInput.value.trim();
             const tel = telInput.value.trim();
-            const postalCode = postalCodeInput?.value.trim() || '';
             if (name && !/^[一-龯々ぁ-ゖァ-ヶー\s]+$/.test(name)) { alert('名前（漢字）は漢字・ひらがな・カタカナで入力してください。'); nameInput.focus(); return; }
             if (nameKana && !/^[ぁ-ゖー\s]+$/.test(nameKana)) { alert('名前（かな）はひらがなで入力してください。'); nameKanaInput.focus(); return; }
             if (tel && !/^[0-9]+$/.test(tel)) { alert('電話番号はハイフンなしの数字のみで入力してください。'); telInput.focus(); return; }
-            if (!/^\d{3}-?\d{4}$/.test(postalCode)) { alert('郵便番号は7桁の数字で入力してください。'); postalCodeInput?.focus(); return; }
             const form = new FormData(event.currentTarget);
             localStorage.setItem(PROFILE_KEY, JSON.stringify({
                 name: form.get('name') || '', nameKana: form.get('nameKana') || '',
-                email: form.get('email') || '', phone: form.get('tel') || '',
-                postalCode: formatPostalCode(form.get('postalCode') || '')
+                email: form.get('email') || '', phone: form.get('tel') || ''
             }));
             localStorage.setItem(REGISTERED_KEY, 'true');
             redirectSchedule();

@@ -9,12 +9,12 @@ const DEFAULT_DATA = {
     phone: "090-1234-5678"
   },
   roster: {
-    name: "山田 太郎",
+    name: "",
     postalCode: "",
-    address: "愛知県名古屋市○○区1-2-3",
-    age: 32,
-    gender: "男性",
-    emergency: "090-9876-5432"
+    address: "",
+    age: "",
+    gender: "",
+    emergency: ""
   },
   reservations: [
     {
@@ -27,11 +27,12 @@ const DEFAULT_DATA = {
       rentalRods: 2,
       notes: "",
       representative: {
-        name: "山田 太郎",
-        address: "愛知県名古屋市○○区1-2-3",
-        age: 32,
-        gender: "男性",
-        emergency: "090-9876-5432"
+        name: "",
+        postalCode: "",
+        address: "",
+        age: "",
+        gender: "",
+        emergency: ""
       },
       companions: []
     }
@@ -121,37 +122,6 @@ function syncReservationsToShared(data) {
 
 
 function migrateYamadaAddress(data) {
-  const correctAddress = "愛知県名古屋市○○区1-2-3";
-  const isYamada = (name) => String(name || "").replace(/\s/g, "").includes("山田太郎");
-
-  if (isYamada(data?.account?.nameKanji) || isYamada(data?.roster?.name)) {
-    if (data.roster) data.roster.address = correctAddress;
-    (data.reservations || []).forEach((r) => {
-      if (!r.representative) r.representative = {};
-      if (isYamada(r.representative.name) || isYamada(data?.account?.nameKanji)) {
-        r.representative.address = correctAddress;
-      }
-    });
-  }
-
-  // 管理者側と共有している予約データにも同じ住所を反映
-  try {
-    const shared = JSON.parse(localStorage.getItem(HOURYOUMARU_SHARED_RESERVATION_KEY) || "[]");
-    if (Array.isArray(shared)) {
-      let changed = false;
-      shared.forEach((r) => {
-        const repName = r?.representative?.name || r?.name || "";
-        if (isYamada(repName)) {
-          if (!r.representative) r.representative = {};
-          r.representative.address = correctAddress;
-          changed = true;
-        }
-      });
-      if (changed) localStorage.setItem(HOURYOUMARU_SHARED_RESERVATION_KEY, JSON.stringify(shared));
-    }
-  } catch (_) {}
-
-  localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(data));
   return data;
 }
 
@@ -166,16 +136,21 @@ function applyPostalCodeMigration(data) {
     });
   });
 
-  // 初回登録で入力した郵便番号がある場合は、マイページの乗船名簿にも引き継ぐ。
-  try {
-    const profile = JSON.parse(localStorage.getItem("horyomaruProfile") || "null");
-    if (profile?.postalCode && !data.roster.postalCode) {
-      data.roster.postalCode = formatPostalCode(profile.postalCode);
-      (data.reservations || []).forEach((r) => {
-        if (r.representative && !r.representative.postalCode) r.representative.postalCode = data.roster.postalCode;
-      });
-    }
-  } catch (_) {}
+  return data;
+}
+
+
+const HOURYOUMARU_ROSTER_RESET_KEY = "houryoumaruRosterResetV1";
+
+function ensureRosterStartsUnregistered(data) {
+  if (localStorage.getItem(HOURYOUMARU_ROSTER_RESET_KEY) === "done") return data;
+  data.roster = { name: "", postalCode: "", address: "", age: "", gender: "", emergency: "" };
+  (data.reservations || []).forEach((reservation) => {
+    reservation.representative = { name: "", postalCode: "", address: "", age: "", gender: "", emergency: "" };
+    reservation.companions = [];
+  });
+  localStorage.setItem(HOURYOUMARU_ROSTER_RESET_KEY, "done");
+  localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(data));
   return data;
 }
 
@@ -183,13 +158,13 @@ function loadHouryoumaruData() {
   const stored = localStorage.getItem(HOURYOUMARU_STORAGE_KEY);
   if (!stored) {
     localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
-    return applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))));
+    return ensureRosterStartsUnregistered(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA)))));
   }
   try {
-    return applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(JSON.parse(stored))));
+    return ensureRosterStartsUnregistered(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(JSON.parse(stored)))));
   } catch (_) {
     localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
-    return applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))));
+    return ensureRosterStartsUnregistered(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA)))));
   }
 }
 

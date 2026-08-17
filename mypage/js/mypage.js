@@ -6,12 +6,13 @@ document.getElementById("accountNameKana").textContent = data.account.nameKana;
 document.getElementById("accountEmail").textContent = data.account.email;
 document.getElementById("accountPhone").textContent = data.account.phone;
 
-document.getElementById("rosterName").textContent = data.roster.name;
-document.getElementById("rosterPostalCode").textContent = data.roster.postalCode || "未登録";
-document.getElementById("rosterAddress").textContent = data.roster.address;
-document.getElementById("rosterAge").textContent = `${data.roster.age}歳`;
-document.getElementById("rosterGender").textContent = data.roster.gender;
-document.getElementById("rosterEmergency").textContent = data.roster.emergency;
+const rosterValue = (value) => String(value ?? "").trim() || "未登録";
+document.getElementById("rosterName").textContent = rosterValue(data.roster.name);
+document.getElementById("rosterPostalCode").textContent = rosterValue(data.roster.postalCode);
+document.getElementById("rosterAddress").textContent = rosterValue(data.roster.address);
+document.getElementById("rosterAge").textContent = String(data.roster.age ?? "").trim() ? `${data.roster.age}歳` : "未登録";
+document.getElementById("rosterGender").textContent = rosterValue(data.roster.gender);
+document.getElementById("rosterEmergency").textContent = rosterValue(data.roster.emergency);
 
 const list = document.getElementById("reservationList");
 if (!data.reservations.length) {

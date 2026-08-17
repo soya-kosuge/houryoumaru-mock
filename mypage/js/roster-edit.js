@@ -12,10 +12,30 @@ fields.rosterName.value = data.roster?.name || "";
 fields.postalCode.value = data.roster?.postalCode || "";
 fields.address.value = data.roster?.address || "";
 fields.age.value = data.roster?.age ?? "";
-fields.gender.value = data.roster?.gender || "男性";
+fields.gender.value = data.roster?.gender || "";
 fields.emergency.value = data.roster?.emergency || "";
 
-fields.postalCode.addEventListener("input", () => { fields.postalCode.value = formatPostalCode(fields.postalCode.value); });
+let lastLookedUpPostal = "";
+fields.postalCode.addEventListener("input", async () => {
+  fields.postalCode.value = formatPostalCode(fields.postalCode.value);
+  const digits = fields.postalCode.value.replace(/\D/g, "");
+  if (digits.length !== 7 || digits === lastLookedUpPostal) return;
+  lastLookedUpPostal = digits;
+  const helper = document.getElementById("postalHelper");
+  try {
+    if (helper) helper.textContent = "住所を検索しています…";
+    const response = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${digits}`);
+    if (!response.ok) throw new Error("postal lookup failed");
+    const result = await response.json();
+    const item = result?.results?.[0];
+    if (!item) { if (helper) helper.textContent = "該当する住所が見つかりませんでした。"; return; }
+    fields.address.value = `${item.address1 || ""}${item.address2 || ""}${item.address3 || ""}`;
+    fields.address.focus();
+    if (helper) helper.textContent = "住所を自動入力しました。番地・建物名などを続けて入力してください。";
+  } catch (_) {
+    if (helper) helper.textContent = "住所を自動取得できませんでした。住所を直接入力してください。";
+  }
+});
 
 fields.emergency.addEventListener("input", () => {
   fields.emergency.value = formatPhone(fields.emergency.value);

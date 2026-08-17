@@ -1,4 +1,22 @@
 
+async function lookupAddressFromPostal(input, addressInput, helper) {
+  const digits = String(input.value || "").replace(/\D/g, "");
+  if (digits.length !== 7) return;
+  try {
+    if (helper) helper.textContent = "住所を検索しています…";
+    const response = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${digits}`);
+    if (!response.ok) throw new Error("postal lookup failed");
+    const result = await response.json();
+    const item = result?.results?.[0];
+    if (!item) { if (helper) helper.textContent = "該当する住所が見つかりませんでした。"; return; }
+    addressInput.value = `${item.address1 || ""}${item.address2 || ""}${item.address3 || ""}`;
+    if (helper) helper.textContent = "住所を自動入力しました。番地・建物名などを続けて入力してください。";
+  } catch (_) {
+    if (helper) helper.textContent = "住所を自動取得できませんでした。住所を直接入力してください。";
+  }
+}
+
+
 const data = loadHouryoumaruData();
 const reservationId = getReservationId();
 const reservation = data.reservations.find((item) => item.id === reservationId);
@@ -136,10 +154,10 @@ function addCompanion(person = {}) {
       <button class="link-btn remove-companion" type="button">削除</button>
     </div>
     <div class="form-grid">
-      <div class="field"><label>氏名</label><input data-field="name" type="text" value="${escapeHtml(cleanCompanionValue(person.name))}"></div>
-      <div class="field"><label>郵便番号</label><input data-field="postalCode" class="postal-input" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" value="${escapeHtml(cleanCompanionValue(person.postalCode))}"><div class="helper">数字を入力するとハイフンを自動で付けます。</div></div>
-      <div class="field full"><label>住所</label><input data-field="address" type="text" value="${escapeHtml(cleanCompanionValue(person.address))}"></div>
-      <div class="field"><label>年齢</label><input data-field="age" type="number" min="0" max="120" value="${escapeHtml(cleanCompanionValue(person.age))}"></div>
+      <div class="field"><label>氏名</label><input data-field="name" type="text" placeholder="例：山田 太郎" value="${escapeHtml(cleanCompanionValue(person.name))}"></div>
+      <div class="field"><label>郵便番号</label><input data-field="postalCode" class="postal-input" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" value="${escapeHtml(cleanCompanionValue(person.postalCode))}"><div class="helper postal-helper">郵便番号を入力すると住所を自動入力します。</div></div>
+      <div class="field full"><label>住所</label><input data-field="address" type="text" placeholder="例：愛知県名古屋市○○区1-2-3" value="${escapeHtml(cleanCompanionValue(person.address))}"></div>
+      <div class="field"><label>年齢</label><input data-field="age" type="number" min="0" max="120" placeholder="例：32" value="${escapeHtml(cleanCompanionValue(person.age))}"></div>
       <div class="field">
         <label>性別</label>
         <select data-field="gender">
@@ -151,7 +169,7 @@ function addCompanion(person = {}) {
       </div>
       <div class="field full">
         <label>緊急連絡先</label>
-        <input data-field="emergency" class="phone-input" type="tel" inputmode="numeric" value="${escapeHtml(cleanCompanionValue(person.emergency))}">
+        <input data-field="emergency" class="phone-input" type="tel" inputmode="numeric" placeholder="例：090-1234-5678" value="${escapeHtml(cleanCompanionValue(person.emergency))}">
         <div class="helper">数字を入力するとハイフンを自動で付けます。</div>
       </div>
     </div>
@@ -159,7 +177,12 @@ function addCompanion(person = {}) {
   card.querySelector(".remove-companion").addEventListener("click", () => card.remove());
   bindPhoneFormatting(card.querySelector(".phone-input"));
   const postalInput = card.querySelector(".postal-input");
-  postalInput?.addEventListener("input", () => { postalInput.value = formatPostalCode(postalInput.value); });
+  postalInput?.addEventListener("input", async () => {
+    postalInput.value = formatPostalCode(postalInput.value);
+    if (postalInput.value.replace(/\D/g, "").length === 7) {
+      await lookupAddressFromPostal(postalInput, card.querySelector('[data-field="address"]'), card.querySelector(".postal-helper"));
+    }
+  });
   container.appendChild(card);
 }
 
@@ -226,3 +249,12 @@ function bindPhoneFormatting(input) {
     input.value = formatPhone(input.value);
   });
 }
+
+const repPostalInput = document.getElementById("repPostalCode");
+const repAddressInput = document.getElementById("repAddress");
+repPostalInput?.addEventListener("input", async () => {
+  repPostalInput.value = formatPostalCode(repPostalInput.value);
+  if (repPostalInput.value.replace(/\D/g, "").length === 7) {
+    await lookupAddressFromPostal(repPostalInput, repAddressInput, document.getElementById("repPostalHelper"));
+  }
+});
