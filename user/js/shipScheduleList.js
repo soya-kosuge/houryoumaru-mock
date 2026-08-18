@@ -81,22 +81,7 @@ let selectedDate = null;
 function markPastSchedules() {
     cards.forEach((card) => {
         const isPast = card.dataset.date < todayKey;
-        card.classList.toggle('is-past-card', isPast);
         card.dataset.past = isPast ? 'true' : 'false';
-
-        if (!isPast) return;
-        const label = card.querySelector('.date-label');
-        if (label) label.textContent = '受付終了';
-        card.querySelectorAll('.trip-row').forEach((row) => {
-            row.classList.add('is-disabled');
-            row.setAttribute('aria-disabled', 'true');
-            row.removeAttribute('href');
-            const status = row.querySelector('.status');
-            if (status) {
-                status.className = 'status closed';
-                status.textContent = '受付終了';
-            }
-        });
     });
 }
 
@@ -184,14 +169,15 @@ function rowMatchesConditions(row) {
 function applyFilters() {
     let visibleTripCount = 0;
     cards.forEach((card) => {
+        const isPast = card.dataset.past === 'true';
         const dateMatches = !selectedDate || card.dataset.date === selectedDate;
         let cardVisibleTrips = 0;
         card.querySelectorAll('.trip-row').forEach((row) => {
-            const matches = dateMatches && rowMatchesConditions(row);
+            const matches = !isPast && dateMatches && rowMatchesConditions(row);
             row.hidden = !matches;
             if (matches) cardVisibleTrips += 1;
         });
-        card.hidden = !dateMatches || cardVisibleTrips === 0;
+        card.hidden = isPast || !dateMatches || cardVisibleTrips === 0;
         visibleTripCount += cardVisibleTrips;
     });
 
