@@ -962,6 +962,12 @@ tbody tr:last-child td {
         background: #dff6ec;
     }
 
+    /* 残りわずか */
+    .trip-status.few {
+        color: #9a6700;
+        background: #fff3cd;
+    }
+
     /* 満員 */
     .trip-status.full {
         color: #c53d4b;
