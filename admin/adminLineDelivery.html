@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>
-      システム設定｜豊漁丸 管理画面
+      LINE配信｜豊漁丸 管理画面
     </title>
     <link href="css/admin.css" rel="stylesheet"/>
   </head>
@@ -27,11 +27,8 @@
           <a href="adminCustomer.html">
             顧客管理
           </a>
-          <a href="adminNotice.html">
-            お知らせ
-          </a>
-          <a class="is-active" href="adminSettings.html">
-            システム設定
+          <a class="is-active" href="adminLineDelivery.html">
+            LINE配信
           </a>
         </nav>
         <button aria-label="メニューを開く" class="menu-toggle" type="button">
@@ -45,10 +42,10 @@
           HORYOMARU ADMIN
         </p>
         <h1>
-          システム設定
+          LINE配信
         </h1>
         <p>
-          通知先や外部サービス連携など、管理画面の基本設定を行います。
+          利用者向けのLINEメッセージを作成・配信します。
         </p>
       </div>
     </section>
@@ -57,34 +54,27 @@
         <article class="card">
           <div class="card-body">
             <h2 class="section-title">
-              通知設定
+              LINEメッセージ作成
             </h2>
-            <form data-demo-submit="通知設定を保存しました">
+            <form data-demo-submit="LINEメッセージを配信しました">
               <div class="field">
-                <label for="mail-address">
-                  通知先メールアドレス
+                <label for="line-title">
+                  件名
                 </label>
-                <input class="input" id="mail-address" type="email" value="admin@example.com"/>
+                <input class="input" id="line-title" placeholder="例：出船時間変更のお知らせ" required=""/>
               </div>
               <div class="field mt-16">
-                <label for="notify-type">
-                  通知対象
+                <label for="line-body">
+                  本文
                 </label>
-                <select class="select" id="notify-type">
-                  <option>
-                    新規予約・キャンセル
-                  </option>
-                  <option>
-                    新規予約のみ
-                  </option>
-                  <option>
-                    通知しない
-                  </option>
-                </select>
+                <textarea class="textarea" id="line-body" placeholder="LINEで送信する内容を入力してください" required=""></textarea>
               </div>
               <div class="form-actions">
                 <button class="btn btn-primary" type="submit">
-                  保存する
+                  LINE配信する
+                </button>
+                <button class="btn btn-secondary" type="button">
+                  プレビュー
                 </button>
               </div>
             </form>
@@ -93,15 +83,33 @@
         <article class="card">
           <div class="card-body">
             <h2 class="section-title">
-              LINE設定
+              配信履歴
             </h2>
-            <div class="notice">
-              LINE公式アカウントとの接続状態：未接続
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-primary" type="button">
-                接続設定を開く
-              </button>
+            <div class="kpi-list">
+              <div class="kpi-row">
+                <span>
+                  夏季の集合時間について
+                </span>
+                <span class="badge badge-green">
+                  送信済み
+                </span>
+              </div>
+              <div class="kpi-row">
+                <span>
+                  駐車場利用のお願い
+                </span>
+                <span class="badge badge-green">
+                  送信済み
+                </span>
+              </div>
+              <div class="kpi-row">
+                <span>
+                  メンテナンス予定
+                </span>
+                <span class="badge badge-orange">
+                  下書き
+                </span>
+              </div>
             </div>
           </div>
         </article>

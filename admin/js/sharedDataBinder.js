@@ -15,13 +15,10 @@
   const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
   const fmtDate = (d) => String(d || '').replaceAll('-', '/');
   const adminTripStatus = (trip) => {
-    if (trip.status === 'full' || Number(trip.reserved || 0) >= Number(trip.capacity || 0)) {
-      return { key: 'full', label: '満員', text: '× 満員' };
-    }
-    if (trip.status === 'few') {
-      return { key: 'few', label: '残りわずか', text: '△ 残りわずか' };
-    }
-    return { key: 'ok', label: '空きあり', text: '〇 空きあり' };
+    const isFull = Number(trip.reserved || 0) >= Number(trip.capacity || 0);
+    return isFull
+      ? { key: 'full', label: '満員', text: '× 満員' }
+      : { key: 'ok', label: '空きあり', text: '〇 空きあり' };
   };
 
   const tripBody = document.querySelector('#trip-table tbody');
