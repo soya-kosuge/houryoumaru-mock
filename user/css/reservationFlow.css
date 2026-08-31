@@ -254,7 +254,7 @@ textarea {
         padding: 0;
     }
 
-/* 内容確認 */
+/* 予約内容確認 */
 .confirmation-list {
     margin: 0;
     padding: 0 20px;
@@ -324,7 +324,7 @@ textarea {
     margin: 0;
 }
 
-/*--タブレット・スマートフォン--*/
+/* タブレット・スマートフォン表示 */
 @media (max-width: 768px) {
     .flow-main {
         width: 100%;
@@ -421,9 +421,7 @@ textarea {
     }
 }
 
-/* =========================================================
-MOCKログイン切り替え
-========================================================= */
+/* ログイン切り替え */
 .login-main {
     max-width: 680px;
 }
@@ -610,13 +608,14 @@ MOCKログイン切り替え
     font-weight: 600;
 }
 
-/* マイページ連携版: 予約完了後の遷移ボタン */
+/* 予約完了後の遷移ボタン */
 .completion-action {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     justify-content: center;
 }
+
 .secondary-button {
     display: inline-flex;
     align-items: center;

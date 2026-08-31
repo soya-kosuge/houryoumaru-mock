@@ -48,7 +48,7 @@
         <p aria-live="polite" class="muted" id="customer-detail-result-count"></p>
         <div class="table-wrap desktop-table customer-detail-table">
             <table id="customer-detail-table">
-                <thead><tr><th>ID</th><th>氏名</th><th>ふりがな</th><th>電話番号</th><th>メール</th><th>利用回数</th><th>区分</th><th>最終利用日</th><th>操作</th></tr></thead>
+                <thead><tr><th>ID</th><th>氏名</th><th>ふりがな</th><th>電話番号</th><th>メール</th><th>利用回数</th><th>キャンセル回数</th><th>無断キャンセル回数</th><th>区分</th><th>最終利用日</th><th>操作</th></tr></thead>
                 <tbody>
                     <tr data-customer-detail-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
                         <td>1001</td>
@@ -57,6 +57,8 @@
                         <td data-editable>090-1234-5678</td>
                         <td data-editable>tanaka@example.com</td>
                         <td data-editable>8回</td>
+                        <td><span class="cancel-count">2回</span></td>
+                        <td><span class="no-show-count">1回</span></td>
                         <td>VIP</td>
                         <td>2026/07/30</td>
                         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
@@ -68,6 +70,8 @@
                         <td data-editable>090-2345-6789</td>
                         <td data-editable>sato@example.com</td>
                         <td data-editable>1回</td>
+                        <td><span class="cancel-count is-zero">0回</span></td>
+                        <td><span class="no-show-count is-zero">0回</span></td>
                         <td>新規</td>
                         <td>2026/07/31</td>
                         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
@@ -79,6 +83,8 @@
                         <td data-editable>090-3456-7890</td>
                         <td data-editable>suzuki@example.com</td>
                         <td data-editable>19回</td>
+                        <td><span class="cancel-count">3回</span></td>
+                        <td><span class="no-show-count is-zero">0回</span></td>
                         <td>VIP</td>
                         <td>2026/07/25</td>
                         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
@@ -95,6 +101,8 @@
                     <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
                     <div class="customer-email"><div class="data-label">メール</div><div class="data-value">tanaka@example.com</div></div>
                     <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
+                    <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">2回</span></div></div>
+                    <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
                     <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
                 </div>
@@ -107,6 +115,8 @@
                     <div><div class="data-label">電話番号</div><div class="data-value">090-2345-6789</div></div>
                     <div class="customer-email"><div class="data-label">メール</div><div class="data-value">sato@example.com</div></div>
                     <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
+                    <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+                    <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
                     <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/31</div></div>
                 </div>
@@ -119,6 +129,8 @@
                     <div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div>
                     <div class="customer-email"><div class="data-label">メール</div><div class="data-value">suzuki@example.com</div></div>
                     <div><div class="data-label">利用回数</div><div class="data-value">19回</div></div>
+                    <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">3回</span></div></div>
+                    <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
                     <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/25</div></div>
                 </div>

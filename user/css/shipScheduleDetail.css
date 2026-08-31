@@ -1,10 +1,10 @@
-﻿/*--詳細画面--*/
+﻿/* 詳細画面 */
 .detail-main {
     width: min(680px, calc(100% - 24px));
     margin: 28px auto 52px;
 }
 
-/*--戻るリンク--*/
+/* 戻るリンク */
 .back-link {
     display: inline-flex;
     align-items: center;
@@ -15,27 +15,27 @@
     text-decoration: none;
 }
 
-.back-link span {
-    font-size: 22px;
-    line-height: 1;
-}
+    .back-link span {
+        font-size: 22px;
+        line-height: 1;
+    }
 
-.back-link:hover {
-    text-decoration: underline;
-}
+    .back-link:hover {
+        text-decoration: underline;
+    }
 
-.back-link:focus-visible {
-    outline: 3px solid rgba(23, 107, 143, 0.35);
-    outline-offset: 4px;
-    border-radius: 4px;
-}
+    .back-link:focus-visible {
+        outline: 3px solid rgba(23, 107, 143, 0.35);
+        outline-offset: 4px;
+        border-radius: 4px;
+    }
 
-/*--詳細タイトル--*/
+/* 詳細タイトル */
 .detail-hero {
     margin-bottom: 24px;
 }
 
-/*--詳細カード--*/
+/* 詳細カード */
 .detail-card {
     overflow: hidden;
     background: var(--white);
@@ -69,7 +69,7 @@
     font-size: 23px;
 }
 
-/*--詳細項目--*/
+/* 詳細項目 */
 .detail-list {
     margin: 0;
     padding: 0 20px;
@@ -84,44 +84,44 @@
     border-bottom: 1px solid #edf2f4;
 }
 
-.detail-item dt {
-    width: 140px;
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 700;
-}
+    .detail-item dt {
+        width: 140px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+    }
 
-.detail-item dd {
-    position: absolute;
-    left: 50%;
-    margin: 0;
-    color: var(--navy);
-    font-size: 14px;
-    font-weight: 700;
-    white-space: nowrap;
-    transform: translateX(-50%);
-}
+    .detail-item dd {
+        position: absolute;
+        left: 50%;
+        margin: 0;
+        color: var(--navy);
+        font-size: 14px;
+        font-weight: 700;
+        white-space: nowrap;
+        transform: translateX(-50%);
+    }
 
-/*--便の説明--*/
+/* 便の説明 */
 .detail-description {
     padding: 20px;
 }
 
-.detail-description h3,
-.equipment-box h3 {
-    margin: 0 0 10px;
-    color: var(--navy);
-    font-size: 16px;
-}
+    .detail-description h3,
+    .equipment-box h3 {
+        margin: 0 0 10px;
+        color: var(--navy);
+        font-size: 16px;
+    }
 
-.detail-description p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.75;
-}
+    .detail-description p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.75;
+    }
 
-/*--持ち物・注意事項--*/
+/* 持ち物・注意事項 */
 .equipment-box {
     margin: 0 20px 20px;
     padding: 17px;
@@ -130,15 +130,15 @@
     border-radius: 11px;
 }
 
-.equipment-box ul {
-    margin: 0;
-    padding-left: 18px;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.8;
-}
+    .equipment-box ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.8;
+    }
 
-/*--予約ボタン--*/
+/* 予約ボタン */
 .detail-actions {
     padding: 0 20px 20px;
     display: flex;
@@ -166,28 +166,28 @@
     transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
 }
 
-.reserve-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(23, 107, 143, 0.28);
-}
+    .reserve-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(23, 107, 143, 0.28);
+    }
 
-.reserve-button:active {
-    transform: translateY(0);
-}
+    .reserve-button:active {
+        transform: translateY(0);
+    }
 
-.reserve-button:focus-visible {
-    outline: 3px solid rgba(23, 107, 143, 0.4);
-    outline-offset: 3px;
-}
+    .reserve-button:focus-visible {
+        outline: 3px solid rgba(23, 107, 143, 0.4);
+        outline-offset: 3px;
+    }
 
-.reserve-button.disabled {
-    color: #75858d;
-    background: #cbd5da;
-    box-shadow: none;
-    pointer-events: none;
-}
+    .reserve-button.disabled {
+        color: #75858d;
+        background: #cbd5da;
+        box-shadow: none;
+        pointer-events: none;
+    }
 
-/*--タブレット・スマートフォン--*/
+/* タブレット・スマートフォン表示 */
 @media (max-width: 768px) {
     .detail-main {
         width: 100%;
@@ -204,9 +204,9 @@
         padding: 16px 14px;
     }
 
-    .detail-heading h2 {
-        font-size: 21px;
-    }
+        .detail-heading h2 {
+            font-size: 21px;
+        }
 
     .detail-list {
         padding: 0 14px;
@@ -220,20 +220,20 @@
         padding: 14px 0;
     }
 
-    .detail-item dt {
-        width: auto;
-        font-size: 12px;
-    }
+        .detail-item dt {
+            width: auto;
+            font-size: 12px;
+        }
 
-    .detail-item dd {
-        position: static;
-        left: auto;
-        margin: 0;
-        font-size: 14px;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        transform: none;
-    }
+        .detail-item dd {
+            position: static;
+            left: auto;
+            margin: 0;
+            font-size: 14px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            transform: none;
+        }
 
     .detail-description {
         padding: 18px 14px;
@@ -255,6 +255,7 @@
     }
 }
 
+/* 小画面スマートフォン表示 */
 @media (max-width: 480px) {
     .detail-main {
         padding: 0 10px;
@@ -266,7 +267,7 @@
         gap: 12px;
     }
 
-    .detail-heading .status {
-        justify-self: start;
-    }
+        .detail-heading .status {
+            justify-self: start;
+        }
 }

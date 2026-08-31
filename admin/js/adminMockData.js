@@ -201,6 +201,8 @@
                     {
                         ...item,
                         useCount: 0,
+                        cancelCount: 0,
+                        noShowCount: 0,
                         lastDate:
                             item.date || ""
                     }
@@ -213,6 +215,10 @@
             // 利用回数 = 実際に乗船完了した回数。status未設定の既存MOCKは乗船済み扱い。
             if (!item.status || item.status === '乗船済み' || item.status === 'completed') {
                 customer.useCount += 1;
+            } else if (item.status === 'キャンセル' || item.status === 'cancelled' || item.status === 'canceled') {
+                customer.cancelCount += 1;
+            } else if (item.status === '無断キャンセル' || item.status === 'no-show' || item.status === 'no_show') {
+                customer.noShowCount += 1;
             }
 
             if (
@@ -462,6 +468,10 @@
                         ${count}回
                     </td>
 
+                    <td><span class="cancel-count${customer.cancelCount ? '' : ' is-zero'}">${customer.cancelCount}回</span></td>
+
+                    <td><span class="no-show-count${customer.noShowCount ? '' : ' is-zero'}">${customer.noShowCount}回</span></td>
+
                     <td>
                         ${rank}
                     </td>
@@ -579,6 +589,20 @@
                             <div class="data-value">
                                 ${count}回
                             </div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                キャンセル回数
+                            </div>
+                            <div class="data-value"><span class="cancel-count${customer.cancelCount ? '' : ' is-zero'}">${customer.cancelCount}回</span></div>
+                        </div>
+
+                        <div>
+                            <div class="data-label">
+                                無断キャンセル回数
+                            </div>
+                            <div class="data-value"><span class="no-show-count${customer.noShowCount ? '' : ' is-zero'}">${customer.noShowCount}回</span></div>
                         </div>
 
                         <div>

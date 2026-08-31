@@ -1190,7 +1190,7 @@ if (
 
                 const allCells = row.querySelectorAll("td");
                 const rank = getCustomerRank(useCount);
-                if (allCells[6]) allCells[6].textContent = rank;
+                if (allCells[8]) allCells[8].textContent = rank;
                 row.dataset.customerName = editableCells[0]?.textContent.trim() || "";
                 row.dataset.customerRank = rank;
 
@@ -1207,7 +1207,7 @@ if (
                     if (values[3]) values[3].textContent = editableCells[2]?.textContent.trim() || "";
                     if (values[4]) values[4].textContent = editableCells[3]?.textContent.trim() || "";
                     if (values[5]) values[5].textContent = `${useCount}回`;
-                    if (values[6]) values[6].textContent = rank;
+                    if (values[8]) values[8].textContent = rank;
                 }
             } else {
                 editableCells.forEach((cell) => {
@@ -1230,4 +1230,317 @@ if (
             showSaveToast();
         });
     });
+
+    // LINE配信：対象者の絞り込み・個人選択・プレビュー
+    const lineForm = document.querySelector("#line-delivery-form");
+    if (lineForm) {
+        const appReservations = window.HoryomaruAppData?.reservations || [];
+        let localReservations = [];
+        try {
+            const parsed = JSON.parse(localStorage.getItem("horyomaruAdminReservations") || "[]");
+            localReservations = Array.isArray(parsed) ? parsed : [];
+        } catch {
+            localReservations = [];
+        }
+
+        const lineReservations = [...appReservations, ...localReservations];
+        const normalizeDateKey = (value) => String(value || "").replaceAll("/", "-");
+        const localDateKey = (date = new Date()) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+        };
+        const todayKey = localDateKey();
+        const lineEscapeHtml = (value) => String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        const recipientKey = (item) => String(item.email || item.phone || item.id || `${item.name}-${item.date}-${item.course}`);
+        const toRecipient = (item) => ({
+            key: recipientKey(item),
+            name: item.name || "氏名未登録",
+            phone: item.phone || "－",
+            email: item.email || "－",
+            date: normalizeDateKey(item.dateKey || item.date),
+            course: item.course || "－"
+        });
+
+        // LINE配信で扱う顧客は「顧客管理」に表示している3人に統一する。
+        const customerRecipients = [
+            { id: "1001", name: "田中 太郎", phone: "090-1234-5678", useCount: 8, rank: "VIP", lastDate: "2026/07/30" },
+            { id: "1002", name: "佐藤 花子", phone: "090-2345-6789", useCount: 1, rank: "新規", lastDate: "2026/07/31" },
+            { id: "1003", name: "鈴木 一郎", phone: "090-3456-7890", useCount: 19, rank: "VIP", lastDate: "2026/07/25" }
+        ].map((customer) => ({
+            ...customer,
+            key: customer.phone.replace(/\D/g, ""),
+            email: lineReservations.find((item) => item.name === customer.name)?.email || "－"
+        }));
+        const selectedKeys = new Set();
+
+        const targetRadios = [...lineForm.querySelectorAll('input[name="line-target-type"]')];
+        const targetPanels = [...lineForm.querySelectorAll("[data-target-panel]")];
+        const targetDate = document.querySelector("#line-target-date");
+        const targetTrip = document.querySelector("#line-target-trip");
+        const recipientSearch = document.querySelector("#line-recipient-search");
+        const recipientSearchButton = document.querySelector("#line-recipient-search-button");
+        const recipientResults = document.querySelector("#line-recipient-results");
+        const recipientList = document.querySelector("#line-recipient-list");
+        const searchCount = document.querySelector("#line-recipient-search-count");
+        const checkTarget = document.querySelector("#line-check-target");
+        const checkCount = document.querySelector("#line-check-count");
+        const bodyInput = document.querySelector("#line-body");
+        const previewButton = document.querySelector("#line-preview-button");
+        const previewModal = document.querySelector("#line-preview-modal");
+        const previewTarget = document.querySelector("#line-preview-target");
+        const previewCount = document.querySelector("#line-preview-count");
+        const previewRecipientList = document.querySelector("#line-preview-recipient-list");
+        const previewBody = document.querySelector("#line-preview-body");
+        const history = document.querySelector("#line-delivery-history");
+
+        const targetLabels = {
+            all: "全員",
+            today: "本日の予約者",
+            date: "指定日の予約者",
+            trip: "指定便の予約者",
+            individual: "個人指定"
+        };
+
+        const currentTargetType = () => targetRadios.find((radio) => radio.checked)?.value || "all";
+
+        const reservationRecipients = (predicate) => {
+            const reservedNames = new Set(
+                lineReservations
+                    .filter(predicate)
+                    .map((item) => normalizeName(item.name || ""))
+            );
+            return customerRecipients.filter((customer) => reservedNames.has(normalizeName(customer.name)));
+        };
+
+        const selectedTripValue = (item) => `${normalizeDateKey(item.dateKey || item.date)}|${item.course || ""}`;
+        const populateTrips = () => {
+            if (!targetTrip) return;
+            const tripMap = new Map();
+            lineReservations.forEach((item) => {
+                const value = selectedTripValue(item);
+                if (!tripMap.has(value)) {
+                    tripMap.set(value, `${normalizeDateKey(item.dateKey || item.date).replaceAll("-", "/")}　${item.course || "－"}`);
+                }
+            });
+            const entries = [...tripMap.entries()].sort((a, b) => compareText(a[0], b[0]));
+            targetTrip.innerHTML = entries.length
+                ? entries.map(([value, label]) => `<option value="${lineEscapeHtml(value)}">${lineEscapeHtml(label)}</option>`).join("")
+                : '<option value="">対象便がありません</option>';
+            const todayTrip = entries.find(([value]) => value.startsWith(`${todayKey}|`));
+            if (todayTrip) targetTrip.value = todayTrip[0];
+        };
+
+        const currentRecipients = () => {
+            const type = currentTargetType();
+            if (type === "today") {
+                return reservationRecipients((item) => normalizeDateKey(item.dateKey || item.date) === todayKey);
+            }
+            if (type === "date") {
+                const date = targetDate?.value || "";
+                return reservationRecipients((item) => normalizeDateKey(item.dateKey || item.date) === date);
+            }
+            if (type === "trip") {
+                const value = targetTrip?.value || "";
+                return reservationRecipients((item) => selectedTripValue(item) === value);
+            }
+            if (type === "individual") {
+                return customerRecipients.filter((recipient) => selectedKeys.has(recipient.key));
+            }
+            return customerRecipients;
+        };
+
+        const targetDescription = () => {
+            const type = currentTargetType();
+            if (type === "today") return `本日の予約者（${todayKey.replaceAll("-", "/")}）`;
+            if (type === "date") return targetDate?.value ? `${targetDate.value.replaceAll("-", "/")}の予約者` : "指定日の予約者";
+            if (type === "trip") return targetTrip?.selectedOptions?.[0]?.textContent || "指定便の予約者";
+            if (type === "individual") return "個人指定";
+            return "全員";
+        };
+
+        const rankBadgeClass = (rank) => rank === "VIP" ? "badge-orange" : rank === "常連" ? "badge-blue" : "badge-green";
+
+        const hideRecipientResults = () => {
+            if (recipientResults) recipientResults.hidden = true;
+            if (recipientList) recipientList.innerHTML = "";
+            if (searchCount) searchCount.textContent = "";
+        };
+
+        const renderRecipientList = () => {
+            if (!recipientList || !recipientResults) return;
+            const rawQuery = recipientSearch?.value.trim() || "";
+            if (!rawQuery) {
+                hideRecipientResults();
+                return;
+            }
+
+            const query = normalizeName(rawQuery);
+            const digitsQuery = rawQuery.replace(/\D/g, "");
+            const visible = customerRecipients.filter((recipient) => {
+                const source = `${recipient.id} ${recipient.name} ${recipient.phone}`;
+                return normalizeName(source).includes(query)
+                    || (digitsQuery && source.replace(/\D/g, "").includes(digitsQuery));
+            });
+
+            recipientResults.hidden = false;
+            recipientList.innerHTML = visible.length
+                ? visible.map((recipient) => `
+                    <tr class="line-recipient-row${selectedKeys.has(recipient.key) ? " is-selected" : ""}" data-recipient-key="${lineEscapeHtml(recipient.key)}" tabindex="0" role="checkbox" aria-checked="${selectedKeys.has(recipient.key)}">
+                        <td><span class="line-recipient-id"><input type="checkbox" value="${lineEscapeHtml(recipient.key)}" ${selectedKeys.has(recipient.key) ? "checked" : ""} aria-label="${lineEscapeHtml(recipient.name)}を選択">${lineEscapeHtml(recipient.id)}</span></td>
+                        <td>${lineEscapeHtml(recipient.name)}</td>
+                        <td>${lineEscapeHtml(recipient.phone)}</td>
+                        <td>${lineEscapeHtml(recipient.useCount)}回</td>
+                        <td><span class="badge ${rankBadgeClass(recipient.rank)}">${lineEscapeHtml(recipient.rank)}</span></td>
+                        <td>${lineEscapeHtml(recipient.lastDate)}</td>
+                    </tr>`).join("")
+                : '<tr><td class="line-empty-state" colspan="6">該当する顧客がいません。</td></tr>';
+
+            if (searchCount) searchCount.textContent = `${visible.length}件`;
+
+            recipientList.querySelectorAll(".line-recipient-row").forEach((row) => {
+                const checkbox = row.querySelector('input[type="checkbox"]');
+                const toggle = () => {
+                    if (!checkbox) return;
+                    checkbox.checked = !checkbox.checked;
+                    if (checkbox.checked) selectedKeys.add(checkbox.value);
+                    else selectedKeys.delete(checkbox.value);
+                    row.classList.toggle("is-selected", checkbox.checked);
+                    row.setAttribute("aria-checked", String(checkbox.checked));
+                    refreshAudience();
+                };
+                row.addEventListener("click", (event) => {
+                    if (event.target === checkbox) {
+                        if (checkbox.checked) selectedKeys.add(checkbox.value);
+                        else selectedKeys.delete(checkbox.value);
+                        row.classList.toggle("is-selected", checkbox.checked);
+                        row.setAttribute("aria-checked", String(checkbox.checked));
+                        refreshAudience();
+                        return;
+                    }
+                    toggle();
+                });
+                row.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        toggle();
+                    }
+                });
+            });
+        };
+
+        function refreshAudience() {
+            const recipients = currentRecipients();
+            const description = targetDescription();
+            if (checkTarget) checkTarget.textContent = description;
+            if (checkCount) checkCount.textContent = `${recipients.length}人`;
+        }
+
+        const switchTargetPanel = () => {
+            const type = currentTargetType();
+            targetPanels.forEach((panel) => {
+                panel.hidden = panel.dataset.targetPanel !== type;
+            });
+            if (type === "individual") hideRecipientResults();
+            refreshAudience();
+        };
+
+        populateTrips();
+        if (targetDate) targetDate.value = todayKey;
+        hideRecipientResults();
+        refreshAudience();
+
+        targetRadios.forEach((radio) => radio.addEventListener("change", switchTargetPanel));
+        targetDate?.addEventListener("change", refreshAudience);
+        targetTrip?.addEventListener("change", refreshAudience);
+        recipientSearchButton?.addEventListener("click", renderRecipientList);
+        recipientSearch?.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                renderRecipientList();
+            }
+        });
+        recipientSearch?.addEventListener("input", () => {
+            if (!recipientSearch.value.trim()) hideRecipientResults();
+        });
+
+        const wrapPreviewMessage = (message, maxChars = 18) => {
+            const segmenter = typeof Intl !== "undefined" && Intl.Segmenter
+                ? new Intl.Segmenter("ja", { granularity: "grapheme" })
+                : null;
+
+            return String(message).split(/\r?\n/).map((line) => {
+                const chars = segmenter
+                    ? Array.from(segmenter.segment(line), (item) => item.segment)
+                    : Array.from(line);
+                const rows = [];
+                for (let index = 0; index < chars.length; index += maxChars) {
+                    rows.push(chars.slice(index, index + maxChars).join(""));
+                }
+                return rows.length ? rows.join("\n") : "";
+            }).join("\n");
+        };
+
+        const openPreview = () => {
+            const recipients = currentRecipients();
+            if (previewTarget) previewTarget.textContent = `対象：${targetDescription()}`;
+            if (previewCount) previewCount.textContent = `${recipients.length}人に配信`;
+            if (previewRecipientList) {
+                if (currentTargetType() === "all") {
+                    previewRecipientList.innerHTML = `<li><strong>全員（${recipients.length}名）</strong></li>`;
+                } else {
+                    previewRecipientList.innerHTML = recipients.length
+                        ? recipients.map((recipient) => `
+                            <li>
+                                <span class="line-preview-recipient-id">${lineEscapeHtml(recipient.id || "－")}</span>
+                                <strong>${lineEscapeHtml(recipient.name)}</strong>
+                            </li>`).join("")
+                        : '<li class="is-empty">配信対象の顧客がいません。</li>';
+                }
+            }
+            if (previewBody) {
+                const previewMessage = bodyInput?.value.trim() || "メッセージ内容が未入力です";
+                previewBody.textContent = wrapPreviewMessage(previewMessage, 18);
+            }
+            if (previewModal) {
+                previewModal.hidden = false;
+                document.body.classList.add("is-modal-open");
+            }
+        };
+        const closePreview = () => {
+            if (previewModal) previewModal.hidden = true;
+            document.body.classList.remove("is-modal-open");
+        };
+        previewButton?.addEventListener("click", openPreview);
+        document.querySelectorAll("[data-line-preview-close]").forEach((button) => button.addEventListener("click", closePreview));
+
+        lineForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const recipients = currentRecipients();
+            if (!recipients.length) {
+                alert("配信対象者が0人です。対象を選択してください。");
+                return;
+            }
+            if (!lineForm.reportValidity()) return;
+
+            const description = targetDescription();
+            if (!window.confirm(`${description}（${recipients.length}人）にLINEを配信します。よろしいですか？`)) return;
+            const message = bodyInput?.value.trim() || "LINEメッセージ";
+            const historyLabel = message.length > 24 ? `${message.slice(0, 24)}…` : message;
+            if (history) {
+                const row = document.createElement("div");
+                row.className = "kpi-row";
+                row.innerHTML = `<span><strong>${lineEscapeHtml(historyLabel)}</strong><small class="line-history-meta">${lineEscapeHtml(description)}・${recipients.length}人</small></span><span class="badge badge-green">送信済み</span>`;
+                history.prepend(row);
+            }
+            showSaveToast(`LINEメッセージを${recipients.length}人に配信しました`);
+        });
+    }
+
 });

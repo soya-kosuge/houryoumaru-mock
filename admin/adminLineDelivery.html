@@ -49,71 +49,134 @@
         </p>
       </div>
     </section>
-    <main class="page">
-      <section class="grid grid-2">
-        <article class="card">
+    <main class="page line-delivery-page">
+      <section class="line-delivery-layout">
+        <article class="card line-compose-card">
           <div class="card-body">
-            <h2 class="section-title">
-              LINEメッセージ作成
-            </h2>
-            <form data-demo-submit="LINEメッセージを配信しました">
-              <div class="field">
-                <label for="line-title">
-                  件名
-                </label>
-                <input class="input" id="line-title" placeholder="例：出船時間変更のお知らせ" required=""/>
+            <div class="section-heading-row">
+              <div>
+                <h2 class="section-title">LINEメッセージ作成</h2>
               </div>
+            </div>
+
+            <form id="line-delivery-form">
+              <fieldset class="line-target-box">
+                <legend>配信対象</legend>
+                <div class="line-target-grid">
+                  <label class="line-target-option">
+                    <input checked name="line-target-type" type="radio" value="all">
+                    <span><strong>全員</strong><small>登録されている利用者全員</small></span>
+                  </label>
+                  <label class="line-target-option">
+                    <input name="line-target-type" type="radio" value="today">
+                    <span><strong>本日の予約者</strong><small>今日予約している人だけ</small></span>
+                  </label>
+                  <label class="line-target-option">
+                    <input name="line-target-type" type="radio" value="date">
+                    <span><strong>指定日の予約者</strong><small>予約日を指定して限定配信</small></span>
+                  </label>
+                  <label class="line-target-option">
+                    <input name="line-target-type" type="radio" value="trip">
+                    <span><strong>便を指定</strong><small>特定日の特定便だけ</small></span>
+                  </label>
+                  <label class="line-target-option">
+                    <input name="line-target-type" type="radio" value="individual">
+                    <span><strong>個人指定</strong><small>1人または複数人を選択</small></span>
+                  </label>
+                </div>
+
+                <div class="line-target-detail" data-target-panel="date" hidden>
+                  <div class="field">
+                    <label for="line-target-date">予約日</label>
+                    <input class="input" id="line-target-date" type="date">
+                  </div>
+                </div>
+
+                <div class="line-target-detail" data-target-panel="trip" hidden>
+                  <div class="field">
+                    <label for="line-target-trip">対象便</label>
+                    <select class="select" id="line-target-trip"></select>
+                  </div>
+                </div>
+
+                <div class="line-target-detail line-individual-panel" data-target-panel="individual" hidden>
+                  <div class="line-recipient-search-row">
+                    <div class="field">
+                      <label for="line-recipient-search">利用者検索</label>
+                      <input class="input" id="line-recipient-search" placeholder="氏名・電話番号" type="search" autocomplete="off">
+                    </div>
+                    <button class="btn btn-primary line-recipient-search-button" id="line-recipient-search-button" type="button">検索</button>
+                  </div>
+
+                  <div class="line-recipient-results" id="line-recipient-results" hidden>
+                    <div class="table-wrap line-recipient-table-wrap">
+                      <table class="line-recipient-table" aria-label="個人配信の利用者検索結果">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>顧客名</th>
+                            <th>電話番号</th>
+                            <th>利用回数</th>
+                            <th>区分</th>
+                            <th>最終利用日</th>
+                          </tr>
+                        </thead>
+                        <tbody id="line-recipient-list"></tbody>
+                      </table>
+                    </div>
+                    <p class="muted line-recipient-result-count" id="line-recipient-search-count"></p>
+                  </div>
+                </div>
+              </fieldset>
+
               <div class="field mt-16">
-                <label for="line-body">
-                  本文
-                </label>
-                <textarea class="textarea" id="line-body" placeholder="LINEで送信する内容を入力してください" required=""></textarea>
+                <label for="line-body">メッセージ内容</label>
+                <textarea class="textarea" id="line-body" placeholder="LINEで送信するメッセージを入力してください" required></textarea>
               </div>
               <div class="form-actions">
-                <button class="btn btn-primary" type="submit">
-                  LINE配信する
-                </button>
-                <button class="btn btn-secondary" type="button">
-                  プレビュー
-                </button>
+                <button class="btn btn-primary" id="line-submit" type="submit">LINE配信する</button>
+                <button class="btn btn-secondary" id="line-preview-button" type="button">プレビュー</button>
               </div>
             </form>
           </div>
         </article>
-        <article class="card">
-          <div class="card-body">
-            <h2 class="section-title">
-              配信履歴
-            </h2>
-            <div class="kpi-list">
-              <div class="kpi-row">
-                <span>
-                  夏季の集合時間について
-                </span>
-                <span class="badge badge-green">
-                  送信済み
-                </span>
+
+        <aside class="line-side-column">
+          <article class="card">
+            <div class="card-body">
+              <h2 class="section-title">配信対象者</h2>
+              <div class="line-check-list">
+                <div><span>対象者</span><strong id="line-check-target">全員</strong></div>
+                <div><span>対象人数</span><strong id="line-check-count">0人</strong></div>
               </div>
-              <div class="kpi-row">
-                <span>
-                  駐車場利用のお願い
-                </span>
-                <span class="badge badge-green">
-                  送信済み
-                </span>
-              </div>
-              <div class="kpi-row">
-                <span>
-                  メンテナンス予定
-                </span>
-                <span class="badge badge-orange">
-                  下書き
-                </span>
-              </div>
+              <div class="notice line-warning">送信前に対象者と人数を確認してください。</div>
+            </div>
+          </article>
+      </section>
+
+      <div class="line-preview-modal" id="line-preview-modal" hidden>
+        <div class="line-preview-backdrop" data-line-preview-close></div>
+        <section aria-labelledby="line-preview-heading" aria-modal="true" class="line-preview-dialog" role="dialog">
+          <div class="line-preview-header">
+            <h2 id="line-preview-heading">LINE配信プレビュー</h2>
+            <button aria-label="閉じる" class="line-preview-close" data-line-preview-close type="button">×</button>
+          </div>
+          <div class="line-preview-meta">
+            <span id="line-preview-target"></span>
+            <span id="line-preview-count"></span>
+          </div>
+          <div class="line-preview-recipient-section">
+            <h3>配信する顧客</h3>
+            <ul class="line-preview-recipient-list" id="line-preview-recipient-list"></ul>
+          </div>
+          <div class="line-chat-preview" aria-label="LINEメッセージ表示イメージ">
+            <div class="line-chat-bar">豊漁丸</div>
+            <div class="line-chat-body">
+              <div class="line-chat-bubble" id="line-preview-body">メッセージ内容が未入力です</div>
             </div>
           </div>
-        </article>
-      </section>
+        </section>
+      </div>
     </main>
     <footer class="footer">
       © 豊漁丸 管理画面 MOCK

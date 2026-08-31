@@ -308,7 +308,7 @@ h1 {
     line-height: 1;
 }
 
-/* 今日の日付 */
+/* 今日の日付表示 */
 
 .calendar-day.is-today {
     color: var(--blue);
@@ -318,7 +318,7 @@ h1 {
     box-shadow: none;
 }
 
-/* 選択中の日付 */
+/* 選択中の日付表示 */
 
 .calendar-day.is-selected {
     color: var(--white);
@@ -332,7 +332,7 @@ h1 {
         background: var(--blue-dark);
         border-color: var(--blue-dark);
     }
-/* すべての日程を表示ボタン */
+/* 全日程表示ボタン */
 
 .show-all-button {
     width: calc(100% - 28px);
@@ -384,7 +384,7 @@ h1 {
         margin: 0;
     }
 
-/* 日付カード */
+/* 出船日カード */
 
 .date-card {
     overflow: hidden;
@@ -492,7 +492,7 @@ h1 {
     font-size: 14px;
 }
 
-/* 空き状況 */
+/* 空き状況表示 */
 
 .status {
     min-width: 112px;
@@ -526,7 +526,7 @@ h1 {
     text-align: right;
 }
 
-/* 絞り込み結果 */
+/* 絞り込み結果表示 */
 
 .filter-result {
     margin: 0 0 12px;
@@ -574,7 +574,7 @@ footer {
     text-align: center;
 }
 
-/* タブレット */
+/* タブレット表示 */
 
 @media (max-width: 1024px) {
     .header-inner,
@@ -594,7 +594,7 @@ footer {
     }
 }
 
-/* スマートフォン */
+/* スマートフォン表示 */
 
 @media (max-width: 768px) {
     html,
@@ -675,7 +675,7 @@ footer {
         font-size: 13px;
     }
 
-    /* 出船予定カード：PC用5列をそのまま縮めない */
+    /* スマートフォン用出船予定表示 */
     .date-card {
         border-radius: 14px;
     }
@@ -731,7 +731,7 @@ footer {
     }
 }
 
-/* 小さいスマートフォン */
+/* 小画面スマートフォン表示 */
 
 @media (max-width: 390px) {
     main {
@@ -774,7 +774,7 @@ footer {
 }
 
 
-/* 2026-08-06: 状態統一・絞り込み・過去日制御 */
+/* 状態絞り込み・過去日制御 */
 .condition-filters {
     max-width: 1180px;
     margin: 0 auto 18px;
@@ -784,7 +784,12 @@ footer {
     gap: 10px;
     flex-wrap: wrap;
 }
-.condition-filters-label { font-weight: 700; margin-right: 4px; }
+
+.condition-filters-label {
+    font-weight: 700;
+    margin-right: 4px;
+}
+
 .condition-filter-button,
 .condition-filter-reset {
     border: 1px solid #cfd8e5;
@@ -794,26 +799,66 @@ footer {
     cursor: pointer;
     font: inherit;
 }
-.condition-filter-button.is-active {
-    border-color: #1668c1;
-    background: #eaf4ff;
-    color: #0d559f;
-    font-weight: 700;
+
+    .condition-filter-button.is-active {
+        border-color: #1668c1;
+        background: #eaf4ff;
+        color: #0d559f;
+        font-weight: 700;
+    }
+
+.condition-filter-reset {
+    color: #5d6878;
+    background: #f5f7fa;
 }
-.condition-filter-reset { color: #5d6878; background: #f5f7fa; }
-.date-label strong { font-weight: 800; }
-.date-card.is-past-card { opacity: .55; filter: grayscale(.35); }
-.date-card.is-past-card .trip-row { cursor: not-allowed; pointer-events: none; }
-.trip-row.is-disabled { pointer-events: none; }
+
+.date-label strong {
+    font-weight: 800;
+}
+
+.date-card.is-past-card {
+    opacity: .55;
+    filter: grayscale(.35);
+}
+
+    .date-card.is-past-card .trip-row {
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+.trip-row.is-disabled {
+    pointer-events: none;
+}
+
 .status.closed,
-.status.unknown { color: #667085; background: #eef1f4; }
-.calendar-day.is-past,
-.calendar-day:disabled { opacity: .35; cursor: not-allowed; background: #f3f4f6; }
-@media (max-width: 768px) {
-    .condition-filters { padding: 10px 14px; }
-    .condition-filter-button, .condition-filter-reset { flex: 1 1 auto; }
+.status.unknown {
+    color: #667085;
+    background: #eef1f4;
 }
-/* 受付終了はクリック不可・グレー表現のみ。透明度は下げない。 */
-.date-card.is-past-card { opacity: 1 !important; filter: none !important; }
-.date-card.is-past-card .date-head,
-.date-card.is-past-card .trip-row { background: #f3f4f6; }
+
+.calendar-day.is-past,
+.calendar-day:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+    background: #f3f4f6;
+}
+
+@media (max-width: 768px) {
+    .condition-filters {
+        padding: 10px 14px;
+    }
+
+    .condition-filter-button, .condition-filter-reset {
+        flex: 1 1 auto;
+    }
+}
+/* 受付終了表示 */
+.date-card.is-past-card {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+    .date-card.is-past-card .date-head,
+    .date-card.is-past-card .trip-row {
+        background: #f3f4f6;
+    }
