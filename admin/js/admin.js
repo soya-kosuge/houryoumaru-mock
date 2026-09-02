@@ -541,19 +541,19 @@ if (
             course: reservation.course,
             ship: reservation.ship
         });
-        const phoneAction = reservation.remaining > 0
-            ? `<a class="btn btn-secondary btn-sm" href="adminPhoneReservation.html?tripId=${encodeURIComponent(reservation.tripId)}">電話予約</a>`
-            : '<span class="badge badge-orange">満員</span>';
+        const status = reservation.remaining === 0
+            ? { key: "full", label: "満員" }
+            : reservation.remaining <= 3
+                ? { key: "few", label: "残りわずか" }
+                : { key: "ok", label: "空きあり" };
 
         row.innerHTML = `
             <td>${reservation.date}</td>
             <td>${reservation.course}</td>
             <td>${reservation.ship}</td>
             <td>${reservation.guests}名</td>
-            <td><div class="actions">
-                ${phoneAction}
-                <a class="btn btn-primary btn-sm" href="adminReservationDetail.html?${detailParams.toString()}">この船の詳細</a>
-            </div></td>
+            <td><span class="trip-status ${status.key}">${status.label}</span></td>
+            <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?${detailParams.toString()}">この船の詳細</a></td>
         `;
 
 

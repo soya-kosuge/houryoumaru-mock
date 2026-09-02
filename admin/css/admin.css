@@ -976,6 +976,12 @@ tbody tr:last-child td {
         background: #fde7e9;
     }
 
+    /* 残りわずか状態 */
+    .trip-status.few {
+        color: #9a5a00;
+        background: #fff1d9;
+    }
+
     /* 受付停止状態 */
     .trip-status.stop {
         color: #667085;

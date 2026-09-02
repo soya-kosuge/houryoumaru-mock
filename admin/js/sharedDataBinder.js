@@ -28,6 +28,12 @@
     });
     return `adminReservationDetail.html?${params.toString()}`;
   };
+  const reservationStatus = (trip) => {
+    const remaining = Number(trip.remaining || 0);
+    if (remaining === 0) return { key: 'full', label: '満員' };
+    if (remaining <= 3) return { key: 'few', label: '残りわずか' };
+    return { key: 'ok', label: '空きあり' };
+  };
   const adminTripStatus = (trip) => {
     const isFull = Number(trip.reserved || 0) >= Number(trip.capacity || 0);
     return isFull
@@ -50,11 +56,15 @@
 
   const summaryBody = document.querySelector('#reservation-table tbody');
   if (summaryBody) {
-    summaryBody.innerHTML = trips.filter((trip) => trip.reserved > 0).map((trip) => `
+    summaryBody.innerHTML = trips.filter((trip) => trip.reserved > 0).map((trip) => {
+      const status = reservationStatus(trip);
+      return `
       <tr data-search-row data-date="${fmtDate(trip.date)}" data-course="${esc(trip.course)}" data-ship="${esc(trip.ship)}" data-guests="${trip.reserved}" data-remaining="${trip.remaining}" data-trip-id="${esc(trip.id)}">
         <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td>${trip.reserved}名</td>
-        <td><div class="actions">${trip.remaining > 0 ? `<a class="btn btn-secondary btn-sm" href="adminPhoneReservation.html?tripId=${encodeURIComponent(trip.id)}">電話予約</a>` : '<span class="badge badge-orange">満員</span>'}<a class="btn btn-primary btn-sm" href="${esc(detailUrl(trip))}">この船の詳細</a></div></td>
-      </tr>`).join('');
+        <td><span class="trip-status ${status.key}">${status.label}</span></td>
+        <td><a class="btn btn-primary btn-sm" href="${esc(detailUrl(trip))}">この船の詳細</a></td>
+      </tr>`;
+    }).join('');
   }
 
   const detailBody = document.querySelector('#reservation-detail-table tbody');
