@@ -55,7 +55,10 @@
                 予約一覧
             </h2>
             <div class="actions">
-                <a class="btn btn-primary" href="adminReservationDetail.html">
+                <a class="btn btn-primary" href="adminPhoneReservation.html">
+                    電話予約を登録
+                </a>
+                <a class="btn btn-secondary" href="adminReservationDetail.html" id="reservation-detail-link">
                     予約詳細を開く
                 </a>
                 <a class="btn btn-secondary" href="adminReservationDetailPrint.html" id="reservation-print-link">
@@ -84,6 +87,19 @@
                     <option value="深夜便">
                         深夜便
                     </option>
+                    <option value="深夜便（中型船）">
+                        深夜便（中型船）
+                    </option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="reservation-ship">
+                    船名
+                </label>
+                <select class="select" id="reservation-ship">
+                    <option value="">すべて</option>
+                    <option value="豊漁丸">豊漁丸</option>
+                    <option value="第二豊漁丸">第二豊漁丸</option>
                 </select>
             </div>
             <div class="field">
@@ -97,11 +113,11 @@
                     順序
                 </label>
                 <select class="select" id="reservation-sort-direction">
+                    <option value="asc" selected>
+                        昇順
+                    </option>
                     <option value="desc">
                         降順
-                    </option>
-                    <option value="asc">
-                        昇順
                     </option>
                 </select>
             </div>
@@ -121,7 +137,9 @@
                     <tr>
                         <th> 予約日</th>
                         <th>便</th>
+                        <th>船名</th>
                         <th> 人数</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>

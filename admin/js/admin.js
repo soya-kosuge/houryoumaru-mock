@@ -425,11 +425,13 @@ document.addEventListener("DOMContentLoaded", () => {
 const reservationTable = document.querySelector("#reservation-table");
 const reservationDate = document.querySelector("#reservation-date");
 const reservationCourse = document.querySelector("#reservation-course");
+const reservationShip = document.querySelector("#reservation-ship");
 const reservationGuests = document.querySelector("#reservation-guests");
 const reservationSortDirection = document.querySelector("#reservation-sort-direction");
 const reservationClearButton = document.querySelector("#reservation-search-clear");
 const reservationResultCount = document.querySelector("#reservation-result-count");
 const reservationPrintLink = document.querySelector("#reservation-print-link");
+const reservationDetailLink = document.querySelector("#reservation-detail-link");
 
 const buildPrintUrl = () => {
     const params = new URLSearchParams();
@@ -440,6 +442,10 @@ const buildPrintUrl = () => {
 
     if (reservationCourse?.value) {
         params.set("course", reservationCourse.value);
+    }
+
+    if (reservationShip?.value) {
+        params.set("ship", reservationShip.value);
     }
 
     if (reservationGuests?.value.trim()) {
@@ -458,6 +464,7 @@ if (
     reservationTable &&
     reservationDate &&
     reservationCourse &&
+    reservationShip &&
     reservationGuests
 ) {
     const reservationBody = reservationTable.querySelector("tbody");
@@ -478,15 +485,17 @@ if (
             cells[0]?.textContent.trim() || "";
 
         const course =
-            cells[1]?.textContent.trim() || "";
+            row.dataset.course || cells[1]?.textContent.trim() || "";
+
+        const ship =
+            row.dataset.ship || (cells.length >= 5 ? cells[2]?.textContent.trim() : "未設定") || "未設定";
 
         const guests =
-            Number(
-                cells[2]?.textContent.replace(/\D/g, "")
-            ) || 0;
+            Number(row.dataset.guests || (cells.length >= 5 ? cells[3]?.textContent : cells[2]?.textContent)?.replace(/\D/g, "")) || 0;
 
-
-        const key = `${date}_${course}`;
+        const tripId = row.dataset.tripId || "";
+        const remaining = Number(row.dataset.remaining || 0);
+        const key = `${date}_${course}_${ship}`;
 
 
         if (!groupedReservations.has(key)) {
@@ -494,6 +503,9 @@ if (
             groupedReservations.set(key, {
                 date: date,
                 course: course,
+                ship: ship,
+                tripId: tripId,
+                remaining: remaining,
                 guests: 0
             });
 
@@ -519,13 +531,29 @@ if (
         row.dataset.searchRow = "";
         row.dataset.date = reservation.date;
         row.dataset.course = reservation.course;
+        row.dataset.ship = reservation.ship;
+        row.dataset.tripId = reservation.tripId;
+        row.dataset.remaining = reservation.remaining;
         row.dataset.guests = reservation.guests;
 
+        const detailParams = new URLSearchParams({
+            date: reservation.date.replaceAll("/", "-"),
+            course: reservation.course,
+            ship: reservation.ship
+        });
+        const phoneAction = reservation.remaining > 0
+            ? `<a class="btn btn-secondary btn-sm" href="adminPhoneReservation.html?tripId=${encodeURIComponent(reservation.tripId)}">電話予約</a>`
+            : '<span class="badge badge-orange">満員</span>';
 
         row.innerHTML = `
             <td>${reservation.date}</td>
             <td>${reservation.course}</td>
+            <td>${reservation.ship}</td>
             <td>${reservation.guests}名</td>
+            <td><div class="actions">
+                ${phoneAction}
+                <a class="btn btn-primary btn-sm" href="adminReservationDetail.html?${detailParams.toString()}">この船の詳細</a>
+            </div></td>
         `;
 
 
@@ -547,6 +575,9 @@ if (
 
             course:
                 row.dataset.course || "",
+
+            ship:
+                row.dataset.ship || "",
 
             guests:
                 Number(row.dataset.guests || 0)
@@ -586,6 +617,11 @@ if (
             return courseDiff * direction;
         }
 
+        const shipDiff = compareText(a.ship, b.ship);
+        if (shipDiff !== 0) {
+            return shipDiff * direction;
+        }
+
 
         return 0;
 
@@ -608,6 +644,9 @@ if (
 
         const selectedCourse =
             reservationCourse.value;
+
+        const selectedShip =
+            reservationShip.value;
 
         const enteredGuests =
             reservationGuests.value.trim();
@@ -636,10 +675,15 @@ if (
                 !enteredGuests ||
                 data.guests === Number(enteredGuests);
 
+            const matchesShip =
+                !selectedShip ||
+                data.ship === selectedShip;
+
 
             const matches =
                 matchesDate &&
                 matchesCourse &&
+                matchesShip &&
                 matchesGuests;
 
 
@@ -667,6 +711,17 @@ if (
 
         }
 
+        if (reservationDetailLink) {
+            const params = new URLSearchParams();
+            if (reservationDate.value) params.set("date", reservationDate.value);
+            if (reservationCourse.value) params.set("course", reservationCourse.value);
+            if (reservationShip.value) params.set("ship", reservationShip.value);
+            const query = params.toString();
+            reservationDetailLink.href = query
+                ? `adminReservationDetail.html?${query}`
+                : "adminReservationDetail.html";
+        }
+
     };
 
 
@@ -678,6 +733,11 @@ if (
 
 
     reservationCourse.addEventListener(
+        "change",
+        refreshReservations
+    );
+
+    reservationShip.addEventListener(
         "change",
         refreshReservations
     );
@@ -702,11 +762,12 @@ if (
 
             reservationDate.value = "";
             reservationCourse.value = "";
+            reservationShip.value = "";
             reservationGuests.value = "";
 
 
             if (reservationSortDirection) {
-                reservationSortDirection.value = "desc";
+                reservationSortDirection.value = "asc";
             }
 
 
@@ -732,6 +793,7 @@ if (
         const params = new URLSearchParams(location.search);
         const selectedDate = normalizeDate(params.get("date") || "");
         const selectedCourse = params.get("course") || "";
+        const selectedShip = params.get("ship") || "";
         const enteredGuests = (params.get("guests") || "").trim();
         const enteredName = normalizeName(params.get("name") || "");
         const sortDirection = params.get("sort") === "asc" ? "asc" : "desc";
@@ -742,11 +804,13 @@ if (
             const cells = row.querySelectorAll("td");
             const rowDate = cells[0]?.textContent.trim() || "";
             const rowCourse = cells[1]?.textContent.trim() || "";
-            const rowName = normalizeName(cells[2]?.textContent.trim() || "");
-            const rowGuests = cells[3]?.textContent.replace(/\D/g, "") || "";
+            const rowShip = cells[2]?.textContent.trim() || "";
+            const rowName = normalizeName(cells[3]?.textContent.trim() || "");
+            const rowGuests = cells[4]?.textContent.replace(/\D/g, "") || "";
             const matches =
                 (!selectedDate || rowDate === selectedDate) &&
                 (!selectedCourse || rowCourse === selectedCourse) &&
+                (!selectedShip || rowShip === selectedShip) &&
                 (!enteredGuests || rowGuests === enteredGuests) &&
                 (!enteredName || rowName.includes(enteredName));
 
@@ -760,7 +824,7 @@ if (
                 const a = rowA.querySelectorAll("td");
                 const b = rowB.querySelectorAll("td");
                 const direction = sortDirection === "asc" ? 1 : -1;
-                for (const index of [0, 1, 2]) {
+                for (const index of [0, 1, 2, 3]) {
                     const diff = compareText(a[index]?.textContent.trim() || "", b[index]?.textContent.trim() || "");
                     if (diff !== 0) return diff * direction;
                 }
@@ -772,6 +836,7 @@ if (
             const conditions = [];
             if (selectedDate) conditions.push(`予約日：${selectedDate}`);
             if (selectedCourse) conditions.push(`便：${selectedCourse}`);
+            if (selectedShip) conditions.push(`船名：${selectedShip}`);
             if (enteredGuests) conditions.push(`人数：${enteredGuests}名`);
             if (enteredName) conditions.push(`氏名：${params.get("name")}`);
 
@@ -840,17 +905,18 @@ if (
         refreshTrips();
     }
 
-    // 予約詳細：検索・並び替え（初期順：日付 → 便 → 氏名 の降順）
+    // 予約詳細：日付・便・船名を指定して対象の予約だけを表示
     const detailTable = document.querySelector("#reservation-detail-table");
     const detailSearchDate = document.querySelector("#detail-search-date");
     const detailSearchCourse = document.querySelector("#detail-search-course");
+    const detailSearchShip = document.querySelector("#detail-search-ship");
     const detailSearchName = document.querySelector("#detail-search-name");
     const detailSortDirection = document.querySelector("#detail-sort-direction");
     const detailClearButton = document.querySelector("#detail-search-clear");
     const detailResultCount = document.querySelector("#detail-result-count");
     const detailPrintLink = document.querySelector("#reservation-detail-print-link");
 
-    if (detailTable && detailSearchDate && detailSearchCourse && detailSearchName) {
+    if (detailTable && detailSearchDate && detailSearchCourse && detailSearchShip && detailSearchName) {
         const detailBody = detailTable.querySelector("tbody");
         const detailRows = Array.from(detailTable.querySelectorAll("tbody tr[data-detail-search-row]"));
         const mobileContainer = document.querySelector(".mobile-cards");
@@ -861,6 +927,7 @@ if (
         const readDetail = (element) => ({
             date: element.dataset.date || "",
             course: element.dataset.course || "",
+            ship: element.dataset.ship || "",
             name: element.dataset.name || ""
         });
 
@@ -869,8 +936,8 @@ if (
             const b = readDetail(elementB);
             const direction = detailSortDirection?.value === "asc" ? 1 : -1;
 
-            // 並び順は「日付 → 便 → 氏名」で固定し、昇順・降順だけ切り替える。
-            for (const key of ["date", "course", "name"]) {
+            // 並び順は「日付 → 便 → 船名 → 氏名」で固定し、昇順・降順だけ切り替える。
+            for (const key of ["date", "course", "ship", "name"]) {
                 const diff = compareText(a[key], b[key]);
                 if (diff !== 0) return diff * direction;
             }
@@ -881,11 +948,13 @@ if (
             const data = readDetail(element);
             const selectedDate = normalizeDate(detailSearchDate.value);
             const selectedCourse = detailSearchCourse.value;
+            const selectedShip = detailSearchShip.value;
             const enteredName = normalizeName(detailSearchName.value);
 
             return (
                 (!selectedDate || data.date === selectedDate) &&
                 (!selectedCourse || data.course === selectedCourse) &&
+                (!selectedShip || data.ship === selectedShip) &&
                 (!enteredName || normalizeName(data.name).includes(enteredName))
             );
         };
@@ -910,6 +979,7 @@ if (
                 const params = new URLSearchParams();
                 if (detailSearchDate.value) params.set("date", detailSearchDate.value);
                 if (detailSearchCourse.value) params.set("course", detailSearchCourse.value);
+                if (detailSearchShip.value) params.set("ship", detailSearchShip.value);
                 if (detailSearchName.value.trim()) params.set("name", detailSearchName.value.trim());
                 if (detailSortDirection?.value) params.set("sort", detailSortDirection.value);
                 const query = params.toString();
@@ -923,17 +993,28 @@ if (
 
         detailSearchDate.addEventListener("change", refreshDetails);
         detailSearchCourse.addEventListener("change", refreshDetails);
+        detailSearchShip.addEventListener("change", refreshDetails);
         detailSearchName.addEventListener("input", refreshDetails);
         detailSortDirection?.addEventListener("change", refreshDetails);
 
         detailClearButton?.addEventListener("click", () => {
             detailSearchDate.value = "";
             detailSearchCourse.value = "";
+            detailSearchShip.value = "";
             detailSearchName.value = "";
             if (detailSortDirection) detailSortDirection.value = "desc";
             refreshDetails();
             detailSearchDate.focus();
         });
+
+        const detailParams = new URLSearchParams(location.search);
+        detailSearchDate.value = detailParams.get("date") || "";
+        detailSearchCourse.value = detailParams.get("course") || "";
+        detailSearchShip.value = detailParams.get("ship") || "";
+        detailSearchName.value = detailParams.get("name") || "";
+        if (detailSortDirection && detailParams.get("sort") === "asc") {
+            detailSortDirection.value = "asc";
+        }
 
         refreshDetails();
     }
@@ -1102,8 +1183,7 @@ if (
                         input.addEventListener("input", () => { input.value = formatPhoneForEdit(input.value); });
                     } else if (isReservationDetail && index === 7) {
                         input.type = "email";
-                        input.value = cell.textContent.trim();
-                        input.required = true;
+                        input.value = cell.textContent.trim() === "－" ? "" : cell.textContent.trim();
                     } else if (isCustomerDetail && index === 2) {
                         input.type = "tel";
                         input.inputMode = "numeric";
@@ -1148,7 +1228,7 @@ if (
             if (isReservationDetail) {
                 const inputs = editableCells.map((cell) => cell.querySelector(".table-edit-input"));
                 const emailInput = inputs[7];
-                if (emailInput && (!emailInput.value.includes("@") || !emailInput.checkValidity())) {
+                if (emailInput?.value && (!emailInput.value.includes("@") || !emailInput.checkValidity())) {
                     alert("メールアドレスは @ を含む正しい形式で入力してください。");
                     emailInput.focus();
                     return;

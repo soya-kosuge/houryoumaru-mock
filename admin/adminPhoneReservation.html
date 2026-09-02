@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>電話予約登録｜豊漁丸 管理画面</title>
+  <link href="css/admin.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="adminDashboard.html">
+        <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png" />
+      </a>
+      <nav class="header-nav">
+        <a href="adminDashboard.html">ダッシュボード</a>
+        <a class="is-active" href="adminReservation.html">予約管理</a>
+        <a href="adminTrip.html">出船管理</a>
+        <a href="adminCustomer.html">顧客管理</a>
+        <a href="adminLineDelivery.html">LINE配信</a>
+      </nav>
+      <button aria-label="メニューを開く" class="menu-toggle" type="button">メニュー</button>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">HORYOMARU ADMIN</p>
+      <h1>電話予約登録</h1>
+      <p>電話で受け付けた予約を、対象の出船予定に登録します。</p>
+    </div>
+  </section>
+  <main class="page trip-add-page">
+    <form class="trip-add-form" id="phone-reservation-form">
+      <section class="trip-form-section">
+        <div class="trip-form-body form-grid trip-setting-grid">
+          <div class="field full">
+            <label for="phone-trip">対象の出船 <span class="required-label">必須</span></label>
+            <select class="select" id="phone-trip" required>
+              <option value="">選択してください</option>
+            </select>
+            <p class="field-help" id="phone-trip-summary">出船日・便・船名を選択してください。</p>
+          </div>
+          <div class="field">
+            <label for="phone-name">予約者氏名 <span class="required-label">必須</span></label>
+            <input class="input" id="phone-name" maxlength="50" placeholder="例：田中 太郎" required />
+          </div>
+          <div class="field">
+            <label for="phone-name-kana">ふりがな</label>
+            <input class="input" id="phone-name-kana" maxlength="80" placeholder="例：たなか たろう" />
+          </div>
+          <div class="field">
+            <label for="phone-number">電話番号 <span class="required-label">必須</span></label>
+            <input class="input" id="phone-number" inputmode="tel" maxlength="15" placeholder="例：090-1234-5678" required type="tel" />
+          </div>
+          <div class="field">
+            <label for="phone-email">メールアドレス</label>
+            <input class="input" id="phone-email" maxlength="120" placeholder="例：guest@example.com" type="email" />
+          </div>
+          <div class="field">
+            <label for="phone-participants">参加人数 <span class="required-label">必須</span></label>
+            <div class="input-with-unit">
+              <input class="input" id="phone-participants" min="1" required type="number" value="1" />
+              <span>名</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="phone-rental-rod">貸し竿</label>
+            <div class="input-with-unit">
+              <input class="input" id="phone-rental-rod" min="0" type="number" value="0" />
+              <span>本</span>
+            </div>
+          </div>
+          <div class="field full">
+            <label for="phone-remarks">受付メモ</label>
+            <textarea class="textarea phone-reservation-remarks" id="phone-remarks" maxlength="500" placeholder="要望や確認事項があれば入力してください"></textarea>
+          </div>
+          <div class="notice full">受付経路は「電話受付」として保存され、予約一覧と予約詳細に反映されます。</div>
+        </div>
+      </section>
+      <div class="trip-form-footer">
+        <div class="trip-form-footer-note">入力内容と空き人数を確認して登録してください。</div>
+        <div class="trip-form-actions">
+          <a class="btn btn-secondary" href="adminReservation.html">キャンセル</a>
+          <button class="btn btn-primary trip-submit-btn" type="submit">電話予約を登録する</button>
+        </div>
+      </div>
+    </form>
+  </main>
+  <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
+  <script src="../shared/appData.js"></script>
+  <script src="js/sharedDataBinder.js"></script>
+  <script src="js/adminMockData.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/adminPhoneReservation.js"></script>
+</body>
+</html>

@@ -14,6 +14,20 @@
   const reservations = [...baseReservations, ...userReservations];
   const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
   const fmtDate = (d) => String(d || '').replaceAll('-', '/');
+  const tripById = new Map(trips.map((trip) => [trip.id, trip]));
+  const reservationTrip = (item) => tripById.get(item.tripId) || trips.find((trip) => {
+    const dateKey = String(item.dateKey || item.date || '').replaceAll('/', '-');
+    return trip.date === dateKey && trip.course === item.course;
+  });
+  const reservationShip = (item) => item.ship || reservationTrip(item)?.ship || '未設定';
+  const detailUrl = ({ date, course, ship }) => {
+    const params = new URLSearchParams({
+      date: String(date || '').replaceAll('/', '-'),
+      course: String(course || ''),
+      ship: String(ship || '')
+    });
+    return `adminReservationDetail.html?${params.toString()}`;
+  };
   const adminTripStatus = (trip) => {
     const isFull = Number(trip.reserved || 0) >= Number(trip.capacity || 0);
     return isFull
@@ -37,14 +51,17 @@
   const summaryBody = document.querySelector('#reservation-table tbody');
   if (summaryBody) {
     summaryBody.innerHTML = trips.filter((trip) => trip.reserved > 0).map((trip) => `
-      <tr data-search-row><td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${trip.reserved}名</td></tr>`).join('');
+      <tr data-search-row data-date="${fmtDate(trip.date)}" data-course="${esc(trip.course)}" data-ship="${esc(trip.ship)}" data-guests="${trip.reserved}" data-remaining="${trip.remaining}" data-trip-id="${esc(trip.id)}">
+        <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td>${trip.reserved}名</td>
+        <td><div class="actions">${trip.remaining > 0 ? `<a class="btn btn-secondary btn-sm" href="adminPhoneReservation.html?tripId=${encodeURIComponent(trip.id)}">電話予約</a>` : '<span class="badge badge-orange">満員</span>'}<a class="btn btn-primary btn-sm" href="${esc(detailUrl(trip))}">この船の詳細</a></div></td>
+      </tr>`).join('');
   }
 
   const detailBody = document.querySelector('#reservation-detail-table tbody');
   if (detailBody) {
     detailBody.innerHTML = reservations.map((item) => `
-      <tr data-course="${esc(item.course)}" data-date="${esc(item.date)}" data-detail-search-row="" data-name="${esc(item.name)}">
-        <td data-editable>${esc(item.date)}</td><td data-editable>${esc(item.course)}</td><td data-editable>${esc(item.name)}</td>
+      <tr data-course="${esc(item.course)}" data-date="${esc(item.date)}" data-ship="${esc(reservationShip(item))}" data-detail-search-row="" data-name="${esc(item.name)}">
+        <td data-editable>${esc(item.date)}</td><td data-editable>${esc(item.course)}</td><td>${esc(reservationShip(item))}</td><td data-editable>${esc(item.name)}</td>
         <td data-editable>${esc(item.nameKana || '－')}</td><td data-editable>${Number(item.participants || 0)}名</td>
         <td data-editable>${Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし'}</td>
         <td data-editable>${esc(item.phone || '－')}</td><td data-editable>${esc(item.email || '－')}</td>
@@ -52,10 +69,27 @@
       </tr>`).join('');
   }
 
+  const mobileContainer = document.querySelector('.mobile-cards');
+  if (mobileContainer && detailBody) {
+    const mobileItem = (label, value) => `<div><div class="data-label">${esc(label)}</div><div class="data-value">${esc(value)}</div></div>`;
+    mobileContainer.innerHTML = reservations.map((item) => {
+      const ship = reservationShip(item);
+      return `<article class="card reservation-card" data-course="${esc(item.course)}" data-date="${esc(item.date)}" data-ship="${esc(ship)}" data-detail-mobile-card="" data-name="${esc(item.name)}">
+        <div class="card-body">
+          ${mobileItem('予約日', item.date)}${mobileItem('便', item.course)}${mobileItem('船名', ship)}
+          ${mobileItem('氏名', item.name)}${mobileItem('ふりがな', item.nameKana || '－')}
+          ${mobileItem('人数', `${Number(item.participants || 0)}名`)}
+          ${mobileItem('貸し竿', Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし')}
+          ${mobileItem('電話番号', item.phone || '－')}${mobileItem('メール', item.email || '－')}
+        </div>
+      </article>`;
+    }).join('');
+  }
+
   const printBody = document.querySelector('#print-reservation-table tbody');
   if (printBody) {
     printBody.innerHTML = reservations.map((item) => `
-      <tr data-print-row><td>${esc(item.date)}</td><td>${esc(item.course)}</td><td>${esc(item.name)}</td>
+      <tr data-print-row data-ship="${esc(reservationShip(item))}"><td>${esc(item.date)}</td><td>${esc(item.course)}</td><td>${esc(reservationShip(item))}</td><td>${esc(item.name)}</td>
       <td>${Number(item.participants || 0)}名</td><td>${Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし'}</td><td>${esc(item.phone || '－')}</td></tr>`).join('');
   }
 

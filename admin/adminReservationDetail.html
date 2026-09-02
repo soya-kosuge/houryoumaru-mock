@@ -55,6 +55,9 @@
           予約者一覧
         </h2>
         <div class="actions">
+          <a class="btn btn-primary" href="adminPhoneReservation.html">
+            電話予約を登録
+          </a>
           <a class="btn btn-secondary" href="adminReservation.html">
             予約一覧へ戻る
           </a>
@@ -84,6 +87,19 @@
             <option value="深夜便">
               深夜便
             </option>
+            <option value="深夜便（中型船）">
+              深夜便（中型船）
+            </option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="detail-search-ship">
+            船名
+          </label>
+          <select class="select" id="detail-search-ship">
+            <option value="">すべて</option>
+            <option value="豊漁丸">豊漁丸</option>
+            <option value="第二豊漁丸">第二豊漁丸</option>
           </select>
         </div>
         <div class="field">
@@ -124,6 +140,9 @@
               </th>
               <th>
                 便
+              </th>
+              <th>
+                船名
               </th>
               <th>
                 氏名

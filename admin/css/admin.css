@@ -420,6 +420,10 @@ tbody tr:last-child td {
     color: #174f89;
 }
 
+.phone-reservation-remarks {
+    min-height: 110px;
+}
+
 .kpi-list {
     display: grid;
     gap: 10px;
@@ -584,7 +588,7 @@ tbody tr:last-child td {
 /* 予約詳細編集 */
 .desktop-table table {
     table-layout: fixed;
-    min-width: 1180px;
+    min-width: 1350px;
 }
 
 .desktop-table th,
@@ -601,41 +605,46 @@ tbody tr:last-child td {
 
     .desktop-table th:nth-child(2),
     .desktop-table td:nth-child(2) {
-        width: 90px;
+        width: 135px;
     }
 
     .desktop-table th:nth-child(3),
     .desktop-table td:nth-child(3) {
-        width: 115px;
+        width: 120px;
     }
 
     .desktop-table th:nth-child(4),
     .desktop-table td:nth-child(4) {
-        width: 150px;
+        width: 115px;
     }
 
     .desktop-table th:nth-child(5),
     .desktop-table td:nth-child(5) {
-        width: 75px;
+        width: 150px;
     }
 
     .desktop-table th:nth-child(6),
     .desktop-table td:nth-child(6) {
-        width: 85px;
+        width: 75px;
     }
 
     .desktop-table th:nth-child(7),
     .desktop-table td:nth-child(7) {
-        width: 155px;
+        width: 85px;
     }
 
     .desktop-table th:nth-child(8),
     .desktop-table td:nth-child(8) {
-        width: 220px;
+        width: 155px;
     }
 
     .desktop-table th:nth-child(9),
     .desktop-table td:nth-child(9) {
+        width: 220px;
+    }
+
+    .desktop-table th:nth-child(10),
+    .desktop-table td:nth-child(10) {
         width: 80px;
         text-align: center;
     }
