@@ -189,7 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 readButton.setAttribute("aria-label", notification.read
                     ? `${notification.message}は既読です`
                     : `${notification.message}を既読にする`);
-                readButton.innerHTML = `<span class="notification-checkmark" aria-hidden="true">✓</span><span>${notification.read ? "既読" : "既読にする"}</span>`;
+                readButton.innerHTML = notification.read
+                    ? `<span class="notification-checkmark" aria-hidden="true">✓</span><span>既読</span>`
+                    : "<span>既読にする</span>";
 
                 log.append(indicator, content, readButton);
                 logList.appendChild(log);
