@@ -92,6 +92,18 @@
     reservations.push(reservation);
     localStorage.setItem(storageKey, JSON.stringify(reservations));
     appData.addReservationDelta(trip.id, participants);
+    appData.addAdminNotification?.(
+      '電話予約を受け付けました。',
+      `${reservation.name}様／${reservation.date} ${reservation.course}／${reservation.ship}`,
+      'reservation'
+    );
+    if (participants === Number(trip.remaining || 0)) {
+      appData.addAdminNotification?.(
+        '予約が満員になりました。',
+        `${reservation.date} ${reservation.course}／${reservation.ship}`,
+        'full'
+      );
+    }
 
     const params = new URLSearchParams({ date: trip.date, course: trip.course, ship: trip.ship, saved: 'phone' });
     location.href = `adminReservationDetail.html?${params.toString()}`;

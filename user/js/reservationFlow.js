@@ -203,7 +203,20 @@
                 status: '予約中'
             });
             localStorage.setItem(adminKey, JSON.stringify(adminReservations));
+            const appTrip = window.HoryomaruAppData?.getTrips?.().find((item) => item.id === trip.tripId);
             if (trip.tripId) window.HoryomaruAppData?.addReservationDelta(trip.tripId, requestedGuests);
+            window.HoryomaruAppData?.addAdminNotification?.(
+                '予約を受け付けました。',
+                `${profile.name || 'LINEユーザー'}様／${(trip.dateKey || '').replaceAll('-', '/')} ${trip.name}${appTrip?.ship ? `／${appTrip.ship}` : ''}`,
+                'reservation'
+            );
+            if (requestedGuests === latestRemaining) {
+                window.HoryomaruAppData?.addAdminNotification?.(
+                    '予約が満員になりました。',
+                    `${(trip.dateKey || '').replaceAll('-', '/')} ${trip.name}${appTrip?.ship ? `／${appTrip.ship}` : ''}`,
+                    'full'
+                );
+            }
             location.href = 'reservationComplete.html';
         });
     }

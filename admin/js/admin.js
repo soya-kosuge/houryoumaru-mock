@@ -20,6 +20,225 @@ document.addEventListener("DOMContentLoaded", () => {
         headerNav?.classList.toggle("is-open");
     });
 
+    // お知らせポップアップ・未読バッジ
+    const notificationStorageKey = "horyomaruAdminNotifications";
+    const notificationSeeds = [
+        {
+            id: "notice-seed-reservation-20260903",
+            createdAt: "2026-09-03T09:12:00+09:00",
+            message: "予約を受け付けました。",
+            detail: "田中 太郎様／2026/09/06 半夜便",
+            type: "reservation",
+            read: false
+        },
+        {
+            id: "notice-seed-cancel-20260902",
+            createdAt: "2026-09-02T16:40:00+09:00",
+            message: "予約がキャンセルされました。",
+            detail: "佐藤 花子様／2026/09/05 深夜便",
+            type: "cancel",
+            read: false
+        },
+        {
+            id: "notice-seed-full-20260902",
+            createdAt: "2026-09-02T14:05:00+09:00",
+            message: "予約が満員になりました。",
+            detail: "2026/09/06 半夜便／豊漁丸",
+            type: "full",
+            read: false
+        },
+        {
+            id: "notice-seed-change-20260901",
+            createdAt: "2026-09-01T11:30:00+09:00",
+            message: "予約内容が変更されました。",
+            detail: "参加人数が2名から3名に変更されました。",
+            type: "change",
+            read: true
+        }
+    ];
+
+    const saveNotifications = (notifications) => {
+        localStorage.setItem(notificationStorageKey, JSON.stringify(notifications));
+    };
+
+    const readNotifications = () => {
+        let stored = [];
+        try {
+            const parsed = JSON.parse(localStorage.getItem(notificationStorageKey) || "[]");
+            if (Array.isArray(parsed)) stored = parsed;
+        } catch {
+            stored = [];
+        }
+
+        const storedIds = new Set(stored.map((item) => item.id));
+        const merged = [
+            ...stored,
+            ...notificationSeeds.filter((item) => !storedIds.has(item.id))
+        ].sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+
+        if (merged.length !== stored.length) saveNotifications(merged);
+        return merged;
+    };
+
+    const notificationDateText = (value) => {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return String(value || "");
+        const pad = (number) => String(number).padStart(2, "0");
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    };
+
+    let refreshNotifications = () => {};
+    window.HoryomaruNotifications = {
+        add(message, detail = "", type = "reservation") {
+            const notifications = readNotifications();
+            notifications.unshift({
+                id: `notice-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+                createdAt: new Date().toISOString(),
+                message: String(message || "お知らせがあります。"),
+                detail: String(detail || ""),
+                type,
+                read: false
+            });
+            saveNotifications(notifications);
+            refreshNotifications();
+        }
+    };
+
+    if (headerNav) {
+        const notificationTrigger = document.createElement("button");
+        notificationTrigger.className = "notification-trigger";
+        notificationTrigger.type = "button";
+        notificationTrigger.setAttribute("aria-label", "お知らせを開く");
+        notificationTrigger.setAttribute("aria-expanded", "false");
+        notificationTrigger.setAttribute("aria-controls", "admin-notification-popover");
+        notificationTrigger.innerHTML = `
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                <path d="M10 21h4"></path>
+            </svg>
+            <span class="notification-trigger-label">お知らせ</span>
+            <span class="notification-badge" aria-label="未読0件" hidden>0</span>
+        `;
+        headerNav.appendChild(notificationTrigger);
+
+        const notificationPopover = document.createElement("section");
+        notificationPopover.id = "admin-notification-popover";
+        notificationPopover.className = "notification-popover";
+        notificationPopover.setAttribute("aria-label", "お知らせ一覧");
+        notificationPopover.hidden = true;
+        notificationPopover.innerHTML = `
+            <div class="notification-popover-header">
+                <div>
+                    <p class="notification-popover-eyebrow">NOTIFICATIONS</p>
+                    <h2>お知らせ</h2>
+                </div>
+                <span class="notification-unread-summary" aria-live="polite"></span>
+            </div>
+            <div class="notification-log-list"></div>
+        `;
+        document.querySelector(".header-inner")?.appendChild(notificationPopover);
+
+        const badge = notificationTrigger.querySelector(".notification-badge");
+        const unreadSummary = notificationPopover.querySelector(".notification-unread-summary");
+        const logList = notificationPopover.querySelector(".notification-log-list");
+
+        refreshNotifications = () => {
+            const notifications = readNotifications();
+            const unreadCount = notifications.filter((item) => !item.read).length;
+
+            badge.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+            badge.hidden = unreadCount === 0;
+            badge.setAttribute("aria-label", `未読${unreadCount}件`);
+            notificationTrigger.setAttribute("aria-label", `お知らせを開く、未読${unreadCount}件`);
+            unreadSummary.textContent = unreadCount ? `未読 ${unreadCount}件` : "すべて既読";
+            logList.replaceChildren();
+
+            notifications.forEach((notification) => {
+                const log = document.createElement("article");
+                log.className = `notification-log notification-log-${notification.type || "reservation"}${notification.read ? " is-read" : " is-unread"}`;
+
+                const indicator = document.createElement("span");
+                indicator.className = "notification-log-indicator";
+                indicator.setAttribute("aria-hidden", "true");
+
+                const content = document.createElement("div");
+                content.className = "notification-log-content";
+
+                const time = document.createElement("time");
+                time.className = "notification-log-date";
+                time.dateTime = notification.createdAt || "";
+                time.textContent = notificationDateText(notification.createdAt);
+
+                const message = document.createElement("p");
+                message.className = "notification-log-message";
+                message.textContent = notification.message || "お知らせがあります。";
+
+                content.append(time, message);
+                if (notification.detail) {
+                    const detail = document.createElement("p");
+                    detail.className = "notification-log-detail";
+                    detail.textContent = notification.detail;
+                    content.appendChild(detail);
+                }
+
+                const readButton = document.createElement("button");
+                readButton.className = "notification-read-button";
+                readButton.type = "button";
+                readButton.dataset.notificationId = notification.id;
+                readButton.disabled = Boolean(notification.read);
+                readButton.setAttribute("aria-label", notification.read
+                    ? `${notification.message}は既読です`
+                    : `${notification.message}を既読にする`);
+                readButton.innerHTML = `<span class="notification-checkmark" aria-hidden="true">✓</span><span>${notification.read ? "既読" : "既読にする"}</span>`;
+
+                log.append(indicator, content, readButton);
+                logList.appendChild(log);
+            });
+        };
+
+        const closeNotificationPopover = () => {
+            notificationPopover.hidden = true;
+            notificationTrigger.setAttribute("aria-expanded", "false");
+        };
+
+        notificationTrigger.addEventListener("click", () => {
+            const willOpen = notificationPopover.hidden;
+            notificationPopover.hidden = !willOpen;
+            notificationTrigger.setAttribute("aria-expanded", String(willOpen));
+            if (willOpen) refreshNotifications();
+        });
+
+        logList.addEventListener("click", (event) => {
+            const button = event.target.closest("[data-notification-id]");
+            if (!button || button.disabled) return;
+            const notifications = readNotifications();
+            const target = notifications.find((item) => item.id === button.dataset.notificationId);
+            if (!target) return;
+            target.read = true;
+            target.readAt = new Date().toISOString();
+            saveNotifications(notifications);
+            refreshNotifications();
+        });
+
+        document.addEventListener("click", (event) => {
+            if (notificationPopover.hidden) return;
+            if (notificationPopover.contains(event.target) || notificationTrigger.contains(event.target)) return;
+            closeNotificationPopover();
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape" || notificationPopover.hidden) return;
+            closeNotificationPopover();
+            notificationTrigger.focus();
+        });
+
+        window.addEventListener("storage", (event) => {
+            if (event.key === notificationStorageKey) refreshNotifications();
+        });
+
+        refreshNotifications();
+    }
+
     // 保存通知
     let toastTimer = null;
     const showSaveToast = (message = "保存しました") => {

@@ -970,5 +970,22 @@
     overrides[tripId] = Number(overrides[tripId] || 0) + Number(participants || 0);
     localStorage.setItem(OVERRIDE_KEY, JSON.stringify(overrides));
   };
-  window.HoryomaruAppData = { getTrips, getTrip, addReservationDelta, reservations: reservations.map((item) => ({...item})) };
+  const addAdminNotification = (message, detail = '', type = 'reservation') => {
+    const key = 'horyomaruAdminNotifications';
+    let notifications = [];
+    try {
+      const parsed = JSON.parse(localStorage.getItem(key) || '[]');
+      if (Array.isArray(parsed)) notifications = parsed;
+    } catch { notifications = []; }
+    notifications.unshift({
+      id: `notice-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      createdAt: new Date().toISOString(),
+      message: String(message || 'お知らせがあります。'),
+      detail: String(detail || ''),
+      type,
+      read: false
+    });
+    localStorage.setItem(key, JSON.stringify(notifications));
+  };
+  window.HoryomaruAppData = { getTrips, getTrip, addReservationDelta, addAdminNotification, reservations: reservations.map((item) => ({...item})) };
 })();

@@ -58,6 +58,7 @@ a {
 }
 
 .header-inner {
+    position: relative;
     width: min(1240px, calc(100% - 40px));
     height: 76px;
     margin: 0 auto;
@@ -113,6 +114,288 @@ a {
     color: #fff;
     background: transparent;
     cursor: pointer;
+}
+
+/* お知らせアイコン・ポップアップ */
+.notification-trigger {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    border: 0;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    color: #dce8f6;
+    background: transparent;
+    cursor: pointer;
+    transition: color .2s ease, background-color .2s ease;
+}
+
+.notification-trigger:hover,
+.notification-trigger[aria-expanded="true"] {
+    color: #fff;
+    background: rgba(255, 255, 255, .13);
+}
+
+.notification-trigger:focus-visible {
+    outline: 3px solid rgba(74, 176, 200, .48);
+    outline-offset: 2px;
+}
+
+.notification-trigger svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.notification-trigger-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.notification-badge {
+    position: absolute;
+    right: -5px;
+    bottom: -4px;
+    min-width: 21px;
+    height: 21px;
+    padding: 0 5px;
+    border: 2px solid var(--navy);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #e22d3f;
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: 0 3px 8px rgba(114, 0, 16, .38);
+}
+
+.notification-badge[hidden],
+.notification-popover[hidden] {
+    display: none;
+}
+
+.notification-popover {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 50;
+    width: min(450px, calc(100vw - 24px));
+    overflow: hidden;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid #d8e1ec;
+    border-radius: 14px;
+    box-shadow: 0 18px 48px rgba(4, 25, 49, .28);
+}
+
+.notification-popover::before {
+    position: absolute;
+    top: -7px;
+    right: 16px;
+    width: 14px;
+    height: 14px;
+    content: "";
+    background: #fff;
+    border-top: 1px solid #d8e1ec;
+    border-left: 1px solid #d8e1ec;
+    transform: rotate(45deg);
+}
+
+.notification-popover-header {
+    position: relative;
+    padding: 17px 18px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+.notification-popover-header h2 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 19px;
+    line-height: 1.3;
+}
+
+.notification-popover-eyebrow {
+    margin: 0 0 2px;
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+.notification-unread-summary {
+    flex: 0 0 auto;
+    padding: 4px 9px;
+    color: #be2437;
+    background: #fdebed;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.notification-log-list {
+    max-height: min(470px, calc(100vh - 130px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.notification-log {
+    position: relative;
+    min-height: 96px;
+    padding: 15px 14px 15px 18px;
+    display: grid;
+    grid-template-columns: 5px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 13px;
+    border-bottom: 1px solid #e9eef4;
+    background: #fff;
+}
+
+.notification-log:last-child {
+    border-bottom: 0;
+}
+
+.notification-log.is-unread {
+    background: #f5f9ff;
+}
+
+.notification-log.is-read .notification-log-content {
+    opacity: .64;
+}
+
+.notification-log-indicator {
+    align-self: stretch;
+    border-radius: 999px;
+    background: var(--blue);
+}
+
+.notification-log-cancel .notification-log-indicator {
+    background: var(--danger);
+}
+
+.notification-log-full .notification-log-indicator {
+    background: var(--warning);
+}
+
+.notification-log-change .notification-log-indicator {
+    background: #7656d6;
+}
+
+.notification-log-date {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.notification-log-message,
+.notification-log-detail {
+    margin: 0;
+}
+
+.notification-log-message {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.notification-log-detail {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.notification-read-button {
+    min-width: 76px;
+    padding: 6px 7px;
+    border: 1px solid #c8d5e5;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #31506f;
+    background: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.notification-read-button:hover:not(:disabled) {
+    color: #0f5fc6;
+    border-color: #83b6ee;
+    background: #eef6ff;
+}
+
+.notification-read-button:disabled {
+    color: #738295;
+    background: #f0f3f7;
+    cursor: default;
+}
+
+.notification-checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    font-size: 11px;
+    line-height: 1;
+}
+
+.notification-read-button:disabled .notification-checkmark {
+    color: #fff;
+    border-color: #3c9777;
+    background: #3c9777;
+}
+
+@media (max-width: 720px) {
+    .notification-popover {
+        position: fixed;
+        top: 74px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+    }
+
+    .notification-popover::before {
+        display: none;
+    }
+
+    .notification-log {
+        grid-template-columns: 5px minmax(0, 1fr);
+    }
+
+    .notification-read-button {
+        grid-column: 2;
+        justify-self: start;
+    }
 }
 
 /* ヒーローエリア */
