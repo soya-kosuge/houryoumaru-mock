@@ -1401,6 +1401,7 @@ tbody tr:last-child td {
 }
 
 .customer-list-table table {
+    width: 100%;
     table-layout: fixed;
     min-width: 860px;
 }
@@ -1442,6 +1443,7 @@ tbody tr:last-child td {
 }
 
 .customer-detail-table table {
+    width: 100%;
     table-layout: fixed;
     min-width: 0;
 }
