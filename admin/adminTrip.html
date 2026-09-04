@@ -7,7 +7,7 @@
     <link href="css/admin.css" rel="stylesheet" />
     <link href="css/adminTripStatus.css" rel="stylesheet" />
 </head>
-<body>
+<body data-trip-view="upcoming">
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="adminDashboard.html">
@@ -34,6 +34,7 @@
         <div class="page-actions">
             <h2 class="section-title">出船予定一覧</h2>
             <div class="actions">
+                <a class="btn btn-secondary" href="adminTripHistory.html">過去の出船履歴</a>
                 <a class="btn btn-secondary" href="adminTripCreate.html">＋ 出船予定を追加</a>
             </div>
         </div>
@@ -46,17 +47,19 @@
                 <label for="trip-course">便</label>
                 <select class="input" id="trip-course">
                     <option value="">すべて</option>
+                    <option value="早朝便">早朝便</option>
+                    <option value="アオリ便">アオリ便</option>
                     <option value="半夜便">半夜便</option>
                     <option value="深夜便">深夜便</option>
-                    <option value="特別便">特別便</option>
                 </select>
             </div>
             <div class="field">
                 <label for="trip-ship">船名</label>
                 <select class="input" id="trip-ship">
                     <option value="">すべて</option>
-                    <option value="豊漁丸">豊漁丸</option>
-                    <option value="第二豊漁丸">第二豊漁丸</option>
+                    <option value="カムトゥドリーム">カムトゥドリーム</option>
+                    <option value="ドリーム">ドリーム</option>
+                    <option value="スーパードリーム">スーパードリーム</option>
                 </select>
             </div>
             <div class="field">
@@ -72,7 +75,9 @@
                 <select class="input" id="trip-status">
                     <option value="">すべて</option>
                     <option value="空きあり">空きあり</option>
+                    <option value="残りわずか">残りわずか</option>
                     <option value="満員">満員</option>
+                    <option value="中止">中止</option>
                 </select>
             </div>
             <div class="field">
@@ -91,7 +96,9 @@
                         <th>船長</th>
                         <th>釣り物</th>
                         <th>予約</th>
+                        <th>特別枠</th>
                         <th>状態</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>

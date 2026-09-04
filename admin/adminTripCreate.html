@@ -82,10 +82,13 @@
                   半夜便
                 </option>
                 <option>
-                  午前便
+                  深夜便
                 </option>
                 <option>
-                  午後便
+                  アオリ便
+                </option>
+                <option>
+                  早朝便
                 </option>
               </select>
             </div>
@@ -93,13 +96,20 @@
               <label for="ship-name">
                 船名
               </label>
-              <input class="input" id="ship-name" placeholder="例：豊漁丸"/>
+              <select class="select" id="ship-name">
+                <option value="カムトゥドリーム">カムトゥドリーム</option>
+                <option value="ドリーム">ドリーム</option>
+                <option value="スーパードリーム">スーパードリーム</option>
+              </select>
             </div>
             <div class="field">
               <label for="captain-name">
                 船長名
               </label>
-              <input class="input" id="captain-name" placeholder="例：後藤船長"/>
+              <select class="select" id="captain-name">
+                <option value="佐藤船長">佐藤船長</option>
+                <option value="山田船長">山田船長</option>
+              </select>
             </div>
             <div class="field">
               <label for="meeting-time">
@@ -126,17 +136,25 @@
               <label for="fishing-target">
                 釣り物
               </label>
-              <input class="input" id="fishing-target" placeholder="例：マイカ"/>
+              <input class="input" id="fishing-target" list="fishing-target-history" placeholder="例：マイカ"/>
+              <datalist id="fishing-target-history"></datalist>
             </div>
             <div class="field">
               <label for="capacity">
                 定員
               </label>
               <div class="input-with-unit">
-                <input class="input" id="capacity" min="1" placeholder="16" type="number"/>
+                <input class="input" id="capacity" min="1" type="number" value="12"/>
                 <span>
                   名
                 </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="special-capacity">特別枠</label>
+              <div class="input-with-unit">
+                <input class="input" id="special-capacity" min="0" type="number" value="0"/>
+                <span>名</span>
               </div>
             </div>
             <div class="field">
@@ -154,16 +172,9 @@
               <label for="trip-status">
                 受付状態
               </label>
-              <select class="select" id="trip-status">
-                <option>
-                  空きあり
-                </option>
-                <option>
-                  満員
-                </option>
-              </select>
+              <div class="trip-auto-status">〇 空きあり</div>
               <p class="field-help">
-                登録後も出船管理画面から変更できます。
+                状態は予約数と定員から自動で決まります。
               </p>
             </div>
           </div>

@@ -83,8 +83,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const notificationDateText = (value) => {
         const date = new Date(value);
         if (Number.isNaN(date.getTime())) return String(value || "");
-        const pad = (number) => String(number).padStart(2, "0");
-        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+
+        const elapsedMilliseconds = Math.max(0, Date.now() - date.getTime());
+        const elapsedMinutes = Math.floor(elapsedMilliseconds / (60 * 1000));
+
+        if (elapsedMinutes < 60) return `${elapsedMinutes}分前`;
+
+        const elapsedHours = Math.floor(elapsedMinutes / 60);
+        if (elapsedHours < 24) return `${elapsedHours}時間前`;
+
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     };
 
     let refreshNotifications = () => {};
@@ -268,6 +276,75 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     };
 
+    // 管理画面内の横長テーブルを、クリック＆ドラッグでも左右に移動できるようにする。
+    document.querySelectorAll(".table-wrap").forEach((tableWrap) => {
+        tableWrap.classList.add("is-drag-scrollable");
+        const topScroller = document.createElement("div");
+        const topScrollerInner = document.createElement("div");
+        topScroller.className = "table-scroll-top";
+        topScroller.setAttribute("aria-label", "表の横スクロール");
+        topScrollerInner.className = "table-scroll-top-inner";
+        topScroller.appendChild(topScrollerInner);
+        tableWrap.before(topScroller);
+
+        let syncingScroll = false;
+        const updateTopScroller = () => {
+            const hasHorizontalScroll = tableWrap.scrollWidth > tableWrap.clientWidth + 1;
+            topScroller.hidden = !hasHorizontalScroll;
+            topScrollerInner.style.width = `${tableWrap.scrollWidth}px`;
+            topScroller.scrollLeft = tableWrap.scrollLeft;
+        };
+        topScroller.addEventListener("scroll", () => {
+            if (syncingScroll) return;
+            syncingScroll = true;
+            tableWrap.scrollLeft = topScroller.scrollLeft;
+            syncingScroll = false;
+        });
+        tableWrap.addEventListener("scroll", () => {
+            if (syncingScroll) return;
+            syncingScroll = true;
+            topScroller.scrollLeft = tableWrap.scrollLeft;
+            syncingScroll = false;
+        });
+        if (window.ResizeObserver) {
+            const resizeObserver = new window.ResizeObserver(updateTopScroller);
+            resizeObserver.observe(tableWrap);
+            const table = tableWrap.querySelector("table");
+            if (table) resizeObserver.observe(table);
+        }
+        window.addEventListener("resize", updateTopScroller);
+        window.requestAnimationFrame(updateTopScroller);
+
+        let dragging = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+
+        tableWrap.addEventListener("pointerdown", (event) => {
+            if (event.pointerType !== "mouse" || event.button !== 0) return;
+            if (event.target.closest("button, a, input, select, textarea, label")) return;
+            dragging = true;
+            startX = event.clientX;
+            startScrollLeft = tableWrap.scrollLeft;
+            tableWrap.setPointerCapture(event.pointerId);
+            tableWrap.classList.add("is-dragging");
+            event.preventDefault();
+        });
+
+        tableWrap.addEventListener("pointermove", (event) => {
+            if (!dragging) return;
+            tableWrap.scrollLeft = startScrollLeft - (event.clientX - startX);
+        });
+
+        const stopDragging = (event) => {
+            if (!dragging) return;
+            dragging = false;
+            tableWrap.classList.remove("is-dragging");
+            if (tableWrap.hasPointerCapture(event.pointerId)) tableWrap.releasePointerCapture(event.pointerId);
+        };
+        tableWrap.addEventListener("pointerup", stopDragging);
+        tableWrap.addEventListener("pointercancel", stopDragging);
+    });
+
     // data-demo-submit を持つMOCKフォーム
     document.querySelectorAll("form[data-demo-submit]").forEach((form) => {
         form.addEventListener("submit", (event) => {
@@ -281,6 +358,48 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // 新規出船登録：船ごとの通常定員・特別枠と釣り物履歴を反映
+    const tripCreateForm = document.querySelector(".trip-add-form");
+    const tripCreateShip = document.querySelector("#ship-name");
+    const tripCreateCapacity = document.querySelector("#capacity");
+    const tripCreateSpecialCapacity = document.querySelector("#special-capacity");
+    const tripCreateFishing = document.querySelector("#fishing-target");
+    const tripCreateFishingHistory = document.querySelector("#fishing-target-history");
+
+    if (tripCreateForm && tripCreateShip && tripCreateCapacity && tripCreateSpecialCapacity) {
+        const createShipSettings = {
+            "カムトゥドリーム": { capacity: 12, specialCapacity: 0 },
+            "ドリーム": { capacity: 30, specialCapacity: 3 },
+            "スーパードリーム": { capacity: 32, specialCapacity: 6 }
+        };
+        const applyShipCapacity = () => {
+            const setting = createShipSettings[tripCreateShip.value];
+            if (!setting) return;
+            tripCreateCapacity.value = String(setting.capacity);
+            tripCreateSpecialCapacity.value = String(setting.specialCapacity);
+        };
+        const fishingHistoryKey = "horyomaruAdminFishingHistory";
+        let fishingHistory = [];
+        try {
+            const saved = JSON.parse(localStorage.getItem(fishingHistoryKey) || "[]");
+            if (Array.isArray(saved)) fishingHistory = saved;
+        } catch { fishingHistory = []; }
+        if (tripCreateFishingHistory) {
+            tripCreateFishingHistory.innerHTML = fishingHistory
+                .map((item) => `<option value="${String(item).replace(/"/g, "&quot;")}"></option>`)
+                .join("");
+        }
+        tripCreateShip.addEventListener("change", applyShipCapacity);
+        tripCreateForm.addEventListener("submit", () => {
+            const fishing = tripCreateFishing?.value.trim();
+            if (fishing && !fishingHistory.includes(fishing)) {
+                fishingHistory.push(fishing);
+                localStorage.setItem(fishingHistoryKey, JSON.stringify(fishingHistory));
+            }
+        });
+        applyShipCapacity();
+    }
 
     // 顧客管理：検索・区分絞り込み・並び替え
     const customerTable = document.querySelector("#customer-table");
@@ -1084,6 +1203,221 @@ if (
 
     if (tripTable && tripDate && tripCourse && tripShip && tripCaptain && tripStatus) {
         const tripRows = Array.from(tripTable.querySelectorAll("tbody tr[data-search-row]"));
+        const tripEditStorageKey = "horyomaruAdminTripEdits";
+        const fishingHistoryStorageKey = "horyomaruAdminFishingHistory";
+        const courseOptions = ["早朝便", "アオリ便", "半夜便", "深夜便"];
+        const shipOptions = ["カムトゥドリーム", "ドリーム", "スーパードリーム"];
+        const tripStatusOptions = ["空きあり", "残りわずか", "満員", "中止"];
+        const canEditTripStatus = document.body.dataset.tripView === "upcoming";
+        const shipSettings = {
+            "カムトゥドリーム": { capacity: 12, specialCapacity: 0 },
+            "ドリーム": { capacity: 30, specialCapacity: 3 },
+            "スーパードリーム": { capacity: 32, specialCapacity: 6 }
+        };
+        const captainOptions = ["佐藤船長", "山田船長"];
+        let savedTripEdits = {};
+        let fishingHistory = [];
+
+        try { savedTripEdits = JSON.parse(localStorage.getItem(tripEditStorageKey) || "{}") || {}; }
+        catch { savedTripEdits = {}; }
+        try {
+            const savedHistory = JSON.parse(localStorage.getItem(fishingHistoryStorageKey) || "[]");
+            if (Array.isArray(savedHistory)) fishingHistory = savedHistory;
+        } catch { fishingHistory = []; }
+
+        const escapeHtml = (value) => String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+        const selectMarkup = (options, selected, label) => `
+            <select class="table-edit-input" aria-label="${label}">
+                ${[...new Set([...options, selected])].filter(Boolean).map((option) =>
+                    `<option value="${escapeHtml(option)}"${option === selected ? " selected" : ""}>${escapeHtml(option)}</option>`
+                ).join("")}
+            </select>`;
+
+        const renderTripStatus = (row, status) => {
+            const statusCell = row.cells[7];
+            if (!statusCell) return;
+            if (status === "中止") {
+                statusCell.innerHTML = '<span class="trip-status stop" data-status="中止"> × 中止 </span>';
+            } else if (status === "満員") {
+                statusCell.innerHTML = '<span class="trip-status full" data-status="満員"> × 満員 </span>';
+            } else if (status === "残りわずか") {
+                statusCell.innerHTML = '<span class="trip-status few" data-status="残りわずか"> △ 残りわずか </span>';
+            } else {
+                statusCell.innerHTML = '<span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span>';
+            }
+        };
+
+        const updateTripStatus = (row, reserved, capacity) => {
+            const remaining = Math.max(0, capacity - reserved);
+            renderTripStatus(row, remaining === 0 ? "満員" : (remaining <= 3 ? "残りわずか" : "空きあり"));
+        };
+
+        const updateSpecialSeats = (row, specialReserved, specialCapacity) => {
+            const specialCell = row.cells[6];
+            if (!specialCell) return;
+            specialCell.innerHTML = `<span class="special-seat-count">${specialReserved} / ${specialCapacity}名</span>`;
+        };
+
+        const readTripRow = (row) => {
+            const reservationMatch = row.cells[5]?.textContent.match(/(\d+)\s*\/\s*(\d+)/);
+            const specialMatch = row.cells[6]?.textContent.match(/(\d+)\s*\/\s*(\d+)/);
+            return {
+                date: row.cells[0]?.textContent.trim() || "",
+                course: row.cells[1]?.textContent.trim() || "",
+                ship: row.cells[2]?.textContent.trim() || "",
+                captain: row.cells[3]?.textContent.trim() || "",
+                fishing: row.cells[4]?.textContent.trim() || "",
+                reserved: Number.parseInt(reservationMatch?.[1] || "0", 10),
+                capacity: Number.parseInt(reservationMatch?.[2] || "1", 10),
+                specialReserved: Number.parseInt(specialMatch?.[1] || "0", 10),
+                specialCapacity: Number.parseInt(specialMatch?.[2] || "0", 10)
+            };
+        };
+
+        tripRows.forEach((row, index) => {
+            const editKey = row.dataset.tripId || String(index);
+            row.dataset.tripEditIndex = editKey;
+            const saved = savedTripEdits[editKey];
+            if (saved && typeof saved === "object") {
+                row.cells[0].textContent = saved.date || row.cells[0].textContent;
+                row.cells[1].textContent = saved.course || row.cells[1].textContent;
+                row.cells[2].textContent = saved.ship || row.cells[2].textContent;
+                row.cells[3].textContent = saved.captain || row.cells[3].textContent;
+                row.cells[4].textContent = saved.fishing || row.cells[4].textContent;
+                const reserved = Math.max(0, Number.parseInt(saved.reserved, 10) || 0);
+                const capacity = Math.max(1, Number.parseInt(saved.capacity, 10) || 1);
+                const defaultSpecialCapacity = shipSettings[saved.ship]?.specialCapacity || 0;
+                const parsedSpecialCapacity = Number.parseInt(saved.specialCapacity, 10);
+                const specialCapacity = Math.max(0, Number.isFinite(parsedSpecialCapacity) ? parsedSpecialCapacity : defaultSpecialCapacity);
+                const specialReserved = Math.min(specialCapacity, Math.max(0, Number.parseInt(saved.specialReserved, 10) || 0));
+                row.cells[5].textContent = `${Math.min(reserved, capacity)} / ${capacity}名`;
+                updateSpecialSeats(row, specialReserved, specialCapacity);
+                if (saved.status) renderTripStatus(row, saved.status);
+                else updateTripStatus(row, reserved, capacity);
+            }
+
+            const fishing = row.cells[4]?.textContent.trim();
+            if (fishing && !fishingHistory.includes(fishing)) fishingHistory.push(fishing);
+
+            const operationCell = document.createElement("td");
+            operationCell.className = "trip-operation-cell";
+            operationCell.innerHTML = '<button class="btn btn-primary btn-sm" data-edit-trip-row type="button">修正</button>';
+            row.appendChild(operationCell);
+        });
+        localStorage.setItem(fishingHistoryStorageKey, JSON.stringify(fishingHistory));
+
+        tripTable.addEventListener("click", (event) => {
+            const button = event.target.closest("[data-edit-trip-row]");
+            if (!button) return;
+            const row = button.closest("tr");
+            if (!row) return;
+
+            const isEditing = button.dataset.editing === "true";
+            if (!isEditing) {
+                const values = readTripRow(row);
+                const listId = `trip-fishing-options-${row.dataset.tripEditIndex}`;
+                row.cells[0].innerHTML = `<input class="table-edit-input" type="date" aria-label="出船日" value="${escapeHtml(values.date.replaceAll("/", "-"))}">`;
+                row.cells[1].innerHTML = selectMarkup(courseOptions, values.course, "便");
+                row.cells[2].innerHTML = selectMarkup(shipOptions, values.ship, "船名");
+                row.cells[3].innerHTML = selectMarkup(captainOptions, values.captain, "船長");
+                row.cells[4].innerHTML = `
+                    <input class="table-edit-input" type="text" list="${listId}" aria-label="釣り物" value="${escapeHtml(values.fishing)}">
+                    <datalist id="${listId}">${fishingHistory.map((item) => `<option value="${escapeHtml(item)}"></option>`).join("")}</datalist>`;
+                row.cells[5].innerHTML = `
+                    <span class="trip-reservation-editor">
+                        <input class="table-edit-input" type="number" min="0" step="1" aria-label="予約数" value="${values.reserved}">
+                        <span aria-hidden="true">/</span>
+                        <input class="table-edit-input" type="number" min="1" step="1" aria-label="定員数" value="${values.capacity}">
+                        <span>名</span>
+                    </span>`;
+                row.cells[6].innerHTML = `
+                    <span class="trip-reservation-editor">
+                        <input class="table-edit-input" type="number" min="0" step="1" aria-label="特別枠予約数" value="${values.specialReserved}">
+                        <span aria-hidden="true">/</span>
+                        <input class="table-edit-input" type="number" min="0" step="1" aria-label="特別枠定員数" value="${values.specialCapacity}">
+                        <span>名</span>
+                    </span>`;
+                const currentStatus = row.cells[7].querySelector("[data-status]")?.dataset.status || "空きあり";
+                row.dataset.originalStatus = currentStatus;
+                if (canEditTripStatus) {
+                    row.cells[7].innerHTML = selectMarkup(tripStatusOptions, currentStatus, "状態");
+                }
+                row.cells[2].querySelector("select")?.addEventListener("change", (changeEvent) => {
+                    const setting = shipSettings[changeEvent.target.value];
+                    const capacityInput = row.cells[5].querySelectorAll("input")[1];
+                    const specialCapacityInput = row.cells[6].querySelectorAll("input")[1];
+                    if (setting && capacityInput) capacityInput.value = String(setting.capacity);
+                    if (setting && specialCapacityInput) specialCapacityInput.value = String(setting.specialCapacity);
+                });
+                row.classList.add("is-editing");
+                button.dataset.editing = "true";
+                button.textContent = "保存";
+                row.querySelector("input")?.focus();
+                return;
+            }
+
+            const dateInput = row.cells[0].querySelector("input");
+            const courseInput = row.cells[1].querySelector("select");
+            const shipInput = row.cells[2].querySelector("select");
+            const captainInput = row.cells[3].querySelector("select");
+            const fishingInput = row.cells[4].querySelector("input");
+            const reservationInputs = row.cells[5].querySelectorAll("input");
+            const specialInputs = row.cells[6].querySelectorAll("input");
+            const statusInput = canEditTripStatus ? row.cells[7].querySelector("select") : null;
+            const originalStatus = row.dataset.originalStatus || row.cells[7].querySelector("[data-status]")?.dataset.status || "空きあり";
+            const selectedStatus = statusInput?.value || originalStatus;
+            if (statusInput && selectedStatus !== originalStatus && !window.confirm("状態の変更を保存しますか？")) {
+                statusInput.focus();
+                return;
+            }
+            const capacity = Math.max(1, Number.parseInt(reservationInputs[1]?.value || "1", 10) || 1);
+            const reserved = Math.min(capacity, Math.max(0, Number.parseInt(reservationInputs[0]?.value || "0", 10) || 0));
+            const specialCapacity = Math.max(0, Number.parseInt(specialInputs[1]?.value || "0", 10) || 0);
+            const specialReserved = Math.min(specialCapacity, Math.max(0, Number.parseInt(specialInputs[0]?.value || "0", 10) || 0));
+            const fishing = fishingInput?.value.trim() || "";
+            const values = {
+                date: dateInput?.value.replaceAll("-", "/") || "",
+                course: courseInput?.value || "",
+                ship: shipInput?.value || "",
+                captain: captainInput?.value || "",
+                fishing,
+                reserved,
+                capacity,
+                specialReserved,
+                specialCapacity,
+                status: selectedStatus
+            };
+
+            row.cells[0].textContent = values.date;
+            row.cells[1].textContent = values.course;
+            row.cells[2].textContent = values.ship;
+            row.cells[3].textContent = values.captain;
+            row.cells[4].textContent = values.fishing;
+            row.cells[5].textContent = `${values.reserved} / ${values.capacity}名`;
+            updateSpecialSeats(row, values.specialReserved, values.specialCapacity);
+            if (statusInput) renderTripStatus(row, values.status);
+            else if (values.status) renderTripStatus(row, values.status);
+            else updateTripStatus(row, values.reserved, values.capacity);
+
+            if (fishing && !fishingHistory.includes(fishing)) {
+                fishingHistory.push(fishing);
+                localStorage.setItem(fishingHistoryStorageKey, JSON.stringify(fishingHistory));
+            }
+            savedTripEdits[row.dataset.tripEditIndex] = values;
+            localStorage.setItem(tripEditStorageKey, JSON.stringify(savedTripEdits));
+
+            row.classList.remove("is-editing");
+            button.dataset.editing = "false";
+            button.textContent = "修正";
+            refreshTrips();
+            showSaveToast();
+        });
 
         const refreshTrips = () => {
             const selectedDate = normalizeDate(tripDate.value);
@@ -1095,8 +1429,8 @@ if (
 
             tripRows.forEach((row) => {
                 const cells = row.querySelectorAll("td");
-                const statusElement = cells[6]?.querySelector("[data-status]");
-                const rowStatus = statusElement?.dataset.status || cells[6]?.textContent.trim() || "";
+                const statusElement = cells[7]?.querySelector("[data-status]");
+                const rowStatus = statusElement?.dataset.status || cells[7]?.textContent.trim() || "";
                 const matches =
                     (!selectedDate || cells[0]?.textContent.trim() === selectedDate) &&
                     (!selectedCourse || cells[1]?.textContent.trim() === selectedCourse) &&

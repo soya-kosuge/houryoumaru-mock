@@ -4,6 +4,96 @@
   if (!data) return;
 
   const trips = data.getTrips();
+  const shipSettings = {
+    'カムトゥドリーム': { capacity: 12, specialCapacity: 0 },
+    'ドリーム': { capacity: 30, specialCapacity: 3 },
+    'スーパードリーム': { capacity: 32, specialCapacity: 6 }
+  };
+  const septemberSpecialTrips = [
+    ['2026-09-05', 'アオリ便', '15:30', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+    ['2026-09-06', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+    ['2026-09-12', '半夜便', '16:00', 'アオリ +マイカ', 'ok'],
+    ['2026-09-12', '深夜便', '23:30', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+    ['2026-09-13', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+    ['2026-09-13', 'アオリ便', '05:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+    ['2026-09-18', '深夜便', '23:50', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+    ...[19, 20, 21, 22, 23].flatMap((day) => {
+      const date = `2026-09-${String(day).padStart(2, '0')}`;
+      const rows = [
+        [date, '早朝便', '05:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+        [date, '半夜便', '16:00', 'アオリ +マイカ', 'ok']
+      ];
+      if (day !== 23) rows.push([date, '深夜便', '23:30', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok']);
+      return rows;
+    }),
+    ['2026-09-26', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
+    ['2026-09-27', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok']
+  ];
+  const existingSeptemberTrips = new Map(
+    trips.filter((trip) => trip.date.startsWith('2026-09'))
+      .map((trip) => [`${trip.date}|${trip.course}`, trip])
+  );
+  const septemberSchedule = [];
+  for (let day = 1; day <= 30; day += 1) {
+    const date = `2026-09-${String(day).padStart(2, '0')}`;
+    septemberSchedule.push([date, '半夜便', '17:00', day === 5 ? 'スーパーロング便' : 'マイカ', day === 5 ? 'few' : 'ok']);
+    if (day !== 3) {
+      septemberSchedule.push([date, '深夜便', '22:00', day >= 8 && day <= 12 ? 'マイカ＆ムギイカ' : 'マイカ', 'ok']);
+    }
+  }
+  septemberSchedule.push(...septemberSpecialTrips);
+
+  const septemberAdminTrips = septemberSchedule
+    .sort((a, b) => `${a[0]} ${a[2]}`.localeCompare(`${b[0]} ${b[2]}`))
+    .map(([date, course, time, target, sourceStatus], index) => {
+      const isSmallBoat = course === 'アオリ便' || course === '早朝便' || time === '16:00' || time > '23:00';
+      const ship = isSmallBoat ? 'カムトゥドリーム' : (course === '半夜便' ? 'スーパードリーム' : 'ドリーム');
+      const setting = shipSettings[ship];
+      const existing = existingSeptemberTrips.get(`${date}|${course}`);
+      const reserved = sourceStatus === 'few'
+        ? setting.capacity - 2
+        : Math.min(setting.capacity, Number(existing?.reserved || 0));
+      return {
+        id: `user-schedule-${date}-${index + 1}`,
+        date, course, time, target, ship,
+        captain: index % 2 === 0 ? '佐藤船長' : '山田船長',
+        capacity: setting.capacity,
+        specialCapacity: setting.specialCapacity,
+        specialReserved: 0,
+        reserved,
+        remaining: setting.capacity - reserved,
+        status: sourceStatus,
+        price: Number(existing?.price || 13000)
+      };
+    });
+  const julyHistoryTrips = [
+    ['2026-07-29', '半夜便', 'スーパードリーム', 16, 32],
+    ['2026-07-29', '深夜便', 'ドリーム', 8, 30],
+    ['2026-07-30', '半夜便', 'スーパードリーム', 8, 32],
+    ['2026-07-30', '深夜便', 'ドリーム', 8, 30],
+    ['2026-07-31', '半夜便', 'スーパードリーム', 16, 32],
+    ['2026-07-31', '半夜便', 'カムトゥドリーム', 10, 12],
+    ['2026-07-31', '深夜便', 'ドリーム', 16, 30]
+  ].map(([date, course, ship, reserved, capacity], index) => ({
+    id: `history-${date}-${index + 1}`, date, course, ship, reserved, capacity,
+    time: course === '半夜便' ? '17:00' : '22:00',
+    target: 'マイカ＆ムギイカ',
+    captain: index % 2 === 0 ? '佐藤船長' : '山田船長',
+    specialCapacity: shipSettings[ship].specialCapacity,
+    specialReserved: 0,
+    remaining: capacity - reserved,
+    status: capacity - reserved <= 3 ? 'few' : 'ok',
+    price: 13000
+  }));
+  const adminTrips = [
+    ...julyHistoryTrips,
+    ...trips.filter((trip) => !trip.date.startsWith('2026-09')).map((trip) => {
+      const ship = trip.ship;
+      const setting = shipSettings[ship];
+      return { ...trip, ship, capacity: setting.capacity, specialCapacity: setting.specialCapacity, specialReserved: 0 };
+    }),
+    ...septemberAdminTrips
+  ];
   const baseReservations = data.reservations || [];
   const userReservations = (() => {
     try {
@@ -35,20 +125,27 @@
     return { key: 'ok', label: '空きあり' };
   };
   const adminTripStatus = (trip) => {
-    const isFull = Number(trip.reserved || 0) >= Number(trip.capacity || 0);
-    return isFull
-      ? { key: 'full', label: '満員', text: '× 満員' }
-      : { key: 'ok', label: '空きあり', text: '〇 空きあり' };
+    const remaining = Math.max(0, Number(trip.capacity || 0) - Number(trip.reserved || 0));
+    if (remaining === 0) return { key: 'full', label: '満員', text: '× 満員' };
+    if (remaining <= 3) return { key: 'few', label: '残りわずか', text: '△ 残りわずか' };
+    return { key: 'ok', label: '空きあり', text: '〇 空きあり' };
   };
 
   const tripBody = document.querySelector('#trip-table tbody');
   if (tripBody) {
-    tripBody.innerHTML = trips.map((trip) => {
+    const today = new Date();
+    const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const tripView = document.body.dataset.tripView || 'upcoming';
+    const displayedTrips = adminTrips.filter((trip) => tripView === 'history' ? trip.date < todayKey : trip.date >= todayKey);
+    tripBody.innerHTML = displayedTrips.map((trip) => {
       const status = adminTripStatus(trip);
+      const specialCapacity = Number(trip.specialCapacity || 0);
+      const specialReserved = Number(trip.specialReserved || 0);
       return `
-      <tr data-search-row="">
+      <tr data-search-row="" data-trip-id="${esc(trip.id)}">
         <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td>${esc(trip.captain)}</td>
         <td>${esc(trip.target)}</td><td>${trip.reserved} / ${trip.capacity}名</td>
+        <td><span class="special-seat-count">${specialReserved} / ${specialCapacity}名</span></td>
         <td><span class="trip-status ${status.key}" data-status="${status.label}">${status.text}</span></td>
       </tr>`;
     }).join('');

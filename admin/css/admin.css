@@ -845,6 +845,10 @@ tbody tr:last-child td {
 
 /* 印刷表示 */
 @media print {
+    .table-scroll-top {
+        display: none !important;
+    }
+
     .site-header, .hero, .no-print, .footer {
         display: none !important;
     }
@@ -1234,6 +1238,92 @@ tbody tr:last-child td {
 }
 
 /* 出船状態表示 */
+.trip-table-wrap table {
+    min-width: 1420px;
+}
+
+.trip-table-wrap th:last-child,
+.trip-table-wrap .trip-operation-cell {
+    width: 82px;
+    text-align: center;
+}
+
+.trip-table-wrap tr.is-editing td {
+    padding: 8px 6px;
+}
+
+.trip-table-wrap .table-edit-input {
+    width: 100%;
+    min-width: 110px;
+    height: 38px;
+    padding: 6px 8px;
+    border: 1px solid #cfd8e5;
+    border-radius: 7px;
+    color: var(--text);
+    background: #fff;
+    font-size: 13px;
+    outline: none;
+}
+
+.trip-table-wrap .table-edit-input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(19, 104, 212, .12);
+}
+
+.trip-reservation-editor {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.trip-reservation-editor .table-edit-input {
+    width: 58px;
+    min-width: 58px;
+}
+
+.special-seat-count {
+    display: block;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.trip-auto-status {
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1px solid #bde8d8;
+    border-radius: 8px;
+    color: #087a55;
+    background: #dff6ec;
+    font-weight: 800;
+}
+
+/* 横長テーブルは表面をドラッグして左右へ移動できる */
+.table-wrap.is-drag-scrollable {
+    cursor: grab;
+}
+
+.table-wrap.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+.table-scroll-top {
+    width: 100%;
+    height: 18px;
+    margin-bottom: 7px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.table-scroll-top[hidden] {
+    display: none;
+}
+
+.table-scroll-top-inner {
+    height: 1px;
+}
+
 .trip-status {
     min-width: 112px;
     padding: 7px 14px;

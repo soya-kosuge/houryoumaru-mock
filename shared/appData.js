@@ -913,6 +913,24 @@
   }
 ];
 
+  // 実際の船名・通常定員・常連向け電話受付専用枠に統一する。
+  const shipSettings = {
+    'カムトゥドリーム': { capacity: 12, specialCapacity: 0 },
+    'ドリーム': { capacity: 30, specialCapacity: 3 },
+    'スーパードリーム': { capacity: 32, specialCapacity: 6 }
+  };
+  trips.forEach((trip) => {
+    const ship = trip.course.includes('中型船')
+      ? 'カムトゥドリーム'
+      : (trip.course === '半夜便' ? 'スーパードリーム' : 'ドリーム');
+    const setting = shipSettings[ship];
+    trip.ship = ship;
+    trip.capacity = setting.capacity;
+    trip.specialCapacity = setting.specialCapacity;
+    trip.specialReserved = 0;
+    trip.remaining = Math.max(0, trip.capacity - Number(trip.reserved || 0));
+  });
+
   const OVERRIDE_KEY = 'horyomaruTripReservationDelta';
   const readOverrides = () => {
     try { return JSON.parse(localStorage.getItem(OVERRIDE_KEY) || '{}') || {}; } catch { return {}; }
