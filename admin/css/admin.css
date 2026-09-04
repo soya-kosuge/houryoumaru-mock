@@ -874,14 +874,15 @@ tbody tr:last-child td {
 
 /* 予約詳細編集 */
 .desktop-table table {
-    table-layout: fixed;
-    min-width: 1350px;
+    width: max-content;
+    min-width: 1570px;
+    table-layout: auto;
 }
 
 .desktop-table th,
 .desktop-table td {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
     white-space: nowrap;
 }
 
@@ -897,7 +898,7 @@ tbody tr:last-child td {
 
     .desktop-table th:nth-child(3),
     .desktop-table td:nth-child(3) {
-        width: 120px;
+        width: 190px;
     }
 
     .desktop-table th:nth-child(4),
@@ -932,6 +933,12 @@ tbody tr:last-child td {
 
     .desktop-table th:nth-child(10),
     .desktop-table td:nth-child(10) {
+        width: 150px;
+        text-align: center;
+    }
+
+    .desktop-table th:nth-child(11),
+    .desktop-table td:nth-child(11) {
         width: 80px;
         text-align: center;
     }
@@ -969,6 +976,32 @@ tbody tr:last-child td {
 
 .desktop-table tr.is-editing {
     background: #f4f9ff;
+}
+
+.reservation-cancel-tag {
+    min-width: 74px;
+    padding: 5px 10px;
+    display: inline-flex;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.reservation-cancel-tag.none {
+    color: #667085;
+    background: #eef1f5;
+}
+
+.reservation-cancel-tag.normal {
+    color: #9a5a00;
+    background: #fff1d9;
+}
+
+.reservation-cancel-tag.no-show {
+    color: #c53d4b;
+    background: #fde7e9;
 }
 
     .desktop-table tr.is-editing td {

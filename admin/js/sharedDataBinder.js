@@ -124,6 +124,12 @@
     if (remaining <= 3) return { key: 'few', label: '残りわずか' };
     return { key: 'ok', label: '空きあり' };
   };
+  const cancellationLabel = (status) => {
+    if (['無断キャンセル', 'no-show', 'no_show'].includes(status)) return '無断キャンセル';
+    if (['キャンセル', '通常キャンセル', 'cancelled', 'canceled'].includes(status)) return '通常キャンセル';
+    return 'なし';
+  };
+  const cancellationClass = (label) => label === '無断キャンセル' ? 'no-show' : (label === '通常キャンセル' ? 'normal' : 'none');
   const adminTripStatus = (trip) => {
     const remaining = Math.max(0, Number(trip.capacity || 0) - Number(trip.reserved || 0));
     if (remaining === 0) return { key: 'full', label: '満員', text: '× 満員' };
@@ -166,14 +172,18 @@
 
   const detailBody = document.querySelector('#reservation-detail-table tbody');
   if (detailBody) {
-    detailBody.innerHTML = reservations.map((item) => `
+    detailBody.innerHTML = reservations.map((item) => {
+      const cancelLabel = cancellationLabel(item.status);
+      return `
       <tr data-course="${esc(item.course)}" data-date="${esc(item.date)}" data-ship="${esc(reservationShip(item))}" data-detail-search-row="" data-name="${esc(item.name)}">
         <td data-editable>${esc(item.date)}</td><td data-editable>${esc(item.course)}</td><td>${esc(reservationShip(item))}</td><td data-editable>${esc(item.name)}</td>
         <td data-editable>${esc(item.nameKana || '－')}</td><td data-editable>${Number(item.participants || 0)}名</td>
         <td data-editable>${Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし'}</td>
         <td data-editable>${esc(item.phone || '－')}</td><td data-editable>${esc(item.email || '－')}</td>
+        <td data-cancel-cell data-cancel-value="${cancelLabel}"><span class="reservation-cancel-tag ${cancellationClass(cancelLabel)}">${cancelLabel}</span></td>
         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
-      </tr>`).join('');
+      </tr>`;
+    }).join('');
   }
 
   const mobileContainer = document.querySelector('.mobile-cards');
@@ -188,6 +198,7 @@
           ${mobileItem('人数', `${Number(item.participants || 0)}名`)}
           ${mobileItem('貸し竿', Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし')}
           ${mobileItem('電話番号', item.phone || '－')}${mobileItem('メール', item.email || '－')}
+          ${mobileItem('キャンセル', cancellationLabel(item.status))}
         </div>
       </article>`;
     }).join('');

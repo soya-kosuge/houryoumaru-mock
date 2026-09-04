@@ -1645,20 +1645,46 @@ if (
 
     // 行編集内容をMOCK上でも再読込後に保持する。
     const rowEditStorageKey = `horyomaruAdminRowEdits:${location.pathname}`;
+    const cancellationStorageKey = `horyomaruAdminCancellationEdits:${location.pathname}`;
+    const cancellationLabels = ["なし", "通常キャンセル", "無断キャンセル"];
+    const cancellationClass = (value) => value === "無断キャンセル" ? "no-show" : (value === "通常キャンセル" ? "normal" : "none");
+    const renderCancellationTag = (cell, value = "なし") => {
+        cell.dataset.cancelValue = value;
+        const tag = document.createElement("span");
+        tag.className = `reservation-cancel-tag ${cancellationClass(value)}`;
+        tag.textContent = value;
+        cell.replaceChildren(tag);
+    };
+
+    // 静的MOCK行にも、メールと操作の間へキャンセル列を補う。
+    document.querySelectorAll("#reservation-detail-table tbody tr").forEach((row) => {
+        if (row.querySelector("[data-cancel-cell]")) return;
+        const cell = document.createElement("td");
+        cell.dataset.cancelCell = "";
+        renderCancellationTag(cell, "なし");
+        row.lastElementChild?.before(cell);
+    });
+
     const editableRows = [...document.querySelectorAll('[data-edit-row]')]
         .map((button) => button.closest('tr'))
         .filter(Boolean);
     let savedRowEdits = {};
+    let savedCancellationEdits = {};
     try { savedRowEdits = JSON.parse(localStorage.getItem(rowEditStorageKey) || '{}') || {}; }
     catch { savedRowEdits = {}; }
+    try { savedCancellationEdits = JSON.parse(localStorage.getItem(cancellationStorageKey) || '{}') || {}; }
+    catch { savedCancellationEdits = {}; }
 
     editableRows.forEach((row, index) => {
         row.dataset.editStorageIndex = String(index);
         const values = savedRowEdits[index];
-        if (!Array.isArray(values)) return;
-        row.querySelectorAll('td[data-editable]').forEach((cell, cellIndex) => {
-            if (values[cellIndex] !== undefined) cell.textContent = values[cellIndex];
-        });
+        if (Array.isArray(values)) {
+            row.querySelectorAll('td[data-editable]').forEach((cell, cellIndex) => {
+                if (values[cellIndex] !== undefined) cell.textContent = values[cellIndex];
+            });
+        }
+        const cancelCell = row.querySelector("[data-cancel-cell]");
+        if (cancelCell) renderCancellationTag(cancelCell, savedCancellationEdits[index] || cancelCell.dataset.cancelValue || "なし");
     });
 
     const persistEditedRow = (row) => {
@@ -1667,6 +1693,11 @@ if (
         savedRowEdits[index] = [...row.querySelectorAll('td[data-editable]')]
             .map((cell) => cell.textContent.trim());
         localStorage.setItem(rowEditStorageKey, JSON.stringify(savedRowEdits));
+        const cancelCell = row.querySelector("[data-cancel-cell]");
+        if (cancelCell) {
+            savedCancellationEdits[index] = cancelCell.dataset.cancelValue || "なし";
+            localStorage.setItem(cancellationStorageKey, JSON.stringify(savedCancellationEdits));
+        }
     };
 
     // 行ごとの修正・保存
@@ -1679,6 +1710,7 @@ if (
             const editableCells = [...row.querySelectorAll("td[data-editable]")];
             const isCustomerDetail = row.matches("[data-customer-detail-row]");
             const isReservationDetail = row.matches("[data-detail-search-row]");
+            const cancelCell = isReservationDetail ? row.querySelector("[data-cancel-cell]") : null;
 
             if (!isEditing) {
                 editableCells.forEach((cell, index) => {
@@ -1771,6 +1803,21 @@ if (
                     cell.replaceChildren(input);
                 });
 
+                if (cancelCell) {
+                    const currentCancellation = cancelCell.dataset.cancelValue || "なし";
+                    const select = document.createElement("select");
+                    select.className = "table-edit-input cancellation-edit-select";
+                    select.setAttribute("aria-label", "キャンセル区分");
+                    cancellationLabels.forEach((label) => {
+                        const option = document.createElement("option");
+                        option.value = label;
+                        option.textContent = label;
+                        option.selected = label === currentCancellation;
+                        select.appendChild(option);
+                    });
+                    cancelCell.replaceChildren(select);
+                }
+
                 row.classList.add("is-editing");
                 button.dataset.editing = "true";
                 button.textContent = "保存";
@@ -1801,6 +1848,17 @@ if (
                     else if (index === 5) cell.textContent = rodCount > 0 ? `${rodCount}本` : "なし";
                     else cell.textContent = input.value.trim();
                 });
+                if (cancelCell) {
+                    const selectedCancellation = cancelCell.querySelector("select")?.value || "なし";
+                    renderCancellationTag(cancelCell, selectedCancellation);
+                    const card = document.querySelectorAll("[data-detail-mobile-card]")[Number(row.dataset.editStorageIndex)];
+                    if (card) {
+                        const labels = [...card.querySelectorAll(".data-label")];
+                        const cancelLabel = labels.find((label) => label.textContent.trim() === "キャンセル");
+                        const cancelValue = cancelLabel?.parentElement?.querySelector(".data-value");
+                        if (cancelValue) cancelValue.textContent = selectedCancellation;
+                    }
+                }
             } else if (isCustomerDetail) {
                 const inputs = editableCells.map((cell) => cell.querySelector(".table-edit-input"));
                 const phoneInput = inputs[2];

@@ -21,6 +21,12 @@
         .replace(/'/g, '&#039;');
 
     const formatRod = (count) => Number(count) > 0 ? `${Number(count)}本` : 'なし';
+    const cancellationLabel = (status) => {
+        if (['無断キャンセル', 'no-show', 'no_show'].includes(status)) return '無断キャンセル';
+        if (['キャンセル', '通常キャンセル', 'cancelled', 'canceled'].includes(status)) return '通常キャンセル';
+        return 'なし';
+    };
+    const cancellationClass = (label) => label === '無断キャンセル' ? 'no-show' : (label === '通常キャンセル' ? 'normal' : 'none');
     const digits = (value) => String(value || '').replace(/\D/g, '');
     const formatPhone = (value) => {
         const d = digits(value).slice(0, 15);
@@ -76,6 +82,7 @@
     const reservationBody = document.querySelector('#reservation-table tbody');
     if (reservationBody) {
         reservations.forEach((item) => {
+            const cancelLabel = cancellationLabel(item.status);
             const row = document.createElement('tr');
             row.dataset.searchRow = '';
             row.innerHTML = `
@@ -107,6 +114,7 @@
                 <td data-editable>${escapeHtml(formatRod(item.rentalRod))}</td>
                 <td data-editable>${escapeHtml(formatPhone(item.phone))}</td>
                 <td data-editable>${escapeHtml(item.email)}</td>
+                <td data-cancel-cell data-cancel-value="${cancelLabel}"><span class="reservation-cancel-tag ${cancellationClass(cancelLabel)}">${cancelLabel}</span></td>
                 <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
             `;
             detailBody.appendChild(row);
@@ -127,7 +135,8 @@
                     ['人数', `${Number(item.participants || 0)}名`],
                     ['貸し竿', formatRod(item.rentalRod)],
                     ['電話番号', formatPhone(item.phone)],
-                    ['メール', item.email]
+                    ['メール', item.email],
+                    ['キャンセル', cancelLabel]
                 ];
                 card.innerHTML = `<div class="card-body">${values.map(([label, value]) => `
                     <div>
