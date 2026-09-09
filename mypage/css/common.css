@@ -299,3 +299,31 @@ footer {
 }
 
 .heading-with-note { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
+
+.mypage-header-nav { display:flex; align-items:center; gap:8px; }
+.mypage-header-nav a {
+  padding:9px 13px; border-radius:9px; color:#eaf7ff; text-decoration:none;
+  font-size:14px; font-weight:700;
+}
+.mypage-header-nav a:hover, .mypage-header-nav a:focus-visible { background:rgba(255,255,255,.14); }
+.readonly-value {
+  min-height: 44px; display:flex; align-items:center; padding:10px 12px;
+  border:1px solid #d8e6f0; border-radius:9px; background:#f5f8fa; font-weight:700;
+}
+.change-limit-notice {
+  margin-bottom:16px; padding:14px 16px; border-radius:11px;
+  background:#fff7e8; border:1px solid #ecd49e; color:#765114; line-height:1.65;
+}
+.change-limit-notice.is-locked { background:#fff0f0; border-color:#e8b8b8; color:#922f2f; }
+.price-summary { margin-top:16px; padding:16px; border-radius:12px; background:#f2f9fd; border:1px solid #cfe6f2; }
+.price-summary .price-row { display:flex; justify-content:space-between; gap:12px; margin:6px 0; }
+.price-summary .price-total { margin-top:10px; padding-top:10px; border-top:1px solid #cfe0ea; font-size:18px; font-weight:800; }
+@media (max-width:640px) {
+  .header-inner { width:min(100% - 24px, 1100px); gap:10px; }
+  .logo { width:180px; }
+  .mypage-header-nav { gap:4px; }
+  .mypage-header-nav a { padding:8px 9px; font-size:12px; }
+}
+
+.btn.is-disabled, .btn[aria-disabled="true"] { opacity:.55; cursor:not-allowed; pointer-events:none; }

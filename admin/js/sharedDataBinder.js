@@ -150,7 +150,7 @@
       return `
       <tr data-search-row="" data-trip-id="${esc(trip.id)}">
         <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td>${esc(trip.captain)}</td>
-        <td>${esc(trip.target)}</td><td>${trip.reserved} / ${trip.capacity}名</td>
+        <td>${esc(trip.target)}</td><td><span class="trip-seat-summary"><span>定員 ${trip.capacity}名</span><span>予約 ${trip.reserved}名</span><span>残り ${Math.max(0, trip.capacity - trip.reserved)}名</span></span></td>
         <td><span class="special-seat-count">${specialReserved} / ${specialCapacity}名</span></td>
         <td><span class="trip-status ${status.key}" data-status="${status.label}">${status.text}</span></td>
       </tr>`;

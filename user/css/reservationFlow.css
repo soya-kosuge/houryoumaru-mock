@@ -322,6 +322,7 @@ textarea {
 .completion-button {
     width: 320px;
     margin: 0;
+    font-size: 16px;
 }
 
 /* タブレット・スマートフォン表示 */
@@ -628,3 +629,16 @@ textarea {
     padding: 12px 20px;
     font-weight: 700;
 }
+
+
+.reservation-error-box {
+    margin: 18px 20px 0;
+    padding: 13px 15px;
+    border: 1px solid #e6b3b3;
+    border-radius: 10px;
+    color: #9b2525;
+    background: #fff3f3;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.reservation-error-box[hidden] { display: none; }

@@ -1,4 +1,16 @@
 
+function ensureMypageHeaderNavigation() {
+  const header = document.querySelector('.site-header .header-inner');
+  if (!header || header.querySelector('.mypage-header-nav')) return;
+  const nav = document.createElement('nav');
+  nav.className = 'mypage-header-nav';
+  nav.setAttribute('aria-label', 'ユーザーメニュー');
+  nav.innerHTML = '<a href="../user/shipScheduleList.html">出船情報</a><a href="./index.html">マイページ</a>';
+  header.appendChild(nav);
+}
+ensureMypageHeaderNavigation();
+
+
 const HOURYOUMARU_STORAGE_KEY = "houryoumaruStandaloneReservationData";
 
 const DEFAULT_DATA = {
@@ -21,9 +33,11 @@ const DEFAULT_DATA = {
   reservations: [
     {
       id: "R20260815001",
-      date: "2026-08-15",
+      date: "2026-09-15",
       tripType: "半夜便",
       departureTime: "18:00",
+      unitPrice: 13000,
+      rentalRodUnitPrice: 0,
       target: "マイカ・ムギイカ",
       partySize: 3,
       rentalRods: 2,
@@ -57,6 +71,8 @@ function normalizeSharedReservation(item, baseData) {
     target: item.target || "---",
     partySize,
     rentalRods: Number(item.rentalRod ?? item.rentalRods ?? 0),
+    unitPrice: Number(item.unitPrice || item.pricePerPerson || 13000),
+    rentalRodUnitPrice: Number(item.rentalRodUnitPrice || 0),
     notes: item.remarks || item.notes || "",
     representative: item.representative || {
       name: baseData?.roster?.name || item.name || "---",

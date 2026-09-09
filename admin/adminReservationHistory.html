@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>過去予約履歴｜豊漁丸 管理画面</title>
+  <link href="css/admin.css" rel="stylesheet">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="adminDashboard.html"><img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png"></a>
+  <nav class="header-nav"><a href="adminDashboard.html">ダッシュボード</a><a class="is-active" href="adminReservation.html">予約管理</a><a href="adminTrip.html">出船管理</a><a href="adminCustomer.html">顧客管理</a><a href="adminLineDelivery.html">LINE配信</a></nav>
+  <button aria-label="メニューを開く" class="menu-toggle" type="button">メニュー</button>
+</div></header>
+<section class="hero"><div class="hero-inner"><p class="eyebrow">HORYOMARU ADMIN</p><h1>過去予約履歴</h1><p>出船日を過ぎた予約を検索・確認できます。</p></div></section>
+<main class="page">
+  <div class="page-actions"><h2 class="section-title">過去予約一覧</h2><div class="actions"><a class="btn btn-secondary" href="adminReservation.html">予約一覧へ戻る</a></div></div>
+  <div class="toolbar">
+    <div class="field"><label for="history-date">出船日</label><input class="input" id="history-date" type="date"></div>
+    <div class="field"><label for="history-course">便</label><select class="input" id="history-course"><option value="">すべて</option><option>早朝便</option><option>アオリ便</option><option>半夜便</option><option>深夜便</option></select></div>
+    <div class="field"><label for="history-name">氏名</label><input class="input" id="history-name" type="search" placeholder="氏名で検索"></div>
+    <div class="field"><label></label><button class="btn btn-secondary" id="history-clear" type="button">条件をクリア</button></div>
+  </div>
+  <p class="muted" id="history-count" aria-live="polite"></p>
+  <div class="table-wrap"><table id="reservation-history-table"><thead><tr><th>出船日</th><th>便</th><th>船名</th><th>氏名</th><th>人数</th><th>貸し竿</th><th>状態</th></tr></thead><tbody></tbody></table></div>
+</main>
+<footer class="footer">@ 豊漁丸 予約システム</footer>
+<script src="../shared/appData.js"></script>
+<script src="js/adminReservationHistory.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

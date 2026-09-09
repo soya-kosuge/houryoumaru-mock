@@ -1207,7 +1207,7 @@ if (
         const fishingHistoryStorageKey = "horyomaruAdminFishingHistory";
         const courseOptions = ["早朝便", "アオリ便", "半夜便", "深夜便"];
         const shipOptions = ["カムトゥドリーム", "ドリーム", "スーパードリーム"];
-        const tripStatusOptions = ["空きあり", "残りわずか", "満員", "中止"];
+        const tripStatusOptions = ["運航", "中止"];
         const canEditTripStatus = document.body.dataset.tripView === "upcoming";
         const shipSettings = {
             "カムトゥドリーム": { capacity: 12, specialCapacity: 0 },
@@ -1258,6 +1258,14 @@ if (
             renderTripStatus(row, remaining === 0 ? "満員" : (remaining <= 3 ? "残りわずか" : "空きあり"));
         };
 
+        const renderSeatSummary = (row, reserved, capacity) => {
+            const cell = row.cells[5];
+            if (!cell) return;
+            const safeReserved = Math.min(capacity, Math.max(0, reserved));
+            const remaining = Math.max(0, capacity - safeReserved);
+            cell.innerHTML = `<span class="trip-seat-summary"><span>定員 ${capacity}名</span><span>予約 ${safeReserved}名</span><span>残り ${remaining}名</span></span>`;
+        };
+
         const updateSpecialSeats = (row, specialReserved, specialCapacity) => {
             const specialCell = row.cells[6];
             if (!specialCell) return;
@@ -1265,7 +1273,10 @@ if (
         };
 
         const readTripRow = (row) => {
-            const reservationMatch = row.cells[5]?.textContent.match(/(\d+)\s*\/\s*(\d+)/);
+            const reservationText = row.cells[5]?.textContent || "";
+            const labelledReserved = reservationText.match(/予約\s*(\d+)/);
+            const labelledCapacity = reservationText.match(/定員\s*(\d+)/);
+            const reservationMatch = reservationText.match(/(\d+)\s*\/\s*(\d+)/);
             const specialMatch = row.cells[6]?.textContent.match(/(\d+)\s*\/\s*(\d+)/);
             return {
                 date: row.cells[0]?.textContent.trim() || "",
@@ -1273,8 +1284,8 @@ if (
                 ship: row.cells[2]?.textContent.trim() || "",
                 captain: row.cells[3]?.textContent.trim() || "",
                 fishing: row.cells[4]?.textContent.trim() || "",
-                reserved: Number.parseInt(reservationMatch?.[1] || "0", 10),
-                capacity: Number.parseInt(reservationMatch?.[2] || "1", 10),
+                reserved: Number.parseInt(labelledReserved?.[1] || reservationMatch?.[1] || "0", 10),
+                capacity: Number.parseInt(labelledCapacity?.[1] || reservationMatch?.[2] || "1", 10),
                 specialReserved: Number.parseInt(specialMatch?.[1] || "0", 10),
                 specialCapacity: Number.parseInt(specialMatch?.[2] || "0", 10)
             };
@@ -1296,9 +1307,9 @@ if (
                 const parsedSpecialCapacity = Number.parseInt(saved.specialCapacity, 10);
                 const specialCapacity = Math.max(0, Number.isFinite(parsedSpecialCapacity) ? parsedSpecialCapacity : defaultSpecialCapacity);
                 const specialReserved = Math.min(specialCapacity, Math.max(0, Number.parseInt(saved.specialReserved, 10) || 0));
-                row.cells[5].textContent = `${Math.min(reserved, capacity)} / ${capacity}名`;
+                renderSeatSummary(row, reserved, capacity);
                 updateSpecialSeats(row, specialReserved, specialCapacity);
-                if (saved.status) renderTripStatus(row, saved.status);
+                if (saved.status === "中止") renderTripStatus(row, "中止");
                 else updateTripStatus(row, reserved, capacity);
             }
 
@@ -1346,7 +1357,7 @@ if (
                 const currentStatus = row.cells[7].querySelector("[data-status]")?.dataset.status || "空きあり";
                 row.dataset.originalStatus = currentStatus;
                 if (canEditTripStatus) {
-                    row.cells[7].innerHTML = selectMarkup(tripStatusOptions, currentStatus, "状態");
+                    row.cells[7].innerHTML = selectMarkup(tripStatusOptions, currentStatus === "中止" ? "中止" : "運航", "出船中止設定");
                 }
                 row.cells[2].querySelector("select")?.addEventListener("change", (changeEvent) => {
                     const setting = shipSettings[changeEvent.target.value];
@@ -1371,8 +1382,9 @@ if (
             const specialInputs = row.cells[6].querySelectorAll("input");
             const statusInput = canEditTripStatus ? row.cells[7].querySelector("select") : null;
             const originalStatus = row.dataset.originalStatus || row.cells[7].querySelector("[data-status]")?.dataset.status || "空きあり";
-            const selectedStatus = statusInput?.value || originalStatus;
-            if (statusInput && selectedStatus !== originalStatus && !window.confirm("状態の変更を保存しますか？")) {
+            const originalOperation = originalStatus === "中止" ? "中止" : "運航";
+            const selectedStatus = statusInput?.value || originalOperation;
+            if (statusInput && selectedStatus !== originalOperation && !window.confirm("出船中止設定の変更を保存しますか？")) {
                 statusInput.focus();
                 return;
             }
@@ -1391,7 +1403,7 @@ if (
                 capacity,
                 specialReserved,
                 specialCapacity,
-                status: selectedStatus
+                status: selectedStatus === "中止" ? "中止" : ""
             };
 
             row.cells[0].textContent = values.date;
@@ -1399,10 +1411,9 @@ if (
             row.cells[2].textContent = values.ship;
             row.cells[3].textContent = values.captain;
             row.cells[4].textContent = values.fishing;
-            row.cells[5].textContent = `${values.reserved} / ${values.capacity}名`;
+            renderSeatSummary(row, values.reserved, values.capacity);
             updateSpecialSeats(row, values.specialReserved, values.specialCapacity);
-            if (statusInput) renderTripStatus(row, values.status);
-            else if (values.status) renderTripStatus(row, values.status);
+            if (values.status === "中止") renderTripStatus(row, "中止");
             else updateTripStatus(row, values.reserved, values.capacity);
 
             if (fishing && !fishingHistory.includes(fishing)) {

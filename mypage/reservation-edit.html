@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>予約内容変更・修正 | 豊漁丸</title>
+  <title>予約内容変更 | 豊漁丸</title>
   <link rel="stylesheet" href="./css/common.css">
 </head>
 <body>
@@ -16,97 +16,31 @@
 </header>
 <main>
   <div id="saveNotice"></div>
+  <div class="change-limit-notice" id="changeLimitNotice">出船48時間前まではWeb上から人数・レンタル品を変更できます。出船日・便を変更する場合は、予約をキャンセルして再予約してください。</div>
 
   <form id="reservationEditForm">
     <section class="section">
       <div class="section-head"><div><p class="eyebrow">RESERVATION</p><h2>予約内容</h2></div></div>
       <div class="card">
         <div class="form-grid">
-          <div class="field">
-            <label for="reservationDate">予約日</label>
-            <input id="reservationDate" type="date" required>
-          </div>
-          <div class="field">
-            <label for="tripType">便</label>
-            <select id="tripType" required>
-              <option value="半夜便">半夜便</option>
-              <option value="深夜便">深夜便</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="partySize">人数</label>
-            <input id="partySize" type="number" min="1" max="10" required>
-          </div>
-          <div class="field">
-            <label for="rentalRods">貸し竿</label>
-            <input id="rentalRods" type="number" min="0" max="10" required>
-          </div>
-          <div class="field full">
-            <label for="notes">備考</label>
-            <textarea id="notes"></textarea>
-          </div>
+          <div class="field"><label>出船日</label><div class="readonly-value" id="reservationDateText"></div></div>
+          <div class="field"><label>便</label><div class="readonly-value" id="tripTypeText"></div></div>
+          <div class="field"><label>出船時刻</label><div class="readonly-value" id="departureTimeText"></div></div>
+          <div class="field"><label for="partySize">人数</label><input id="partySize" type="number" min="1" max="25" required></div>
+          <div class="field"><label for="rentalRods">貸し竿</label><input id="rentalRods" type="number" min="0" max="25" required></div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head"><div><p class="eyebrow">REPRESENTATIVE</p><h2>代表者 乗船名簿情報</h2></div></div>
-      <div class="card">
-        <div class="form-grid">
-          <div class="field"><label for="repName">氏名</label><input id="repName" type="text" placeholder="例：山田 太郎" required></div>
-          <div class="field"><label for="repPostalCode">郵便番号</label><input id="repPostalCode" type="text" inputmode="numeric" maxlength="8" placeholder="例：460-0000" required><div class="helper" id="repPostalHelper">郵便番号から住所を自動入力できます。</div></div>
-          <div class="field full"><label for="repAddress">住所</label><input id="repAddress" type="text" placeholder="例：愛知県名古屋市中区" required></div>
-          <div class="field full"><label for="repAddressDetail">番地・建物名</label><input id="repAddressDetail" type="text" placeholder="例：○○町1-2-3 ○○マンション101号室" required></div>
-          <div class="field"><label for="repAge">年齢</label><input id="repAge" type="number" min="0" max="120" placeholder="例：32" required></div>
-          <div class="field"><label for="repGender">性別</label>
-            <select id="repGender" required>
-              <option value="男性">男性</option><option value="女性">女性</option><option value="回答しない">回答しない</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="repEmergency">緊急連絡先（電話番号）</label>
-            <input id="repEmergency" class="phone-input" type="tel" inputmode="numeric" placeholder="例：090-1234-5678" required>
-            <div class="helper">数字を入力するとハイフンを自動で付けます。</div>
-          </div>
-          <div class="field">
-            <label for="repEmergencyRelation">続柄</label>
-            <select id="repEmergencyRelation" required>
-              <option value="">選択してください</option>
-              <option value="妻">妻</option><option value="夫">夫</option>
-              <option value="父">父</option><option value="母">母</option>
-              <option value="息子">息子</option><option value="娘">娘</option>
-              <option value="兄">兄</option><option value="姉">姉</option>
-              <option value="弟">弟</option><option value="妹">妹</option>
-              <option value="叔父">叔父</option><option value="叔母">叔母</option>
-              <option value="祖父">祖父</option><option value="祖母">祖母</option>
-              <option value="その他">その他</option>
-            </select>
-          </div>
+        <div class="price-summary" aria-live="polite">
+          <div class="price-row"><span>乗船料金</span><strong id="farePrice"></strong></div>
+          <div class="price-row"><span>貸し竿料金</span><strong id="rentalPrice"></strong></div>
+          <div class="price-row price-total"><span>合計</span><strong id="totalPrice"></strong></div>
+          <div class="helper" id="rentalPriceNote"></div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <div class="companion-title-wrap">
-          <p class="eyebrow">COMPANIONS</p>
-          <div class="companion-title-line">
-            <h2>同行者 乗船名簿情報</h2>
-            <span class="companion-reminder" id="companionReminder">※同行者の情報も忘れずに記入してください</span>
-          </div>
-        </div>
-        <button class="link-btn" id="addCompanionBtn" type="button">＋ 同行者を追加</button>
-      </div>
-      <div class="card" id="companionsCard">
-        <p class="helper" id="companionHelper">同行者情報は任意です。登録する場合は、代表者と同じ「氏名・郵便番号・住所・番地・建物名・年齢・性別・緊急連絡先・続柄」を入力してください。</p>
-        <div id="companionsContainer"></div>
-        <div class="empty companion-disabled-message" id="companionDisabledMessage" hidden>同行者がいないため入力できません。</div>
       </div>
     </section>
 
     <div class="form-actions">
       <a class="btn" id="backDetailLink" href="./reservation-detail.html">変更せず戻る</a>
-      <button class="btn primary" type="submit">変更内容を保存</button>
+      <button class="btn primary" id="saveReservationButton" type="submit">変更内容を保存</button>
     </div>
   </form>
 </main>

@@ -862,3 +862,29 @@ footer {
     .date-card.is-past-card .trip-row {
         background: #f3f4f6;
     }
+
+
+/* ユーザー共通ナビゲーション */
+.user-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.user-header-nav a {
+    padding: 9px 13px;
+    border-radius: 9px;
+    color: #eaf7ff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+.user-header-nav a:hover,
+.user-header-nav a:focus-visible {
+    background: rgba(255,255,255,.14);
+}
+@media (max-width: 640px) {
+    .header-inner { width: min(100% - 24px, 1100px); gap: 10px; }
+    .logo { width: 180px; }
+    .user-header-nav { gap: 4px; }
+    .user-header-nav a { padding: 8px 9px; font-size: 12px; }
+}

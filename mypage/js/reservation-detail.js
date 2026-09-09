@@ -6,8 +6,17 @@ const reservation = data.reservations.find((item) => item.id === reservationId);
 if (!reservation) {
   document.querySelector("main").innerHTML = '<div class="card empty">予約情報が見つかりません。</div>';
 } else {
-  document.getElementById("editReservationLink").href =
-    `./reservation-edit.html?id=${encodeURIComponent(reservation.id)}`;
+  const editLink = document.getElementById("editReservationLink");
+  editLink.href = `./reservation-edit.html?id=${encodeURIComponent(reservation.id)}`;
+  const departure = new Date(`${reservation.date}T${reservation.departureTime || "00:00"}:00`);
+  const hoursUntilDeparture = (departure.getTime() - Date.now()) / 3600000;
+  if (Number.isFinite(hoursUntilDeparture) && hoursUntilDeparture < 48) {
+    editLink.removeAttribute("href");
+    editLink.setAttribute("aria-disabled", "true");
+    editLink.classList.add("is-disabled");
+    editLink.textContent = "48時間以内のためWeb変更不可";
+    editLink.title = "変更が必要な場合は豊漁丸へ電話でお問い合わせください。";
+  }
 
   document.getElementById("reservationSummary").innerHTML = `
     <div class="row"><div class="label">予約番号</div><div class="value">${escapeHtml(reservation.id)}</div></div>
@@ -17,11 +26,12 @@ if (!reservation) {
     <div class="row"><div class="label">釣り物</div><div class="value">${escapeHtml(reservation.target)}</div></div>
     <div class="row"><div class="label">人数</div><div class="value">${escapeHtml(reservation.partySize)}名</div></div>
     <div class="row"><div class="label">貸し竿</div><div class="value">${escapeHtml(reservation.rentalRods)}本</div></div>
+    <div class="row"><div class="label">合計料金</div><div class="value">${Number(reservation.totalPrice || (Number(reservation.unitPrice || 13000) * Number(reservation.partySize || 0)) + (Number(reservation.rentalRodUnitPrice || 0) * Number(reservation.rentalRods || 0))).toLocaleString('ja-JP')}円</div></div>
     <div class="row"><div class="label">備考</div><div class="value">${escapeHtml(reservation.notes || "なし")}</div></div>
   `;
 
   document.getElementById("representativeRoster").innerHTML =
-    rosterRows(reservation.representative);
+    rosterRows(data.roster || reservation.representative);
 
   const companionArea = document.getElementById("companionRoster");
   const companionCount = Math.max(0, Number(reservation.partySize || 1) - 1);

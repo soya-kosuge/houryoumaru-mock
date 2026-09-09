@@ -8,6 +8,27 @@
     const EMPTY_PROFILE = Object.freeze({ name: '', nameKana: '', email: '', phone: '' });
     const $ = (selector) => document.querySelector(selector);
     const params = new URLSearchParams(location.search);
+    const attachUnsavedChangesGuard = (form) => {
+        if (!form) return { allowLeave: () => {} };
+        let dirty = false;
+        let safeLeave = false;
+        form.addEventListener('input', () => { dirty = true; });
+        form.addEventListener('change', () => { dirty = true; });
+        const message = '入力内容が破棄されますが、よろしいですか？';
+        document.addEventListener('click', (event) => {
+            const link = event.target.closest('a[href]');
+            if (!link || safeLeave || !dirty) return;
+            const href = link.getAttribute('href') || '';
+            if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+            if (!window.confirm(message)) event.preventDefault();
+        }, true);
+        window.addEventListener('beforeunload', (event) => {
+            if (!dirty || safeLeave) return;
+            event.preventDefault();
+            event.returnValue = '';
+        });
+        return { allowLeave: () => { safeLeave = true; dirty = false; } };
+    };
 
     const getProfile = () => {
         try { return JSON.parse(localStorage.getItem(PROFILE_KEY) || 'null'); }
@@ -45,6 +66,7 @@
     if ($('#first-registration-form')) {
         if (isRegistered()) { redirectSchedule(); return; }
         const registrationForm = $('#first-registration-form');
+        const registrationLeaveGuard = attachUnsavedChangesGuard(registrationForm);
         const nameInput = $('#name');
         const nameKanaInput = $('#name-kana');
         const telInput = $('#tel');
@@ -62,6 +84,7 @@
                 email: form.get('email') || '', phone: form.get('tel') || ''
             }));
             localStorage.setItem(REGISTERED_KEY, 'true');
+            registrationLeaveGuard.allowLeave();
             redirectSchedule();
         });
     }
@@ -69,6 +92,7 @@
     if ($('#reservation-form')) {
         if (!isRegistered()) { location.replace('signin.html'); return; }
         const profile = getProfile() || EMPTY_PROFILE;
+        const reservationLeaveGuard = attachUnsavedChangesGuard($('#reservation-form'));
         $('#profile-name').textContent = profile.name || '－';
         $('#profile-name-kana').textContent = profile.nameKana || '－';
         $('#profile-email').textContent = profile.email || '－';
@@ -130,6 +154,7 @@
                 rentalRod: form.get('rentalRod'),
                 remarks: form.get('remarks') || 'なし'
             }));
+            reservationLeaveGuard.allowLeave();
             location.href = 'reservationConfirm.html';
         });
     }
@@ -164,16 +189,28 @@
         // 予約確定直前にも再確認。本番ではこの後の「確保API」内でDB排他制御して確定する。
         $('#complete-link')?.addEventListener('click', async (event) => {
             event.preventDefault();
-            const requestedGuests = Number(reservation.participants || 0);
-            const availability = await window.HoryomaruScheduleApi?.checkAvailability(trip, requestedGuests);
-            const latestRemaining = Number(availability?.remainingSeats ?? trip.remainingSeats ?? 0);
-            if (availability && (!availability.available || requestedGuests > latestRemaining)) {
-                alert(`申し訳ありません。残り定員が${latestRemaining}名に変わりました。予約人数を変更してください。`);
-                location.href = 'reservation.html';
-                return;
-            }
+            const errorBox = $('#reservation-error');
+            const showError = (message) => {
+                if (errorBox) {
+                    errorBox.textContent = message;
+                    errorBox.hidden = false;
+                    errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    alert(message);
+                }
+            };
+            if (errorBox) errorBox.hidden = true;
 
-            // MOCKでもユーザー予約を管理画面へ反映する。
+            try {
+                const requestedGuests = Number(reservation.participants || 0);
+                const availability = await window.HoryomaruScheduleApi?.checkAvailability(trip, requestedGuests);
+                const latestRemaining = Number(availability?.remainingSeats ?? trip.remainingSeats ?? 0);
+                if (availability && (!availability.available || requestedGuests > latestRemaining)) {
+                    showError(`申し訳ありません。残り定員が${latestRemaining}名に変わりました。入力内容は保持されています。「入力内容を修正する」から人数を変更してください。`);
+                    return;
+                }
+
+                // MOCKでもユーザー予約を管理画面へ反映する。
             const adminKey = 'horyomaruAdminReservations';
             let adminReservations = [];
             try { adminReservations = JSON.parse(localStorage.getItem(adminKey) || '[]'); } catch { adminReservations = []; }
@@ -217,7 +254,11 @@
                     'full'
                 );
             }
-            location.href = 'reservationComplete.html';
+                location.href = 'reservationComplete.html';
+            } catch (error) {
+                console.error(error);
+                showError('予約登録中にエラーが発生しました。入力内容は保持されています。時間をおいて、もう一度「この内容で予約する」を押してください。');
+            }
         });
     }
 

@@ -17,8 +17,15 @@
 <main>
   <section class="section">
     <div class="section-head">
+      <div><p class="eyebrow">RESERVATIONS</p><h2>予約一覧</h2></div>
+    </div>
+    <div class="card" id="reservationList"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
       <div><p class="eyebrow">ACCOUNT</p><h2>予約システム ログイン情報</h2></div>
-      <a class="btn section-edit-btn" href="./account-edit.html">登録情報の変更</a>
+      <a class="btn section-edit-btn" href="./profile-edit.html">登録情報を編集</a>
     </div>
     <div class="card">
       <div class="row"><div class="label">氏名（漢字）</div><div class="value" id="accountNameKanji"></div></div>
@@ -31,7 +38,7 @@
   <section class="section">
     <div class="section-head">
       <div><p class="eyebrow">PASSENGER INFORMATION</p><h2>乗船名簿情報</h2></div>
-      <a class="btn section-edit-btn" href="./roster-edit.html">登録情報の変更</a>
+      <a class="btn section-edit-btn" href="./profile-edit.html#roster-fields">登録情報を編集</a>
     </div>
     <div class="card">
       <div class="row"><div class="label">氏名</div><div class="value" id="rosterName"></div></div>
@@ -43,13 +50,6 @@
       <div class="row"><div class="label">緊急連絡先</div><div class="value" id="rosterEmergency"></div></div>
       <div class="row"><div class="label">続柄</div><div class="value" id="rosterEmergencyRelation"></div></div>
     </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <div><p class="eyebrow">RESERVATIONS</p><h2>予約一覧</h2></div>
-    </div>
-    <div class="card" id="reservationList"></div>
   </section>
 </main>
 <footer>© 2026 豊漁丸 予約システム</footer>

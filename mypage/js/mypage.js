@@ -20,10 +20,10 @@ const list = document.getElementById("reservationList");
 if (!data.reservations.length) {
   list.innerHTML = '<div class="empty">現在の予約はありません。</div>';
 } else {
-  // マイページのMOCKでは予約一覧は1件のみ表示する。
-  // 以前のテストデータがlocalStorageに複数残っていても画面には増やさない。
-  const reservation = data.reservations[0];
-  list.innerHTML = `
+  const reservations = [...data.reservations].sort((a, b) =>
+    `${a.date || ""} ${a.departureTime || ""}`.localeCompare(`${b.date || ""} ${b.departureTime || ""}`)
+  );
+  list.innerHTML = reservations.map((reservation) => `
     <div class="reservation-item">
       <div class="reservation-top">
         <div>
@@ -38,5 +38,5 @@ if (!data.reservations.length) {
         <a class="btn primary" href="./reservation-detail.html?id=${encodeURIComponent(reservation.id)}">予約内容を確認</a>
       </div>
     </div>
-  `;
+  `).join("");
 }
