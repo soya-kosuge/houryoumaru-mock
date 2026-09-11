@@ -38,7 +38,7 @@
             <div class="field"><label for="customer-search">顧客検索</label><input class="input" id="customer-search" placeholder="顧客名・電話番号" type="text"></div>
             <div class="field">
                 <label for="customer-rank">顧客区分</label>
-                <select class="select" id="customer-rank"><option value="">すべて</option><option value="新規">新規</option><option value="常連">常連</option><option value="VIP">VIP</option></select>
+                <select class="select" id="customer-rank"><option value="">すべて</option><option value="新規">新規</option><option value="一般">一般</option><option value="常連">常連</option></select>
             </div>
             <div class="field">
                 <label for="customer-sort-direction">順序</label>
@@ -51,12 +51,12 @@
             <table id="customer-table">
                 <thead><tr><th>ID</th><th>顧客名</th><th>電話番号</th><th>利用回数</th><th>区分</th><th>最終利用日</th></tr></thead>
                 <tbody>
-                    <tr data-search-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
+                    <tr data-search-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
                         <td>1001</td>
                         <td>田中 太郎</td>
                         <td>090-1234-5678</td>
                         <td>8回</td>
-                        <td><span class="badge badge-orange">VIP</span></td>
+                        <td><span class="badge badge-orange">常連</span></td>
                         <td>2026/07/30</td>
                     </tr>
                     <tr data-search-row data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
@@ -67,25 +67,25 @@
                         <td><span class="badge badge-green">新規</span></td>
                         <td>2026/07/31</td>
                     </tr>
-                    <tr data-search-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
+                    <tr data-search-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
                         <td>1003</td>
                         <td>鈴木 一郎</td>
                         <td>090-3456-7890</td>
                         <td>19回</td>
-                        <td><span class="badge badge-orange">VIP</span></td>
+                        <td><span class="badge badge-orange">常連</span></td>
                         <td>2026/07/25</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="mobile-cards customer-mobile-cards">
-            <article class="card customer-card" data-customer-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
+            <article class="card customer-card" data-customer-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
                 <div class="card-body">
                     <div><div class="data-label">顧客ID</div><div class="data-value">1001</div></div>
                     <div><div class="data-label">顧客名</div><div class="data-value">田中 太郎</div></div>
                     <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
                     <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
                 </div>
             </article>
@@ -99,13 +99,13 @@
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/31</div></div>
                 </div>
             </article>
-            <article class="card customer-card" data-customer-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
+            <article class="card customer-card" data-customer-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
                 <div class="card-body">
                     <div><div class="data-label">顧客ID</div><div class="data-value">1003</div></div>
                     <div><div class="data-label">顧客名</div><div class="data-value">鈴木 一郎</div></div>
                     <div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div>
                     <div><div class="data-label">利用回数</div><div class="data-value">19回</div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/25</div></div>
                 </div>
             </article>

@@ -37,13 +37,13 @@
             <div class="field"><label for="trip-course">便</label><select class="input" id="trip-course"><option value="">すべて</option><option value="早朝便">早朝便</option><option value="アオリ便">アオリ便</option><option value="半夜便">半夜便</option><option value="深夜便">深夜便</option></select></div>
             <div class="field"><label for="trip-ship">船名</label><select class="input" id="trip-ship"><option value="">すべて</option><option value="カムトゥドリーム">カムトゥドリーム</option><option value="ドリーム">ドリーム</option><option value="スーパードリーム">スーパードリーム</option></select></div>
             <div class="field"><label for="trip-captain">船長</label><select class="input" id="trip-captain"><option value="">すべて</option><option value="佐藤船長">佐藤船長</option><option value="山田船長">山田船長</option></select></div>
-            <div class="field"><label for="trip-status">状態</label><select class="input" id="trip-status"><option value="">すべて</option><option value="空きあり">空きあり</option><option value="残りわずか">残りわずか</option><option value="満員">満員</option></select></div>
+            <div class="field"><label for="trip-status">状態</label><select class="input" id="trip-status"><option value="">すべて</option><option value="運航可能">運航可能</option><option value="運航中止">運航中止</option></select></div>
             <div class="field"><label></label><button class="btn btn-secondary" id="trip-search-clear" type="button">条件をクリア</button></div>
         </div>
         <p aria-live="polite" class="muted" id="trip-result-count"></p>
         <div class="table-wrap trip-table-wrap">
             <table id="trip-table">
-                <thead><tr><th>出船日</th><th>便</th><th>船名</th><th>船長</th><th>釣り物</th><th>定員・予約人数・残り人数</th><th>特別枠</th><th>状態</th><th>操作</th></tr></thead>
+                <thead><tr><th>出船日</th><th>便</th><th>船名</th><th>船長</th><th>釣り物</th><th>通常枠</th><th>特別枠</th><th>状態</th><th>操作</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>

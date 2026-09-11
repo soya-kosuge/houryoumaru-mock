@@ -252,15 +252,15 @@
 
             const rank =
                 count >= 6
-                    ? "VIP"
+                    ? "常連"
                     : count >= 2
-                        ? "常連"
+                        ? "一般"
                         : "新規";
 
             const badge =
-                rank === "VIP"
+                rank === "常連"
                     ? "badge-orange"
-                    : rank === "常連"
+                    : rank === "一般"
                         ? "badge-blue"
                         : "badge-green";
 

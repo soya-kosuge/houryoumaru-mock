@@ -37,7 +37,7 @@
             <div class="field"><label for="customer-detail-search">顧客検索</label><input class="input" id="customer-detail-search" placeholder="氏名・電話番号・メール" type="text"></div>
             <div class="field">
                 <label for="customer-detail-rank">顧客区分</label>
-                <select class="select" id="customer-detail-rank"><option value="">すべて</option><option value="新規">新規</option><option value="常連">常連</option><option value="VIP">VIP</option></select>
+                <select class="select" id="customer-detail-rank"><option value="">すべて</option><option value="新規">新規</option><option value="一般">一般</option><option value="常連">常連</option></select>
             </div>
             <div class="field">
                 <label for="customer-detail-sort-direction">順序</label>
@@ -50,7 +50,7 @@
             <table id="customer-detail-table">
                 <thead><tr><th>ID</th><th>氏名</th><th>ふりがな</th><th>電話番号</th><th>メール</th><th>利用回数</th><th>キャンセル回数</th><th>無断キャンセル回数</th><th>区分</th><th>最終利用日</th><th>操作</th></tr></thead>
                 <tbody>
-                    <tr data-customer-detail-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
+                    <tr data-customer-detail-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
                         <td>1001</td>
                         <td data-editable>田中 太郎</td>
                         <td data-editable>たなか たろう</td>
@@ -59,7 +59,7 @@
                         <td data-editable>8回</td>
                         <td><span class="cancel-count">2回</span></td>
                         <td><span class="no-show-count">1回</span></td>
-                        <td>VIP</td>
+                        <td>常連</td>
                         <td>2026/07/30</td>
                         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
                     </tr>
@@ -76,7 +76,7 @@
                         <td>2026/07/31</td>
                         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
                     </tr>
-                    <tr data-customer-detail-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
+                    <tr data-customer-detail-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
                         <td>1003</td>
                         <td data-editable>鈴木 一郎</td>
                         <td data-editable>すずき いちろう</td>
@@ -85,7 +85,7 @@
                         <td data-editable>19回</td>
                         <td><span class="cancel-count">3回</span></td>
                         <td><span class="no-show-count is-zero">0回</span></td>
-                        <td>VIP</td>
+                        <td>常連</td>
                         <td>2026/07/25</td>
                         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
                     </tr>
@@ -93,7 +93,7 @@
             </table>
         </div>
         <div class="mobile-cards customer-detail-mobile-cards">
-            <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="VIP" data-customer-last-date="2026/07/30">
+            <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
                 <div class="card-body">
                     <div><div class="data-label">顧客ID</div><div class="data-value">1001</div></div>
                     <div><div class="data-label">氏名</div><div class="data-value">田中 太郎</div></div>
@@ -103,7 +103,7 @@
                     <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
                     <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">2回</span></div></div>
                     <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
                 </div>
             </article>
@@ -121,7 +121,7 @@
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/31</div></div>
                 </div>
             </article>
-            <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="VIP" data-customer-last-date="2026/07/25">
+            <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
                 <div class="card-body">
                     <div><div class="data-label">顧客ID</div><div class="data-value">1003</div></div>
                     <div><div class="data-label">氏名</div><div class="data-value">鈴木 一郎</div></div>
@@ -131,7 +131,7 @@
                     <div><div class="data-label">利用回数</div><div class="data-value">19回</div></div>
                     <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">3回</span></div></div>
                     <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">VIP</span></div></div>
+                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
                     <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/25</div></div>
                 </div>
             </article>

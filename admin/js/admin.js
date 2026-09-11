@@ -834,7 +834,9 @@ if (
             Number(row.dataset.guests || (cells.length >= 5 ? cells[3]?.textContent : cells[2]?.textContent)?.replace(/\D/g, "")) || 0;
 
         const tripId = row.dataset.tripId || "";
-        const remaining = Number(row.dataset.remaining || 0);
+        const capacity = Number(row.dataset.capacity || 0);
+        const specialReserved = Number(row.dataset.specialReserved || 0);
+        const specialCapacity = Number(row.dataset.specialCapacity || 0);
         const key = `${date}_${course}_${ship}`;
 
 
@@ -845,7 +847,9 @@ if (
                 course: course,
                 ship: ship,
                 tripId: tripId,
-                remaining: remaining,
+                capacity: capacity,
+                specialReserved: specialReserved,
+                specialCapacity: specialCapacity,
                 guests: 0
             });
 
@@ -873,26 +877,23 @@ if (
         row.dataset.course = reservation.course;
         row.dataset.ship = reservation.ship;
         row.dataset.tripId = reservation.tripId;
-        row.dataset.remaining = reservation.remaining;
         row.dataset.guests = reservation.guests;
+        row.dataset.capacity = reservation.capacity;
+        row.dataset.specialReserved = reservation.specialReserved;
+        row.dataset.specialCapacity = reservation.specialCapacity;
 
         const detailParams = new URLSearchParams({
             date: reservation.date.replaceAll("/", "-"),
             course: reservation.course,
             ship: reservation.ship
         });
-        const status = reservation.remaining === 0
-            ? { key: "full", label: "満員" }
-            : reservation.remaining <= 3
-                ? { key: "few", label: "残りわずか" }
-                : { key: "ok", label: "空きあり" };
 
         row.innerHTML = `
             <td>${reservation.date}</td>
             <td>${reservation.course}</td>
             <td>${reservation.ship}</td>
-            <td>${reservation.guests}名</td>
-            <td><span class="trip-status ${status.key}">${status.label}</span></td>
+            <td><span class="trip-seat-summary"><span class="seat-ratio">${reservation.guests} / ${reservation.capacity}名</span></span></td>
+            <td><span class="special-seat-count">${reservation.specialReserved} / ${reservation.specialCapacity}名</span></td>
             <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?${detailParams.toString()}">この船の詳細</a></td>
         `;
 
@@ -1207,7 +1208,7 @@ if (
         const fishingHistoryStorageKey = "horyomaruAdminFishingHistory";
         const courseOptions = ["早朝便", "アオリ便", "半夜便", "深夜便"];
         const shipOptions = ["カムトゥドリーム", "ドリーム", "スーパードリーム"];
-        const tripStatusOptions = ["運航", "中止"];
+        const tripStatusOptions = ["運航可能", "運航中止"];
         const canEditTripStatus = document.body.dataset.tripView === "upcoming";
         const shipSettings = {
             "カムトゥドリーム": { capacity: 12, specialCapacity: 0 },
@@ -1239,31 +1240,25 @@ if (
                 ).join("")}
             </select>`;
 
+        const normalizeTripOperationStatus = (status) =>
+            ["中止", "運航中止"].includes(String(status || "").trim()) ? "運航中止" : "運航可能";
+
         const renderTripStatus = (row, status) => {
             const statusCell = row.cells[7];
             if (!statusCell) return;
-            if (status === "中止") {
-                statusCell.innerHTML = '<span class="trip-status stop" data-status="中止"> × 中止 </span>';
-            } else if (status === "満員") {
-                statusCell.innerHTML = '<span class="trip-status full" data-status="満員"> × 満員 </span>';
-            } else if (status === "残りわずか") {
-                statusCell.innerHTML = '<span class="trip-status few" data-status="残りわずか"> △ 残りわずか </span>';
+            const normalizedStatus = normalizeTripOperationStatus(status);
+            if (normalizedStatus === "運航中止") {
+                statusCell.innerHTML = '<span class="trip-status stop" data-status="運航中止"> × 運航中止 </span>';
             } else {
-                statusCell.innerHTML = '<span class="trip-status ok" data-status="空きあり"> 〇 空きあり </span>';
+                statusCell.innerHTML = '<span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span>';
             }
-        };
-
-        const updateTripStatus = (row, reserved, capacity) => {
-            const remaining = Math.max(0, capacity - reserved);
-            renderTripStatus(row, remaining === 0 ? "満員" : (remaining <= 3 ? "残りわずか" : "空きあり"));
         };
 
         const renderSeatSummary = (row, reserved, capacity) => {
             const cell = row.cells[5];
             if (!cell) return;
             const safeReserved = Math.min(capacity, Math.max(0, reserved));
-            const remaining = Math.max(0, capacity - safeReserved);
-            cell.innerHTML = `<span class="trip-seat-summary"><span>定員 ${capacity}名</span><span>予約 ${safeReserved}名</span><span>残り ${remaining}名</span></span>`;
+            cell.innerHTML = `<span class="trip-seat-summary"><span class="seat-ratio">${safeReserved} / ${capacity}名</span></span>`;
         };
 
         const updateSpecialSeats = (row, specialReserved, specialCapacity) => {
@@ -1309,8 +1304,7 @@ if (
                 const specialReserved = Math.min(specialCapacity, Math.max(0, Number.parseInt(saved.specialReserved, 10) || 0));
                 renderSeatSummary(row, reserved, capacity);
                 updateSpecialSeats(row, specialReserved, specialCapacity);
-                if (saved.status === "中止") renderTripStatus(row, "中止");
-                else updateTripStatus(row, reserved, capacity);
+                renderTripStatus(row, saved.status);
             }
 
             const fishing = row.cells[4]?.textContent.trim();
@@ -1354,10 +1348,12 @@ if (
                         <input class="table-edit-input" type="number" min="0" step="1" aria-label="特別枠定員数" value="${values.specialCapacity}">
                         <span>名</span>
                     </span>`;
-                const currentStatus = row.cells[7].querySelector("[data-status]")?.dataset.status || "空きあり";
+                const currentStatus = normalizeTripOperationStatus(
+                    row.cells[7].querySelector("[data-status]")?.dataset.status || "運航可能"
+                );
                 row.dataset.originalStatus = currentStatus;
                 if (canEditTripStatus) {
-                    row.cells[7].innerHTML = selectMarkup(tripStatusOptions, currentStatus === "中止" ? "中止" : "運航", "出船中止設定");
+                    row.cells[7].innerHTML = selectMarkup(tripStatusOptions, currentStatus, "運航状態");
                 }
                 row.cells[2].querySelector("select")?.addEventListener("change", (changeEvent) => {
                     const setting = shipSettings[changeEvent.target.value];
@@ -1381,10 +1377,11 @@ if (
             const reservationInputs = row.cells[5].querySelectorAll("input");
             const specialInputs = row.cells[6].querySelectorAll("input");
             const statusInput = canEditTripStatus ? row.cells[7].querySelector("select") : null;
-            const originalStatus = row.dataset.originalStatus || row.cells[7].querySelector("[data-status]")?.dataset.status || "空きあり";
-            const originalOperation = originalStatus === "中止" ? "中止" : "運航";
-            const selectedStatus = statusInput?.value || originalOperation;
-            if (statusInput && selectedStatus !== originalOperation && !window.confirm("出船中止設定の変更を保存しますか？")) {
+            const originalOperation = normalizeTripOperationStatus(
+                row.dataset.originalStatus || row.cells[7].querySelector("[data-status]")?.dataset.status || "運航可能"
+            );
+            const selectedStatus = normalizeTripOperationStatus(statusInput?.value || originalOperation);
+            if (statusInput && selectedStatus !== originalOperation && !window.confirm("運航状態の変更を保存しますか？")) {
                 statusInput.focus();
                 return;
             }
@@ -1403,7 +1400,7 @@ if (
                 capacity,
                 specialReserved,
                 specialCapacity,
-                status: selectedStatus === "中止" ? "中止" : ""
+                status: selectedStatus
             };
 
             row.cells[0].textContent = values.date;
@@ -1413,8 +1410,7 @@ if (
             row.cells[4].textContent = values.fishing;
             renderSeatSummary(row, values.reserved, values.capacity);
             updateSpecialSeats(row, values.specialReserved, values.specialCapacity);
-            if (values.status === "中止") renderTripStatus(row, "中止");
-            else updateTripStatus(row, values.reserved, values.capacity);
+            renderTripStatus(row, values.status);
 
             if (fishing && !fishingHistory.includes(fishing)) {
                 fishingHistory.push(fishing);
@@ -1649,8 +1645,8 @@ if (
 
     const getCustomerRank = (count) => {
         const n = Number(count) || 0;
-        if (n >= 6) return "VIP";
-        if (n >= 2) return "常連";
+        if (n >= 6) return "常連";
+        if (n >= 2) return "一般";
         return "新規";
     };
 
@@ -1974,9 +1970,9 @@ if (
 
         // LINE配信で扱う顧客は「顧客管理」に表示している3人に統一する。
         const customerRecipients = [
-            { id: "1001", name: "田中 太郎", phone: "090-1234-5678", useCount: 8, rank: "VIP", lastDate: "2026/07/30" },
+            { id: "1001", name: "田中 太郎", phone: "090-1234-5678", useCount: 8, rank: "常連", lastDate: "2026/07/30" },
             { id: "1002", name: "佐藤 花子", phone: "090-2345-6789", useCount: 1, rank: "新規", lastDate: "2026/07/31" },
-            { id: "1003", name: "鈴木 一郎", phone: "090-3456-7890", useCount: 19, rank: "VIP", lastDate: "2026/07/25" }
+            { id: "1003", name: "鈴木 一郎", phone: "090-3456-7890", useCount: 19, rank: "常連", lastDate: "2026/07/25" }
         ].map((customer) => ({
             ...customer,
             key: customer.phone.replace(/\D/g, ""),
@@ -2069,7 +2065,7 @@ if (
             return "全員";
         };
 
-        const rankBadgeClass = (rank) => rank === "VIP" ? "badge-orange" : rank === "常連" ? "badge-blue" : "badge-green";
+        const rankBadgeClass = (rank) => rank === "常連" ? "badge-orange" : rank === "一般" ? "badge-blue" : "badge-green";
 
         const hideRecipientResults = () => {
             if (recipientResults) recipientResults.hidden = true;

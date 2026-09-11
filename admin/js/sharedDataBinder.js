@@ -131,10 +131,10 @@
   };
   const cancellationClass = (label) => label === '無断キャンセル' ? 'no-show' : (label === '通常キャンセル' ? 'normal' : 'none');
   const adminTripStatus = (trip) => {
-    const remaining = Math.max(0, Number(trip.capacity || 0) - Number(trip.reserved || 0));
-    if (remaining === 0) return { key: 'full', label: '満員', text: '× 満員' };
-    if (remaining <= 3) return { key: 'few', label: '残りわずか', text: '△ 残りわずか' };
-    return { key: 'ok', label: '空きあり', text: '〇 空きあり' };
+    const isCancelled = ['中止', '運航中止'].includes(String(trip.status || '').trim());
+    return isCancelled
+      ? { key: 'stop', label: '運航中止', text: '× 運航中止' }
+      : { key: 'ok', label: '運航可能', text: '〇 運航可能' };
   };
 
   const tripBody = document.querySelector('#trip-table tbody');
@@ -150,7 +150,7 @@
       return `
       <tr data-search-row="" data-trip-id="${esc(trip.id)}">
         <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td>${esc(trip.captain)}</td>
-        <td>${esc(trip.target)}</td><td><span class="trip-seat-summary"><span>定員 ${trip.capacity}名</span><span>予約 ${trip.reserved}名</span><span>残り ${Math.max(0, trip.capacity - trip.reserved)}名</span></span></td>
+        <td>${esc(trip.target)}</td><td><span class="trip-seat-summary"><span class="seat-ratio">${trip.reserved} / ${trip.capacity}名</span></span></td>
         <td><span class="special-seat-count">${specialReserved} / ${specialCapacity}名</span></td>
         <td><span class="trip-status ${status.key}" data-status="${status.label}">${status.text}</span></td>
       </tr>`;
@@ -160,11 +160,13 @@
   const summaryBody = document.querySelector('#reservation-table tbody');
   if (summaryBody) {
     summaryBody.innerHTML = trips.filter((trip) => trip.reserved > 0).map((trip) => {
-      const status = reservationStatus(trip);
+      const specialCapacity = Number(trip.specialCapacity || 0);
+      const specialReserved = Number(trip.specialReserved || 0);
       return `
-      <tr data-search-row data-date="${fmtDate(trip.date)}" data-course="${esc(trip.course)}" data-ship="${esc(trip.ship)}" data-guests="${trip.reserved}" data-remaining="${trip.remaining}" data-trip-id="${esc(trip.id)}">
-        <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td>${trip.reserved}名</td>
-        <td><span class="trip-status ${status.key}">${status.label}</span></td>
+      <tr data-search-row data-date="${fmtDate(trip.date)}" data-course="${esc(trip.course)}" data-ship="${esc(trip.ship)}" data-guests="${trip.reserved}" data-capacity="${trip.capacity}" data-special-reserved="${specialReserved}" data-special-capacity="${specialCapacity}" data-trip-id="${esc(trip.id)}">
+        <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">${trip.reserved} / ${trip.capacity}名</span></span></td>
+        <td><span class="special-seat-count">${specialReserved} / ${specialCapacity}名</span></td>
         <td><a class="btn btn-primary btn-sm" href="${esc(detailUrl(trip))}">この船の詳細</a></td>
       </tr>`;
     }).join('');
