@@ -884,8 +884,29 @@ footer {
     background: rgba(255,255,255,.14);
 }
 @media (max-width: 640px) {
-    .header-inner { width: min(100% - 24px, 1100px); gap: 10px; }
-    .logo { width: 180px; }
-    .user-header-nav { gap: 4px; }
-    .user-header-nav a { padding: 8px 9px; font-size: 12px; }
+    .header-inner {
+        width: min(100% - 24px, 1100px);
+        gap: clamp(4px, 1.5vw, 10px);
+    }
+
+    .brand {
+        min-width: 0;
+        flex: 0 1 auto;
+    }
+
+    .logo {
+        width: clamp(125px, 38vw, 180px);
+        max-width: 100%;
+    }
+
+    .user-header-nav {
+        flex: 0 0 auto;
+        gap: 2px;
+    }
+
+    .user-header-nav a {
+        padding: 7px clamp(5px, 1.6vw, 8px);
+        font-size: clamp(10px, 3vw, 12px);
+        white-space: nowrap;
+    }
 }

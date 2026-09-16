@@ -286,13 +286,13 @@ textarea {
 
 .confirmation-total-label {
     color: var(--navy);
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
 }
 
 .confirmation-total-value {
     color: #d62828;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 400;
     line-height: 1.2;
     text-align: right;
