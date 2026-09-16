@@ -182,7 +182,7 @@
         $('#confirmation-trip-time').textContent = trip.time;
         $('#confirmation-trip-target').textContent = trip.target;
         $('#confirmation-trip-price').textContent = trip.price;
-        $('#confirmation-total').textContent = `${totalPrice.toLocaleString('ja-JP')}円（税込）`;
+        $('#confirmation-total-amount').textContent = totalPrice.toLocaleString('ja-JP');
 
         const renderConfirmationRows = (target, rows) => {
             const fragment = document.createDocumentFragment();

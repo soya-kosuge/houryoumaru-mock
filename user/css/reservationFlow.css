@@ -286,16 +286,22 @@ textarea {
 
 .confirmation-total-label {
     color: var(--navy);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
 }
 
 .confirmation-total-value {
     color: #d62828;
-    font-size: 26px;
+    font-size: 21px;
     font-weight: 400;
     line-height: 1.2;
     text-align: right;
+}
+
+.confirmation-total-value small {
+    margin-left: 3px;
+    font-size: 0.72em;
+    font-weight: inherit;
 }
 
 .confirmation-list {
@@ -441,16 +447,19 @@ textarea {
     }
 
     .confirmation-total-card {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 16px;
         padding: 20px 18px;
     }
 
     .confirmation-total-value {
-        width: 100%;
-        font-size: 26px;
-        text-align: left;
+        width: auto;
+        font-size: clamp(18px, 5.6vw, 20px);
+        text-align: right;
+        white-space: nowrap;
+        
     }
 
     .completion-title {
