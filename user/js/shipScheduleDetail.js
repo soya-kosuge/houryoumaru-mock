@@ -45,7 +45,9 @@ statusElement.textContent = trip.statusText;
 statusElement.className = `status ${trip.status}`;
 const actions = document.getElementById('detail-actions');
 
-if (trip.status === 'full') {
+if (trip.status === 'stop') {
+    actions.innerHTML = `<button class="reserve-button disabled" type="button" disabled>出船中止のため予約できません。</button>`;
+} else if (trip.status === 'full') {
     actions.innerHTML = `<button class="reserve-button disabled" type="button" disabled>満員のため予約できません。</button>`;
 } else if (trip.status === 'unknown') {
     actions.innerHTML = `<button class="reserve-button disabled" type="button" disabled>出船内容が未定のため予約できません。</button>`;

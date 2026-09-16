@@ -627,6 +627,119 @@ a {
     font-size: 13px;
 }
 
+/* 管理者ログイン */
+.admin-login-page {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background:
+        radial-gradient(circle at 78% 18%, rgba(74, 176, 200, .18), transparent 30%),
+        linear-gradient(180deg, #edf7fb 0%, #f5f8fb 72%);
+}
+
+.admin-login-header {
+    position: relative;
+}
+
+.admin-login-header-inner {
+    justify-content: flex-start;
+}
+
+.admin-login-main {
+    width: min(100% - 32px, 480px);
+    margin: 0 auto;
+    padding: 72px 0;
+    display: grid;
+    place-items: center;
+}
+
+.admin-login-card {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #d8e3ec;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(11, 39, 72, .14);
+}
+
+.admin-login-heading {
+    padding: 30px 32px 24px;
+    text-align: center;
+    background: linear-gradient(135deg, #eff8fc, #fff);
+    border-bottom: 1px solid var(--line);
+}
+
+.admin-login-eyebrow {
+    margin: 0 0 7px;
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+}
+
+.admin-login-heading h1 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 30px;
+    line-height: 1.3;
+}
+
+.admin-login-heading > p:last-child {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.admin-login-form {
+    padding: 28px 32px 32px;
+    display: grid;
+    gap: 20px;
+}
+
+.admin-login-form .input {
+    min-height: 50px;
+}
+
+.admin-forgot-password-link {
+    width: fit-content;
+    margin: 10px 0 0 auto;
+    padding: 0;
+    color: var(--blue);
+    font: inherit;
+    font-size: 13px;
+    text-decoration: underline;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.admin-forgot-password-link:hover,
+.admin-forgot-password-link:focus-visible {
+    color: var(--navy);
+}
+
+.admin-login-button {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 4px;
+    font-size: 15px;
+}
+
+.admin-login-footer {
+    margin-top: 0;
+}
+
+@media (max-width: 720px) {
+    .admin-login-main {
+        padding: 42px 0;
+    }
+
+    .admin-login-heading,
+    .admin-login-form {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
 /* テーブル */
 .table-wrap {
     overflow-x: auto;

@@ -12,6 +12,8 @@ ensureMypageHeaderNavigation();
 
 
 const HOURYOUMARU_STORAGE_KEY = "houryoumaruStandaloneReservationData";
+const HOURYOUMARU_RENTAL_ROD_UNIT_PRICE = 3000;
+const HOURYOUMARU_RESERVATION_CONFIRMATION_MS = 48 * 60 * 60 * 1000;
 
 const DEFAULT_DATA = {
   account: {
@@ -32,15 +34,17 @@ const DEFAULT_DATA = {
   },
   reservations: [
     {
-      id: "R20260815001",
-      date: "2026-09-15",
+      id: "R20260917001",
+      date: "2026-09-17",
       tripType: "半夜便",
-      departureTime: "18:00",
+      departureTime: "17:00",
+      reservedAt: "2026-09-11T10:00:00+09:00",
       unitPrice: 13000,
-      rentalRodUnitPrice: 0,
-      target: "マイカ・ムギイカ",
+      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
+      target: "マイカ",
       partySize: 3,
       rentalRods: 2,
+      totalPrice: 45000,
       notes: "",
       representative: {
         name: "",
@@ -52,6 +56,88 @@ const DEFAULT_DATA = {
         emergency: "",
         emergencyRelation: ""
       },
+      companions: []
+    },
+    {
+      id: "R20260920002",
+      date: "2026-09-20",
+      tripType: "深夜便",
+      departureTime: "22:00",
+      reservedAt: "2026-09-14T18:00:00+09:00",
+      unitPrice: 13000,
+      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
+      target: "マイカ",
+      partySize: 2,
+      rentalRods: 1,
+      totalPrice: 29000,
+      notes: "",
+      representative: {},
+      companions: []
+    },
+    {
+      id: "R20260926003",
+      date: "2026-09-26",
+      tripType: "アオリ便",
+      departureTime: "02:00",
+      reservedAt: "2026-09-10T09:30:00+09:00",
+      unitPrice: 13000,
+      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
+      target: "アオリ ティップラン",
+      partySize: 1,
+      rentalRods: 0,
+      totalPrice: 13000,
+      notes: "",
+      representative: {},
+      companions: []
+    }
+  ],
+  pastReservations: [
+    {
+      id: "R20260914004",
+      date: "2026-09-14",
+      tripType: "半夜便",
+      departureTime: "17:00",
+      reservedAt: "2026-09-14T07:00:00+09:00",
+      unitPrice: 13000,
+      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
+      target: "マイカ",
+      partySize: 2,
+      rentalRods: 1,
+      totalPrice: 29000,
+      notes: "",
+      representative: {},
+      companions: []
+    },
+    {
+      id: "R20260910005",
+      date: "2026-09-10",
+      tripType: "深夜便",
+      departureTime: "22:00",
+      reservedAt: "2026-09-06T12:00:00+09:00",
+      unitPrice: 13000,
+      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
+      target: "マイカ・ムギイカ",
+      partySize: 1,
+      rentalRods: 0,
+      totalPrice: 13000,
+      notes: "",
+      representative: {},
+      companions: []
+    },
+    {
+      id: "R20260905006",
+      date: "2026-09-05",
+      tripType: "半夜便",
+      departureTime: "17:00",
+      reservedAt: "2026-08-30T09:00:00+09:00",
+      unitPrice: 13000,
+      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
+      target: "スーパーロング便",
+      partySize: 4,
+      rentalRods: 2,
+      totalPrice: 58000,
+      notes: "",
+      representative: {},
       companions: []
     }
   ]
@@ -65,6 +151,7 @@ function normalizeSharedReservation(item, baseData) {
   const blankCompanion = () => ({ name: "", postalCode: "", address: "", addressDetail: "", age: "", gender: "", emergency: "", emergencyRelation: "" });
   return {
     id: item.id || `U-${Date.now()}`,
+    tripId: item.tripId || "",
     date: item.dateKey || String(item.date || "").replaceAll("/", "-"),
     tripType: item.course || item.tripType || "---",
     departureTime: item.departureTime || item.time || "---",
@@ -72,7 +159,11 @@ function normalizeSharedReservation(item, baseData) {
     partySize,
     rentalRods: Number(item.rentalRod ?? item.rentalRods ?? 0),
     unitPrice: Number(item.unitPrice || item.pricePerPerson || 13000),
-    rentalRodUnitPrice: Number(item.rentalRodUnitPrice || 0),
+    rentalRodUnitPrice: Number(item.rentalRodUnitPrice || HOURYOUMARU_RENTAL_ROD_UNIT_PRICE),
+    totalPrice: Number(item.totalPrice || (Number(item.unitPrice || item.pricePerPerson || 13000) * partySize) + (HOURYOUMARU_RENTAL_ROD_UNIT_PRICE * Number(item.rentalRod ?? item.rentalRods ?? 0))),
+    reservedAt: item.reservedAt || item.createdAt || new Date().toISOString(),
+    status: item.status || "予約中",
+    cancelledAt: item.cancelledAt || "",
     notes: item.remarks || item.notes || "",
     representative: item.representative || {
       name: baseData?.roster?.name || item.name || "---",
@@ -97,14 +188,28 @@ function mergeSharedReservations(data) {
   } catch (_) { shared = []; }
   if (!Array.isArray(shared) || !shared.length) return data;
 
-  const byId = new Map((data.reservations || []).map((r) => [r.id, r]));
+  if (!Array.isArray(data.pastReservations)) data.pastReservations = [];
+  const activeById = new Map((data.reservations || []).map((r) => [r.id, r]));
+  const historyById = new Map(data.pastReservations.map((r) => [r.id, r]));
+  const historyStatuses = ["通常キャンセル", "キャンセル", "無断キャンセル", "乗船済み"];
   shared.forEach((item) => {
     const normalized = normalizeSharedReservation(item, data);
-    const existing = byId.get(normalized.id);
+    if (historyStatuses.includes(normalized.status)) {
+      const existingHistory = historyById.get(normalized.id);
+      if (existingHistory) Object.assign(existingHistory, normalized);
+      else {
+        data.pastReservations.push(normalized);
+        historyById.set(normalized.id, normalized);
+      }
+      data.reservations = data.reservations.filter((reservation) => reservation.id !== normalized.id);
+      activeById.delete(normalized.id);
+      return;
+    }
+    const existing = activeById.get(normalized.id);
     if (existing) Object.assign(existing, normalized);
-    else {
+    else if (!historyById.has(normalized.id)) {
       data.reservations.push(normalized);
-      byId.set(normalized.id, normalized);
+      activeById.set(normalized.id, normalized);
     }
   });
   return data;
@@ -122,6 +227,7 @@ function syncReservationsToShared(data) {
     map.set(r.id, {
       ...prev,
       id: r.id,
+      tripId: r.tripId || "",
       date: String(r.date || "").replaceAll("-", "/"),
       dateKey: r.date || "",
       course: r.tripType,
@@ -131,6 +237,10 @@ function syncReservationsToShared(data) {
       nameKana: data.account?.nameKana || "",
       participants: Number(r.partySize || 0),
       rentalRod: Number(r.rentalRods || 0),
+      unitPrice: Number(r.unitPrice || 13000),
+      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
+      totalPrice: Number(r.totalPrice || (Number(r.unitPrice || 13000) * Number(r.partySize || 0)) + (HOURYOUMARU_RENTAL_ROD_UNIT_PRICE * Number(r.rentalRods || 0))),
+      reservedAt: r.reservedAt || prev.reservedAt || prev.createdAt || new Date().toISOString(),
       phone: data.account?.phone || "",
       email: data.account?.email || "",
       remarks: r.notes || "",
@@ -177,6 +287,67 @@ function applyEmergencyRelationMigration(data) {
   return data;
 }
 
+function applyReservationHistoryMigration(data) {
+  if (!Array.isArray(data.pastReservations)) {
+    data.pastReservations = structuredClone(DEFAULT_DATA.pastReservations);
+  }
+  [...(data.reservations || []), ...data.pastReservations].forEach((reservation) => {
+    reservation.rentalRodUnitPrice = HOURYOUMARU_RENTAL_ROD_UNIT_PRICE;
+    if (!reservation.status) reservation.status = "予約中";
+  });
+  return data;
+}
+
+function ensureSampleReservations(data) {
+  if (!Array.isArray(data.reservations)) data.reservations = [];
+  if (!Array.isArray(data.pastReservations)) data.pastReservations = [];
+  data.reservations = data.reservations.filter((reservation) => reservation.id !== "R20260815001");
+  const ids = new Set([...data.reservations, ...data.pastReservations].map((reservation) => reservation.id));
+  DEFAULT_DATA.reservations.forEach((reservation) => {
+    if (!ids.has(reservation.id)) data.reservations.push(structuredClone(reservation));
+  });
+  DEFAULT_DATA.pastReservations.forEach((reservation) => {
+    if (!ids.has(reservation.id)) data.pastReservations.push(structuredClone(reservation));
+  });
+  return data;
+}
+
+function clearLegacySampleNotes(data) {
+  [...(data.reservations || []), ...(data.pastReservations || [])].forEach((reservation) => {
+    if (["左舷希望", "初参加"].includes(String(reservation.notes || "").trim())) {
+      reservation.notes = "";
+    }
+  });
+  return data;
+}
+
+function applyRegisteredProfile(data) {
+  if (localStorage.getItem("horyomaruMockRegistered") !== "true") return data;
+  try {
+    const profile = JSON.parse(localStorage.getItem("horyomaruProfile") || "null");
+    if (!profile) return data;
+    data.account = {
+      nameKanji: profile.name || data.account?.nameKanji || "",
+      nameKana: profile.nameKana || data.account?.nameKana || "",
+      email: profile.email || data.account?.email || "",
+      phone: formatPhone(profile.phone || data.account?.phone || "")
+    };
+  } catch (_) { /* 登録情報が壊れている場合は保存済み表示を使用する。 */ }
+  return data;
+}
+
+function getHouryoumaruReservationStatus(reservation, now = Date.now()) {
+  const explicitStatus = String(reservation?.status || "").trim();
+  if (["通常キャンセル", "キャンセル", "無断キャンセル"].includes(explicitStatus)) return explicitStatus;
+  const date = String(reservation?.date || "").trim().replaceAll("/", "-");
+  const time = String(reservation?.departureTime || reservation?.time || "00:00").trim();
+  const departureAt = new Date(`${date}T${time}:00`).getTime();
+  if (!Number.isFinite(departureAt)) return explicitStatus === "予約完了" ? "予約完了" : "予約中";
+
+  // 出船日時の48時間前から出船後までは予約完了、49時間以上前は予約中。
+  return departureAt - now <= HOURYOUMARU_RESERVATION_CONFIRMATION_MS ? "予約完了" : "予約中";
+}
+
 
 const HOURYOUMARU_ROSTER_RESET_KEY = "houryoumaruRosterResetV1";
 
@@ -196,19 +367,68 @@ function loadHouryoumaruData() {
   const stored = localStorage.getItem(HOURYOUMARU_STORAGE_KEY);
   if (!stored) {
     localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
-    return ensureRosterStartsUnregistered(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))))));
+    return clearLegacySampleNotes(ensureRosterStartsUnregistered(applyRegisteredProfile(ensureSampleReservations(applyReservationHistoryMigration(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))))))))));
   }
   try {
-    return ensureRosterStartsUnregistered(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(JSON.parse(stored))))));
+    return clearLegacySampleNotes(ensureRosterStartsUnregistered(applyRegisteredProfile(ensureSampleReservations(applyReservationHistoryMigration(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(JSON.parse(stored))))))))));
   } catch (_) {
     localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
-    return ensureRosterStartsUnregistered(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))))));
+    return clearLegacySampleNotes(ensureRosterStartsUnregistered(applyRegisteredProfile(ensureSampleReservations(applyReservationHistoryMigration(applyEmergencyRelationMigration(applyPostalCodeMigration(migrateYamadaAddress(mergeSharedReservations(structuredClone(DEFAULT_DATA))))))))));
   }
 }
 
 function saveHouryoumaruData(data) {
   localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(data));
   syncReservationsToShared(data);
+}
+
+function cancelHouryoumaruReservation(data, reservationId) {
+  const index = (data.reservations || []).findIndex((reservation) => reservation.id === reservationId);
+  if (index < 0) return false;
+  const [reservation] = data.reservations.splice(index, 1);
+  reservation.status = "通常キャンセル";
+  reservation.cancelledAt = new Date().toISOString();
+  if (!Array.isArray(data.pastReservations)) data.pastReservations = [];
+  data.pastReservations.unshift(reservation);
+
+  let shared = [];
+  try { shared = JSON.parse(localStorage.getItem(HOURYOUMARU_SHARED_RESERVATION_KEY) || "[]"); }
+  catch (_) { shared = []; }
+  if (Array.isArray(shared)) {
+    const sharedReservation = shared.find((item) => item.id === reservationId);
+    if (sharedReservation) {
+      sharedReservation.status = "通常キャンセル";
+      sharedReservation.cancelledAt = reservation.cancelledAt;
+      localStorage.setItem(HOURYOUMARU_SHARED_RESERVATION_KEY, JSON.stringify(shared));
+    }
+  }
+
+  if (reservation.tripId) {
+    const overrideKey = "horyomaruTripReservationDelta";
+    let overrides = {};
+    try { overrides = JSON.parse(localStorage.getItem(overrideKey) || "{}"); }
+    catch (_) { overrides = {}; }
+    overrides[reservation.tripId] = Number(overrides[reservation.tripId] || 0) - Number(reservation.partySize || 0);
+    if (overrides[reservation.tripId] === 0) delete overrides[reservation.tripId];
+    localStorage.setItem(overrideKey, JSON.stringify(overrides));
+  }
+
+  const notificationsKey = "horyomaruAdminNotifications";
+  let notifications = [];
+  try { notifications = JSON.parse(localStorage.getItem(notificationsKey) || "[]"); }
+  catch (_) { notifications = []; }
+  if (!Array.isArray(notifications)) notifications = [];
+  notifications.unshift({
+    id: `notice-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    createdAt: new Date().toISOString(),
+    message: "予約がキャンセルされました。",
+    detail: `${data.account?.nameKanji || "利用者"}様／${String(reservation.date || "").replaceAll("-", "/")} ${reservation.tripType || ""}`,
+    type: "cancel",
+    read: false
+  });
+  localStorage.setItem(notificationsKey, JSON.stringify(notifications));
+  localStorage.setItem(HOURYOUMARU_STORAGE_KEY, JSON.stringify(data));
+  return true;
 }
 
 function getReservationId() {

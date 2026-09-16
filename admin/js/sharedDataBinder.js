@@ -9,63 +9,6 @@
     'ドリーム': { capacity: 30, specialCapacity: 3 },
     'スーパードリーム': { capacity: 32, specialCapacity: 6 }
   };
-  const septemberSpecialTrips = [
-    ['2026-09-05', 'アオリ便', '15:30', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-    ['2026-09-06', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-    ['2026-09-12', '半夜便', '16:00', 'アオリ +マイカ', 'ok'],
-    ['2026-09-12', '深夜便', '23:30', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-    ['2026-09-13', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-    ['2026-09-13', 'アオリ便', '05:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-    ['2026-09-18', '深夜便', '23:50', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-    ...[19, 20, 21, 22, 23].flatMap((day) => {
-      const date = `2026-09-${String(day).padStart(2, '0')}`;
-      const rows = [
-        [date, '早朝便', '05:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-        [date, '半夜便', '16:00', 'アオリ +マイカ', 'ok']
-      ];
-      if (day !== 23) rows.push([date, '深夜便', '23:30', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok']);
-      return rows;
-    }),
-    ['2026-09-26', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok'],
-    ['2026-09-27', 'アオリ便', '02:00', 'アオリ ﾃｨｯﾌﾟﾗﾝ', 'ok']
-  ];
-  const existingSeptemberTrips = new Map(
-    trips.filter((trip) => trip.date.startsWith('2026-09'))
-      .map((trip) => [`${trip.date}|${trip.course}`, trip])
-  );
-  const septemberSchedule = [];
-  for (let day = 1; day <= 30; day += 1) {
-    const date = `2026-09-${String(day).padStart(2, '0')}`;
-    septemberSchedule.push([date, '半夜便', '17:00', day === 5 ? 'スーパーロング便' : 'マイカ', day === 5 ? 'few' : 'ok']);
-    if (day !== 3) {
-      septemberSchedule.push([date, '深夜便', '22:00', day >= 8 && day <= 12 ? 'マイカ＆ムギイカ' : 'マイカ', 'ok']);
-    }
-  }
-  septemberSchedule.push(...septemberSpecialTrips);
-
-  const septemberAdminTrips = septemberSchedule
-    .sort((a, b) => `${a[0]} ${a[2]}`.localeCompare(`${b[0]} ${b[2]}`))
-    .map(([date, course, time, target, sourceStatus], index) => {
-      const isSmallBoat = course === 'アオリ便' || course === '早朝便' || time === '16:00' || time > '23:00';
-      const ship = isSmallBoat ? 'カムトゥドリーム' : (course === '半夜便' ? 'スーパードリーム' : 'ドリーム');
-      const setting = shipSettings[ship];
-      const existing = existingSeptemberTrips.get(`${date}|${course}`);
-      const reserved = sourceStatus === 'few'
-        ? setting.capacity - 2
-        : Math.min(setting.capacity, Number(existing?.reserved || 0));
-      return {
-        id: `user-schedule-${date}-${index + 1}`,
-        date, course, time, target, ship,
-        captain: index % 2 === 0 ? '佐藤船長' : '山田船長',
-        capacity: setting.capacity,
-        specialCapacity: setting.specialCapacity,
-        specialReserved: 0,
-        reserved,
-        remaining: setting.capacity - reserved,
-        status: sourceStatus,
-        price: Number(existing?.price || 13000)
-      };
-    });
   const julyHistoryTrips = [
     ['2026-07-29', '半夜便', 'スーパードリーム', 16, 32],
     ['2026-07-29', '深夜便', 'ドリーム', 8, 30],
@@ -87,12 +30,7 @@
   }));
   const adminTrips = [
     ...julyHistoryTrips,
-    ...trips.filter((trip) => !trip.date.startsWith('2026-09')).map((trip) => {
-      const ship = trip.ship;
-      const setting = shipSettings[ship];
-      return { ...trip, ship, capacity: setting.capacity, specialCapacity: setting.specialCapacity, specialReserved: 0 };
-    }),
-    ...septemberAdminTrips
+    ...trips
   ];
   const baseReservations = data.reservations || [];
   const userReservations = (() => {
@@ -104,6 +42,7 @@
   const reservations = [...baseReservations, ...userReservations];
   const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
   const fmtDate = (d) => String(d || '').replaceAll('-', '/');
+  const todayKey = new Date(Date.now() + (9 * 60 * 60 * 1000)).toISOString().slice(0, 10);
   const tripById = new Map(trips.map((trip) => [trip.id, trip]));
   const reservationTrip = (item) => tripById.get(item.tripId) || trips.find((trip) => {
     const dateKey = String(item.dateKey || item.date || '').replaceAll('/', '-');
@@ -118,20 +57,60 @@
     });
     return `adminReservationDetail.html?${params.toString()}`;
   };
-  const reservationStatus = (trip) => {
-    const remaining = Number(trip.remaining || 0);
-    if (remaining === 0) return { key: 'full', label: '満員' };
-    if (remaining <= 3) return { key: 'few', label: '残りわずか' };
-    return { key: 'ok', label: '空きあり' };
-  };
   const cancellationLabel = (status) => {
     if (['無断キャンセル', 'no-show', 'no_show'].includes(status)) return '無断キャンセル';
     if (['キャンセル', '通常キャンセル', 'cancelled', 'canceled'].includes(status)) return '通常キャンセル';
     return 'なし';
   };
   const cancellationClass = (label) => label === '無断キャンセル' ? 'no-show' : (label === '通常キャンセル' ? 'normal' : 'none');
+  const isCancelledReservation = (status) => [
+    'キャンセル', '通常キャンセル', '無断キャンセル', 'cancelled', 'canceled', 'no-show', 'no_show'
+  ].includes(String(status || '').trim());
+  const isNoShowReservation = (status) => ['無断キャンセル', 'no-show', 'no_show'].includes(String(status || '').trim());
+  const customerKey = (item) => String(item.customerId || item.phone || item.email || item.name || '').replace(/\s/g, '');
+  const customerMap = new Map();
+  (data.customerProfiles || []).forEach((profile) => {
+    customerMap.set(String(profile.id), {
+      ...profile,
+      useCount: 0,
+      cancelCount: 0,
+      noShowCount: 0,
+      lastDate: ''
+    });
+  });
+  reservations.forEach((reservation, index) => {
+    const key = customerKey(reservation) || `guest-${index + 1}`;
+    const profile = customerMap.get(key) || {
+      id: String(reservation.customerId || `G${String(index + 1).padStart(4, '0')}`),
+      name: reservation.name || 'ゲスト',
+      nameKana: reservation.nameKana || '－',
+      phone: reservation.phone || '－',
+      email: reservation.email || '－',
+      useCount: 0,
+      cancelCount: 0,
+      noShowCount: 0,
+      lastDate: ''
+    };
+    const status = String(reservation.status || '').trim();
+    const dateKey = String(reservation.dateKey || reservation.date || '').replaceAll('/', '-');
+    if (isCancelledReservation(status)) {
+      profile.cancelCount += 1;
+      if (isNoShowReservation(status)) profile.noShowCount += 1;
+    } else if (dateKey && dateKey < todayKey) {
+      profile.useCount += 1;
+      if (!profile.lastDate || dateKey > profile.lastDate) profile.lastDate = dateKey;
+    }
+    customerMap.set(key, profile);
+  });
+  const customers = [...customerMap.values()].map((customer) => ({
+    ...customer,
+    rank: customer.useCount >= 6 ? '常連' : (customer.useCount >= 2 ? '一般' : '新規'),
+    lastDateLabel: customer.lastDate ? fmtDate(customer.lastDate) : '－'
+  }));
+  window.HoryomaruAdminCustomers = customers.map((customer) => ({ ...customer }));
   const adminTripStatus = (trip) => {
-    const isCancelled = ['中止', '運航中止'].includes(String(trip.status || '').trim());
+    const isCancelled = trip.operationStatus === '運航中止'
+      || ['中止', '運航中止'].includes(String(trip.status || '').trim());
     return isCancelled
       ? { key: 'stop', label: '運航中止', text: '× 運航中止' }
       : { key: 'ok', label: '運航可能', text: '〇 運航可能' };
@@ -139,8 +118,6 @@
 
   const tripBody = document.querySelector('#trip-table tbody');
   if (tripBody) {
-    const today = new Date();
-    const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
     const tripView = document.body.dataset.tripView || 'upcoming';
     const displayedTrips = adminTrips.filter((trip) => tripView === 'history' ? trip.date < todayKey : trip.date >= todayKey);
     tripBody.innerHTML = displayedTrips.map((trip) => {
@@ -159,7 +136,7 @@
 
   const summaryBody = document.querySelector('#reservation-table tbody');
   if (summaryBody) {
-    summaryBody.innerHTML = trips.filter((trip) => trip.reserved > 0).map((trip) => {
+    summaryBody.innerHTML = adminTrips.filter((trip) => trip.date >= todayKey && trip.reserved > 0).map((trip) => {
       const specialCapacity = Number(trip.specialCapacity || 0);
       const specialReserved = Number(trip.specialReserved || 0);
       return `
@@ -213,12 +190,63 @@
       <td>${Number(item.participants || 0)}名</td><td>${Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし'}</td><td>${esc(item.phone || '－')}</td></tr>`).join('');
   }
 
-  // ダッシュボードは共通データの「本日(2026-08-06)」を表示する。
+  // 顧客一覧・顧客詳細は、予約明細と同じ顧客ID・連絡先から集計する。
+  const customerBadgeClass = (rank) => rank === '常連' ? 'badge-orange' : (rank === '新規' ? 'badge-green' : 'badge-blue');
+  const customerListBody = document.querySelector('#customer-table tbody');
+  if (customerListBody) {
+    customerListBody.innerHTML = customers.map((customer) => `
+      <tr data-search-row data-customer-id="${esc(customer.id)}" data-customer-name="${esc(customer.name)}" data-customer-rank="${esc(customer.rank)}" data-customer-last-date="${esc(customer.lastDate)}">
+        <td>${esc(customer.id)}</td><td>${esc(customer.name)}</td><td>${esc(customer.phone)}</td><td>${customer.useCount}回</td>
+        <td><span class="badge ${customerBadgeClass(customer.rank)}">${esc(customer.rank)}</span></td><td>${esc(customer.lastDateLabel)}</td>
+      </tr>`).join('');
+  }
+
+  const customerMobileContainer = document.querySelector('.customer-mobile-cards');
+  if (customerMobileContainer) {
+    const item = (label, value) => `<div><div class="data-label">${esc(label)}</div><div class="data-value">${value}</div></div>`;
+    customerMobileContainer.innerHTML = customers.map((customer) => `
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="${esc(customer.id)}" data-customer-name="${esc(customer.name)}" data-customer-rank="${esc(customer.rank)}" data-customer-last-date="${esc(customer.lastDate)}">
+        <div class="card-body">
+          ${item('顧客ID', esc(customer.id))}${item('顧客名', esc(customer.name))}${item('電話番号', esc(customer.phone))}
+          ${item('利用回数', `${customer.useCount}回`)}${item('区分', `<span class="badge ${customerBadgeClass(customer.rank)}">${esc(customer.rank)}</span>`)}
+          ${item('最終利用日', esc(customer.lastDateLabel))}
+        </div>
+      </article>`).join('');
+  }
+
+  const customerDetailBody = document.querySelector('#customer-detail-table tbody');
+  if (customerDetailBody) {
+    customerDetailBody.innerHTML = customers.map((customer) => `
+      <tr data-customer-detail-row data-customer-id="${esc(customer.id)}" data-customer-name="${esc(customer.name)}" data-customer-rank="${esc(customer.rank)}" data-customer-last-date="${esc(customer.lastDate)}">
+        <td>${esc(customer.id)}</td><td data-editable>${esc(customer.name)}</td><td data-editable>${esc(customer.nameKana)}</td>
+        <td data-editable>${esc(customer.phone)}</td><td data-editable>${esc(customer.email)}</td><td data-editable>${customer.useCount}回</td>
+        <td><span class="cancel-count${customer.cancelCount ? '' : ' is-zero'}">${customer.cancelCount}回</span></td>
+        <td><span class="no-show-count${customer.noShowCount ? '' : ' is-zero'}">${customer.noShowCount}回</span></td>
+        <td>${esc(customer.rank)}</td><td>${esc(customer.lastDateLabel)}</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>`).join('');
+  }
+
+  const customerDetailMobileContainer = document.querySelector('.customer-detail-mobile-cards');
+  if (customerDetailMobileContainer) {
+    const item = (label, value, extraClass = '') => `<div${extraClass ? ` class="${extraClass}"` : ''}><div class="data-label">${esc(label)}</div><div class="data-value">${value}</div></div>`;
+    customerDetailMobileContainer.innerHTML = customers.map((customer) => `
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="${esc(customer.id)}" data-customer-name="${esc(customer.name)}" data-customer-rank="${esc(customer.rank)}" data-customer-last-date="${esc(customer.lastDate)}">
+        <div class="card-body">
+          ${item('顧客ID', esc(customer.id))}${item('氏名', esc(customer.name))}${item('ふりがな', esc(customer.nameKana))}
+          ${item('電話番号', esc(customer.phone))}${item('メール', esc(customer.email), 'customer-email')}${item('利用回数', `${customer.useCount}回`)}
+          ${item('キャンセル回数', `<span class="cancel-count${customer.cancelCount ? '' : ' is-zero'}">${customer.cancelCount}回</span>`)}
+          ${item('無断キャンセル回数', `<span class="no-show-count${customer.noShowCount ? '' : ' is-zero'}">${customer.noShowCount}回</span>`)}
+          ${item('区分', `<span class="badge ${customerBadgeClass(customer.rank)}">${esc(customer.rank)}</span>`)}${item('最終利用日', esc(customer.lastDateLabel))}
+        </div>
+      </article>`).join('');
+  }
+
+  // ダッシュボードもユーザー画面と同じ最新の出船データを表示する。
   const dashboardTitle = [...document.querySelectorAll('.sub-title')].find((el) => el.textContent.includes('本日'));
   if (dashboardTitle) {
-    const today = '2026-08-06';
-    const todayTrips = trips.filter((trip) => trip.date === today);
-    dashboardTitle.textContent = '本日(08/06)の出船';
+    const todayTrips = adminTrips.filter((trip) => trip.date === todayKey);
+    dashboardTitle.textContent = `本日(${todayKey.slice(5).replace('-', '/')})の出船`;
     const list = dashboardTitle.parentElement?.querySelector('.kpi-list');
     if (list) {
       list.innerHTML = todayTrips.map((trip, index) => `
@@ -227,14 +255,15 @@
         <div class="kpi-row"><span>担当</span><strong>${esc(trip.captain)}</strong></div>`).join('');
     }
     const cards = document.querySelectorAll('.stat-card');
-    const todayBookings = reservations.filter((r) => String(r.dateKey || r.date || '').replaceAll('/','-') === today);
+    const activeReservations = reservations.filter((r) => !['キャンセル', '通常キャンセル', '無断キャンセル', 'cancelled', 'canceled', 'no-show', 'no_show'].includes(r.status));
+    const todayBookings = activeReservations.filter((r) => String(r.dateKey || r.date || '').replaceAll('/','-') === todayKey);
     const participants = todayBookings.reduce((sum,r) => sum + Number(r.participants || 0), 0);
     if (cards[0]) {
       cards[0].querySelector('.stat-value').textContent = `${todayBookings.length}件`;
       cards[0].querySelector('.stat-note').textContent = `参加予定 ${participants}名`;
     }
     if (cards[1]) {
-      const monthBookings = reservations.filter((r) => String(r.dateKey || r.date || '').replaceAll('/','-').startsWith('2026-08'));
+      const monthBookings = activeReservations.filter((r) => String(r.dateKey || r.date || '').replaceAll('/','-').startsWith(todayKey.slice(0, 7)));
       cards[1].querySelector('.stat-value').textContent = `${monthBookings.length}件`;
       cards[1].querySelector('.stat-note').textContent = `参加予定 ${monthBookings.reduce((s,r)=>s+Number(r.participants||0),0)}名`;
     }

@@ -13,6 +13,12 @@
   const todayKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
   const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
   const normalizeDate = (v) => String(v || '').replaceAll('/','-');
+  const progressStatus = (item) => {
+    if (['キャンセル', '通常キャンセル', '無断キャンセル'].includes(String(item.status || '').trim())) return item.status;
+    const reservedAt = new Date(item.reservedAt || item.createdAt || '').getTime();
+    if (!Number.isFinite(reservedAt)) return item.status === '予約中' ? '予約中' : '予約完了';
+    return Date.now() - reservedAt >= 48 * 60 * 60 * 1000 ? '予約完了' : '予約中';
+  };
   const all = [...base, ...local].filter((item, index, arr) => arr.findIndex((x) => x.id === item.id) === index);
   const past = all.filter((item) => normalizeDate(item.dateKey || item.date) < todayKey);
 
@@ -26,8 +32,15 @@
     }).sort((a,b) => normalizeDate(b.dateKey || b.date).localeCompare(normalizeDate(a.dateKey || a.date)));
     body.innerHTML = filtered.map((item) => {
       const trip = tripMap.get(item.tripId) || trips.find((t) => t.date === normalizeDate(item.dateKey || item.date) && t.course === item.course);
-      const status = item.status || '乗船済み';
-      return `<tr><td>${esc(normalizeDate(item.dateKey || item.date).replaceAll('-','/'))}</td><td>${esc(item.course || '－')}</td><td>${esc(item.ship || trip?.ship || '未設定')}</td><td>${esc(item.name || '－')}</td><td>${Number(item.participants || 0)}名</td><td>${Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし'}</td><td>${esc(status)}</td></tr>`;
+      const status = progressStatus(item);
+      const ship = item.ship || trip?.ship || '未設定';
+      const params = new URLSearchParams({
+        date: normalizeDate(item.dateKey || item.date),
+        course: item.course || '',
+        ship,
+        name: item.name || ''
+      });
+      return `<tr><td>${esc(normalizeDate(item.dateKey || item.date).replaceAll('-','/'))}</td><td>${esc(item.course || '－')}</td><td>${esc(ship)}</td><td>${esc(item.name || '－')}</td><td>${Number(item.participants || 0)}名</td><td>${Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし'}</td><td>${esc(status)}</td><td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?${esc(params.toString())}">詳細</a></td></tr>`;
     }).join('');
     document.getElementById('history-count').textContent = `${filtered.length}件 / 全${past.length}件`;
   };

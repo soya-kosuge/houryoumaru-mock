@@ -124,7 +124,9 @@ h3 { font-size: 17px; }
 .btn.danger {
   color: var(--red);
   border-color: #ecc5c5;
+  background: #fff7f7;
 }
+.btn.danger:hover, .btn.danger:focus-visible { background: #fdecec; }
 .link-btn {
   border: 0;
   background: transparent;
@@ -148,6 +150,12 @@ h3 { font-size: 17px; }
   margin-top: 7px;
   font-size: 14px;
 }
+.reservation-actions { justify-content: flex-start; margin-top: 14px; }
+.reservation-actions .btn { flex: 0 1 180px; }
+.history-status { margin-top: 8px; }
+.badge.completed { color: #116137; background: #e8f7ef; }
+.badge.pending { color: #8a5a00; background: #fff4d6; }
+.badge.cancelled { color: #a12f2f; background: #fdecec; }
 .badge {
   display: inline-flex;
   align-items: center;

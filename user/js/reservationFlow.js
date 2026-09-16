@@ -5,6 +5,7 @@
     const REGISTERED_KEY = 'horyomaruMockRegistered';
     const TRIP_KEY = 'horyomaruSelectedTrip';
     const RESERVATION_KEY = 'horyomaruReservation';
+    const RENTAL_ROD_UNIT_PRICE = 3000;
     const EMPTY_PROFILE = Object.freeze({ name: '', nameKana: '', email: '', phone: '' });
     const $ = (selector) => document.querySelector(selector);
     const params = new URLSearchParams(location.search);
@@ -61,7 +62,11 @@
         }
         return getStoredTrip();
     };
-    const redirectSchedule = () => { location.href = 'shipScheduleList.html'; };
+    const redirectSchedule = () => {
+        location.href = params.get('returnTo') === 'mypage'
+            ? '../mypage/index.html'
+            : 'shipScheduleList.html';
+    };
 
     if ($('#first-registration-form')) {
         if (isRegistered()) { redirectSchedule(); return; }
@@ -152,7 +157,7 @@
             sessionStorage.setItem(RESERVATION_KEY, JSON.stringify({
                 participants: String(requestedGuests),
                 rentalRod: form.get('rentalRod'),
-                remarks: form.get('remarks') || 'なし'
+                remarks: form.get('remarks') || ''
             }));
             reservationLeaveGuard.allowLeave();
             location.href = 'reservationConfirm.html';
@@ -168,23 +173,42 @@
         catch { reservation = null; }
         if (!trip || !reservation) { location.replace('shipScheduleList.html'); return; }
 
-        const rows = [
-            ['予約日', trip.date], ['コース', trip.name], ['出船時刻', trip.time], ['釣り物', trip.target], ['料金', trip.price],
-            ['名前（漢字）', profile.name || '－'], ['名前（かな）', profile.nameKana || '－'],
-            ['メールアドレス', profile.email || '－'], ['電話番号', profile.phone || '－'],
+        const participantsCount = Number(reservation.participants || 0);
+        const rentalRodCount = Number(reservation.rentalRod || 0);
+        const unitPrice = Number(String(trip.price || '').replace(/[^0-9]/g, '')) || 13000;
+        const totalPrice = (unitPrice * participantsCount) + (RENTAL_ROD_UNIT_PRICE * rentalRodCount);
+
+        $('#confirmation-trip-title').textContent = `${trip.date} ${trip.name}`;
+        $('#confirmation-trip-time').textContent = trip.time;
+        $('#confirmation-trip-target').textContent = trip.target;
+        $('#confirmation-trip-price').textContent = trip.price;
+        $('#confirmation-total').textContent = `${totalPrice.toLocaleString('ja-JP')}円（税込）`;
+
+        const renderConfirmationRows = (target, rows) => {
+            const fragment = document.createDocumentFragment();
+            rows.forEach(([key, value]) => {
+                const item = document.createElement('div');
+                const term = document.createElement('dt');
+                const description = document.createElement('dd');
+                item.className = 'confirmation-item';
+                term.textContent = key;
+                description.textContent = value;
+                item.append(term, description);
+                fragment.appendChild(item);
+            });
+            target.replaceChildren(fragment);
+        };
+
+        const confirmationRows = [
+            ['名前（漢字）', profile.name || '－'],
+            ['名前（かな）', profile.nameKana || '－'],
+            ['メールアドレス', profile.email || '－'],
+            ['電話番号', profile.phone || '－'],
             ['参加人数', `${reservation.participants}名`],
-            ['貸し竿', reservation.rentalRod === '0' ? 'なし' : `${reservation.rentalRod}本`], ['備考', reservation.remarks]
+            ['貸し竿', rentalRodCount === 0 ? 'なし' : `${rentalRodCount}本`],
+            ['備考', reservation.remarks]
         ];
-        const confirmationList = $('#confirmation-list');
-        const fragment = document.createDocumentFragment();
-        rows.forEach(([key, value]) => {
-            const item = document.createElement('div');
-            const term = document.createElement('dt');
-            const description = document.createElement('dd');
-            item.className = 'confirmation-item'; term.textContent = key; description.textContent = value;
-            item.append(term, description); fragment.appendChild(item);
-        });
-        confirmationList.replaceChildren(fragment);
+        renderConfirmationRows($('#confirmation-list'), confirmationRows);
 
         // 予約確定直前にも再確認。本番ではこの後の「確保API」内でDB排他制御して確定する。
         $('#complete-link')?.addEventListener('click', async (event) => {
@@ -216,9 +240,13 @@
             try { adminReservations = JSON.parse(localStorage.getItem(adminKey) || '[]'); } catch { adminReservations = []; }
             if (!Array.isArray(adminReservations)) adminReservations = [];
             const reservationId = `U-${Date.now()}`;
+            const reservedAt = new Date().toISOString();
+            const unitPrice = Number(String(trip.price || '').replace(/[^0-9]/g, '')) || 13000;
+            const rentalRodCount = Number(reservation.rentalRod || 0);
             const blankCompanion = () => ({ name: '---', address: '---', age: '---', gender: '---', emergency: '---' });
             adminReservations.push({
                 id: reservationId,
+                reservedAt,
                 tripId: trip.tripId || '',
                 date: (trip.dateKey || '').replaceAll('-', '/'),
                 dateKey: trip.dateKey || '',
@@ -228,7 +256,10 @@
                 name: profile.name || 'LINEユーザー',
                 nameKana: profile.nameKana || '',
                 participants: requestedGuests,
-                rentalRod: Number(reservation.rentalRod || 0),
+                rentalRod: rentalRodCount,
+                unitPrice,
+                rentalRodUnitPrice: RENTAL_ROD_UNIT_PRICE,
+                totalPrice: (unitPrice * requestedGuests) + (RENTAL_ROD_UNIT_PRICE * rentalRodCount),
                 phone: profile.phone || '',
                 email: profile.email || '',
                 remarks: reservation.remarks || '',

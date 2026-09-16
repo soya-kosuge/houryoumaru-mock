@@ -41,31 +41,52 @@
             </p>
         </section>
 
-        <section class="flow-card confirmation-card">
-            <div class="flow-card-heading">
-                <h2>
-                    予約内容<small style="color: red; font-size: 12px;"><br>※予約はまだ完了しておりません。入力内容に問題がなければ「この内容で予約する」ボタンを押してください</small>
-                </h2>
-            </div>
+        <p class="confirmation-guidance">
+            ※予約はまだ完了しておりません。入力内容に問題がなければ「この内容で予約する」ボタンを押してください。
+        </p>
 
-            <div class="reservation-error-box" id="reservation-error" role="alert" hidden></div>
+        <div class="reservation-error-box" id="reservation-error" role="alert" hidden></div>
 
-            <dl class="confirmation-list"
-                id="confirmation-list"></dl>
+        <div class="confirmation-card-list">
+            <section class="selected-trip confirmation-trip-card" aria-labelledby="confirmation-trip-title">
+                <div>
+                    <p class="selected-trip-label">選択中の便</p>
+                    <h2 id="confirmation-trip-title">選択した便</h2>
+                </div>
 
-            <div class="confirmation-actions">
-                <a class="secondary-button"
-                   href="reservation.html">
-                    入力内容を修正する
-                </a>
+                <dl>
+                    <div>
+                        <dt>出船時刻</dt>
+                        <dd id="confirmation-trip-time">－</dd>
+                    </div>
+                    <div>
+                        <dt>釣り物</dt>
+                        <dd id="confirmation-trip-target">－</dd>
+                    </div>
+                    <div>
+                        <dt>料金</dt>
+                        <dd id="confirmation-trip-price">－</dd>
+                    </div>
+                </dl>
+            </section>
 
-                <a class="primary-button confirm-button"
-                   id="complete-link"
-                   href="reservationComplete.html">
-                    この内容で予約する
-                </a>
-            </div>
-        </section>
+            <section class="flow-card confirmation-detail-card">
+                <div class="flow-card-heading">
+                    <h2>予約内容</h2>
+                </div>
+                <dl class="confirmation-list" id="confirmation-list"></dl>
+            </section>
+
+            <section class="flow-card confirmation-total-card" aria-labelledby="confirmation-total-label">
+                <span class="confirmation-total-label" id="confirmation-total-label">合計金額</span>
+                <span class="confirmation-total-value" id="confirmation-total">0円（税込）</span>
+            </section>
+        </div>
+
+        <div class="confirmation-actions confirmation-page-actions">
+            <a class="secondary-button" href="reservation.html">入力内容を修正する</a>
+            <a class="primary-button confirm-button" id="complete-link" href="reservationComplete.html">この内容で予約する</a>
+        </div>
     </main>
 
     <footer>

@@ -255,6 +255,49 @@ textarea {
     }
 
 /* 予約内容確認 */
+.confirmation-guidance {
+    margin: 0 0 14px;
+    color: #d61f2c;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.7;
+}
+
+.confirmation-card-list {
+    display: grid;
+    gap: 18px;
+}
+
+.confirmation-trip-card {
+    margin-bottom: 0;
+}
+
+.confirmation-detail-card .confirmation-item:last-child {
+    border-bottom: 0;
+}
+
+.confirmation-total-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 28px;
+}
+
+.confirmation-total-label {
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.confirmation-total-value {
+    color: #d62828;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: right;
+}
+
 .confirmation-list {
     margin: 0;
     padding: 0 20px;
@@ -288,6 +331,10 @@ textarea {
     grid-template-columns: 180px 1fr;
     gap: 14px;
     padding: 20px;
+}
+
+.confirmation-page-actions {
+    padding: 20px 0 0;
 }
 
 /* 予約完了 */
@@ -387,6 +434,23 @@ textarea {
     .confirmation-actions {
         grid-template-columns: 1fr;
         padding: 16px 14px;
+    }
+
+    .confirmation-page-actions {
+        padding: 16px 0 0;
+    }
+
+    .confirmation-total-card {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding: 20px 18px;
+    }
+
+    .confirmation-total-value {
+        width: 100%;
+        font-size: 26px;
+        text-align: left;
     }
 
     .completion-title {

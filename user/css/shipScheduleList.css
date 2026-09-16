@@ -830,6 +830,7 @@ footer {
     pointer-events: none;
 }
 
+.status.stop,
 .status.closed,
 .status.unknown {
     color: #667085;

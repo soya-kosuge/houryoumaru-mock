@@ -1291,17 +1291,18 @@ if (
             row.dataset.tripEditIndex = editKey;
             const saved = savedTripEdits[editKey];
             if (saved && typeof saved === "object") {
+                const latestCounts = readTripRow(row);
                 row.cells[0].textContent = saved.date || row.cells[0].textContent;
                 row.cells[1].textContent = saved.course || row.cells[1].textContent;
                 row.cells[2].textContent = saved.ship || row.cells[2].textContent;
                 row.cells[3].textContent = saved.captain || row.cells[3].textContent;
                 row.cells[4].textContent = saved.fishing || row.cells[4].textContent;
-                const reserved = Math.max(0, Number.parseInt(saved.reserved, 10) || 0);
-                const capacity = Math.max(1, Number.parseInt(saved.capacity, 10) || 1);
+                const reserved = Math.max(0, Number.parseInt(latestCounts.reserved, 10) || 0);
+                const capacity = Math.max(1, Number.parseInt(latestCounts.capacity, 10) || 1);
                 const defaultSpecialCapacity = shipSettings[saved.ship]?.specialCapacity || 0;
-                const parsedSpecialCapacity = Number.parseInt(saved.specialCapacity, 10);
+                const parsedSpecialCapacity = Number.parseInt(latestCounts.specialCapacity, 10);
                 const specialCapacity = Math.max(0, Number.isFinite(parsedSpecialCapacity) ? parsedSpecialCapacity : defaultSpecialCapacity);
-                const specialReserved = Math.min(specialCapacity, Math.max(0, Number.parseInt(saved.specialReserved, 10) || 0));
+                const specialReserved = Math.min(specialCapacity, Math.max(0, Number.parseInt(latestCounts.specialReserved, 10) || 0));
                 renderSeatSummary(row, reserved, capacity);
                 updateSpecialSeats(row, specialReserved, specialCapacity);
                 renderTripStatus(row, saved.status);
@@ -1418,6 +1419,12 @@ if (
             }
             savedTripEdits[row.dataset.tripEditIndex] = values;
             localStorage.setItem(tripEditStorageKey, JSON.stringify(savedTripEdits));
+            const reservationDeltaKey = "horyomaruTripReservationDelta";
+            let reservationDeltas = {};
+            try { reservationDeltas = JSON.parse(localStorage.getItem(reservationDeltaKey) || "{}") || {}; }
+            catch { reservationDeltas = {}; }
+            delete reservationDeltas[row.dataset.tripEditIndex];
+            localStorage.setItem(reservationDeltaKey, JSON.stringify(reservationDeltas));
 
             row.classList.remove("is-editing");
             button.dataset.editing = "false";
@@ -1968,15 +1975,12 @@ if (
             course: item.course || "－"
         });
 
-        // LINE配信で扱う顧客は「顧客管理」に表示している3人に統一する。
-        const customerRecipients = [
-            { id: "1001", name: "田中 太郎", phone: "090-1234-5678", useCount: 8, rank: "常連", lastDate: "2026/07/30" },
-            { id: "1002", name: "佐藤 花子", phone: "090-2345-6789", useCount: 1, rank: "新規", lastDate: "2026/07/31" },
-            { id: "1003", name: "鈴木 一郎", phone: "090-3456-7890", useCount: 19, rank: "常連", lastDate: "2026/07/25" }
-        ].map((customer) => ({
+        // 顧客管理と同じ予約集計済みの顧客情報を配信対象にも使う。
+        const customerRecipients = (window.HoryomaruAdminCustomers || []).map((customer) => ({
             ...customer,
             key: customer.phone.replace(/\D/g, ""),
-            email: lineReservations.find((item) => item.name === customer.name)?.email || "－"
+            email: customer.email || lineReservations.find((item) => item.name === customer.name)?.email || "－",
+            lastDate: customer.lastDateLabel || String(customer.lastDate || "").replaceAll("-", "/") || "－"
         }));
         const selectedKeys = new Set();
 

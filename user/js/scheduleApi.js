@@ -38,7 +38,7 @@
         if (data) return data;
         const sharedTrip = trip.tripId
             ? window.HoryomaruAppData?.getTrips().find((item) => item.id === trip.tripId)
-            : window.HoryomaruAppData?.getTrip(trip.dateKey || '', trip.name || '');
+            : window.HoryomaruAppData?.getTrip(trip.dateKey || '', trip.name || '', trip.time || '');
         const remainingSeats = Number(sharedTrip?.remaining ?? trip.remainingSeats ?? 0);
         return {
             available: remainingSeats >= Number(requestedGuests || 0),

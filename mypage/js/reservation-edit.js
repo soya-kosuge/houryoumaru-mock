@@ -10,6 +10,7 @@ const limitNotice = document.getElementById('changeLimitNotice');
 if (!reservation) {
   form.innerHTML = '<div class="card empty">予約情報が見つかりません。</div>';
 } else {
+  const originalPartySize = Number(reservation.partySize || 1);
   document.getElementById('backDetailLink').href = `./reservation-detail.html?id=${encodeURIComponent(reservation.id)}`;
   document.getElementById('reservationDateText').textContent = reservation.date || '－';
   document.getElementById('tripTypeText').textContent = reservation.tripType || '－';
@@ -18,7 +19,7 @@ if (!reservation) {
   rentalRods.value = Number(reservation.rentalRods || 0);
 
   const unitPrice = Number(reservation.unitPrice || reservation.pricePerPerson || 13000);
-  const rentalUnitPrice = Number(reservation.rentalRodUnitPrice || 0);
+  const rentalUnitPrice = HOURYOUMARU_RENTAL_ROD_UNIT_PRICE;
   const yen = (value) => `${Number(value || 0).toLocaleString('ja-JP')}円`;
   const recalculate = () => {
     const people = Math.max(1, Number(partySize.value || 1));
@@ -28,24 +29,23 @@ if (!reservation) {
     document.getElementById('farePrice').textContent = `${yen(fare)}（${yen(unitPrice)} × ${people}名）`;
     document.getElementById('rentalPrice').textContent = `${yen(rental)}（${rods}本）`;
     document.getElementById('totalPrice').textContent = yen(fare + rental);
-    document.getElementById('rentalPriceNote').textContent = rentalUnitPrice > 0
-      ? `貸し竿単価：${yen(rentalUnitPrice)} / 本`
-      : '貸し竿単価はMOCK上で未設定のため、現在は0円として自動計算しています。';
+    document.getElementById('rentalPriceNote').innerHTML = `貸し竿単価：${yen(rentalUnitPrice)} / 本（<a href="https://houryoumaru.main.jp/charge.html" target="_blank" rel="noopener noreferrer">豊漁丸公式料金表</a>掲載額）`;
     return fare + rental;
   };
   partySize.addEventListener('input', recalculate);
   rentalRods.addEventListener('input', recalculate);
   recalculate();
 
-  const departure = new Date(`${reservation.date}T${reservation.departureTime || '00:00'}:00`);
-  const hoursUntilDeparture = (departure.getTime() - Date.now()) / 3600000;
-  const isLocked = Number.isFinite(hoursUntilDeparture) && hoursUntilDeparture < 48;
+  const reservationStatus = getHouryoumaruReservationStatus(reservation);
+  const isLocked = reservationStatus !== '予約中';
   if (isLocked) {
     partySize.disabled = true;
     rentalRods.disabled = true;
     saveButton.disabled = true;
     limitNotice.classList.add('is-locked');
-    limitNotice.textContent = '出船48時間以内のためWeb上では予約変更できません。変更が必要な場合は豊漁丸へ電話でお問い合わせください。';
+    limitNotice.textContent = reservationStatus === '予約完了'
+      ? '予約完了のためWeb上では予約変更できません。変更が必要な場合は豊漁丸へ電話でお問い合わせください。'
+      : 'この予約はWeb上では変更できません。';
   }
 
   let dirty = false;
@@ -70,6 +70,15 @@ if (!reservation) {
     reservation.unitPrice = unitPrice;
     reservation.rentalRodUnitPrice = rentalUnitPrice;
     reservation.totalPrice = recalculate();
+    if (reservation.tripId && reservation.partySize !== originalPartySize) {
+      const overrideKey = 'horyomaruTripReservationDelta';
+      let overrides = {};
+      try { overrides = JSON.parse(localStorage.getItem(overrideKey) || '{}'); }
+      catch (_) { overrides = {}; }
+      overrides[reservation.tripId] = Number(overrides[reservation.tripId] || 0) + (reservation.partySize - originalPartySize);
+      if (overrides[reservation.tripId] === 0) delete overrides[reservation.tripId];
+      localStorage.setItem(overrideKey, JSON.stringify(overrides));
+    }
     saveHouryoumaruData(data);
     safeLeave = true; dirty = false;
     const notice = document.getElementById('saveNotice');

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>マイページ | 豊漁丸 乗船予約</title>
+  <script src="./js/authGuard.js"></script>
   <link rel="stylesheet" href="./css/common.css">
 </head>
 <body>
@@ -17,9 +18,16 @@
 <main>
   <section class="section">
     <div class="section-head">
-      <div><p class="eyebrow">RESERVATIONS</p><h2>予約一覧</h2></div>
+      <div><p class="eyebrow">UPCOMING RESERVATIONS</p><h2>現在の予約</h2></div>
     </div>
     <div class="card" id="reservationList"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div><p class="eyebrow">RESERVATION HISTORY</p><h2>過去予約履歴</h2></div>
+    </div>
+    <div class="card" id="reservationHistoryList"></div>
   </section>
 
   <section class="section">

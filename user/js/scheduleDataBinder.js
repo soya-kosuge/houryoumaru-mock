@@ -3,12 +3,13 @@
   const data = window.HoryomaruAppData;
   if (!data) return;
 
-  const statusText = { ok: '〇 空きあり', few: '△ 残りわずか', full: '× 空きなし', unknown: '－ 内容未定' };
+  const statusText = { ok: '〇 空きあり', few: '△ 残りわずか', full: '× 空きなし', stop: '× 出船中止', unknown: '－ 内容未定' };
   document.querySelectorAll('.date-card[data-date]').forEach((card) => {
     const date = card.dataset.date;
     card.querySelectorAll('.trip-row').forEach((row) => {
       const course = row.querySelector('.trip-name')?.textContent.trim() || '';
-      const trip = data.getTrip(date, course);
+      const displayedTime = row.querySelector('.trip-time')?.textContent.trim() || '';
+      const trip = data.getTrip(date, course, displayedTime);
       if (!trip) return;
       row.dataset.tripId = trip.id;
       row.dataset.capacity = String(trip.capacity);

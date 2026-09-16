@@ -45,7 +45,8 @@ function normalizeTripStatus(row) {
     if (!statusNode) return { key: 'unknown', text: '－ 内容未定', remainingSeats: 0 };
 
     let key = 'unknown';
-    if (statusNode.classList.contains('full')) key = 'full';
+    if (statusNode.classList.contains('stop')) key = 'stop';
+    else if (statusNode.classList.contains('full')) key = 'full';
     else if (statusNode.classList.contains('few')) key = 'few';
     else if (statusNode.classList.contains('ok')) key = 'ok';
 
@@ -53,7 +54,7 @@ function normalizeTripStatus(row) {
     if (key === 'unknown' && hasTripContent(row)) key = 'ok';
 
     const configuredRemaining = Number(row.dataset.remainingSeats);
-    const defaultRemaining = key === 'full' ? 0 : key === 'few' ? 3 : key === 'ok' ? 16 : 0;
+    const defaultRemaining = key === 'full' || key === 'stop' ? 0 : key === 'few' ? 3 : key === 'ok' ? 16 : 0;
     const remainingSeats = Number.isFinite(configuredRemaining) && row.dataset.remainingSeats !== ''
         ? configuredRemaining
         : defaultRemaining;
@@ -61,6 +62,8 @@ function normalizeTripStatus(row) {
     statusNode.className = `status ${key}`;
     statusNode.textContent = key === 'full'
         ? '× 空きなし'
+        : key === 'stop'
+            ? '× 出船中止'
         : key === 'few'
             ? '△ 残りわずか'
             : key === 'ok'
