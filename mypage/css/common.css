@@ -116,6 +116,9 @@ h3 { font-size: 17px; }
   text-decoration: none;
   cursor: pointer;
 }
+.btn[hidden] {
+  display: none !important;
+}
 .btn.primary {
   color: #fff;
   border-color: var(--blue-dark);

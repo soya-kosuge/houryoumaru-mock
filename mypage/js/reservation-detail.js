@@ -17,9 +17,13 @@ if (!reservation) {
   const displayStatusLabel = ["通常キャンセル", "キャンセル"].includes(displayStatus) ? "キャンセル済み" : displayStatus;
   const statusClass = displayStatus === "予約完了" ? "completed" : (displayStatus === "予約中" ? "pending" : "cancelled");
   if (isHistory) {
-    editLink.hidden = true;
-    cancelButton.hidden = true;
-  } else if (displayStatus === "予約完了") {
+    editLink.remove();
+    cancelButton.remove();
+  } else {
+    editLink.hidden = false;
+    cancelButton.hidden = false;
+  }
+  if (!isHistory && displayStatus === "予約完了") {
     editLink.removeAttribute("href");
     editLink.setAttribute("aria-disabled", "true");
     editLink.classList.add("is-disabled");
@@ -28,6 +32,7 @@ if (!reservation) {
   }
 
   cancelButton?.addEventListener("click", () => {
+    if (isHistory) return;
     if (!window.confirm(`${reservation.date} ${reservation.tripType}の予約をキャンセルしますか？\nこの操作は元に戻せません。`)) return;
     if (cancelHouryoumaruReservation(data, reservation.id)) {
       window.alert("予約をキャンセルしました。");

@@ -60,9 +60,11 @@ if (!activeReservations.length) {
   }).join("");
 }
 
-const historyReservations = [...(data.pastReservations || []), ...(data.reservations || []).filter((reservation) =>
-  isPastReservation(reservation) || ["通常キャンセル", "キャンセル", "無断キャンセル", "乗船済み"].includes(reservation.status)
-)].sort((a, b) => `${b.date || ""} ${b.departureTime || ""}`.localeCompare(`${a.date || ""} ${a.departureTime || ""}`));
+// MOCKの履歴は9月15日・5日の2件だけを表示する。
+// 保存済みの別予約や重複があっても表示に混ぜず、保存データ自体は保持する。
+const historyReservations = DEFAULT_DATA.pastReservations.map((sample) =>
+  (data.pastReservations || []).find((reservation) => reservation.id === sample.id) || sample
+).sort((a, b) => `${b.date || ""} ${b.departureTime || ""}`.localeCompare(`${a.date || ""} ${a.departureTime || ""}`));
 
 if (!historyReservations.length) {
   historyList.innerHTML = '<div class="empty">過去の予約はありません。</div>';

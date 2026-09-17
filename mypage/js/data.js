@@ -59,22 +59,6 @@ const DEFAULT_DATA = {
       companions: []
     },
     {
-      id: "R20260920002",
-      date: "2026-09-20",
-      tripType: "深夜便",
-      departureTime: "22:00",
-      reservedAt: "2026-09-14T18:00:00+09:00",
-      unitPrice: 13000,
-      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
-      target: "マイカ",
-      partySize: 2,
-      rentalRods: 1,
-      totalPrice: 29000,
-      notes: "",
-      representative: {},
-      companions: []
-    },
-    {
       id: "R20260926003",
       date: "2026-09-26",
       tripType: "アオリ便",
@@ -93,33 +77,17 @@ const DEFAULT_DATA = {
   ],
   pastReservations: [
     {
-      id: "R20260914004",
-      date: "2026-09-14",
+      id: "R20260915004",
+      date: "2026-09-15",
       tripType: "半夜便",
       departureTime: "17:00",
-      reservedAt: "2026-09-14T07:00:00+09:00",
+      reservedAt: "2026-09-15T07:00:00+09:00",
       unitPrice: 13000,
       rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
       target: "マイカ",
       partySize: 2,
       rentalRods: 1,
       totalPrice: 29000,
-      notes: "",
-      representative: {},
-      companions: []
-    },
-    {
-      id: "R20260910005",
-      date: "2026-09-10",
-      tripType: "深夜便",
-      departureTime: "22:00",
-      reservedAt: "2026-09-06T12:00:00+09:00",
-      unitPrice: 13000,
-      rentalRodUnitPrice: HOURYOUMARU_RENTAL_ROD_UNIT_PRICE,
-      target: "マイカ・ムギイカ",
-      partySize: 1,
-      rentalRods: 0,
-      totalPrice: 13000,
       notes: "",
       representative: {},
       companions: []
@@ -301,7 +269,11 @@ function applyReservationHistoryMigration(data) {
 function ensureSampleReservations(data) {
   if (!Array.isArray(data.reservations)) data.reservations = [];
   if (!Array.isArray(data.pastReservations)) data.pastReservations = [];
-  data.reservations = data.reservations.filter((reservation) => reservation.id !== "R20260815001");
+  // 更新前の保存データから、廃止したサンプルだけを除外する。
+  // 利用者が追加した予約・登録情報は保持する。
+  const retiredSampleIds = new Set(["R20260815001", "R20260920002", "R20260914004", "R20260910005"]);
+  data.reservations = data.reservations.filter((reservation) => !retiredSampleIds.has(reservation.id));
+  data.pastReservations = data.pastReservations.filter((reservation) => !retiredSampleIds.has(reservation.id));
   const ids = new Set([...data.reservations, ...data.pastReservations].map((reservation) => reservation.id));
   DEFAULT_DATA.reservations.forEach((reservation) => {
     if (!ids.has(reservation.id)) data.reservations.push(structuredClone(reservation));

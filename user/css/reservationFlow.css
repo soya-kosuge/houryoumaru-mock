@@ -286,7 +286,7 @@ textarea {
 
 .confirmation-total-label {
     color: var(--navy);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
 }
 
@@ -456,10 +456,9 @@ textarea {
 
     .confirmation-total-value {
         width: auto;
-        font-size: clamp(18px, 5.6vw, 20px);
+        font-size: clamp(18px, 5.6vw, 21px);
         text-align: right;
         white-space: nowrap;
-        
     }
 
     .completion-title {

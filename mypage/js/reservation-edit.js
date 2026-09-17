@@ -7,7 +7,16 @@ const rentalRods = document.getElementById('rentalRods');
 const saveButton = document.getElementById('saveReservationButton');
 const limitNotice = document.getElementById('changeLimitNotice');
 
-if (!reservation) {
+const isHistoryReservation = (data.pastReservations || []).some((item) => item.id === reservationId)
+  || (reservation && (
+    new Date(`${reservation.date}T${reservation.departureTime || '00:00'}:00`).getTime() < Date.now()
+    || ['通常キャンセル', 'キャンセル', '無断キャンセル', '乗船済み'].includes(reservation.status)
+  ));
+
+if (isHistoryReservation) {
+  limitNotice.textContent = '過去の予約は変更できません。';
+  form.innerHTML = '<div class="card empty">過去の予約は閲覧のみです。</div><div class="form-actions"><a class="btn" href="./reservation-detail.html?id=' + encodeURIComponent(reservationId) + '">予約詳細へ戻る</a></div>';
+} else if (!reservation) {
   form.innerHTML = '<div class="card empty">予約情報が見つかりません。</div>';
 } else {
   const originalPartySize = Number(reservation.partySize || 1);
