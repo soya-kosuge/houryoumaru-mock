@@ -109,6 +109,9 @@
   }));
   window.HoryomaruAdminCustomers = customers.map((customer) => ({ ...customer }));
   const adminTripStatus = (trip) => {
+    if (String(trip.date || '').replaceAll('/', '-') < todayKey) {
+      return { key: 'ok', label: '出船済み', text: '出船済み' };
+    }
     const isCancelled = trip.operationStatus === '運航中止'
       || ['中止', '運航中止'].includes(String(trip.status || '').trim());
     return isCancelled
@@ -153,6 +156,7 @@
   if (detailBody) {
     detailBody.innerHTML = reservations.map((item) => {
       const cancelLabel = cancellationLabel(item.status);
+      const isPast = String(item.dateKey || item.date || '').replaceAll('/', '-') < todayKey;
       return `
       <tr data-course="${esc(item.course)}" data-date="${esc(item.date)}" data-ship="${esc(reservationShip(item))}" data-detail-search-row="" data-name="${esc(item.name)}">
         <td data-editable>${esc(item.date)}</td><td data-editable>${esc(item.course)}</td><td>${esc(reservationShip(item))}</td><td data-editable>${esc(item.name)}</td>
@@ -160,7 +164,7 @@
         <td data-editable>${Number(item.rentalRod || 0) ? `${Number(item.rentalRod)}本` : 'なし'}</td>
         <td data-editable>${esc(item.phone || '－')}</td><td data-editable>${esc(item.email || '－')}</td>
         <td data-cancel-cell data-cancel-value="${cancelLabel}"><span class="reservation-cancel-tag ${cancellationClass(cancelLabel)}">${cancelLabel}</span></td>
-        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+        <td>${isPast ? '' : '<button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button>'}</td>
       </tr>`;
     }).join('');
   }

@@ -628,6 +628,11 @@ a {
 }
 
 /* 管理者ログイン */
+#reservation-detail-table.is-history th:last-child,
+#reservation-detail-table.is-history td:last-child {
+    display: none;
+}
+
 .admin-login-page {
     display: grid;
     grid-template-rows: auto 1fr auto;

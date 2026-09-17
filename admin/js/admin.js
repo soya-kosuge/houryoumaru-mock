@@ -1246,6 +1246,10 @@ if (
         const renderTripStatus = (row, status) => {
             const statusCell = row.cells[7];
             if (!statusCell) return;
+            if (document.body.dataset.tripView === "history") {
+                statusCell.innerHTML = '<span class="trip-status ok" data-status="出船済み">出船済み</span>';
+                return;
+            }
             const normalizedStatus = normalizeTripOperationStatus(status);
             if (normalizedStatus === "運航中止") {
                 statusCell.innerHTML = '<span class="trip-status stop" data-status="運航中止"> × 運航中止 </span>';
@@ -1311,6 +1315,10 @@ if (
             const fishing = row.cells[4]?.textContent.trim();
             if (fishing && !fishingHistory.includes(fishing)) fishingHistory.push(fishing);
 
+            if (document.body.dataset.tripView === "history") {
+                renderTripStatus(row, "出船済み");
+                return;
+            }
             const operationCell = document.createElement("td");
             operationCell.className = "trip-operation-cell";
             operationCell.innerHTML = '<button class="btn btn-primary btn-sm" data-edit-trip-row type="button">修正</button>';
@@ -1319,6 +1327,7 @@ if (
         localStorage.setItem(fishingHistoryStorageKey, JSON.stringify(fishingHistory));
 
         tripTable.addEventListener("click", (event) => {
+            if (document.body.dataset.tripView === "history") return;
             const button = event.target.closest("[data-edit-trip-row]");
             if (!button) return;
             const row = button.closest("tr");
@@ -1529,6 +1538,16 @@ if (
         };
 
         const refreshDetails = () => {
+            const todayKey = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+            const isPastDetail = (row) => {
+                const dateKey = String(row.dataset.date || row.cells[0]?.textContent || '').trim().replaceAll('/', '-');
+                return Boolean(dateKey && dateKey < todayKey);
+            };
+            // 過去の行は保存済みデータや検索条件にかかわらず閲覧専用。
+            detailRows.filter(isPastDetail).forEach((row) => {
+                row.querySelectorAll('[data-edit-row]').forEach((button) => button.remove());
+                row.querySelectorAll('[data-editable]').forEach((cell) => cell.removeAttribute('data-editable'));
+            });
             detailRows.sort(compareElements).forEach((row) => detailBody.appendChild(row));
             if (mobileContainer) {
                 mobileCards.sort(compareElements).forEach((card) => mobileContainer.appendChild(card));
@@ -1543,6 +1562,13 @@ if (
             mobileCards.forEach((card) => {
                 card.hidden = !matchesDetail(card);
             });
+
+            const visibleRows = detailRows.filter((row) => matchesDetail(row));
+            const selectedDateKey = detailSearchDate.value;
+            const historyOnly = selectedDateKey
+                ? selectedDateKey < todayKey
+                : visibleRows.length > 0 && visibleRows.every(isPastDetail);
+            detailTable.classList.toggle('is-history', historyOnly);
 
             if (detailPrintLink) {
                 const params = new URLSearchParams();
@@ -1672,6 +1698,12 @@ if (
 
     // 静的MOCK行にも、メールと操作の間へキャンセル列を補う。
     document.querySelectorAll("#reservation-detail-table tbody tr").forEach((row) => {
+        const todayKey = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        const dateKey = String(row.dataset.date || row.cells[0]?.textContent || '').trim().replaceAll('/', '-');
+        if (dateKey && dateKey < todayKey) {
+            row.querySelectorAll('[data-edit-row]').forEach((button) => button.remove());
+            row.querySelectorAll('[data-editable]').forEach((cell) => cell.removeAttribute('data-editable'));
+        }
         if (row.querySelector("[data-cancel-cell]")) return;
         const cell = document.createElement("td");
         cell.dataset.cancelCell = "";
