@@ -22,7 +22,10 @@ const isPastReservation = (reservation) => {
   const departure = new Date(`${reservation.date || ""}T${reservation.departureTime || "23:59"}:00`);
   return Number.isFinite(departure.getTime()) && departure.getTime() < Date.now();
 };
-const activeReservations = (data.reservations || []).filter((reservation) =>
+// MOCKの現在予約は9月18日・26日の2件だけを表示する。ほかの保存データは保持する。
+const activeReservations = DEFAULT_DATA.reservations.map((sample) =>
+  (data.reservations || []).find((reservation) => reservation.id === sample.id) || sample
+).filter((reservation) =>
   !isPastReservation(reservation) && !["通常キャンセル", "キャンセル", "無断キャンセル"].includes(reservation.status)
 );
 const reservationStatusBadge = (reservation) => {

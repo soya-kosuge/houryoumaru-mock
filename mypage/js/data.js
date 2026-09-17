@@ -34,8 +34,8 @@ const DEFAULT_DATA = {
   },
   reservations: [
     {
-      id: "R20260917001",
-      date: "2026-09-17",
+      id: "R20260918001",
+      date: "2026-09-18",
       tripType: "半夜便",
       departureTime: "17:00",
       reservedAt: "2026-09-11T10:00:00+09:00",
