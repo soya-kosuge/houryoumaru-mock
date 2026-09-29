@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>
         予約管理｜豊漁丸 管理画面
     </title>
-    <link href="css/admin.css" rel="stylesheet" />
+    <link href="css/admin.css" rel="stylesheet">
 </head>
 <body>
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="adminDashboard.html">
-                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png" />
+                <img alt="豊漁丸" class="brand-logo" src="images/%E8%B1%8A%E6%BC%81%E4%B8%B8_%E7%AE%A1%E7%90%86%E8%80%85%E7%94%BB%E9%9D%A2_%E3%83%AD%E3%82%B4.png">
             </a>
             <nav class="header-nav">
                 <a href="adminDashboard.html">
@@ -72,7 +72,7 @@
                 <label for="reservation-date">
                     予約日
                 </label>
-                <input class="input" id="reservation-date" type="date" />
+                <input class="input" id="reservation-date" type="date">
             </div>
             <div class="field">
                 <label for="reservation-course">
@@ -95,20 +95,18 @@
             </div>
             <div class="field">
                 <label for="reservation-ship">
-                    船名
+                    船舶区分
                 </label>
                 <select class="select" id="reservation-ship">
                     <option value="">すべて</option>
-                    <option value="カムトゥドリーム">カムトゥドリーム</option>
-                    <option value="ドリーム">ドリーム</option>
-                    <option value="スーパードリーム">スーパードリーム</option>
+                    <option value="中型船">中型船</option><option value="大型船">大型船</option>
                 </select>
             </div>
             <div class="field">
                 <label for="reservation-guests">
                     人数
                 </label>
-                <input class="input" id="reservation-guests" min="1" placeholder="人数" type="number" />
+                <input class="input" id="reservation-guests" min="1" placeholder="人数" type="number">
             </div>
             <div class="field">
                 <label for="reservation-sort-direction">
@@ -139,54 +137,193 @@
                     <tr>
                         <th> 予約日</th>
                         <th>便</th>
-                        <th>船名</th>
+                        <th>船舶区分</th>
                         <th>通常枠</th>
                         <th>特別枠</th>
                         <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-search-row>
-                        <td>2026/08/02</td>
-                        <td>半夜便</td>
-                        <td>3名</td>
-                    </tr>
-                    <tr data-search-row>
-                        <td>2026/08/02</td>
-                        <td>深夜便</td>
-                        <td>3名</td>
-                    </tr>
-                    <tr data-search-row>
-                        <td>2026/08/01</td>
-                        <td>半夜便</td>
-                        <td>1名</td>
-                    </tr>
-                    <tr data-search-row>
-                        <td>2026/08/01</td>
-                        <td>深夜便</td>
-                        <td>2名</td>
-                    </tr>
-                    <tr data-search-row>
-                        <td>2026/07/31</td>
-                        <td>半夜便</td>
-                        <td>5名</td>
-                    </tr>
-                    <tr data-search-row>
-                        <td>2026/07/31</td>
-                        <td>深夜便</td>
-                        <td>4名</td>
-                    </tr>
-                    <tr data-search-row>
-                        <td>2026/07/30</td>
-                        <td>半夜便</td>
-                        <td>2名</td>
-                    </tr>
-                    <tr data-search-row>
-                        <td>2026/07/30</td>
-                        <td>深夜便</td>
-                        <td>2名</td>
-                    </tr>
-                </tbody>
+      <tr data-search-row data-date="2026/10/01" data-course="半夜便" data-ship="大型船" data-guests="1" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-001">
+        <td>2026/10/01</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-01&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/01" data-course="深夜便" data-ship="大型船" data-guests="2" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-002">
+        <td>2026/10/01</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-01&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/02" data-course="半夜便" data-ship="大型船" data-guests="3" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-004">
+        <td>2026/10/02</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-02&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/02" data-course="アオリ便" data-ship="中型船" data-guests="4" data-capacity="12" data-special-reserved="0" data-special-capacity="0" data-trip-id="2026-md-006">
+        <td>2026/10/02</td><td>アオリ便</td><td>中型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">4 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-02&amp;course=%E3%82%A2%E3%82%AA%E3%83%AA%E4%BE%BF&amp;ship=%E4%B8%AD%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/03" data-course="深夜便" data-ship="大型船" data-guests="1" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-008">
+        <td>2026/10/03</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-03&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/04" data-course="深夜便" data-ship="中型船" data-guests="2" data-capacity="12" data-special-reserved="0" data-special-capacity="0" data-trip-id="2026-md-010">
+        <td>2026/10/04</td><td>深夜便</td><td>中型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-04&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E4%B8%AD%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/04" data-course="深夜便" data-ship="大型船" data-guests="3" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-012">
+        <td>2026/10/04</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-04&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/05" data-course="深夜便" data-ship="大型船" data-guests="4" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-014">
+        <td>2026/10/05</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-05&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/06" data-course="深夜便" data-ship="大型船" data-guests="1" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-016">
+        <td>2026/10/06</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-06&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/07" data-course="深夜便" data-ship="大型船" data-guests="2" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-018">
+        <td>2026/10/07</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-07&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/09" data-course="半夜便" data-ship="大型船" data-guests="3" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-021">
+        <td>2026/10/09</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-09&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/10" data-course="半夜便" data-ship="大型船" data-guests="4" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-024">
+        <td>2026/10/10</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-10&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/11" data-course="アオリ便" data-ship="中型船" data-guests="1" data-capacity="12" data-special-reserved="0" data-special-capacity="0" data-trip-id="2026-md-027">
+        <td>2026/10/11</td><td>アオリ便</td><td>中型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-11&amp;course=%E3%82%A2%E3%82%AA%E3%83%AA%E4%BE%BF&amp;ship=%E4%B8%AD%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/12" data-course="アオリ便" data-ship="中型船" data-guests="2" data-capacity="12" data-special-reserved="0" data-special-capacity="0" data-trip-id="2026-md-030">
+        <td>2026/10/12</td><td>アオリ便</td><td>中型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-12&amp;course=%E3%82%A2%E3%82%AA%E3%83%AA%E4%BE%BF&amp;ship=%E4%B8%AD%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/13" data-course="半夜便" data-ship="大型船" data-guests="3" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-033">
+        <td>2026/10/13</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-13&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/14" data-course="深夜便" data-ship="大型船" data-guests="4" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-036">
+        <td>2026/10/14</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-14&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/16" data-course="半夜便" data-ship="大型船" data-guests="1" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-039">
+        <td>2026/10/16</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-16&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/17" data-course="半夜便" data-ship="大型船" data-guests="2" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-042">
+        <td>2026/10/17</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-17&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/18" data-course="半夜便" data-ship="大型船" data-guests="3" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-045">
+        <td>2026/10/18</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-18&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/19" data-course="深夜便" data-ship="大型船" data-guests="4" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-048">
+        <td>2026/10/19</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-19&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/21" data-course="半夜便" data-ship="大型船" data-guests="1" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-051">
+        <td>2026/10/21</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-21&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/22" data-course="深夜便" data-ship="大型船" data-guests="2" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-054">
+        <td>2026/10/22</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-22&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/24" data-course="アオリ便" data-ship="中型船" data-guests="3" data-capacity="12" data-special-reserved="0" data-special-capacity="0" data-trip-id="2026-md-057">
+        <td>2026/10/24</td><td>アオリ便</td><td>中型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">3 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-24&amp;course=%E3%82%A2%E3%82%AA%E3%83%AA%E4%BE%BF&amp;ship=%E4%B8%AD%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/24" data-course="深夜便" data-ship="大型船" data-guests="4" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-060">
+        <td>2026/10/24</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-24&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/25" data-course="深夜便" data-ship="大型船" data-guests="1" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-063">
+        <td>2026/10/25</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-25&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/27" data-course="半夜便" data-ship="大型船" data-guests="2" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-066">
+        <td>2026/10/27</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-27&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/28" data-course="深夜便" data-ship="大型船" data-guests="3" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-069">
+        <td>2026/10/28</td><td>深夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-28&amp;course=%E6%B7%B1%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/30" data-course="半夜便" data-ship="大型船" data-guests="4" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-072">
+        <td>2026/10/30</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-30&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/10/31" data-course="半夜便" data-ship="大型船" data-guests="1" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-075">
+        <td>2026/10/31</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-10-31&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr>
+      <tr data-search-row data-date="2026/11/01" data-course="半夜便" data-ship="大型船" data-guests="2" data-capacity="28" data-special-reserved="0" data-special-capacity="3" data-trip-id="2026-md-078">
+        <td>2026/11/01</td><td>半夜便</td><td>大型船</td>
+        <td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><a class="btn btn-primary btn-sm" href="adminReservationDetail.html?date=2026-11-01&amp;course=%E5%8D%8A%E5%A4%9C%E4%BE%BF&amp;ship=%E5%A4%A7%E5%9E%8B%E8%88%B9">この船の詳細</a></td>
+      </tr></tbody>
             </table>
         </div>
     </main>

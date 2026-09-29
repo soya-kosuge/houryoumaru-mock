@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerNav = document.querySelector(".header-nav");
 
     menuToggle?.addEventListener("click", () => {
-        headerNav?.classList.toggle("is-open");
+        const open = headerNav?.classList.toggle("is-open") || false;
+        menuToggle.setAttribute("aria-expanded", String(open));
     });
 
     // お知らせポップアップ・未読バッジ
@@ -368,11 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tripCreateFishingHistory = document.querySelector("#fishing-target-history");
 
     if (tripCreateForm && tripCreateShip && tripCreateCapacity && tripCreateSpecialCapacity) {
-        const createShipSettings = {
-            "カムトゥドリーム": { capacity: 12, specialCapacity: 0 },
-            "ドリーム": { capacity: 30, specialCapacity: 3 },
-            "スーパードリーム": { capacity: 32, specialCapacity: 6 }
-        };
+        const createShipSettings = { "中型船": { capacity: 12, specialCapacity: 0 }, "大型船": { capacity: 28, specialCapacity: 3 } };
         const applyShipCapacity = () => {
             const setting = createShipSettings[tripCreateShip.value];
             if (!setting) return;
@@ -478,7 +475,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const matchesRank =
                 !customerRank.value ||
                 data.rank === customerRank.value;
-
             return matchesText && matchesRank;
         };
 
@@ -1207,15 +1203,11 @@ if (
         const tripEditStorageKey = "horyomaruAdminTripEdits";
         const fishingHistoryStorageKey = "horyomaruAdminFishingHistory";
         const courseOptions = ["早朝便", "アオリ便", "半夜便", "深夜便"];
-        const shipOptions = ["カムトゥドリーム", "ドリーム", "スーパードリーム"];
+        const shipOptions = ["中型船", "大型船"];
         const tripStatusOptions = ["運航可能", "運航中止"];
         const canEditTripStatus = document.body.dataset.tripView === "upcoming";
-        const shipSettings = {
-            "カムトゥドリーム": { capacity: 12, specialCapacity: 0 },
-            "ドリーム": { capacity: 30, specialCapacity: 3 },
-            "スーパードリーム": { capacity: 32, specialCapacity: 6 }
-        };
-        const captainOptions = ["佐藤船長", "山田船長"];
+        const shipSettings = { "中型船": { capacity: 12, specialCapacity: 0 }, "大型船": { capacity: 28, specialCapacity: 3 } };
+        
         let savedTripEdits = {};
         let fishingHistory = [];
 
@@ -1299,7 +1291,7 @@ if (
                 row.cells[0].textContent = saved.date || row.cells[0].textContent;
                 row.cells[1].textContent = saved.course || row.cells[1].textContent;
                 row.cells[2].textContent = saved.ship || row.cells[2].textContent;
-                row.cells[3].textContent = saved.captain || row.cells[3].textContent;
+                row.cells[3].textContent = "";
                 row.cells[4].textContent = saved.fishing || row.cells[4].textContent;
                 const reserved = Math.max(0, Number.parseInt(latestCounts.reserved, 10) || 0);
                 const capacity = Math.max(1, Number.parseInt(latestCounts.capacity, 10) || 1);
@@ -1340,7 +1332,7 @@ if (
                 row.cells[0].innerHTML = `<input class="table-edit-input" type="date" aria-label="出船日" value="${escapeHtml(values.date.replaceAll("/", "-"))}">`;
                 row.cells[1].innerHTML = selectMarkup(courseOptions, values.course, "便");
                 row.cells[2].innerHTML = selectMarkup(shipOptions, values.ship, "船名");
-                row.cells[3].innerHTML = selectMarkup(captainOptions, values.captain, "船長");
+                row.cells[3].textContent = "";
                 row.cells[4].innerHTML = `
                     <input class="table-edit-input" type="text" list="${listId}" aria-label="釣り物" value="${escapeHtml(values.fishing)}">
                     <datalist id="${listId}">${fishingHistory.map((item) => `<option value="${escapeHtml(item)}"></option>`).join("")}</datalist>`;
@@ -1382,7 +1374,7 @@ if (
             const dateInput = row.cells[0].querySelector("input");
             const courseInput = row.cells[1].querySelector("select");
             const shipInput = row.cells[2].querySelector("select");
-            const captainInput = row.cells[3].querySelector("select");
+            const captainInput = null;
             const fishingInput = row.cells[4].querySelector("input");
             const reservationInputs = row.cells[5].querySelectorAll("input");
             const specialInputs = row.cells[6].querySelectorAll("input");
@@ -1676,13 +1668,6 @@ if (
         return d;
     };
 
-    const getCustomerRank = (count) => {
-        const n = Number(count) || 0;
-        if (n >= 6) return "常連";
-        if (n >= 2) return "一般";
-        return "新規";
-    };
-
     // 行編集内容をMOCK上でも再読込後に保持する。
     const rowEditStorageKey = `horyomaruAdminRowEdits:${location.pathname}`;
     const cancellationStorageKey = `horyomaruAdminCancellationEdits:${location.pathname}`;
@@ -1745,6 +1730,28 @@ if (
             localStorage.setItem(cancellationStorageKey, JSON.stringify(savedCancellationEdits));
         }
     };
+
+    document.querySelectorAll('[data-rank-select]').forEach((select) => {
+        select.addEventListener('change', () => {
+            const row = select.closest('[data-customer-detail-row]');
+            if (!row) return;
+            let saved = {};
+            try { saved = JSON.parse(localStorage.getItem('horyomaruCustomerRanks') || '{}') || {}; } catch {}
+            saved[row.dataset.customerId] = select.value;
+            localStorage.setItem('horyomaruCustomerRanks', JSON.stringify(saved));
+            row.dataset.customerRank = select.value;
+            const card = document.querySelector(`[data-customer-detail-mobile-card][data-customer-id="${row.dataset.customerId}"]`);
+            if (card) {
+                card.dataset.customerRank = select.value;
+                const badge = card.querySelector('.badge');
+                if (badge) {
+                    badge.textContent = select.value;
+                    badge.className = `badge ${select.value === '常連' ? 'badge-orange' : select.value === '要注意' ? 'badge-attention' : 'badge-green'}`;
+                }
+            }
+            document.querySelector('#customer-detail-search')?.dispatchEvent(new Event('input'));
+        });
+    });
 
     // 行ごとの修正・保存
     document.querySelectorAll("[data-edit-row]").forEach((button) => {
@@ -1928,8 +1935,7 @@ if (
                 });
 
                 const allCells = row.querySelectorAll("td");
-                const rank = getCustomerRank(useCount);
-                if (allCells[8]) allCells[8].textContent = rank;
+                const rank = row.dataset.customerRank || '新規';
                 row.dataset.customerName = editableCells[0]?.textContent.trim() || "";
                 row.dataset.customerRank = rank;
 
@@ -1946,7 +1952,8 @@ if (
                     if (values[3]) values[3].textContent = editableCells[2]?.textContent.trim() || "";
                     if (values[4]) values[4].textContent = editableCells[3]?.textContent.trim() || "";
                     if (values[5]) values[5].textContent = `${useCount}回`;
-                    if (values[8]) values[8].textContent = rank;
+                    const rankBadge = values[8]?.querySelector('.badge');
+                    if (rankBadge) rankBadge.textContent = rank;
                 }
             } else {
                 editableCells.forEach((cell) => {
@@ -2101,7 +2108,7 @@ if (
             return "全員";
         };
 
-        const rankBadgeClass = (rank) => rank === "常連" ? "badge-orange" : rank === "一般" ? "badge-blue" : "badge-green";
+        const rankBadgeClass = (rank) => rank === "常連" ? "badge-orange" : rank === "要注意" ? "badge-attention" : "badge-green";
 
         const hideRecipientResults = () => {
             if (recipientResults) recipientResults.hidden = true;

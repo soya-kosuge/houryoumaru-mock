@@ -2247,3 +2247,29 @@ body.is-modal-open {
     font-size: 11px;
     font-weight: 400;
 }
+
+/* PC・タブレットで操作する管理画面 */
+.customer-rank-select { width:100%; min-width:96px; max-width:130px; min-height:40px; padding:6px; }
+.customer-detail-table th:nth-child(9), .customer-detail-table td:nth-child(9) { width:125px; overflow:visible; }
+.customer-detail-table table { min-width:1320px; }
+.menu-toggle:focus-visible { outline:3px solid #4ab0c8; outline-offset:2px; }
+.badge-attention { margin-left:4px; color:#8b2b37; background:#ffebee; }
+/* 船長は出船予定に表示しない。内部の表セルは既存の編集インデックスのため保持。 */
+#trip-table th:nth-child(4), #trip-table td:nth-child(4) { display:none; }
+#trip-captain { display:none; }
+#trip-captain + * { display:none; }
+@media (min-width:721px) and (max-width:1100px) {
+    .header-inner, .hero-inner, .page { width:calc(100% - 32px); }
+    .brand-logo { width:clamp(150px, 22vw, 220px); }
+    .toolbar .field { min-width:150px; }
+    .page-actions .actions { display:flex; flex-wrap:wrap; gap:8px; }
+    .customer-detail-table table { min-width:1100px; table-layout:auto; }
+    .trip-table-wrap table { min-width:920px; }
+    .table-wrap { -webkit-overflow-scrolling:touch; }
+    .btn { min-height:40px; }
+}
+@media (max-width:960px) {
+    .header-nav { left:auto; right:0; width:min(320px, calc(100vw - 32px)); top:70px; z-index:40; }
+    .menu-toggle { min-height:44px; min-width:72px; justify-content:center; }
+    .header-inner { gap:12px; }
+}

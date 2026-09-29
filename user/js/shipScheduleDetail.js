@@ -26,7 +26,7 @@ const subtractMinutes = (timeText, minutes) => {
 
 const contentUndecided = ['', '－', '-', '未定', '内容未定'].includes(trip.time)
     || ['', '－', '-', '未定', '内容未定'].includes(trip.target);
-if (contentUndecided) {
+if (contentUndecided && trip.status !== 'ok') {
     trip.status = 'unknown';
     trip.statusText = '－ 内容未定';
     trip.remainingSeats = 0;
@@ -34,11 +34,13 @@ if (contentUndecided) {
 
 document.getElementById('detail-date').textContent = trip.date;
 document.getElementById('detail-name').textContent = trip.name;
-document.getElementById('detail-time').textContent = trip.time;
+document.getElementById('detail-time').textContent = trip.time.includes('集合') ? '未記載' : trip.time;
 document.getElementById('detail-target').textContent = trip.target;
+const selectedTrip = window.HoryomaruAppData?.getTrips().find((item) => item.id === trip.tripId);
+document.getElementById('detail-ship').textContent = selectedTrip?.ship || '大型船';
 document.getElementById('detail-price').textContent = trip.price;
 // 集合時間は便種に関係なく、必ず出船時刻の60分前。
-document.getElementById('detail-meeting-time').textContent = subtractMinutes(trip.time, 60);
+document.getElementById('detail-meeting-time').textContent = trip.time.includes('集合') ? trip.time.replace('集合', '') : subtractMinutes(trip.time, 60);
 
 const statusElement = document.getElementById('detail-status');
 statusElement.textContent = trip.statusText;

@@ -1,30 +1,24 @@
 (() => {
   'use strict';
   const data = window.HoryomaruAppData;
-  if (!data) return;
-
-  const statusText = { ok: '〇 空きあり', few: '△ 残りわずか', full: '× 空きなし', stop: '× 出船中止', unknown: '－ 内容未定' };
-  document.querySelectorAll('.date-card[data-date]').forEach((card) => {
-    const date = card.dataset.date;
-    card.querySelectorAll('.trip-row').forEach((row) => {
-      const course = row.querySelector('.trip-name')?.textContent.trim() || '';
-      const displayedTime = row.querySelector('.trip-time')?.textContent.trim() || '';
-      const trip = data.getTrip(date, course, displayedTime);
-      if (!trip) return;
-      row.dataset.tripId = trip.id;
-      row.dataset.capacity = String(trip.capacity);
-      row.dataset.reservedSeats = String(trip.reserved);
-      row.dataset.remainingSeats = String(trip.remaining);
-      row.dataset.status = trip.status;
-      const time = row.querySelector('.trip-time');
-      const target = row.querySelector('.trip-target');
-      const status = row.querySelector('.status');
-      if (time) time.textContent = trip.time;
-      if (target) target.textContent = trip.target;
-      if (status) {
-        status.className = `status ${trip.status}`;
-        status.textContent = statusText[trip.status] || statusText.unknown;
-      }
-    });
+  const container = document.querySelector('#schedule');
+  if (!data || !container) return;
+  const trips = data.getTrips();
+  const byDate = new Map();
+  trips.forEach((trip) => {
+    if (!byDate.has(trip.date)) byDate.set(trip.date, []);
+    byDate.get(trip.date).push(trip);
   });
+  const esc = (value) => String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const weekday = ['日','月','火','水','木','金','土'];
+  container.innerHTML = [...byDate].sort(([a],[b]) => a.localeCompare(b)).map(([date, rows]) => {
+    const parsed = new Date(`${date}T00:00:00`);
+    const label = `${parsed.getMonth()+1}月${parsed.getDate()}日（${weekday[parsed.getDay()]}）`;
+    return `<article class="date-card" data-date="${date}">
+      <div class="date-head"><h2 class="date-title">${label}</h2><span class="date-label">出船予定</span></div>
+      <div class="trip-list">${rows.map((trip) => `<a class="trip-row" href="shipScheduleList.html" data-trip-id="${esc(trip.id)}" data-capacity="${trip.capacity}" data-reserved-seats="${trip.reserved}" data-remaining-seats="${trip.remaining}" data-status="${trip.status}">
+        <span class="trip-name">${esc(trip.course)}</span><span class="trip-time">${esc(trip.time)}</span>
+        <span class="trip-target">${esc(trip.target)}</span><span class="status ${trip.status}">${trip.status === 'ok' ? '〇 空きあり' : trip.status === 'full' ? '× 空きなし' : '× 出船中止'}</span><span class="arrow" aria-hidden="true">›</span>
+      </a>`).join('')}</div></article>`;
+  }).join('');
 })();

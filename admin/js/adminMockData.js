@@ -250,19 +250,8 @@
             const count =
                 customer.useCount;
 
-            const rank =
-                count >= 6
-                    ? "常連"
-                    : count >= 2
-                        ? "一般"
-                        : "新規";
-
-            const badge =
-                rank === "常連"
-                    ? "badge-orange"
-                    : rank === "一般"
-                        ? "badge-blue"
-                        : "badge-green";
+            const rank = count >= 2 ? "常連" : "新規";
+            const badge = rank === "常連" ? "badge-orange" : "badge-green";
 
 
             // 顧客一覧 PC

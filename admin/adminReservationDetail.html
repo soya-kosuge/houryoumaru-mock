@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>
       予約詳細｜豊漁丸 管理画面
     </title>
-    <link href="css/admin.css?v=20260917-readonly2" rel="stylesheet"/>
+    <link href="css/admin.css?v=20260917-readonly2" rel="stylesheet">
   </head>
   <body>
     <header class="site-header">
       <div class="header-inner">
         <a class="brand" href="adminDashboard.html">
-          <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png"/>
+          <img alt="豊漁丸" class="brand-logo" src="images/%E8%B1%8A%E6%BC%81%E4%B8%B8_%E7%AE%A1%E7%90%86%E8%80%85%E7%94%BB%E9%9D%A2_%E3%83%AD%E3%82%B4.png">
         </a>
         <nav class="header-nav">
           <a href="adminDashboard.html">
@@ -71,7 +71,7 @@
           <label for="detail-search-date">
             予約日
           </label>
-          <input class="input" id="detail-search-date" type="date"/>
+          <input class="input" id="detail-search-date" type="date">
         </div>
         <div class="field">
           <label for="detail-search-course">
@@ -94,20 +94,18 @@
         </div>
         <div class="field">
           <label for="detail-search-ship">
-            船名
+            船舶区分
           </label>
           <select class="select" id="detail-search-ship">
             <option value="">すべて</option>
-            <option value="カムトゥドリーム">カムトゥドリーム</option>
-            <option value="ドリーム">ドリーム</option>
-            <option value="スーパードリーム">スーパードリーム</option>
+            <option value="中型船">中型船</option><option value="大型船">大型船</option>
           </select>
         </div>
         <div class="field">
           <label for="detail-search-name">
             氏名
           </label>
-          <input class="input" id="detail-search-name" placeholder="氏名を入力" type="text"/>
+          <input class="input" id="detail-search-name" placeholder="氏名を入力" type="text">
         </div>
         <div class="field">
           <label for="detail-sort-direction">
@@ -143,7 +141,7 @@
                 便
               </th>
               <th>
-                船名
+                船舶区分
               </th>
               <th>
                 氏名
@@ -172,1739 +170,519 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-course="半夜便" data-date="2026/08/02" data-detail-search-row="" data-name="田中 太郎">
-              <td data-editable="">
-                2026/08/02
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                田中 太郎
-              </td>
-              <td data-editable="">
-                たなか たろう
-              </td>
-              <td data-editable="">
-                2名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                090-1234-5678
-              </td>
-              <td data-editable="">
-                tanaka@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/08/02" data-detail-search-row="" data-name="佐藤 花子">
-              <td data-editable="">
-                2026/08/02
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                佐藤 花子
-              </td>
-              <td data-editable="">
-                さとう はなこ
-              </td>
-              <td data-editable="">
-                3名
-              </td>
-              <td data-editable="">
-                2本
-              </td>
-              <td data-editable="">
-                090-2345-6789
-              </td>
-              <td data-editable="">
-                sato@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/08/02" data-detail-search-row="" data-name="鈴木 一郎">
-              <td data-editable="">
-                2026/08/02
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                鈴木 一郎
-              </td>
-              <td data-editable="">
-                すずき いちろう
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                1本
-              </td>
-              <td data-editable="">
-                090-3456-7890
-              </td>
-              <td data-editable="">
-                suzuki@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/08/01" data-detail-search-row="" data-name="高橋 美咲">
-              <td data-editable="">
-                2026/08/01
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                高橋 美咲
-              </td>
-              <td data-editable="">
-                たかはし みさき
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                090-4567-8901
-              </td>
-              <td data-editable="">
-                takahashi@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/08/01" data-detail-search-row="" data-name="伊藤 健太">
-              <td data-editable="">
-                2026/08/01
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                伊藤 健太
-              </td>
-              <td data-editable="">
-                いとう けんた
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                1本
-              </td>
-              <td data-editable="">
-                090-5678-9012
-              </td>
-              <td data-editable="">
-                ito@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/08/01" data-detail-search-row="" data-name="渡辺 直樹">
-              <td data-editable="">
-                2026/08/01
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                渡辺 直樹
-              </td>
-              <td data-editable="">
-                わたなべ なおき
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                090-6789-0123
-              </td>
-              <td data-editable="">
-                watanabe@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/07/31" data-detail-search-row="" data-name="山本 拓海">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                山本 拓海
-              </td>
-              <td data-editable="">
-                やまもと たくみ
-              </td>
-              <td data-editable="">
-                2名
-              </td>
-              <td data-editable="">
-                2本
-              </td>
-              <td data-editable="">
-                090-7890-1234
-              </td>
-              <td data-editable="">
-                yamamoto@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/07/31" data-detail-search-row="" data-name="中村 彩香">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                中村 彩香
-              </td>
-              <td data-editable="">
-                なかむら あやか
-              </td>
-              <td data-editable="">
-                2名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                090-8901-2345
-              </td>
-              <td data-editable="">
-                nakamura@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/07/31" data-detail-search-row="" data-name="小林 大輔">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                小林 大輔
-              </td>
-              <td data-editable="">
-                こばやし だいすけ
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                1本
-              </td>
-              <td data-editable="">
-                090-9012-3456
-              </td>
-              <td data-editable="">
-                kobayashi@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/07/31" data-detail-search-row="" data-name="加藤 里奈">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                加藤 里奈
-              </td>
-              <td data-editable="">
-                かとう りな
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                080-1234-5678
-              </td>
-              <td data-editable="">
-                kato@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/07/31" data-detail-search-row="" data-name="吉田 翔太">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                吉田 翔太
-              </td>
-              <td data-editable="">
-                よしだ しょうた
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                1本
-              </td>
-              <td data-editable="">
-                080-2345-6789
-              </td>
-              <td data-editable="">
-                yoshida@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/07/31" data-detail-search-row="" data-name="山田 真由">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                山田 真由
-              </td>
-              <td data-editable="">
-                やまだ まゆ
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                080-3456-7890
-              </td>
-              <td data-editable="">
-                yamada@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/07/31" data-detail-search-row="" data-name="松本 和也">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                松本 和也
-              </td>
-              <td data-editable="">
-                まつもと かずや
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                1本
-              </td>
-              <td data-editable="">
-                080-4567-8901
-              </td>
-              <td data-editable="">
-                matsumoto@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/07/31" data-detail-search-row="" data-name="井上 千尋">
-              <td data-editable="">
-                2026/07/31
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                井上 千尋
-              </td>
-              <td data-editable="">
-                いのうえ ちひろ
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                080-5678-9012
-              </td>
-              <td data-editable="">
-                inoue@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/07/30" data-detail-search-row="" data-name="木村 亮介">
-              <td data-editable="">
-                2026/07/30
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                木村 亮介
-              </td>
-              <td data-editable="">
-                きむら りょうすけ
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                1本
-              </td>
-              <td data-editable="">
-                080-6789-0123
-              </td>
-              <td data-editable="">
-                kimura@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/07/30" data-detail-search-row="" data-name="林 由佳">
-              <td data-editable="">
-                2026/07/30
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                林 由佳
-              </td>
-              <td data-editable="">
-                はやし ゆか
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                080-7890-1234
-              </td>
-              <td data-editable="">
-                hayashi@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="半夜便" data-date="2026/07/30" data-detail-search-row="" data-name="清水 雄太">
-              <td data-editable="">
-                2026/07/30
-              </td>
-              <td data-editable="">
-                半夜便
-              </td>
-              <td data-editable="">
-                清水 雄太
-              </td>
-              <td data-editable="">
-                しみず ゆうた
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                1本
-              </td>
-              <td data-editable="">
-                080-8901-2345
-              </td>
-              <td data-editable="">
-                shimizu@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr data-course="深夜便" data-date="2026/07/30" data-detail-search-row="" data-name="斉藤 奈々">
-              <td data-editable="">
-                2026/07/30
-              </td>
-              <td data-editable="">
-                深夜便
-              </td>
-              <td data-editable="">
-                斉藤 奈々
-              </td>
-              <td data-editable="">
-                さいとう なな
-              </td>
-              <td data-editable="">
-                1名
-              </td>
-              <td data-editable="">
-                なし
-              </td>
-              <td data-editable="">
-                080-9012-3456
-              </td>
-              <td data-editable="">
-                saito@example.com
-              </td>
-              <td>
-              </td>
-            </tr>
-          </tbody>
+      <tr data-course="半夜便" data-date="2026/10/01" data-ship="大型船" data-detail-search-row="" data-name="田中 太郎">
+        <td data-editable>2026/10/01</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>田中 太郎</td>
+        <td data-editable>たなか たろう</td><td data-editable>1名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3100-5200</td><td data-editable>customer01@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/01" data-ship="大型船" data-detail-search-row="" data-name="佐藤 花子">
+        <td data-editable>2026/10/01</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>佐藤 花子</td>
+        <td data-editable>さとう はなこ</td><td data-editable>2名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3101-5237</td><td data-editable>customer02@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/02" data-ship="大型船" data-detail-search-row="" data-name="鈴木 一郎">
+        <td data-editable>2026/10/02</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>鈴木 一郎</td>
+        <td data-editable>すずき いちろう</td><td data-editable>3名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3102-5274</td><td data-editable>customer03@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="アオリ便" data-date="2026/10/02" data-ship="中型船" data-detail-search-row="" data-name="高橋 美咲">
+        <td data-editable>2026/10/02</td><td data-editable>アオリ便</td><td>中型船</td><td data-editable>高橋 美咲</td>
+        <td data-editable>たかはし みさき</td><td data-editable>4名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3103-5311</td><td data-editable>customer04@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/03" data-ship="大型船" data-detail-search-row="" data-name="伊藤 健">
+        <td data-editable>2026/10/03</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>伊藤 健</td>
+        <td data-editable>いとう けん</td><td data-editable>1名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3104-5348</td><td data-editable>customer05@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/04" data-ship="中型船" data-detail-search-row="" data-name="山本 彩">
+        <td data-editable>2026/10/04</td><td data-editable>深夜便</td><td>中型船</td><td data-editable>山本 彩</td>
+        <td data-editable>やまもと あや</td><td data-editable>2名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3105-5385</td><td data-editable>customer06@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/04" data-ship="大型船" data-detail-search-row="" data-name="中村 翔">
+        <td data-editable>2026/10/04</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>中村 翔</td>
+        <td data-editable>なかむら しょう</td><td data-editable>3名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3106-5422</td><td data-editable>customer07@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/05" data-ship="大型船" data-detail-search-row="" data-name="小林 葵">
+        <td data-editable>2026/10/05</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>小林 葵</td>
+        <td data-editable>こばやし あおい</td><td data-editable>4名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3107-5459</td><td data-editable>customer08@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/06" data-ship="大型船" data-detail-search-row="" data-name="加藤 蓮">
+        <td data-editable>2026/10/06</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>加藤 蓮</td>
+        <td data-editable>かとう れん</td><td data-editable>1名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3108-5496</td><td data-editable>customer09@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/07" data-ship="大型船" data-detail-search-row="" data-name="吉田 凛">
+        <td data-editable>2026/10/07</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>吉田 凛</td>
+        <td data-editable>よしだ りん</td><td data-editable>2名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3109-5533</td><td data-editable>customer10@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/09" data-ship="大型船" data-detail-search-row="" data-name="山田 大輔">
+        <td data-editable>2026/10/09</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>山田 大輔</td>
+        <td data-editable>やまだ だいすけ</td><td data-editable>3名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3110-5570</td><td data-editable>customer11@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/10" data-ship="大型船" data-detail-search-row="" data-name="佐々木 結衣">
+        <td data-editable>2026/10/10</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>佐々木 結衣</td>
+        <td data-editable>ささき ゆい</td><td data-editable>4名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3111-5607</td><td data-editable>customer12@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="アオリ便" data-date="2026/10/11" data-ship="中型船" data-detail-search-row="" data-name="山口 拓海">
+        <td data-editable>2026/10/11</td><td data-editable>アオリ便</td><td>中型船</td><td data-editable>山口 拓海</td>
+        <td data-editable>やまぐち たくみ</td><td data-editable>1名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3112-5644</td><td data-editable>customer13@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="アオリ便" data-date="2026/10/12" data-ship="中型船" data-detail-search-row="" data-name="松本 奈々">
+        <td data-editable>2026/10/12</td><td data-editable>アオリ便</td><td>中型船</td><td data-editable>松本 奈々</td>
+        <td data-editable>まつもと なな</td><td data-editable>2名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3113-5681</td><td data-editable>customer14@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/13" data-ship="大型船" data-detail-search-row="" data-name="井上 直樹">
+        <td data-editable>2026/10/13</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>井上 直樹</td>
+        <td data-editable>いのうえ なおき</td><td data-editable>3名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3114-5718</td><td data-editable>customer15@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/14" data-ship="大型船" data-detail-search-row="" data-name="木村 さくら">
+        <td data-editable>2026/10/14</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>木村 さくら</td>
+        <td data-editable>きむら さくら</td><td data-editable>4名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3115-5755</td><td data-editable>customer16@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/16" data-ship="大型船" data-detail-search-row="" data-name="林 悠斗">
+        <td data-editable>2026/10/16</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>林 悠斗</td>
+        <td data-editable>はやし ゆうと</td><td data-editable>1名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3116-5792</td><td data-editable>customer17@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/17" data-ship="大型船" data-detail-search-row="" data-name="清水 真由">
+        <td data-editable>2026/10/17</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>清水 真由</td>
+        <td data-editable>しみず まゆ</td><td data-editable>2名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3117-5829</td><td data-editable>customer18@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/18" data-ship="大型船" data-detail-search-row="" data-name="斎藤 陽介">
+        <td data-editable>2026/10/18</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>斎藤 陽介</td>
+        <td data-editable>さいとう ようすけ</td><td data-editable>3名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3118-5866</td><td data-editable>customer19@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/19" data-ship="大型船" data-detail-search-row="" data-name="森 愛">
+        <td data-editable>2026/10/19</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>森 愛</td>
+        <td data-editable>もり あい</td><td data-editable>4名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3119-5903</td><td data-editable>customer20@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/21" data-ship="大型船" data-detail-search-row="" data-name="池田 和也">
+        <td data-editable>2026/10/21</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>池田 和也</td>
+        <td data-editable>いけだ かずや</td><td data-editable>1名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3120-5940</td><td data-editable>customer21@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/22" data-ship="大型船" data-detail-search-row="" data-name="橋本 美穂">
+        <td data-editable>2026/10/22</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>橋本 美穂</td>
+        <td data-editable>はしもと みほ</td><td data-editable>2名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3121-5977</td><td data-editable>customer22@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="アオリ便" data-date="2026/10/24" data-ship="中型船" data-detail-search-row="" data-name="阿部 遼">
+        <td data-editable>2026/10/24</td><td data-editable>アオリ便</td><td>中型船</td><td data-editable>阿部 遼</td>
+        <td data-editable>あべ りょう</td><td data-editable>3名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3122-6014</td><td data-editable>customer23@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/24" data-ship="大型船" data-detail-search-row="" data-name="石川 千尋">
+        <td data-editable>2026/10/24</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>石川 千尋</td>
+        <td data-editable>いしかわ ちひろ</td><td data-editable>4名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3123-6051</td><td data-editable>customer24@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/25" data-ship="大型船" data-detail-search-row="" data-name="前田 翼">
+        <td data-editable>2026/10/25</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>前田 翼</td>
+        <td data-editable>まえだ つばさ</td><td data-editable>1名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3124-6088</td><td data-editable>customer25@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/27" data-ship="大型船" data-detail-search-row="" data-name="藤田 七海">
+        <td data-editable>2026/10/27</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>藤田 七海</td>
+        <td data-editable>ふじた ななみ</td><td data-editable>2名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3125-6125</td><td data-editable>customer26@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="深夜便" data-date="2026/10/28" data-ship="大型船" data-detail-search-row="" data-name="岡田 浩二">
+        <td data-editable>2026/10/28</td><td data-editable>深夜便</td><td>大型船</td><td data-editable>岡田 浩二</td>
+        <td data-editable>おかだ こうじ</td><td data-editable>3名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3126-6162</td><td data-editable>customer27@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/30" data-ship="大型船" data-detail-search-row="" data-name="後藤 麻衣">
+        <td data-editable>2026/10/30</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>後藤 麻衣</td>
+        <td data-editable>ごとう まい</td><td data-editable>4名</td>
+        <td data-editable>1本</td>
+        <td data-editable>090-3127-6199</td><td data-editable>customer28@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/10/31" data-ship="大型船" data-detail-search-row="" data-name="長谷川 亮">
+        <td data-editable>2026/10/31</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>長谷川 亮</td>
+        <td data-editable>はせがわ りょう</td><td data-editable>1名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3128-6236</td><td data-editable>customer29@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-course="半夜便" data-date="2026/11/01" data-ship="大型船" data-detail-search-row="" data-name="村上 由佳">
+        <td data-editable>2026/11/01</td><td data-editable>半夜便</td><td>大型船</td><td data-editable>村上 由佳</td>
+        <td data-editable>むらかみ ゆか</td><td data-editable>2名</td>
+        <td data-editable>なし</td>
+        <td data-editable>090-3129-6273</td><td data-editable>customer30@example.com</td>
+        <td data-cancel-cell data-cancel-value="なし"><span class="reservation-cancel-tag none">なし</span></td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr></tbody>
         </table>
       </div>
-      <div class="mobile-cards">
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/08/02" data-detail-mobile-card="" data-name="田中 太郎">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/08/02
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                田中 太郎
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                たなか たろう
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                2名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-1234-5678
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                tanaka@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/08/02" data-detail-mobile-card="" data-name="佐藤 花子">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/08/02
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                佐藤 花子
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                さとう はなこ
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                3名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                2本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-2345-6789
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                sato@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/08/02" data-detail-mobile-card="" data-name="鈴木 一郎">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/08/02
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                鈴木 一郎
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                すずき いちろう
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                1本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-3456-7890
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                suzuki@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/08/01" data-detail-mobile-card="" data-name="高橋 美咲">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/08/01
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                高橋 美咲
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                たかはし みさき
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-4567-8901
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                takahashi@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/08/01" data-detail-mobile-card="" data-name="伊藤 健太">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/08/01
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                伊藤 健太
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                いとう けんた
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                1本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-5678-9012
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                ito@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/08/01" data-detail-mobile-card="" data-name="渡辺 直樹">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/08/01
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                渡辺 直樹
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                わたなべ なおき
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-6789-0123
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                watanabe@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="山本 拓海">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                山本 拓海
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                やまもと たくみ
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                2名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                2本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-7890-1234
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                yamamoto@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="中村 彩香">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                中村 彩香
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                なかむら あやか
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                2名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-8901-2345
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                nakamura@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="小林 大輔">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                小林 大輔
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                こばやし だいすけ
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                1本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                090-9012-3456
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                kobayashi@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="加藤 里奈">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                加藤 里奈
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                かとう りな
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-1234-5678
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                kato@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="吉田 翔太">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                吉田 翔太
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                よしだ しょうた
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                1本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-2345-6789
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                yoshida@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="山田 真由">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                山田 真由
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                やまだ まゆ
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-3456-7890
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                yamada@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="松本 和也">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                松本 和也
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                まつもと かずや
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                1本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-4567-8901
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                matsumoto@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/07/31" data-detail-mobile-card="" data-name="井上 千尋">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/31
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                井上 千尋
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                いのうえ ちひろ
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-5678-9012
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                inoue@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/07/30" data-detail-mobile-card="" data-name="木村 亮介">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/30
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                木村 亮介
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                きむら りょうすけ
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                1本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-6789-0123
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                kimura@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/07/30" data-detail-mobile-card="" data-name="林 由佳">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/30
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                林 由佳
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                はやし ゆか
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-7890-1234
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                hayashi@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="半夜便" data-date="2026/07/30" data-detail-mobile-card="" data-name="清水 雄太">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/30
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                半夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                清水 雄太
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                しみず ゆうた
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                1本
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-8901-2345
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                shimizu@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-        <article class="card reservation-card" data-course="深夜便" data-date="2026/07/30" data-detail-mobile-card="" data-name="斉藤 奈々">
-          <div class="card-body">
-            <div>
-              <div class="data-label">
-                予約日
-              </div>
-              <div class="data-value">
-                2026/07/30
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                便
-              </div>
-              <div class="data-value">
-                深夜便
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                氏名
-              </div>
-              <div class="data-value">
-                斉藤 奈々
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                ふりがな
-              </div>
-              <div class="data-value">
-                さいとう なな
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                人数
-              </div>
-              <div class="data-value">
-                1名
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                貸し竿
-              </div>
-              <div class="data-value">
-                なし
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                電話番号
-              </div>
-              <div class="data-value">
-                080-9012-3456
-              </div>
-            </div>
-            <div>
-              <div class="data-label">
-                メール
-              </div>
-              <div class="data-value">
-                saito@example.com
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
+      <div class="mobile-cards"><article class="card reservation-card" data-course="半夜便" data-date="2026/10/01" data-ship="大型船" data-detail-mobile-card="" data-name="田中 太郎">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/01</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">田中 太郎</div></div><div><div class="data-label">ふりがな</div><div class="data-value">たなか たろう</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3100-5200</div></div><div><div class="data-label">メール</div><div class="data-value">customer01@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/01" data-ship="大型船" data-detail-mobile-card="" data-name="佐藤 花子">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/01</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">佐藤 花子</div></div><div><div class="data-label">ふりがな</div><div class="data-value">さとう はなこ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3101-5237</div></div><div><div class="data-label">メール</div><div class="data-value">customer02@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/02" data-ship="大型船" data-detail-mobile-card="" data-name="鈴木 一郎">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/02</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">鈴木 一郎</div></div><div><div class="data-label">ふりがな</div><div class="data-value">すずき いちろう</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3102-5274</div></div><div><div class="data-label">メール</div><div class="data-value">customer03@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="アオリ便" data-date="2026/10/02" data-ship="中型船" data-detail-mobile-card="" data-name="高橋 美咲">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/02</div></div><div><div class="data-label">便</div><div class="data-value">アオリ便</div></div><div><div class="data-label">船名</div><div class="data-value">中型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">高橋 美咲</div></div><div><div class="data-label">ふりがな</div><div class="data-value">たかはし みさき</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">4名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3103-5311</div></div><div><div class="data-label">メール</div><div class="data-value">customer04@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/03" data-ship="大型船" data-detail-mobile-card="" data-name="伊藤 健">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/03</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">伊藤 健</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いとう けん</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3104-5348</div></div><div><div class="data-label">メール</div><div class="data-value">customer05@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/04" data-ship="中型船" data-detail-mobile-card="" data-name="山本 彩">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/04</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">中型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">山本 彩</div></div><div><div class="data-label">ふりがな</div><div class="data-value">やまもと あや</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3105-5385</div></div><div><div class="data-label">メール</div><div class="data-value">customer06@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/04" data-ship="大型船" data-detail-mobile-card="" data-name="中村 翔">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/04</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">中村 翔</div></div><div><div class="data-label">ふりがな</div><div class="data-value">なかむら しょう</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3106-5422</div></div><div><div class="data-label">メール</div><div class="data-value">customer07@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/05" data-ship="大型船" data-detail-mobile-card="" data-name="小林 葵">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/05</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">小林 葵</div></div><div><div class="data-label">ふりがな</div><div class="data-value">こばやし あおい</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">4名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3107-5459</div></div><div><div class="data-label">メール</div><div class="data-value">customer08@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/06" data-ship="大型船" data-detail-mobile-card="" data-name="加藤 蓮">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/06</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">加藤 蓮</div></div><div><div class="data-label">ふりがな</div><div class="data-value">かとう れん</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3108-5496</div></div><div><div class="data-label">メール</div><div class="data-value">customer09@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/07" data-ship="大型船" data-detail-mobile-card="" data-name="吉田 凛">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/07</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">吉田 凛</div></div><div><div class="data-label">ふりがな</div><div class="data-value">よしだ りん</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3109-5533</div></div><div><div class="data-label">メール</div><div class="data-value">customer10@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/09" data-ship="大型船" data-detail-mobile-card="" data-name="山田 大輔">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/09</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">山田 大輔</div></div><div><div class="data-label">ふりがな</div><div class="data-value">やまだ だいすけ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3110-5570</div></div><div><div class="data-label">メール</div><div class="data-value">customer11@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/10" data-ship="大型船" data-detail-mobile-card="" data-name="佐々木 結衣">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/10</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">佐々木 結衣</div></div><div><div class="data-label">ふりがな</div><div class="data-value">ささき ゆい</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">4名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3111-5607</div></div><div><div class="data-label">メール</div><div class="data-value">customer12@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="アオリ便" data-date="2026/10/11" data-ship="中型船" data-detail-mobile-card="" data-name="山口 拓海">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/11</div></div><div><div class="data-label">便</div><div class="data-value">アオリ便</div></div><div><div class="data-label">船名</div><div class="data-value">中型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">山口 拓海</div></div><div><div class="data-label">ふりがな</div><div class="data-value">やまぐち たくみ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3112-5644</div></div><div><div class="data-label">メール</div><div class="data-value">customer13@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="アオリ便" data-date="2026/10/12" data-ship="中型船" data-detail-mobile-card="" data-name="松本 奈々">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/12</div></div><div><div class="data-label">便</div><div class="data-value">アオリ便</div></div><div><div class="data-label">船名</div><div class="data-value">中型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">松本 奈々</div></div><div><div class="data-label">ふりがな</div><div class="data-value">まつもと なな</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3113-5681</div></div><div><div class="data-label">メール</div><div class="data-value">customer14@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/13" data-ship="大型船" data-detail-mobile-card="" data-name="井上 直樹">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/13</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">井上 直樹</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いのうえ なおき</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3114-5718</div></div><div><div class="data-label">メール</div><div class="data-value">customer15@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/14" data-ship="大型船" data-detail-mobile-card="" data-name="木村 さくら">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/14</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">木村 さくら</div></div><div><div class="data-label">ふりがな</div><div class="data-value">きむら さくら</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">4名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3115-5755</div></div><div><div class="data-label">メール</div><div class="data-value">customer16@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/16" data-ship="大型船" data-detail-mobile-card="" data-name="林 悠斗">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/16</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">林 悠斗</div></div><div><div class="data-label">ふりがな</div><div class="data-value">はやし ゆうと</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3116-5792</div></div><div><div class="data-label">メール</div><div class="data-value">customer17@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/17" data-ship="大型船" data-detail-mobile-card="" data-name="清水 真由">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/17</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">清水 真由</div></div><div><div class="data-label">ふりがな</div><div class="data-value">しみず まゆ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3117-5829</div></div><div><div class="data-label">メール</div><div class="data-value">customer18@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/18" data-ship="大型船" data-detail-mobile-card="" data-name="斎藤 陽介">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/18</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">斎藤 陽介</div></div><div><div class="data-label">ふりがな</div><div class="data-value">さいとう ようすけ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3118-5866</div></div><div><div class="data-label">メール</div><div class="data-value">customer19@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/19" data-ship="大型船" data-detail-mobile-card="" data-name="森 愛">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/19</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">森 愛</div></div><div><div class="data-label">ふりがな</div><div class="data-value">もり あい</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">4名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3119-5903</div></div><div><div class="data-label">メール</div><div class="data-value">customer20@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/21" data-ship="大型船" data-detail-mobile-card="" data-name="池田 和也">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/21</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">池田 和也</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いけだ かずや</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3120-5940</div></div><div><div class="data-label">メール</div><div class="data-value">customer21@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/22" data-ship="大型船" data-detail-mobile-card="" data-name="橋本 美穂">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/22</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">橋本 美穂</div></div><div><div class="data-label">ふりがな</div><div class="data-value">はしもと みほ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3121-5977</div></div><div><div class="data-label">メール</div><div class="data-value">customer22@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="アオリ便" data-date="2026/10/24" data-ship="中型船" data-detail-mobile-card="" data-name="阿部 遼">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/24</div></div><div><div class="data-label">便</div><div class="data-value">アオリ便</div></div><div><div class="data-label">船名</div><div class="data-value">中型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">阿部 遼</div></div><div><div class="data-label">ふりがな</div><div class="data-value">あべ りょう</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3122-6014</div></div><div><div class="data-label">メール</div><div class="data-value">customer23@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/24" data-ship="大型船" data-detail-mobile-card="" data-name="石川 千尋">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/24</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">石川 千尋</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いしかわ ちひろ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">4名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3123-6051</div></div><div><div class="data-label">メール</div><div class="data-value">customer24@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/25" data-ship="大型船" data-detail-mobile-card="" data-name="前田 翼">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/25</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">前田 翼</div></div><div><div class="data-label">ふりがな</div><div class="data-value">まえだ つばさ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3124-6088</div></div><div><div class="data-label">メール</div><div class="data-value">customer25@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/27" data-ship="大型船" data-detail-mobile-card="" data-name="藤田 七海">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/27</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">藤田 七海</div></div><div><div class="data-label">ふりがな</div><div class="data-value">ふじた ななみ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3125-6125</div></div><div><div class="data-label">メール</div><div class="data-value">customer26@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="深夜便" data-date="2026/10/28" data-ship="大型船" data-detail-mobile-card="" data-name="岡田 浩二">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/28</div></div><div><div class="data-label">便</div><div class="data-value">深夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">岡田 浩二</div></div><div><div class="data-label">ふりがな</div><div class="data-value">おかだ こうじ</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">3名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3126-6162</div></div><div><div class="data-label">メール</div><div class="data-value">customer27@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/30" data-ship="大型船" data-detail-mobile-card="" data-name="後藤 麻衣">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/30</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">後藤 麻衣</div></div><div><div class="data-label">ふりがな</div><div class="data-value">ごとう まい</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">4名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">1本</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3127-6199</div></div><div><div class="data-label">メール</div><div class="data-value">customer28@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/10/31" data-ship="大型船" data-detail-mobile-card="" data-name="長谷川 亮">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/10/31</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">長谷川 亮</div></div><div><div class="data-label">ふりがな</div><div class="data-value">はせがわ りょう</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">1名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3128-6236</div></div><div><div class="data-label">メール</div><div class="data-value">customer29@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article><article class="card reservation-card" data-course="半夜便" data-date="2026/11/01" data-ship="大型船" data-detail-mobile-card="" data-name="村上 由佳">
+        <div class="card-body">
+          <div><div class="data-label">予約日</div><div class="data-value">2026/11/01</div></div><div><div class="data-label">便</div><div class="data-value">半夜便</div></div><div><div class="data-label">船名</div><div class="data-value">大型船</div></div>
+          <div><div class="data-label">氏名</div><div class="data-value">村上 由佳</div></div><div><div class="data-label">ふりがな</div><div class="data-value">むらかみ ゆか</div></div>
+          <div><div class="data-label">人数</div><div class="data-value">2名</div></div>
+          <div><div class="data-label">貸し竿</div><div class="data-value">なし</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3129-6273</div></div><div><div class="data-label">メール</div><div class="data-value">customer30@example.com</div></div>
+          <div><div class="data-label">キャンセル</div><div class="data-value">なし</div></div>
+        </div>
+      </article></div>
     </main>
     <footer class="footer">
         @ 豊漁丸 予約システム

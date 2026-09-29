@@ -10,7 +10,7 @@
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="adminDashboard.html">
-                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png">
+                <img alt="豊漁丸" class="brand-logo" src="images/%E8%B1%8A%E6%BC%81%E4%B8%B8_%E7%AE%A1%E7%90%86%E8%80%85%E7%94%BB%E9%9D%A2_%E3%83%AD%E3%82%B4.png">
             </a>
             <nav class="header-nav">
                 <a href="adminDashboard.html">ダッシュボード</a>
@@ -38,78 +38,352 @@
             <div class="field"><label for="customer-search">顧客検索</label><input class="input" id="customer-search" placeholder="顧客名・電話番号" type="text"></div>
             <div class="field">
                 <label for="customer-rank">顧客区分</label>
-                <select class="select" id="customer-rank"><option value="">すべて</option><option value="新規">新規</option><option value="一般">一般</option><option value="常連">常連</option></select>
+                <select class="select" id="customer-rank"><option value="">すべて</option><option value="新規">新規</option><option value="常連">常連</option><option value="要注意">要注意</option></select>
             </div>
             <div class="field">
                 <label for="customer-sort-direction">順序</label>
                 <select class="select" id="customer-sort-direction"><option value="desc">最終利用日の降順</option><option value="asc">最終利用日の昇順</option></select>
             </div>
-            <div class="field toolbar-action-field"><label aria-hidden="true">&nbsp;</label><button class="btn btn-secondary" id="customer-search-clear" type="button">条件をクリア</button></div>
+            <div class="field toolbar-action-field"><label aria-hidden="true"> </label><button class="btn btn-secondary" id="customer-search-clear" type="button">条件をクリア</button></div>
         </div>
         <p aria-live="polite" class="muted" id="customer-result-count"></p>
         <div class="table-wrap desktop-table customer-list-table">
             <table id="customer-table">
                 <thead><tr><th>ID</th><th>顧客名</th><th>電話番号</th><th>利用回数</th><th>区分</th><th>最終利用日</th></tr></thead>
                 <tbody>
-                    <tr data-search-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
-                        <td>1001</td>
-                        <td>田中 太郎</td>
-                        <td>090-1234-5678</td>
-                        <td>8回</td>
-                        <td><span class="badge badge-orange">常連</span></td>
-                        <td>2026/07/30</td>
-                    </tr>
-                    <tr data-search-row data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
-                        <td>1002</td>
-                        <td>佐藤 花子</td>
-                        <td>090-2345-6789</td>
-                        <td>1回</td>
-                        <td><span class="badge badge-green">新規</span></td>
-                        <td>2026/07/31</td>
-                    </tr>
-                    <tr data-search-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
-                        <td>1003</td>
-                        <td>鈴木 一郎</td>
-                        <td>090-3456-7890</td>
-                        <td>19回</td>
-                        <td><span class="badge badge-orange">常連</span></td>
-                        <td>2026/07/25</td>
-                    </tr>
-                </tbody>
+      <tr data-search-row data-customer-id="2001" data-customer-name="田中 太郎" data-customer-rank="要注意" data-customer-last-date="2026-09-02">
+        <td>2001</td><td>田中 太郎</td><td>090-3100-5200</td><td>3回</td>
+        <td><span class="badge badge-attention">要注意</span></td><td>2026/09/02</td>
+      </tr>
+      <tr data-search-row data-customer-id="2002" data-customer-name="佐藤 花子" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <td>2002</td><td>佐藤 花子</td><td>090-3101-5237</td><td>8回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/03</td>
+      </tr>
+      <tr data-search-row data-customer-id="2003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <td>2003</td><td>鈴木 一郎</td><td>090-3102-5274</td><td>13回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/04</td>
+      </tr>
+      <tr data-search-row data-customer-id="2004" data-customer-name="高橋 美咲" data-customer-rank="常連" data-customer-last-date="2026-09-05">
+        <td>2004</td><td>高橋 美咲</td><td>090-3103-5311</td><td>18回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/05</td>
+      </tr>
+      <tr data-search-row data-customer-id="2005" data-customer-name="伊藤 健" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <td>2005</td><td>伊藤 健</td><td>090-3104-5348</td><td>7回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/06</td>
+      </tr>
+      <tr data-search-row data-customer-id="2006" data-customer-name="山本 彩" data-customer-rank="新規" data-customer-last-date="2026-09-07">
+        <td>2006</td><td>山本 彩</td><td>090-3105-5385</td><td>1回</td>
+        <td><span class="badge badge-green">新規</span></td><td>2026/09/07</td>
+      </tr>
+      <tr data-search-row data-customer-id="2007" data-customer-name="中村 翔" data-customer-rank="常連" data-customer-last-date="2026-09-08">
+        <td>2007</td><td>中村 翔</td><td>090-3106-5422</td><td>17回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/08</td>
+      </tr>
+      <tr data-search-row data-customer-id="2008" data-customer-name="小林 葵" data-customer-rank="要注意" data-customer-last-date="2026-09-09">
+        <td>2008</td><td>小林 葵</td><td>090-3107-5459</td><td>6回</td>
+        <td><span class="badge badge-attention">要注意</span></td><td>2026/09/09</td>
+      </tr>
+      <tr data-search-row data-customer-id="2009" data-customer-name="加藤 蓮" data-customer-rank="常連" data-customer-last-date="2026-09-10">
+        <td>2009</td><td>加藤 蓮</td><td>090-3108-5496</td><td>11回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/10</td>
+      </tr>
+      <tr data-search-row data-customer-id="2010" data-customer-name="吉田 凛" data-customer-rank="常連" data-customer-last-date="2026-09-11">
+        <td>2010</td><td>吉田 凛</td><td>090-3109-5533</td><td>16回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/11</td>
+      </tr>
+      <tr data-search-row data-customer-id="2011" data-customer-name="山田 大輔" data-customer-rank="新規" data-customer-last-date="">
+        <td>2011</td><td>山田 大輔</td><td>090-3110-5570</td><td>0回</td>
+        <td><span class="badge badge-green">新規</span></td><td>－</td>
+      </tr>
+      <tr data-search-row data-customer-id="2012" data-customer-name="佐々木 結衣" data-customer-rank="常連" data-customer-last-date="2026-09-13">
+        <td>2012</td><td>佐々木 結衣</td><td>090-3111-5607</td><td>10回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/13</td>
+      </tr>
+      <tr data-search-row data-customer-id="2013" data-customer-name="山口 拓海" data-customer-rank="常連" data-customer-last-date="2026-09-14">
+        <td>2013</td><td>山口 拓海</td><td>090-3112-5644</td><td>15回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/14</td>
+      </tr>
+      <tr data-search-row data-customer-id="2014" data-customer-name="松本 奈々" data-customer-rank="常連" data-customer-last-date="2026-09-15">
+        <td>2014</td><td>松本 奈々</td><td>090-3113-5681</td><td>4回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/15</td>
+      </tr>
+      <tr data-search-row data-customer-id="2015" data-customer-name="井上 直樹" data-customer-rank="要注意" data-customer-last-date="2026-09-16">
+        <td>2015</td><td>井上 直樹</td><td>090-3114-5718</td><td>9回</td>
+        <td><span class="badge badge-attention">要注意</span></td><td>2026/09/16</td>
+      </tr>
+      <tr data-search-row data-customer-id="2016" data-customer-name="木村 さくら" data-customer-rank="新規" data-customer-last-date="2026-09-17">
+        <td>2016</td><td>木村 さくら</td><td>090-3115-5755</td><td>1回</td>
+        <td><span class="badge badge-green">新規</span></td><td>2026/09/17</td>
+      </tr>
+      <tr data-search-row data-customer-id="2017" data-customer-name="林 悠斗" data-customer-rank="常連" data-customer-last-date="2026-09-18">
+        <td>2017</td><td>林 悠斗</td><td>090-3116-5792</td><td>3回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/18</td>
+      </tr>
+      <tr data-search-row data-customer-id="2018" data-customer-name="清水 真由" data-customer-rank="常連" data-customer-last-date="2026-09-19">
+        <td>2018</td><td>清水 真由</td><td>090-3117-5829</td><td>8回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/19</td>
+      </tr>
+      <tr data-search-row data-customer-id="2019" data-customer-name="斎藤 陽介" data-customer-rank="常連" data-customer-last-date="2026-09-20">
+        <td>2019</td><td>斎藤 陽介</td><td>090-3118-5866</td><td>13回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/20</td>
+      </tr>
+      <tr data-search-row data-customer-id="2020" data-customer-name="森 愛" data-customer-rank="常連" data-customer-last-date="2026-09-21">
+        <td>2020</td><td>森 愛</td><td>090-3119-5903</td><td>18回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/21</td>
+      </tr>
+      <tr data-search-row data-customer-id="2021" data-customer-name="池田 和也" data-customer-rank="新規" data-customer-last-date="">
+        <td>2021</td><td>池田 和也</td><td>090-3120-5940</td><td>0回</td>
+        <td><span class="badge badge-green">新規</span></td><td>－</td>
+      </tr>
+      <tr data-search-row data-customer-id="2022" data-customer-name="橋本 美穂" data-customer-rank="要注意" data-customer-last-date="2026-09-23">
+        <td>2022</td><td>橋本 美穂</td><td>090-3121-5977</td><td>12回</td>
+        <td><span class="badge badge-attention">要注意</span></td><td>2026/09/23</td>
+      </tr>
+      <tr data-search-row data-customer-id="2023" data-customer-name="阿部 遼" data-customer-rank="常連" data-customer-last-date="2026-09-24">
+        <td>2023</td><td>阿部 遼</td><td>090-3122-6014</td><td>17回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/24</td>
+      </tr>
+      <tr data-search-row data-customer-id="2024" data-customer-name="石川 千尋" data-customer-rank="常連" data-customer-last-date="2026-09-25">
+        <td>2024</td><td>石川 千尋</td><td>090-3123-6051</td><td>6回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/25</td>
+      </tr>
+      <tr data-search-row data-customer-id="2025" data-customer-name="前田 翼" data-customer-rank="常連" data-customer-last-date="2026-09-26">
+        <td>2025</td><td>前田 翼</td><td>090-3124-6088</td><td>11回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/26</td>
+      </tr>
+      <tr data-search-row data-customer-id="2026" data-customer-name="藤田 七海" data-customer-rank="新規" data-customer-last-date="2026-09-02">
+        <td>2026</td><td>藤田 七海</td><td>090-3125-6125</td><td>1回</td>
+        <td><span class="badge badge-green">新規</span></td><td>2026/09/02</td>
+      </tr>
+      <tr data-search-row data-customer-id="2027" data-customer-name="岡田 浩二" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <td>2027</td><td>岡田 浩二</td><td>090-3126-6162</td><td>5回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/03</td>
+      </tr>
+      <tr data-search-row data-customer-id="2028" data-customer-name="後藤 麻衣" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <td>2028</td><td>後藤 麻衣</td><td>090-3127-6199</td><td>10回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/04</td>
+      </tr>
+      <tr data-search-row data-customer-id="2029" data-customer-name="長谷川 亮" data-customer-rank="要注意" data-customer-last-date="2026-09-05">
+        <td>2029</td><td>長谷川 亮</td><td>090-3128-6236</td><td>15回</td>
+        <td><span class="badge badge-attention">要注意</span></td><td>2026/09/05</td>
+      </tr>
+      <tr data-search-row data-customer-id="2030" data-customer-name="村上 由佳" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <td>2030</td><td>村上 由佳</td><td>090-3129-6273</td><td>4回</td>
+        <td><span class="badge badge-orange">常連</span></td><td>2026/09/06</td>
+      </tr></tbody>
             </table>
         </div>
         <div class="mobile-cards customer-mobile-cards">
-            <article class="card customer-card" data-customer-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
-                <div class="card-body">
-                    <div><div class="data-label">顧客ID</div><div class="data-value">1001</div></div>
-                    <div><div class="data-label">顧客名</div><div class="data-value">田中 太郎</div></div>
-                    <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
-                    <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
-                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
-                </div>
-            </article>
-            <article class="card customer-card" data-customer-mobile-card data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
-                <div class="card-body">
-                    <div><div class="data-label">顧客ID</div><div class="data-value">1002</div></div>
-                    <div><div class="data-label">顧客名</div><div class="data-value">佐藤 花子</div></div>
-                    <div><div class="data-label">電話番号</div><div class="data-value">090-2345-6789</div></div>
-                    <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
-                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/31</div></div>
-                </div>
-            </article>
-            <article class="card customer-card" data-customer-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
-                <div class="card-body">
-                    <div><div class="data-label">顧客ID</div><div class="data-value">1003</div></div>
-                    <div><div class="data-label">顧客名</div><div class="data-value">鈴木 一郎</div></div>
-                    <div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div>
-                    <div><div class="data-label">利用回数</div><div class="data-value">19回</div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
-                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/25</div></div>
-                </div>
-            </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2001" data-customer-name="田中 太郎" data-customer-rank="要注意" data-customer-last-date="2026-09-02">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2001</div></div><div><div class="data-label">顧客名</div><div class="data-value">田中 太郎</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3100-5200</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">3回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/02</div></div>
         </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2002" data-customer-name="佐藤 花子" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2002</div></div><div><div class="data-label">顧客名</div><div class="data-value">佐藤 花子</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3101-5237</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/03</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2003</div></div><div><div class="data-label">顧客名</div><div class="data-value">鈴木 一郎</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3102-5274</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">13回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/04</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2004" data-customer-name="高橋 美咲" data-customer-rank="常連" data-customer-last-date="2026-09-05">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2004</div></div><div><div class="data-label">顧客名</div><div class="data-value">高橋 美咲</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3103-5311</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">18回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/05</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2005" data-customer-name="伊藤 健" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2005</div></div><div><div class="data-label">顧客名</div><div class="data-value">伊藤 健</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3104-5348</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">7回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/06</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2006" data-customer-name="山本 彩" data-customer-rank="新規" data-customer-last-date="2026-09-07">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2006</div></div><div><div class="data-label">顧客名</div><div class="data-value">山本 彩</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3105-5385</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/07</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2007" data-customer-name="中村 翔" data-customer-rank="常連" data-customer-last-date="2026-09-08">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2007</div></div><div><div class="data-label">顧客名</div><div class="data-value">中村 翔</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3106-5422</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">17回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/08</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2008" data-customer-name="小林 葵" data-customer-rank="要注意" data-customer-last-date="2026-09-09">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2008</div></div><div><div class="data-label">顧客名</div><div class="data-value">小林 葵</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3107-5459</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">6回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/09</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2009" data-customer-name="加藤 蓮" data-customer-rank="常連" data-customer-last-date="2026-09-10">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2009</div></div><div><div class="data-label">顧客名</div><div class="data-value">加藤 蓮</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3108-5496</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">11回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/10</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2010" data-customer-name="吉田 凛" data-customer-rank="常連" data-customer-last-date="2026-09-11">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2010</div></div><div><div class="data-label">顧客名</div><div class="data-value">吉田 凛</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3109-5533</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">16回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/11</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2011" data-customer-name="山田 大輔" data-customer-rank="新規" data-customer-last-date="">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2011</div></div><div><div class="data-label">顧客名</div><div class="data-value">山田 大輔</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3110-5570</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">0回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">－</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2012" data-customer-name="佐々木 結衣" data-customer-rank="常連" data-customer-last-date="2026-09-13">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2012</div></div><div><div class="data-label">顧客名</div><div class="data-value">佐々木 結衣</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3111-5607</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">10回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/13</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2013" data-customer-name="山口 拓海" data-customer-rank="常連" data-customer-last-date="2026-09-14">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2013</div></div><div><div class="data-label">顧客名</div><div class="data-value">山口 拓海</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3112-5644</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">15回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/14</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2014" data-customer-name="松本 奈々" data-customer-rank="常連" data-customer-last-date="2026-09-15">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2014</div></div><div><div class="data-label">顧客名</div><div class="data-value">松本 奈々</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3113-5681</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">4回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/15</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2015" data-customer-name="井上 直樹" data-customer-rank="要注意" data-customer-last-date="2026-09-16">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2015</div></div><div><div class="data-label">顧客名</div><div class="data-value">井上 直樹</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3114-5718</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">9回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/16</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2016" data-customer-name="木村 さくら" data-customer-rank="新規" data-customer-last-date="2026-09-17">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2016</div></div><div><div class="data-label">顧客名</div><div class="data-value">木村 さくら</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3115-5755</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/17</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2017" data-customer-name="林 悠斗" data-customer-rank="常連" data-customer-last-date="2026-09-18">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2017</div></div><div><div class="data-label">顧客名</div><div class="data-value">林 悠斗</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3116-5792</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">3回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/18</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2018" data-customer-name="清水 真由" data-customer-rank="常連" data-customer-last-date="2026-09-19">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2018</div></div><div><div class="data-label">顧客名</div><div class="data-value">清水 真由</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3117-5829</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/19</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2019" data-customer-name="斎藤 陽介" data-customer-rank="常連" data-customer-last-date="2026-09-20">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2019</div></div><div><div class="data-label">顧客名</div><div class="data-value">斎藤 陽介</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3118-5866</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">13回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/20</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2020" data-customer-name="森 愛" data-customer-rank="常連" data-customer-last-date="2026-09-21">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2020</div></div><div><div class="data-label">顧客名</div><div class="data-value">森 愛</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3119-5903</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">18回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/21</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2021" data-customer-name="池田 和也" data-customer-rank="新規" data-customer-last-date="">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2021</div></div><div><div class="data-label">顧客名</div><div class="data-value">池田 和也</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3120-5940</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">0回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">－</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2022" data-customer-name="橋本 美穂" data-customer-rank="要注意" data-customer-last-date="2026-09-23">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2022</div></div><div><div class="data-label">顧客名</div><div class="data-value">橋本 美穂</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3121-5977</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">12回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/23</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2023" data-customer-name="阿部 遼" data-customer-rank="常連" data-customer-last-date="2026-09-24">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2023</div></div><div><div class="data-label">顧客名</div><div class="data-value">阿部 遼</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3122-6014</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">17回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/24</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2024" data-customer-name="石川 千尋" data-customer-rank="常連" data-customer-last-date="2026-09-25">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2024</div></div><div><div class="data-label">顧客名</div><div class="data-value">石川 千尋</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3123-6051</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">6回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/25</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2025" data-customer-name="前田 翼" data-customer-rank="常連" data-customer-last-date="2026-09-26">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2025</div></div><div><div class="data-label">顧客名</div><div class="data-value">前田 翼</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3124-6088</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">11回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/26</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2026" data-customer-name="藤田 七海" data-customer-rank="新規" data-customer-last-date="2026-09-02">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2026</div></div><div><div class="data-label">顧客名</div><div class="data-value">藤田 七海</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3125-6125</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/02</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2027" data-customer-name="岡田 浩二" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2027</div></div><div><div class="data-label">顧客名</div><div class="data-value">岡田 浩二</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3126-6162</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">5回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/03</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2028" data-customer-name="後藤 麻衣" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2028</div></div><div><div class="data-label">顧客名</div><div class="data-value">後藤 麻衣</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3127-6199</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">10回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/04</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2029" data-customer-name="長谷川 亮" data-customer-rank="要注意" data-customer-last-date="2026-09-05">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2029</div></div><div><div class="data-label">顧客名</div><div class="data-value">長谷川 亮</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3128-6236</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">15回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/05</div></div>
+        </div>
+      </article>
+      <article class="card customer-card" data-customer-mobile-card data-customer-id="2030" data-customer-name="村上 由佳" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2030</div></div><div><div class="data-label">顧客名</div><div class="data-value">村上 由佳</div></div><div><div class="data-label">電話番号</div><div class="data-value">090-3129-6273</div></div>
+          <div><div class="data-label">利用回数</div><div class="data-value">4回</div></div><div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
+          <div><div class="data-label">最終利用日</div><div class="data-value">2026/09/06</div></div>
+        </div>
+      </article></div>
     </main>
     <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
     <script src="../shared/appData.js"></script>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>出船管理｜豊漁丸 管理画面</title>
-    <link href="css/admin.css" rel="stylesheet" />
+    <link href="css/admin.css" rel="stylesheet">
 </head>
 <body data-trip-view="upcoming">
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="adminDashboard.html">
-                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png" />
+                <img alt="豊漁丸" class="brand-logo" src="images/%E8%B1%8A%E6%BC%81%E4%B8%B8_%E7%AE%A1%E7%90%86%E8%80%85%E7%94%BB%E9%9D%A2_%E3%83%AD%E3%82%B4.png">
             </a>
             <nav class="header-nav">
                 <a href="adminDashboard.html">ダッシュボード</a>
@@ -40,7 +40,7 @@
         <div class="toolbar">
             <div class="field">
                 <label for="trip-date">出船日</label>
-                <input class="input" id="trip-date" type="date" />
+                <input class="input" id="trip-date" type="date">
             </div>
             <div class="field">
                 <label for="trip-course">便</label>
@@ -53,22 +53,13 @@
                 </select>
             </div>
             <div class="field">
-                <label for="trip-ship">船名</label>
+                <label for="trip-ship">船舶区分</label>
                 <select class="input" id="trip-ship">
                     <option value="">すべて</option>
-                    <option value="カムトゥドリーム">カムトゥドリーム</option>
-                    <option value="ドリーム">ドリーム</option>
-                    <option value="スーパードリーム">スーパードリーム</option>
+                    <option value="中型船">中型船</option><option value="大型船">大型船</option>
                 </select>
             </div>
-            <div class="field">
-                <label for="trip-captain">船長</label>
-                <select class="input" id="trip-captain">
-                    <option value="">すべて</option>
-                    <option value="佐藤船長">佐藤船長</option>
-                    <option value="山田船長">山田船長</option>
-                </select>
-            </div>
+            
             <div class="field">
                 <label for="trip-status">状態</label>
                 <select class="input" id="trip-status">
@@ -82,6 +73,7 @@
                 <button class="btn btn-secondary" id="trip-search-clear" type="button">条件をクリア</button>
             </div>
         </div>
+        <select id="trip-captain" hidden aria-hidden="true"><option value=""></option></select>
         <p aria-live="polite" class="muted" id="trip-result-count"></p>
         <div class="table-wrap trip-table-wrap">
             <table id="trip-table">
@@ -89,8 +81,8 @@
                     <tr>
                         <th>出船日</th>
                         <th>便</th>
-                        <th>船名</th>
-                        <th>船長</th>
+                        <th>船舶区分</th>
+                        <th class="captain-placeholder" aria-hidden="true"></th>
                         <th>釣り物</th>
                         <th>通常枠</th>
                         <th>特別枠</th>
@@ -99,637 +91,480 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-search-row="">
-                        <td>2026/07/29</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/07/29</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/07/30</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/07/30</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/07/31</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/07/31</td>
-                        <td>半夜便</td>
-                        <td>第二豊漁丸</td>
-                        <td>山田船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>10 / 12名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/07/31</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/01</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/01</td>
-                        <td>深夜便</td>
-                        <td>第二豊漁丸</td>
-                        <td>山田船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>10 / 12名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/02</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/02</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/03</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/03</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/04</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/04</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/05</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/05</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/06</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/06</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/07</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>14 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/07</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>14 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/08</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/09</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/09</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/10</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/10</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/11</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/12</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/13</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>14 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/14</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>16 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/15</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>15 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/16</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>8 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/16</td>
-                        <td>特別便</td>
-                        <td>豊漁丸</td>
-                        <td>山田船長</td>
-                        <td>船から花火大会</td>
-                        <td>10 / 10名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/17</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/18</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/19</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/19</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/20</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/20</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/21</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/21</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/22</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>14 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/23</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/23</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/24</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/24</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/25</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/25</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/26</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/26</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/27</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/27</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/28</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/28</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/29</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>スーパーロング便</td>
-                        <td>14 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/30</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/30</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/31</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/08/31</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/01</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/01</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/02</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/02</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/03</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/04</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/04</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/05</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/05</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/06</td>
-                        <td>半夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                    <tr data-search-row="">
-                        <td>2026/09/06</td>
-                        <td>深夜便</td>
-                        <td>豊漁丸</td>
-                        <td>佐藤船長</td>
-                        <td>マイカ＆ムギイカ</td>
-                        <td>0 / 16名</td>
-                        <td><span class="trip-status ok" data-status="運航可能"> 〇 運航可能 </span></td>
-                    </tr>
-                </tbody>
+      <tr data-search-row="" data-trip-id="2026-md-001">
+        <td>2026/10/01</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-002">
+        <td>2026/10/01</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>釣り物未記載</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-003">
+        <td>2026/10/02</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-004">
+        <td>2026/10/02</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-005">
+        <td>2026/10/02</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-006">
+        <td>2026/10/02</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">4 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-007">
+        <td>2026/10/03</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-008">
+        <td>2026/10/03</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-009">
+        <td>2026/10/03</td><td>深夜便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-010">
+        <td>2026/10/04</td><td>深夜便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-011">
+        <td>2026/10/04</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アジング＆マダイ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-012">
+        <td>2026/10/04</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-013">
+        <td>2026/10/05</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-014">
+        <td>2026/10/05</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-015">
+        <td>2026/10/06</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-016">
+        <td>2026/10/06</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-017">
+        <td>2026/10/07</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-018">
+        <td>2026/10/07</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-019">
+        <td>2026/10/08</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-020">
+        <td>2026/10/08</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-021">
+        <td>2026/10/09</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-022">
+        <td>2026/10/09</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-023">
+        <td>2026/10/10</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-024">
+        <td>2026/10/10</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-025">
+        <td>2026/10/10</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-026">
+        <td>2026/10/10</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-027">
+        <td>2026/10/11</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-028">
+        <td>2026/10/11</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-029">
+        <td>2026/10/11</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-030">
+        <td>2026/10/12</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-031">
+        <td>2026/10/12</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-032">
+        <td>2026/10/12</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-033">
+        <td>2026/10/13</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-034">
+        <td>2026/10/13</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-035">
+        <td>2026/10/14</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-036">
+        <td>2026/10/14</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-037">
+        <td>2026/10/15</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-038">
+        <td>2026/10/15</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-039">
+        <td>2026/10/16</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-040">
+        <td>2026/10/16</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-041">
+        <td>2026/10/17</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-042">
+        <td>2026/10/17</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-043">
+        <td>2026/10/17</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-044">
+        <td>2026/10/18</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-045">
+        <td>2026/10/18</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-046">
+        <td>2026/10/18</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-047">
+        <td>2026/10/19</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-048">
+        <td>2026/10/19</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-049">
+        <td>2026/10/20</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-050">
+        <td>2026/10/20</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-051">
+        <td>2026/10/21</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-052">
+        <td>2026/10/21</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-053">
+        <td>2026/10/22</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-054">
+        <td>2026/10/22</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-055">
+        <td>2026/10/23</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-056">
+        <td>2026/10/23</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ +マイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-057">
+        <td>2026/10/24</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">3 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-058">
+        <td>2026/10/24</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-059">
+        <td>2026/10/24</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>タルイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-060">
+        <td>2026/10/24</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-061">
+        <td>2026/10/25</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-062">
+        <td>2026/10/25</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-063">
+        <td>2026/10/25</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-064">
+        <td>2026/10/26</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-065">
+        <td>2026/10/26</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-066">
+        <td>2026/10/27</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-067">
+        <td>2026/10/27</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-068">
+        <td>2026/10/28</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-069">
+        <td>2026/10/28</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">3 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-070">
+        <td>2026/10/29</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-071">
+        <td>2026/10/29</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-072">
+        <td>2026/10/30</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">4 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-073">
+        <td>2026/10/30</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-074">
+        <td>2026/10/31</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-075">
+        <td>2026/10/31</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">1 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-076">
+        <td>2026/10/31</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-077">
+        <td>2026/11/01</td><td>アオリ便</td><td>中型船</td><td></td>
+        <td>アオリ ﾃｨｯﾌﾟﾗﾝ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 12名</span></span></td>
+        <td><span class="special-seat-count">0 / 0名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-078">
+        <td>2026/11/01</td><td>半夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">2 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr>
+      <tr data-search-row="" data-trip-id="2026-md-079">
+        <td>2026/11/01</td><td>深夜便</td><td>大型船</td><td></td>
+        <td>マイカ＆アオリイカ</td><td><span class="trip-seat-summary"><span class="seat-ratio">0 / 28名</span></span></td>
+        <td><span class="special-seat-count">0 / 3名</span></td>
+        <td><span class="trip-status ok" data-status="運航可能">〇 運航可能</span></td>
+      </tr></tbody>
             </table>
         </div>
     </main>

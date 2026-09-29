@@ -78,7 +78,9 @@ function normalizeTripStatus(row) {
 const todayKey = getJapanTodayKey();
 const tomorrowKey = addDays(todayKey, 1);
 const [todayYear, todayMonth] = todayKey.split('-').map(Number);
-let displayedMonth = new Date(todayYear, todayMonth - 1, 1);
+const firstUpcomingDate = cards.find((card) => card.dataset.date >= todayKey)?.dataset.date;
+const initialMonth = firstUpcomingDate ? new Date(`${firstUpcomingDate}T00:00:00`) : new Date(todayYear, todayMonth - 1, 1);
+let displayedMonth = new Date(initialMonth.getFullYear(), initialMonth.getMonth(), 1);
 let selectedDate = null;
 
 function markPastSchedules() {

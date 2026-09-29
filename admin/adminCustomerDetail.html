@@ -10,7 +10,7 @@
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="adminDashboard.html">
-                <img alt="豊漁丸" class="brand-logo" src="images/豊漁丸_管理者画面_ロゴ.png">
+                <img alt="豊漁丸" class="brand-logo" src="images/%E8%B1%8A%E6%BC%81%E4%B8%B8_%E7%AE%A1%E7%90%86%E8%80%85%E7%94%BB%E9%9D%A2_%E3%83%AD%E3%82%B4.png">
             </a>
             <nav class="header-nav">
                 <a href="adminDashboard.html">ダッシュボード</a>
@@ -37,105 +37,532 @@
             <div class="field"><label for="customer-detail-search">顧客検索</label><input class="input" id="customer-detail-search" placeholder="氏名・電話番号・メール" type="text"></div>
             <div class="field">
                 <label for="customer-detail-rank">顧客区分</label>
-                <select class="select" id="customer-detail-rank"><option value="">すべて</option><option value="新規">新規</option><option value="一般">一般</option><option value="常連">常連</option></select>
+                <select class="select" id="customer-detail-rank"><option value="">すべて</option><option value="新規">新規</option><option value="常連">常連</option><option value="要注意">要注意</option></select>
             </div>
             <div class="field">
                 <label for="customer-detail-sort-direction">順序</label>
                 <select class="select" id="customer-detail-sort-direction"><option value="desc">最終利用日の降順</option><option value="asc">最終利用日の昇順</option></select>
             </div>
-            <div class="field toolbar-action-field"><label aria-hidden="true">&nbsp;</label><button class="btn btn-secondary" id="customer-detail-search-clear" type="button">条件をクリア</button></div>
+            <div class="field toolbar-action-field"><label aria-hidden="true"> </label><button class="btn btn-secondary" id="customer-detail-search-clear" type="button">条件をクリア</button></div>
         </div>
         <p aria-live="polite" class="muted" id="customer-detail-result-count"></p>
         <div class="table-wrap desktop-table customer-detail-table">
             <table id="customer-detail-table">
                 <thead><tr><th>ID</th><th>氏名</th><th>ふりがな</th><th>電話番号</th><th>メール</th><th>利用回数</th><th>キャンセル回数</th><th>無断キャンセル回数</th><th>区分</th><th>最終利用日</th><th>操作</th></tr></thead>
                 <tbody>
-                    <tr data-customer-detail-row data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
-                        <td>1001</td>
-                        <td data-editable>田中 太郎</td>
-                        <td data-editable>たなか たろう</td>
-                        <td data-editable>090-1234-5678</td>
-                        <td data-editable>tanaka@example.com</td>
-                        <td data-editable>8回</td>
-                        <td><span class="cancel-count">2回</span></td>
-                        <td><span class="no-show-count">1回</span></td>
-                        <td>常連</td>
-                        <td>2026/07/30</td>
-                        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
-                    </tr>
-                    <tr data-customer-detail-row data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
-                        <td>1002</td>
-                        <td data-editable>佐藤 花子</td>
-                        <td data-editable>さとう はなこ</td>
-                        <td data-editable>090-2345-6789</td>
-                        <td data-editable>sato@example.com</td>
-                        <td data-editable>1回</td>
-                        <td><span class="cancel-count is-zero">0回</span></td>
-                        <td><span class="no-show-count is-zero">0回</span></td>
-                        <td>新規</td>
-                        <td>2026/07/31</td>
-                        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
-                    </tr>
-                    <tr data-customer-detail-row data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
-                        <td>1003</td>
-                        <td data-editable>鈴木 一郎</td>
-                        <td data-editable>すずき いちろう</td>
-                        <td data-editable>090-3456-7890</td>
-                        <td data-editable>suzuki@example.com</td>
-                        <td data-editable>19回</td>
-                        <td><span class="cancel-count">3回</span></td>
-                        <td><span class="no-show-count is-zero">0回</span></td>
-                        <td>常連</td>
-                        <td>2026/07/25</td>
-                        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
-                    </tr>
-                </tbody>
+      <tr data-customer-detail-row data-customer-id="2001" data-customer-name="田中 太郎" data-customer-rank="要注意" data-customer-last-date="2026-09-02">
+        <td>2001</td><td data-editable>田中 太郎</td><td data-editable>たなか たろう</td>
+        <td data-editable>090-3100-5200</td><td data-editable>customer01@example.com</td><td data-editable>3回</td>
+        <td><span class="cancel-count">2回</span></td>
+        <td><span class="no-show-count">1回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="田中 太郎の顧客区分"><option value="新規">新規</option><option value="常連">常連</option><option value="要注意" selected>要注意</option></select></td><td>2026/09/02</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2002" data-customer-name="佐藤 花子" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <td>2002</td><td data-editable>佐藤 花子</td><td data-editable>さとう はなこ</td>
+        <td data-editable>090-3101-5237</td><td data-editable>customer02@example.com</td><td data-editable>8回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="佐藤 花子の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/03</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <td>2003</td><td data-editable>鈴木 一郎</td><td data-editable>すずき いちろう</td>
+        <td data-editable>090-3102-5274</td><td data-editable>customer03@example.com</td><td data-editable>13回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="鈴木 一郎の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/04</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2004" data-customer-name="高橋 美咲" data-customer-rank="常連" data-customer-last-date="2026-09-05">
+        <td>2004</td><td data-editable>高橋 美咲</td><td data-editable>たかはし みさき</td>
+        <td data-editable>090-3103-5311</td><td data-editable>customer04@example.com</td><td data-editable>18回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="高橋 美咲の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/05</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2005" data-customer-name="伊藤 健" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <td>2005</td><td data-editable>伊藤 健</td><td data-editable>いとう けん</td>
+        <td data-editable>090-3104-5348</td><td data-editable>customer05@example.com</td><td data-editable>7回</td>
+        <td><span class="cancel-count">1回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="伊藤 健の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/06</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2006" data-customer-name="山本 彩" data-customer-rank="新規" data-customer-last-date="2026-09-07">
+        <td>2006</td><td data-editable>山本 彩</td><td data-editable>やまもと あや</td>
+        <td data-editable>090-3105-5385</td><td data-editable>customer06@example.com</td><td data-editable>1回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="山本 彩の顧客区分"><option value="新規" selected>新規</option><option value="常連">常連</option><option value="要注意">要注意</option></select></td><td>2026/09/07</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2007" data-customer-name="中村 翔" data-customer-rank="常連" data-customer-last-date="2026-09-08">
+        <td>2007</td><td data-editable>中村 翔</td><td data-editable>なかむら しょう</td>
+        <td data-editable>090-3106-5422</td><td data-editable>customer07@example.com</td><td data-editable>17回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="中村 翔の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/08</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2008" data-customer-name="小林 葵" data-customer-rank="要注意" data-customer-last-date="2026-09-09">
+        <td>2008</td><td data-editable>小林 葵</td><td data-editable>こばやし あおい</td>
+        <td data-editable>090-3107-5459</td><td data-editable>customer08@example.com</td><td data-editable>6回</td>
+        <td><span class="cancel-count">3回</span></td>
+        <td><span class="no-show-count">1回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="小林 葵の顧客区分"><option value="新規">新規</option><option value="常連">常連</option><option value="要注意" selected>要注意</option></select></td><td>2026/09/09</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2009" data-customer-name="加藤 蓮" data-customer-rank="常連" data-customer-last-date="2026-09-10">
+        <td>2009</td><td data-editable>加藤 蓮</td><td data-editable>かとう れん</td>
+        <td data-editable>090-3108-5496</td><td data-editable>customer09@example.com</td><td data-editable>11回</td>
+        <td><span class="cancel-count">1回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="加藤 蓮の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/10</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2010" data-customer-name="吉田 凛" data-customer-rank="常連" data-customer-last-date="2026-09-11">
+        <td>2010</td><td data-editable>吉田 凛</td><td data-editable>よしだ りん</td>
+        <td data-editable>090-3109-5533</td><td data-editable>customer10@example.com</td><td data-editable>16回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="吉田 凛の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/11</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2011" data-customer-name="山田 大輔" data-customer-rank="新規" data-customer-last-date="">
+        <td>2011</td><td data-editable>山田 大輔</td><td data-editable>やまだ だいすけ</td>
+        <td data-editable>090-3110-5570</td><td data-editable>customer11@example.com</td><td data-editable>0回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="山田 大輔の顧客区分"><option value="新規" selected>新規</option><option value="常連">常連</option><option value="要注意">要注意</option></select></td><td>－</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2012" data-customer-name="佐々木 結衣" data-customer-rank="常連" data-customer-last-date="2026-09-13">
+        <td>2012</td><td data-editable>佐々木 結衣</td><td data-editable>ささき ゆい</td>
+        <td data-editable>090-3111-5607</td><td data-editable>customer12@example.com</td><td data-editable>10回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="佐々木 結衣の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/13</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2013" data-customer-name="山口 拓海" data-customer-rank="常連" data-customer-last-date="2026-09-14">
+        <td>2013</td><td data-editable>山口 拓海</td><td data-editable>やまぐち たくみ</td>
+        <td data-editable>090-3112-5644</td><td data-editable>customer13@example.com</td><td data-editable>15回</td>
+        <td><span class="cancel-count">1回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="山口 拓海の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/14</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2014" data-customer-name="松本 奈々" data-customer-rank="常連" data-customer-last-date="2026-09-15">
+        <td>2014</td><td data-editable>松本 奈々</td><td data-editable>まつもと なな</td>
+        <td data-editable>090-3113-5681</td><td data-editable>customer14@example.com</td><td data-editable>4回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="松本 奈々の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/15</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2015" data-customer-name="井上 直樹" data-customer-rank="要注意" data-customer-last-date="2026-09-16">
+        <td>2015</td><td data-editable>井上 直樹</td><td data-editable>いのうえ なおき</td>
+        <td data-editable>090-3114-5718</td><td data-editable>customer15@example.com</td><td data-editable>9回</td>
+        <td><span class="cancel-count">4回</span></td>
+        <td><span class="no-show-count">1回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="井上 直樹の顧客区分"><option value="新規">新規</option><option value="常連">常連</option><option value="要注意" selected>要注意</option></select></td><td>2026/09/16</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2016" data-customer-name="木村 さくら" data-customer-rank="新規" data-customer-last-date="2026-09-17">
+        <td>2016</td><td data-editable>木村 さくら</td><td data-editable>きむら さくら</td>
+        <td data-editable>090-3115-5755</td><td data-editable>customer16@example.com</td><td data-editable>1回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="木村 さくらの顧客区分"><option value="新規" selected>新規</option><option value="常連">常連</option><option value="要注意">要注意</option></select></td><td>2026/09/17</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2017" data-customer-name="林 悠斗" data-customer-rank="常連" data-customer-last-date="2026-09-18">
+        <td>2017</td><td data-editable>林 悠斗</td><td data-editable>はやし ゆうと</td>
+        <td data-editable>090-3116-5792</td><td data-editable>customer17@example.com</td><td data-editable>3回</td>
+        <td><span class="cancel-count">1回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="林 悠斗の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/18</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2018" data-customer-name="清水 真由" data-customer-rank="常連" data-customer-last-date="2026-09-19">
+        <td>2018</td><td data-editable>清水 真由</td><td data-editable>しみず まゆ</td>
+        <td data-editable>090-3117-5829</td><td data-editable>customer18@example.com</td><td data-editable>8回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="清水 真由の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/19</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2019" data-customer-name="斎藤 陽介" data-customer-rank="常連" data-customer-last-date="2026-09-20">
+        <td>2019</td><td data-editable>斎藤 陽介</td><td data-editable>さいとう ようすけ</td>
+        <td data-editable>090-3118-5866</td><td data-editable>customer19@example.com</td><td data-editable>13回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="斎藤 陽介の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/20</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2020" data-customer-name="森 愛" data-customer-rank="常連" data-customer-last-date="2026-09-21">
+        <td>2020</td><td data-editable>森 愛</td><td data-editable>もり あい</td>
+        <td data-editable>090-3119-5903</td><td data-editable>customer20@example.com</td><td data-editable>18回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="森 愛の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/21</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2021" data-customer-name="池田 和也" data-customer-rank="新規" data-customer-last-date="">
+        <td>2021</td><td data-editable>池田 和也</td><td data-editable>いけだ かずや</td>
+        <td data-editable>090-3120-5940</td><td data-editable>customer21@example.com</td><td data-editable>0回</td>
+        <td><span class="cancel-count">1回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="池田 和也の顧客区分"><option value="新規" selected>新規</option><option value="常連">常連</option><option value="要注意">要注意</option></select></td><td>－</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2022" data-customer-name="橋本 美穂" data-customer-rank="要注意" data-customer-last-date="2026-09-23">
+        <td>2022</td><td data-editable>橋本 美穂</td><td data-editable>はしもと みほ</td>
+        <td data-editable>090-3121-5977</td><td data-editable>customer22@example.com</td><td data-editable>12回</td>
+        <td><span class="cancel-count">2回</span></td>
+        <td><span class="no-show-count">1回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="橋本 美穂の顧客区分"><option value="新規">新規</option><option value="常連">常連</option><option value="要注意" selected>要注意</option></select></td><td>2026/09/23</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2023" data-customer-name="阿部 遼" data-customer-rank="常連" data-customer-last-date="2026-09-24">
+        <td>2023</td><td data-editable>阿部 遼</td><td data-editable>あべ りょう</td>
+        <td data-editable>090-3122-6014</td><td data-editable>customer23@example.com</td><td data-editable>17回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="阿部 遼の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/24</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2024" data-customer-name="石川 千尋" data-customer-rank="常連" data-customer-last-date="2026-09-25">
+        <td>2024</td><td data-editable>石川 千尋</td><td data-editable>いしかわ ちひろ</td>
+        <td data-editable>090-3123-6051</td><td data-editable>customer24@example.com</td><td data-editable>6回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="石川 千尋の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/25</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2025" data-customer-name="前田 翼" data-customer-rank="常連" data-customer-last-date="2026-09-26">
+        <td>2025</td><td data-editable>前田 翼</td><td data-editable>まえだ つばさ</td>
+        <td data-editable>090-3124-6088</td><td data-editable>customer25@example.com</td><td data-editable>11回</td>
+        <td><span class="cancel-count">1回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="前田 翼の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/26</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2026" data-customer-name="藤田 七海" data-customer-rank="新規" data-customer-last-date="2026-09-02">
+        <td>2026</td><td data-editable>藤田 七海</td><td data-editable>ふじた ななみ</td>
+        <td data-editable>090-3125-6125</td><td data-editable>customer26@example.com</td><td data-editable>1回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="藤田 七海の顧客区分"><option value="新規" selected>新規</option><option value="常連">常連</option><option value="要注意">要注意</option></select></td><td>2026/09/02</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2027" data-customer-name="岡田 浩二" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <td>2027</td><td data-editable>岡田 浩二</td><td data-editable>おかだ こうじ</td>
+        <td data-editable>090-3126-6162</td><td data-editable>customer27@example.com</td><td data-editable>5回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="岡田 浩二の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/03</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2028" data-customer-name="後藤 麻衣" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <td>2028</td><td data-editable>後藤 麻衣</td><td data-editable>ごとう まい</td>
+        <td data-editable>090-3127-6199</td><td data-editable>customer28@example.com</td><td data-editable>10回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="後藤 麻衣の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/04</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2029" data-customer-name="長谷川 亮" data-customer-rank="要注意" data-customer-last-date="2026-09-05">
+        <td>2029</td><td data-editable>長谷川 亮</td><td data-editable>はせがわ りょう</td>
+        <td data-editable>090-3128-6236</td><td data-editable>customer29@example.com</td><td data-editable>15回</td>
+        <td><span class="cancel-count">3回</span></td>
+        <td><span class="no-show-count">1回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="長谷川 亮の顧客区分"><option value="新規">新規</option><option value="常連">常連</option><option value="要注意" selected>要注意</option></select></td><td>2026/09/05</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr>
+      <tr data-customer-detail-row data-customer-id="2030" data-customer-name="村上 由佳" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <td>2030</td><td data-editable>村上 由佳</td><td data-editable>むらかみ ゆか</td>
+        <td data-editable>090-3129-6273</td><td data-editable>customer30@example.com</td><td data-editable>4回</td>
+        <td><span class="cancel-count is-zero">0回</span></td>
+        <td><span class="no-show-count is-zero">0回</span></td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="村上 由佳の顧客区分"><option value="新規">新規</option><option value="常連" selected>常連</option><option value="要注意">要注意</option></select></td><td>2026/09/06</td>
+        <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
+      </tr></tbody>
             </table>
         </div>
         <div class="mobile-cards customer-detail-mobile-cards">
-            <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="1001" data-customer-name="田中 太郎" data-customer-rank="常連" data-customer-last-date="2026/07/30">
-                <div class="card-body">
-                    <div><div class="data-label">顧客ID</div><div class="data-value">1001</div></div>
-                    <div><div class="data-label">氏名</div><div class="data-value">田中 太郎</div></div>
-                    <div><div class="data-label">ふりがな</div><div class="data-value">たなか たろう</div></div>
-                    <div><div class="data-label">電話番号</div><div class="data-value">090-1234-5678</div></div>
-                    <div class="customer-email"><div class="data-label">メール</div><div class="data-value">tanaka@example.com</div></div>
-                    <div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
-                    <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">2回</span></div></div>
-                    <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
-                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/30</div></div>
-                </div>
-            </article>
-            <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="1002" data-customer-name="佐藤 花子" data-customer-rank="新規" data-customer-last-date="2026/07/31">
-                <div class="card-body">
-                    <div><div class="data-label">顧客ID</div><div class="data-value">1002</div></div>
-                    <div><div class="data-label">氏名</div><div class="data-value">佐藤 花子</div></div>
-                    <div><div class="data-label">ふりがな</div><div class="data-value">さとう はなこ</div></div>
-                    <div><div class="data-label">電話番号</div><div class="data-value">090-2345-6789</div></div>
-                    <div class="customer-email"><div class="data-label">メール</div><div class="data-value">sato@example.com</div></div>
-                    <div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
-                    <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
-                    <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div>
-                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/31</div></div>
-                </div>
-            </article>
-            <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="1003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026/07/25">
-                <div class="card-body">
-                    <div><div class="data-label">顧客ID</div><div class="data-value">1003</div></div>
-                    <div><div class="data-label">氏名</div><div class="data-value">鈴木 一郎</div></div>
-                    <div><div class="data-label">ふりがな</div><div class="data-value">すずき いちろう</div></div>
-                    <div><div class="data-label">電話番号</div><div class="data-value">090-3456-7890</div></div>
-                    <div class="customer-email"><div class="data-label">メール</div><div class="data-value">suzuki@example.com</div></div>
-                    <div><div class="data-label">利用回数</div><div class="data-value">19回</div></div>
-                    <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">3回</span></div></div>
-                    <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
-                    <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div>
-                    <div><div class="data-label">最終利用日</div><div class="data-value">2026/07/25</div></div>
-                </div>
-            </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2001" data-customer-name="田中 太郎" data-customer-rank="要注意" data-customer-last-date="2026-09-02">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2001</div></div><div><div class="data-label">氏名</div><div class="data-value">田中 太郎</div></div><div><div class="data-label">ふりがな</div><div class="data-value">たなか たろう</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3100-5200</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer01@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">3回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">2回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/02</div></div>
         </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2002" data-customer-name="佐藤 花子" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2002</div></div><div><div class="data-label">氏名</div><div class="data-value">佐藤 花子</div></div><div><div class="data-label">ふりがな</div><div class="data-value">さとう はなこ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3101-5237</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer02@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/03</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2003" data-customer-name="鈴木 一郎" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2003</div></div><div><div class="data-label">氏名</div><div class="data-value">鈴木 一郎</div></div><div><div class="data-label">ふりがな</div><div class="data-value">すずき いちろう</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3102-5274</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer03@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">13回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/04</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2004" data-customer-name="高橋 美咲" data-customer-rank="常連" data-customer-last-date="2026-09-05">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2004</div></div><div><div class="data-label">氏名</div><div class="data-value">高橋 美咲</div></div><div><div class="data-label">ふりがな</div><div class="data-value">たかはし みさき</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3103-5311</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer04@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">18回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/05</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2005" data-customer-name="伊藤 健" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2005</div></div><div><div class="data-label">氏名</div><div class="data-value">伊藤 健</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いとう けん</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3104-5348</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer05@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">7回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">1回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/06</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2006" data-customer-name="山本 彩" data-customer-rank="新規" data-customer-last-date="2026-09-07">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2006</div></div><div><div class="data-label">氏名</div><div class="data-value">山本 彩</div></div><div><div class="data-label">ふりがな</div><div class="data-value">やまもと あや</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3105-5385</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer06@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/07</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2007" data-customer-name="中村 翔" data-customer-rank="常連" data-customer-last-date="2026-09-08">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2007</div></div><div><div class="data-label">氏名</div><div class="data-value">中村 翔</div></div><div><div class="data-label">ふりがな</div><div class="data-value">なかむら しょう</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3106-5422</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer07@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">17回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/08</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2008" data-customer-name="小林 葵" data-customer-rank="要注意" data-customer-last-date="2026-09-09">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2008</div></div><div><div class="data-label">氏名</div><div class="data-value">小林 葵</div></div><div><div class="data-label">ふりがな</div><div class="data-value">こばやし あおい</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3107-5459</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer08@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">6回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">3回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/09</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2009" data-customer-name="加藤 蓮" data-customer-rank="常連" data-customer-last-date="2026-09-10">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2009</div></div><div><div class="data-label">氏名</div><div class="data-value">加藤 蓮</div></div><div><div class="data-label">ふりがな</div><div class="data-value">かとう れん</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3108-5496</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer09@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">11回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">1回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/10</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2010" data-customer-name="吉田 凛" data-customer-rank="常連" data-customer-last-date="2026-09-11">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2010</div></div><div><div class="data-label">氏名</div><div class="data-value">吉田 凛</div></div><div><div class="data-label">ふりがな</div><div class="data-value">よしだ りん</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3109-5533</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer10@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">16回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/11</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2011" data-customer-name="山田 大輔" data-customer-rank="新規" data-customer-last-date="">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2011</div></div><div><div class="data-label">氏名</div><div class="data-value">山田 大輔</div></div><div><div class="data-label">ふりがな</div><div class="data-value">やまだ だいすけ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3110-5570</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer11@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">0回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">－</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2012" data-customer-name="佐々木 結衣" data-customer-rank="常連" data-customer-last-date="2026-09-13">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2012</div></div><div><div class="data-label">氏名</div><div class="data-value">佐々木 結衣</div></div><div><div class="data-label">ふりがな</div><div class="data-value">ささき ゆい</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3111-5607</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer12@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">10回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/13</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2013" data-customer-name="山口 拓海" data-customer-rank="常連" data-customer-last-date="2026-09-14">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2013</div></div><div><div class="data-label">氏名</div><div class="data-value">山口 拓海</div></div><div><div class="data-label">ふりがな</div><div class="data-value">やまぐち たくみ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3112-5644</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer13@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">15回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">1回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/14</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2014" data-customer-name="松本 奈々" data-customer-rank="常連" data-customer-last-date="2026-09-15">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2014</div></div><div><div class="data-label">氏名</div><div class="data-value">松本 奈々</div></div><div><div class="data-label">ふりがな</div><div class="data-value">まつもと なな</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3113-5681</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer14@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">4回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/15</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2015" data-customer-name="井上 直樹" data-customer-rank="要注意" data-customer-last-date="2026-09-16">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2015</div></div><div><div class="data-label">氏名</div><div class="data-value">井上 直樹</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いのうえ なおき</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3114-5718</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer15@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">9回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">4回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/16</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2016" data-customer-name="木村 さくら" data-customer-rank="新規" data-customer-last-date="2026-09-17">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2016</div></div><div><div class="data-label">氏名</div><div class="data-value">木村 さくら</div></div><div><div class="data-label">ふりがな</div><div class="data-value">きむら さくら</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3115-5755</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer16@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/17</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2017" data-customer-name="林 悠斗" data-customer-rank="常連" data-customer-last-date="2026-09-18">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2017</div></div><div><div class="data-label">氏名</div><div class="data-value">林 悠斗</div></div><div><div class="data-label">ふりがな</div><div class="data-value">はやし ゆうと</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3116-5792</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer17@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">3回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">1回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/18</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2018" data-customer-name="清水 真由" data-customer-rank="常連" data-customer-last-date="2026-09-19">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2018</div></div><div><div class="data-label">氏名</div><div class="data-value">清水 真由</div></div><div><div class="data-label">ふりがな</div><div class="data-value">しみず まゆ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3117-5829</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer18@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">8回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/19</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2019" data-customer-name="斎藤 陽介" data-customer-rank="常連" data-customer-last-date="2026-09-20">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2019</div></div><div><div class="data-label">氏名</div><div class="data-value">斎藤 陽介</div></div><div><div class="data-label">ふりがな</div><div class="data-value">さいとう ようすけ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3118-5866</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer19@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">13回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/20</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2020" data-customer-name="森 愛" data-customer-rank="常連" data-customer-last-date="2026-09-21">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2020</div></div><div><div class="data-label">氏名</div><div class="data-value">森 愛</div></div><div><div class="data-label">ふりがな</div><div class="data-value">もり あい</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3119-5903</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer20@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">18回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/21</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2021" data-customer-name="池田 和也" data-customer-rank="新規" data-customer-last-date="">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2021</div></div><div><div class="data-label">氏名</div><div class="data-value">池田 和也</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いけだ かずや</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3120-5940</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer21@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">0回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">1回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">－</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2022" data-customer-name="橋本 美穂" data-customer-rank="要注意" data-customer-last-date="2026-09-23">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2022</div></div><div><div class="data-label">氏名</div><div class="data-value">橋本 美穂</div></div><div><div class="data-label">ふりがな</div><div class="data-value">はしもと みほ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3121-5977</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer22@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">12回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">2回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/23</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2023" data-customer-name="阿部 遼" data-customer-rank="常連" data-customer-last-date="2026-09-24">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2023</div></div><div><div class="data-label">氏名</div><div class="data-value">阿部 遼</div></div><div><div class="data-label">ふりがな</div><div class="data-value">あべ りょう</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3122-6014</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer23@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">17回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/24</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2024" data-customer-name="石川 千尋" data-customer-rank="常連" data-customer-last-date="2026-09-25">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2024</div></div><div><div class="data-label">氏名</div><div class="data-value">石川 千尋</div></div><div><div class="data-label">ふりがな</div><div class="data-value">いしかわ ちひろ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3123-6051</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer24@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">6回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/25</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2025" data-customer-name="前田 翼" data-customer-rank="常連" data-customer-last-date="2026-09-26">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2025</div></div><div><div class="data-label">氏名</div><div class="data-value">前田 翼</div></div><div><div class="data-label">ふりがな</div><div class="data-value">まえだ つばさ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3124-6088</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer25@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">11回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">1回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/26</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2026" data-customer-name="藤田 七海" data-customer-rank="新規" data-customer-last-date="2026-09-02">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2026</div></div><div><div class="data-label">氏名</div><div class="data-value">藤田 七海</div></div><div><div class="data-label">ふりがな</div><div class="data-value">ふじた ななみ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3125-6125</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer26@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">1回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-green">新規</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/02</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2027" data-customer-name="岡田 浩二" data-customer-rank="常連" data-customer-last-date="2026-09-03">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2027</div></div><div><div class="data-label">氏名</div><div class="data-value">岡田 浩二</div></div><div><div class="data-label">ふりがな</div><div class="data-value">おかだ こうじ</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3126-6162</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer27@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">5回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/03</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2028" data-customer-name="後藤 麻衣" data-customer-rank="常連" data-customer-last-date="2026-09-04">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2028</div></div><div><div class="data-label">氏名</div><div class="data-value">後藤 麻衣</div></div><div><div class="data-label">ふりがな</div><div class="data-value">ごとう まい</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3127-6199</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer28@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">10回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/04</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2029" data-customer-name="長谷川 亮" data-customer-rank="要注意" data-customer-last-date="2026-09-05">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2029</div></div><div><div class="data-label">氏名</div><div class="data-value">長谷川 亮</div></div><div><div class="data-label">ふりがな</div><div class="data-value">はせがわ りょう</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3128-6236</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer29@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">15回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count">3回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count">1回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-attention">要注意</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/05</div></div>
+        </div>
+      </article>
+      <article class="card customer-detail-card" data-customer-detail-mobile-card data-customer-id="2030" data-customer-name="村上 由佳" data-customer-rank="常連" data-customer-last-date="2026-09-06">
+        <div class="card-body">
+          <div><div class="data-label">顧客ID</div><div class="data-value">2030</div></div><div><div class="data-label">氏名</div><div class="data-value">村上 由佳</div></div><div><div class="data-label">ふりがな</div><div class="data-value">むらかみ ゆか</div></div>
+          <div><div class="data-label">電話番号</div><div class="data-value">090-3129-6273</div></div><div class="customer-email"><div class="data-label">メール</div><div class="data-value">customer30@example.com</div></div><div><div class="data-label">利用回数</div><div class="data-value">4回</div></div>
+          <div><div class="data-label">キャンセル回数</div><div class="data-value"><span class="cancel-count is-zero">0回</span></div></div>
+          <div><div class="data-label">無断キャンセル回数</div><div class="data-value"><span class="no-show-count is-zero">0回</span></div></div>
+          <div><div class="data-label">区分</div><div class="data-value"><span class="badge badge-orange">常連</span></div></div><div><div class="data-label">最終利用日</div><div class="data-value">2026/09/06</div></div>
+        </div>
+      </article></div>
     </main>
     <footer class="footer">© 豊漁丸 管理画面 MOCK</footer>
     <script src="../shared/appData.js"></script>

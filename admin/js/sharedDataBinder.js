@@ -4,34 +4,9 @@
   if (!data) return;
 
   const trips = data.getTrips();
-  const shipSettings = {
-    'カムトゥドリーム': { capacity: 12, specialCapacity: 0 },
-    'ドリーム': { capacity: 30, specialCapacity: 3 },
-    'スーパードリーム': { capacity: 32, specialCapacity: 6 }
-  };
-  const julyHistoryTrips = [
-    ['2026-07-29', '半夜便', 'スーパードリーム', 16, 32],
-    ['2026-07-29', '深夜便', 'ドリーム', 8, 30],
-    ['2026-07-30', '半夜便', 'スーパードリーム', 8, 32],
-    ['2026-07-30', '深夜便', 'ドリーム', 8, 30],
-    ['2026-07-31', '半夜便', 'スーパードリーム', 16, 32],
-    ['2026-07-31', '半夜便', 'カムトゥドリーム', 10, 12],
-    ['2026-07-31', '深夜便', 'ドリーム', 16, 30]
-  ].map(([date, course, ship, reserved, capacity], index) => ({
-    id: `history-${date}-${index + 1}`, date, course, ship, reserved, capacity,
-    time: course === '半夜便' ? '17:00' : '22:00',
-    target: 'マイカ＆ムギイカ',
-    captain: index % 2 === 0 ? '佐藤船長' : '山田船長',
-    specialCapacity: shipSettings[ship].specialCapacity,
-    specialReserved: 0,
-    remaining: capacity - reserved,
-    status: capacity - reserved <= 3 ? 'few' : 'ok',
-    price: 13000
-  }));
-  const adminTrips = [
-    ...julyHistoryTrips,
-    ...trips
-  ];
+  // 出船一覧は添付された予定の共通データのみを使用。
+  const adminTrips = trips;
+  const shipCategory = (ship) => ship === "中型船" || ship === "カムトゥドリーム" ? "中型船" : "大型船";
   const baseReservations = data.reservations || [];
   const userReservations = (() => {
     try {
@@ -48,7 +23,10 @@
     const dateKey = String(item.dateKey || item.date || '').replaceAll('/', '-');
     return trip.date === dateKey && trip.course === item.course;
   });
-  const reservationShip = (item) => item.ship || reservationTrip(item)?.ship || '未設定';
+  const reservationShip = (item) => {
+    const ship = item.ship || reservationTrip(item)?.ship;
+    return ship ? shipCategory(ship) : '未設定';
+  };
   const detailUrl = ({ date, course, ship }) => {
     const params = new URLSearchParams({
       date: String(date || '').replaceAll('/', '-'),
@@ -72,10 +50,10 @@
   (data.customerProfiles || []).forEach((profile) => {
     customerMap.set(String(profile.id), {
       ...profile,
-      useCount: 0,
-      cancelCount: 0,
-      noShowCount: 0,
-      lastDate: ''
+      useCount: Number(profile.useCount || 0),
+      cancelCount: Number(profile.cancelCount || 0),
+      noShowCount: Number(profile.noShowCount || 0),
+      lastDate: profile.lastDate || ''
     });
   });
   reservations.forEach((reservation, index) => {
@@ -102,9 +80,12 @@
     }
     customerMap.set(key, profile);
   });
+  let rankEdits = {};
+  try { rankEdits = JSON.parse(localStorage.getItem('horyomaruCustomerRanks') || '{}') || {}; } catch {}
   const customers = [...customerMap.values()].map((customer) => ({
     ...customer,
-    rank: customer.useCount >= 6 ? '常連' : (customer.useCount >= 2 ? '一般' : '新規'),
+    rank: ['新規', '常連', '要注意'].includes(rankEdits[customer.id])
+      ? rankEdits[customer.id] : (customer.rank || '新規'),
     lastDateLabel: customer.lastDate ? fmtDate(customer.lastDate) : '－'
   }));
   window.HoryomaruAdminCustomers = customers.map((customer) => ({ ...customer }));
@@ -129,7 +110,7 @@
       const specialReserved = Number(trip.specialReserved || 0);
       return `
       <tr data-search-row="" data-trip-id="${esc(trip.id)}">
-        <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td>${esc(trip.captain)}</td>
+        <td>${fmtDate(trip.date)}</td><td>${esc(trip.course)}</td><td>${esc(trip.ship)}</td><td></td>
         <td>${esc(trip.target)}</td><td><span class="trip-seat-summary"><span class="seat-ratio">${trip.reserved} / ${trip.capacity}名</span></span></td>
         <td><span class="special-seat-count">${specialReserved} / ${specialCapacity}名</span></td>
         <td><span class="trip-status ${status.key}" data-status="${status.label}">${status.text}</span></td>
@@ -195,7 +176,7 @@
   }
 
   // 顧客一覧・顧客詳細は、予約明細と同じ顧客ID・連絡先から集計する。
-  const customerBadgeClass = (rank) => rank === '常連' ? 'badge-orange' : (rank === '新規' ? 'badge-green' : 'badge-blue');
+  const customerBadgeClass = (rank) => rank === '常連' ? 'badge-orange' : (rank === '要注意' ? 'badge-attention' : 'badge-green');
   const customerListBody = document.querySelector('#customer-table tbody');
   if (customerListBody) {
     customerListBody.innerHTML = customers.map((customer) => `
@@ -226,7 +207,7 @@
         <td data-editable>${esc(customer.phone)}</td><td data-editable>${esc(customer.email)}</td><td data-editable>${customer.useCount}回</td>
         <td><span class="cancel-count${customer.cancelCount ? '' : ' is-zero'}">${customer.cancelCount}回</span></td>
         <td><span class="no-show-count${customer.noShowCount ? '' : ' is-zero'}">${customer.noShowCount}回</span></td>
-        <td>${esc(customer.rank)}</td><td>${esc(customer.lastDateLabel)}</td>
+        <td><select class="select customer-rank-select" data-rank-select aria-label="${esc(customer.name)}の顧客区分">${['新規','常連','要注意'].map((rank) => `<option value="${rank}"${rank === customer.rank ? ' selected' : ''}>${rank}</option>`).join('')}</select></td><td>${esc(customer.lastDateLabel)}</td>
         <td><button class="btn btn-primary btn-sm" data-edit-row type="button">修正</button></td>
       </tr>`).join('');
   }
@@ -256,7 +237,7 @@
       list.innerHTML = todayTrips.map((trip, index) => `
         <div class="kpi-row${index ? ' dashboard-trip-separator' : ''}"><span>${esc(trip.course)}</span><strong>${esc(trip.time)} 出船</strong></div>
         <div class="kpi-row"><span>予約人数</span><strong>${trip.reserved} / ${trip.capacity}名</strong></div>
-        <div class="kpi-row"><span>担当</span><strong>${esc(trip.captain)}</strong></div>`).join('');
+        <div class="kpi-row"><span>船舶区分</span><strong>${esc(trip.ship)}</strong></div>`).join('');
     }
     const cards = document.querySelectorAll('.stat-card');
     const activeReservations = reservations.filter((r) => !['キャンセル', '通常キャンセル', '無断キャンセル', 'cancelled', 'canceled', 'no-show', 'no_show'].includes(r.status));
